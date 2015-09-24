@@ -10,18 +10,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuario", schema = "seguridad")
-public class Usuario implements java.io.Serializable {
+public class Usuario extends User implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private long codUsuario;
-	private char estado;
-	private String usuario;
-	private String clave;
-	private String nomCompleto;
-	private String correo;
+
 
 	public Usuario() {
 	}
