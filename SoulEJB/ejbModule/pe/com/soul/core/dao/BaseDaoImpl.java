@@ -15,7 +15,7 @@ public class BaseDaoImpl<T> {
 	private final static String UNIT_NAME = "soulJPA";
 	
 	@PersistenceContext(unitName = UNIT_NAME)
-	private EntityManager em;
+	protected EntityManager em;
 	
 	private Class<T> entityClass;
 
@@ -23,21 +23,21 @@ public class BaseDaoImpl<T> {
     	this.entityClass = entityClass;
     }
 
-    public void save(T entity) {
+    public void guardar(T entity) {
     	em.persist(entity);
     }
     
-    public void delete(T entity) {
+    public void eliminar(T entity) {
     	T entityToBeRemoved = em.merge(entity);
     	em.remove(entityToBeRemoved);
 
     }
     
-    public T update(T entity) {
+    public T actualizar(T entity) {
     	return em.merge(entity);
     }
     
-    public T find(int entityID) {
+    public T buscar(int entityID) {
     	return em.find(entityClass, entityID);
     }
     
@@ -49,12 +49,10 @@ public class BaseDaoImpl<T> {
     }
     
     @SuppressWarnings("unchecked")
-    protected T findOneResult(String namedQuery, Map<String, Object> parameters) {
+    protected T buscar(String namedQuery, Map<String, Object> parameters) {
     	T result = null;
     	try {
     		Query query = em.createNamedQuery(namedQuery);
-       
-    		// Method that will populate parameters if they are passed not null and empty
     		if (parameters != null && !parameters.isEmpty()) {
     			populateQueryParameters(query, parameters);
     		}
@@ -70,6 +68,20 @@ public class BaseDaoImpl<T> {
     	for (Entry<String, Object> entry : parameters.entrySet()) {
     		query.setParameter(entry.getKey(), entry.getValue());
     	}
+    }
+    
+    @SuppressWarnings("unchecked")
+    protected T buscar(String consulta, String campo, Object valor) {
+    	T result = null;
+    	try {
+    		Query query = em.createNamedQuery(consulta);
+    		query.setParameter(campo, valor);
+    		result = (T) query.getSingleResult();
+    	} catch (Exception e) {	
+    	  System.out.println("Error while running query: " + e.getMessage());
+    	  e.printStackTrace();
+      	}
+    	return result;
     }
 	
 }

@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import pe.com.soul.core.dao.jpa.Usuario;
+import pe.com.soul.core.bean.Usuario;
 
 @Local
 public interface UsuarioDaoLocal {
 	
-	Usuario update(Usuario usuario);
-	void save(Usuario usuario);
+	Usuario actualizar(Usuario usuario);
+	void guardar(Usuario usuario);
 	List<Usuario> obtenerTodo();
-	
+	Usuario obtenerUsuario(String usuario);
 }
 
