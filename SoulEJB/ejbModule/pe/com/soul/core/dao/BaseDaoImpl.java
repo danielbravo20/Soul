@@ -74,7 +74,7 @@ public class BaseDaoImpl<T> {
     protected T buscar(String consulta, String campo, Object valor) {
     	T result = null;
     	try {
-    		Query query = em.createNamedQuery(consulta);
+    		Query query = em.createQuery(consulta);
     		query.setParameter(campo, valor);
     		result = (T) query.getSingleResult();
     	} catch (Exception e) {	

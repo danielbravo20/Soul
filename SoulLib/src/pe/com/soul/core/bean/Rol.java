@@ -29,7 +29,6 @@ public class Rol implements java.io.Serializable {
 	private Set<Modulo> modulos = new HashSet<Modulo>(0);
 	private Set<ProcesoPlantilla> proPlantillas = new HashSet<ProcesoPlantilla>(0);
 	private Set<TareaPlantilla> tarPlantillas = new HashSet<TareaPlantilla>(0);
-	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
 	public Rol() {
 	}
@@ -40,14 +39,12 @@ public class Rol implements java.io.Serializable {
 	}
 
 	public Rol(long codRol, String nombre, Set<Modulo> modulos,
-			Set<ProcesoPlantilla> proPlantillas, Set<TareaPlantilla> tarPlantillas,
-			Set<Usuario> usuarios) {
+			Set<ProcesoPlantilla> proPlantillas, Set<TareaPlantilla> tarPlantillas) {
 		this.codRol = codRol;
 		this.nombre = nombre;
 		this.modulos = modulos;
 		this.proPlantillas = proPlantillas;
 		this.tarPlantillas = tarPlantillas;
-		this.usuarios = usuarios;
 	}
 
 	@Id
@@ -95,15 +92,6 @@ public class Rol implements java.io.Serializable {
 
 	public void setTarPlantillas(Set<TareaPlantilla> tarPlantillas) {
 		this.tarPlantillas = tarPlantillas;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
-	public Set<Usuario> getUsuarios() {
-		return this.usuarios;
-	}
-
-	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
 	}
 
 }

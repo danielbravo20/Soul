@@ -44,7 +44,9 @@ public class SeguridadController extends HttpServlet {
 		
 		try{
 			respuesta.setResultado(true);
-			respuesta.setRespuesta(seguridadServiceLocal.obtenerUsuarios());
+			//respuesta.setRespuesta(seguridadServiceLocal.obtenerUsuarios());
+			respuesta.setRespuesta(seguridadServiceLocal.obtenerUsuario(request.getUserPrincipal().getName()));
+			//respuesta.setRespuesta("DEMOOO");
 		}catch (Exception e) {
 			respuesta.setResultado(false);
 			respuesta.setMensajeError(e.getMessage());

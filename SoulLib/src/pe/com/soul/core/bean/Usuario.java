@@ -1,16 +1,8 @@
 package pe.com.soul.core.bean;
-// default package
-// Generated 23/09/2015 09:32:07 PM by Hibernate Tools 4.3.1
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -30,7 +22,6 @@ public class Usuario implements java.io.Serializable {
 	private String clave;
 	private String nomCompleto;
 	private String correo;
-	private Set<Rol> rols = new HashSet<Rol>(0);
 
 	public Usuario() {
 	}
@@ -43,17 +34,6 @@ public class Usuario implements java.io.Serializable {
 		this.clave = clave;
 		this.nomCompleto = nomCompleto;
 		this.correo = correo;
-	}
-
-	public Usuario(long codUsuario, char estado, String usuario, String clave,
-			String nomCompleto, String correo, Set<Rol> rols) {
-		this.codUsuario = codUsuario;
-		this.estado = estado;
-		this.usuario = usuario;
-		this.clave = clave;
-		this.nomCompleto = nomCompleto;
-		this.correo = correo;
-		this.rols = rols;
 	}
 
 	@Id
@@ -109,16 +89,6 @@ public class Usuario implements java.io.Serializable {
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "usu_rol", schema = "seguridad", joinColumns = { @JoinColumn(name = "cod_usuario", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "cod_rol", nullable = false, updatable = false) })
-	public Set<Rol> getRols() {
-		return this.rols;
-	}
-
-	public void setRols(Set<Rol> rols) {
-		this.rols = rols;
 	}
 
 }

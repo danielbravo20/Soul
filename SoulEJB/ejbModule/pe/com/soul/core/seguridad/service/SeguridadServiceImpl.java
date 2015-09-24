@@ -20,13 +20,11 @@ public class SeguridadServiceImpl implements SeguridadServiceLocal {
 	@EJB
 	UsuarioDaoLocal usuarioDaoLocal;
 	
-	@Override
 	public List<Usuario> obtenerUsuarios() throws Exception {
 		return usuarioDaoLocal.obtenerTodo();
 	}
 
-	@Override
-	public Usuario obtenerUsuario(String usuario) throws Exception {
+	public Object obtenerUsuario(String usuario) throws Exception {
 		return usuarioDaoLocal.obtenerUsuario(usuario);
 	}
 

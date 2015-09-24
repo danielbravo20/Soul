@@ -10,6 +10,6 @@ import pe.com.soul.core.bean.Usuario;
 public interface SeguridadServiceLocal {
 
 	List<Usuario> obtenerUsuarios() throws Exception;
-	Usuario obtenerUsuario(String usuario) throws Exception;
+	Object obtenerUsuario(String usuario) throws Exception;
 	
 }

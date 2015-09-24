@@ -37,9 +37,10 @@ public class PortalController extends HttpServlet {
 		
 		try {
 			System.out.println("userPrincipal.name: "+request.getUserPrincipal().getName());
-			Usuario usuario = seguridadServiceLocal.obtenerUsuario(request.getUserPrincipal().getName());
-			System.out.println("usuario: "+usuario.getNomCompleto());
-			System.out.println("id: "+usuario.getCodUsuario());
+			Usuario usuario = (Usuario)seguridadServiceLocal.obtenerUsuario(request.getUserPrincipal().getName());
+			System.out.println("usuario:: "+usuario);
+			//System.out.println("usuario: "+usuario.getNomCompleto());
+			//System.out.println("id: "+usuario.getCodUsuario());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

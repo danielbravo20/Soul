@@ -20,8 +20,8 @@ public class UsuarioDaoImpl extends BaseDaoImpl<Usuario> implements UsuarioDaoLo
     }
     
     public Usuario obtenerUsuario(String usuario){
-    	String consulta = "SELECT U FROM SEGURIDAD.USUARIO U where U.USUARIO = :USUARIO1";
-    	return buscar(consulta, "USUARIO1", usuario);
+    	String consulta = "select u from Usuario u where u.usuario =:parametro";
+    	return buscar(consulta, "parametro", usuario);
     }
     
 }
