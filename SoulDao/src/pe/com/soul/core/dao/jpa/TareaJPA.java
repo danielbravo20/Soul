@@ -1,6 +1,6 @@
-package pe.com.soul.core.bean;
-// default package
-// Generated 23/09/2015 09:32:07 PM by Hibernate Tools 4.3.1
+package pe.com.soul.core.dao.jpa;
+
+// Generated 24/09/2015 09:34:46 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,20 +15,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tar_instancia", schema = "proceso")
-public class Tarea implements java.io.Serializable {
+public class TareaJPA implements java.io.Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
 	private long codTarea;
-	private Proceso proInstancia;
-	private TareaPlantilla tarPlantilla;
+	private ProcesoJPA proInstancia;
+	private TareaPlantillaJPA tarPlantilla;
 	private char estado;
 
-	public Tarea() {
+	public TareaJPA() {
 	}
 
-	public Tarea(long codTarea, Proceso proInstancia,
-			TareaPlantilla tarPlantilla, char estado) {
+	public TareaJPA(long codTarea, ProcesoJPA proInstancia,
+			TareaPlantillaJPA tarPlantilla, char estado) {
 		this.codTarea = codTarea;
 		this.proInstancia = proInstancia;
 		this.tarPlantilla = tarPlantilla;
@@ -47,21 +45,21 @@ public class Tarea implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_proceso", nullable = false)
-	public Proceso getProInstancia() {
+	public ProcesoJPA getProInstancia() {
 		return this.proInstancia;
 	}
 
-	public void setProInstancia(Proceso proInstancia) {
+	public void setProInstancia(ProcesoJPA proInstancia) {
 		this.proInstancia = proInstancia;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_tar_plantilla", nullable = false)
-	public TareaPlantilla getTarPlantilla() {
+	public TareaPlantillaJPA getTarPlantilla() {
 		return this.tarPlantilla;
 	}
 
-	public void setTarPlantilla(TareaPlantilla tarPlantilla) {
+	public void setTarPlantilla(TareaPlantillaJPA tarPlantilla) {
 		this.tarPlantilla = tarPlantilla;
 	}
 

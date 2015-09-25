@@ -5,6 +5,7 @@
 	<projects>
 		<project>Soul</project>
 		<project>SoulCore</project>
+		<project>SoulDao</project>
 		<project>SoulEJB</project>
 		<project>SoulEJBClient</project>
 		<project>SoulLib</project>

@@ -1,6 +1,6 @@
-package pe.com.soul.core.bean;
-// default package
-// Generated 23/09/2015 09:32:07 PM by Hibernate Tools 4.3.1
+package pe.com.soul.core.dao.jpa;
+
+// Generated 24/09/2015 09:34:46 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,31 +19,27 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pro_plantilla", schema = "proceso")
-public class ProcesoPlantilla implements java.io.Serializable {
+public class ProcesoPlantillaJPA implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private long codProPlantilla;
 	private char estado;
 	private String nombre;
-	private Set<Proceso> proInstancias = new HashSet<Proceso>(0);
-	private Set<TareaPlantilla> tarPlantillas = new HashSet<TareaPlantilla>(0);
-	private Set<Rol> rols = new HashSet<Rol>(0);
+	private Set<ProcesoJPA> proInstancias = new HashSet<ProcesoJPA>(0);
+	private Set<TareaPlantillaJPA> tarPlantillas = new HashSet<TareaPlantillaJPA>(0);
+	private Set<RolJPA> rols = new HashSet<RolJPA>(0);
 
-	public ProcesoPlantilla() {
+	public ProcesoPlantillaJPA() {
 	}
 
-	public ProcesoPlantilla(long codProPlantilla, char estado, String nombre) {
+	public ProcesoPlantillaJPA(long codProPlantilla, char estado, String nombre) {
 		this.codProPlantilla = codProPlantilla;
 		this.estado = estado;
 		this.nombre = nombre;
 	}
 
-	public ProcesoPlantilla(long codProPlantilla, char estado, String nombre,
-			Set<Proceso> proInstancias, Set<TareaPlantilla> tarPlantillas,
-			Set<Rol> rols) {
+	public ProcesoPlantillaJPA(long codProPlantilla, char estado, String nombre,
+			Set<ProcesoJPA> proInstancias, Set<TareaPlantillaJPA> tarPlantillas,
+			Set<RolJPA> rols) {
 		this.codProPlantilla = codProPlantilla;
 		this.estado = estado;
 		this.nombre = nombre;
@@ -81,30 +77,30 @@ public class ProcesoPlantilla implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proPlantilla")
-	public Set<Proceso> getProInstancias() {
+	public Set<ProcesoJPA> getProInstancias() {
 		return this.proInstancias;
 	}
 
-	public void setProInstancias(Set<Proceso> proInstancias) {
+	public void setProInstancias(Set<ProcesoJPA> proInstancias) {
 		this.proInstancias = proInstancias;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proPlantilla")
-	public Set<TareaPlantilla> getTarPlantillas() {
+	public Set<TareaPlantillaJPA> getTarPlantillas() {
 		return this.tarPlantillas;
 	}
 
-	public void setTarPlantillas(Set<TareaPlantilla> tarPlantillas) {
+	public void setTarPlantillas(Set<TareaPlantillaJPA> tarPlantillas) {
 		this.tarPlantillas = tarPlantillas;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "pro_pla_rol", schema = "proceso", joinColumns = { @JoinColumn(name = "cod_pro_plantilla", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "cod_rol", nullable = false, updatable = false) })
-	public Set<Rol> getRols() {
+	public Set<RolJPA> getRols() {
 		return this.rols;
 	}
 
-	public void setRols(Set<Rol> rols) {
+	public void setRols(Set<RolJPA> rols) {
 		this.rols = rols;
 	}
 

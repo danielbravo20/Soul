@@ -3,7 +3,6 @@
 	<name>SoulEJBClient</name>
 	<comment></comment>
 	<projects>
-		<project>SoulLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

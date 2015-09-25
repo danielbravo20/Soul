@@ -6,8 +6,8 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import pe.com.soul.core.bean.Usuario;
 import pe.com.soul.core.dao.UsuarioDaoLocal;
+import pe.com.soul.core.modelo.Usuario;
 import pe.com.soul.core.seguridad.service.SeguridadServiceLocal;
 
 /**

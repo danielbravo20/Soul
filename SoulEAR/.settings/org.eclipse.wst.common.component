@@ -4,9 +4,6 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="SoulLib.jar" deploy-path="/lib" handle="module:/resource/SoulLib/SoulLib">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="SoulEJBClient.jar" deploy-path="/lib" handle="module:/resource/SoulEJBClient/SoulEJBClient">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -15,6 +12,12 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="SoulCore.jar" deploy-path="/lib" handle="module:/resource/SoulCore/SoulCore">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="SoulDao.jar" deploy-path="/lib" handle="module:/resource/SoulDao/SoulDao">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="SoulLib.jar" deploy-path="/lib" handle="module:/resource/SoulLib/SoulLib">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>

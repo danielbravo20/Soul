@@ -1,6 +1,6 @@
-package pe.com.soul.core.bean;
-// default package
-// Generated 23/09/2015 09:32:07 PM by Hibernate Tools 4.3.1
+package pe.com.soul.core.dao.jpa;
+
+// Generated 24/09/2015 09:34:46 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,30 +20,26 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tar_plantilla", schema = "proceso")
-public class TareaPlantilla implements java.io.Serializable {
+public class TareaPlantillaJPA implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private long codTarPlantilla;
-	private ProcesoPlantilla proPlantilla;
+	private ProcesoPlantillaJPA proPlantilla;
 	private char estado;
-	private Set<Rol> rols = new HashSet<Rol>(0);
-	private Set<Tarea> tarInstancias = new HashSet<Tarea>(0);
+	private Set<RolJPA> rols = new HashSet<RolJPA>(0);
+	private Set<TareaJPA> tarInstancias = new HashSet<TareaJPA>(0);
 
-	public TareaPlantilla() {
+	public TareaPlantillaJPA() {
 	}
 
-	public TareaPlantilla(long codTarPlantilla, ProcesoPlantilla proPlantilla,
+	public TareaPlantillaJPA(long codTarPlantilla, ProcesoPlantillaJPA proPlantilla,
 			char estado) {
 		this.codTarPlantilla = codTarPlantilla;
 		this.proPlantilla = proPlantilla;
 		this.estado = estado;
 	}
 
-	public TareaPlantilla(long codTarPlantilla, ProcesoPlantilla proPlantilla,
-			char estado, Set<Rol> rols, Set<Tarea> tarInstancias) {
+	public TareaPlantillaJPA(long codTarPlantilla, ProcesoPlantillaJPA proPlantilla,
+			char estado, Set<RolJPA> rols, Set<TareaJPA> tarInstancias) {
 		this.codTarPlantilla = codTarPlantilla;
 		this.proPlantilla = proPlantilla;
 		this.estado = estado;
@@ -63,11 +59,11 @@ public class TareaPlantilla implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_pro_plantilla", nullable = false)
-	public ProcesoPlantilla getProPlantilla() {
+	public ProcesoPlantillaJPA getProPlantilla() {
 		return this.proPlantilla;
 	}
 
-	public void setProPlantilla(ProcesoPlantilla proPlantilla) {
+	public void setProPlantilla(ProcesoPlantillaJPA proPlantilla) {
 		this.proPlantilla = proPlantilla;
 	}
 
@@ -82,20 +78,20 @@ public class TareaPlantilla implements java.io.Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "tar_pla_rol", schema = "proceso", joinColumns = { @JoinColumn(name = "cod_tar_plantilla", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "cod_rol", nullable = false, updatable = false) })
-	public Set<Rol> getRols() {
+	public Set<RolJPA> getRols() {
 		return this.rols;
 	}
 
-	public void setRols(Set<Rol> rols) {
+	public void setRols(Set<RolJPA> rols) {
 		this.rols = rols;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tarPlantilla")
-	public Set<Tarea> getTarInstancias() {
+	public Set<TareaJPA> getTarInstancias() {
 		return this.tarInstancias;
 	}
 
-	public void setTarInstancias(Set<Tarea> tarInstancias) {
+	public void setTarInstancias(Set<TareaJPA> tarInstancias) {
 		this.tarInstancias = tarInstancias;
 	}
 

@@ -1,26 +1,24 @@
-package pe.com.soul.core.bean;
+package pe.com.soul.core.modelo;
 
-import java.io.Serializable;
+import java.util.List;
 
-public class User implements Serializable{
+public class Usuario extends BeanBase{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
-	protected long codUsuario;
+
+	protected long codigo;
 	protected char estado;
 	protected String usuario;
 	protected String clave;
-	protected String nomCompleto;
+	protected String nombreCompleto;
 	protected String correo;
+	private List<Rol> roles;
 	
-	public long getCodUsuario() {
-		return codUsuario;
+	public long getCodigo() {
+		return codigo;
 	}
-	public void setCodUsuario(long codUsuario) {
-		this.codUsuario = codUsuario;
+	public void setCodigo(long codigo) {
+		this.codigo = codigo;
 	}
 	public char getEstado() {
 		return estado;
@@ -40,11 +38,11 @@ public class User implements Serializable{
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
-	public String getNomCompleto() {
-		return nomCompleto;
+	public String getNombreCompleto() {
+		return nombreCompleto;
 	}
-	public void setNomCompleto(String nomCompleto) {
-		this.nomCompleto = nomCompleto;
+	public void setNombreCompleto(String nombreCompleto) {
+		this.nombreCompleto = nombreCompleto;
 	}
 	public String getCorreo() {
 		return correo;
@@ -52,6 +50,11 @@ public class User implements Serializable{
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	
+	public List<Rol> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<Rol> roles) {
+		this.roles = roles;
+	}
 	
 }

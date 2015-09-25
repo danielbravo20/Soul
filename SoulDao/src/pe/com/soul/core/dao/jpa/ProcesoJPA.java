@@ -1,6 +1,6 @@
-package pe.com.soul.core.bean;
-// default package
-// Generated 23/09/2015 09:32:07 PM by Hibernate Tools 4.3.1
+package pe.com.soul.core.dao.jpa;
+
+// Generated 24/09/2015 09:34:46 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,28 +18,24 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pro_instancia", schema = "proceso")
-public class Proceso implements java.io.Serializable {
+public class ProcesoJPA implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private long codProceso;
-	private ProcesoPlantilla proPlantilla;
+	private ProcesoPlantillaJPA proPlantilla;
 	private char estado;
-	private Set<Tarea> tarInstancias = new HashSet<Tarea>(0);
+	private Set<TareaJPA> tarInstancias = new HashSet<TareaJPA>(0);
 
-	public Proceso() {
+	public ProcesoJPA() {
 	}
 
-	public Proceso(long codProceso, ProcesoPlantilla proPlantilla, char estado) {
+	public ProcesoJPA(long codProceso, ProcesoPlantillaJPA proPlantilla, char estado) {
 		this.codProceso = codProceso;
 		this.proPlantilla = proPlantilla;
 		this.estado = estado;
 	}
 
-	public Proceso(long codProceso, ProcesoPlantilla proPlantilla,
-			char estado, Set<Tarea> tarInstancias) {
+	public ProcesoJPA(long codProceso, ProcesoPlantillaJPA proPlantilla,
+			char estado, Set<TareaJPA> tarInstancias) {
 		this.codProceso = codProceso;
 		this.proPlantilla = proPlantilla;
 		this.estado = estado;
@@ -58,11 +54,11 @@ public class Proceso implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_pro_plantilla", nullable = false)
-	public ProcesoPlantilla getProPlantilla() {
+	public ProcesoPlantillaJPA getProPlantilla() {
 		return this.proPlantilla;
 	}
 
-	public void setProPlantilla(ProcesoPlantilla proPlantilla) {
+	public void setProPlantilla(ProcesoPlantillaJPA proPlantilla) {
 		this.proPlantilla = proPlantilla;
 	}
 
@@ -76,11 +72,11 @@ public class Proceso implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proInstancia")
-	public Set<Tarea> getTarInstancias() {
+	public Set<TareaJPA> getTarInstancias() {
 		return this.tarInstancias;
 	}
 
-	public void setTarInstancias(Set<Tarea> tarInstancias) {
+	public void setTarInstancias(Set<TareaJPA> tarInstancias) {
 		this.tarInstancias = tarInstancias;
 	}
 

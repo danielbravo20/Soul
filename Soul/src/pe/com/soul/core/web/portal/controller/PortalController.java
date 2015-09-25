@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pe.com.soul.core.bean.Usuario;
+import pe.com.soul.core.modelo.Usuario;
 import pe.com.soul.core.seguridad.service.SeguridadServiceLocal;
 
 /**
