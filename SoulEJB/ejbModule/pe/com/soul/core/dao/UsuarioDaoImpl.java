@@ -29,7 +29,9 @@ public class UsuarioDaoImpl extends BaseDaoImpl<UsuarioJPA> implements UsuarioDa
     }
     
     public Usuario obtenerUsuario(String usuarioId){
+    	
     	String consulta = "select u from UsuarioJPA u where u.usuario =:parametro";
+    	
     	UsuarioJPA usuarioJPA = buscar(consulta, "parametro", usuarioId);
     	Usuario usuario = new Usuario();
     	usuario.setNombreCompleto(usuarioJPA.getNombreCompleto());
