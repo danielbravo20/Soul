@@ -57,8 +57,9 @@ public class PortalController extends HttpServlet {
 			
 			try { 
 				Usuario usuario = obtenerUsuario(request, session);
+				System.out.println("usuairo::: "+usuario);
 				respuesta.setResultado(true);
-				respuesta.setRespuesta(usuario);
+				//respuesta.setRespuesta(usuario);
 				
 				
 				
