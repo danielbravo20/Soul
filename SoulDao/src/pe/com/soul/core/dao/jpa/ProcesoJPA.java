@@ -4,6 +4,7 @@ package pe.com.soul.core.dao.jpa;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,8 +19,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pro_instancia", schema = "proceso")
-public class ProcesoJPA implements java.io.Serializable {
-
+public class ProcesoJPA extends JpaBase {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private long codProceso;
 	private ProcesoPlantillaJPA proPlantilla;
 	private char estado;

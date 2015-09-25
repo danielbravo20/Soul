@@ -1,0 +1,31 @@
+package pe.com.soul.core.service.seguridad;
+
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+import pe.com.soul.core.dao.UsuarioDaoLocal;
+import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.seguridad.service.SeguridadServiceLocal;
+
+/**
+ * Session Bean implementation class SeguridadServiceImpl
+ */
+@Stateless
+@LocalBean
+public class SeguridadServiceImpl implements SeguridadServiceLocal {
+
+	@EJB
+	UsuarioDaoLocal usuarioDaoLocal;
+	
+	public List<Usuario> obtenerUsuarios() throws Exception {
+		return usuarioDaoLocal.obtenerTodo();
+	}
+
+	public Object obtenerUsuario(String usuario) throws Exception {
+		return usuarioDaoLocal.obtenerUsuario(usuario);
+	}
+
+}

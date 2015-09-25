@@ -52,12 +52,16 @@ public class UsuarioDaoImpl extends BaseDaoImpl<UsuarioJPA> implements UsuarioDa
 
 	@Override
 	public Usuario actualizar(Usuario usuario) {
-		return actualizar((UsuarioJPA)usuario);
+		UsuarioJPA usuarioJPA = new UsuarioJPA();
+		actualizar(usuarioJPA);
+		return usuario;
 	}
 
 	@Override
 	public void guardar(Usuario usuario) {
-		guardar((UsuarioJPA)usuario);
+		UsuarioJPA usuarioJPA = new UsuarioJPA();
+		
+		guardar(usuarioJPA);
 	}
 	
 	@SuppressWarnings({"unchecked", "rawtypes" })

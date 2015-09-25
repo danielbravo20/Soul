@@ -8,7 +8,6 @@
 		<project>SoulDao</project>
 		<project>SoulEJB</project>
 		<project>SoulEJBClient</project>
-		<project>SoulLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

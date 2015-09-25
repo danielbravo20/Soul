@@ -15,8 +15,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tar_instancia", schema = "proceso")
-public class TareaJPA implements java.io.Serializable {
-
+public class TareaJPA extends JpaBase {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private long codTarea;
 	private ProcesoJPA proInstancia;
 	private TareaPlantillaJPA tarPlantilla;

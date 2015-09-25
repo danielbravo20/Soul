@@ -4,6 +4,7 @@ package pe.com.soul.core.dao.jpa;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,8 +17,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "modulo", schema = "seguridad")
-public class ModuloJPA implements java.io.Serializable {
-
+public class ModuloJPA extends JpaBase {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private int codModulo;
 	private String nombre;
 	private int orden;
