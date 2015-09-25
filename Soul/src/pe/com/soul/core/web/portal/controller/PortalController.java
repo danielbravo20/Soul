@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBs;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,20 +51,16 @@ public class PortalController extends HttpServlet {
 		
 		String accion = request.getParameter("accion");
 		Respuesta respuesta = new Respuesta();
+		HttpSession session = request.getSession(false);
 		
-		if(accion != null){
-			HttpSession session = null;
-			Usuario usuario = null;
+		if(accion != null && session!=null){
+			
 			try { 
-				session = request.getSession(false);
-				if(session!=null){
-					usuario = (Usuario)session.getAttribute(Usuario.SESSION_USUARIO_WEB_SOUL);
-					if(usuario==null){
-						
-					}
-				}else{
-					
-				}
+				Usuario usuario = obtenerUsuario(request, session);
+				respuesta.setResultado(true);
+				respuesta.setRespuesta(usuario);
+				
+				
 				
 			} catch (Exception e) {
 				respuesta.setResultado(false);
@@ -77,5 +72,14 @@ public class PortalController extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter printWriter = response.getWriter();
 		printWriter.print(gson.toJson(respuesta));
+	}
+	
+	private Usuario obtenerUsuario(HttpServletRequest request, HttpSession session) throws Exception{
+		Usuario usuario = (Usuario)session.getAttribute(Usuario.SESSION_USUARIO_WEB_SOUL);
+		if(usuario==null){
+			usuario = seguridadServiceLocal.registrarUsuario(request.getUserPrincipal().getName(), session.getId());
+			session.setAttribute(Usuario.SESSION_USUARIO_WEB_SOUL, usuario);
+		}
+		return usuario;
 	}
 }

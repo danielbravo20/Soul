@@ -1,10 +1,9 @@
 package pe.com.soul.core.dao.jpa;
 
-// Generated 24/09/2015 09:34:46 PM by Hibernate Tools 4.3.1
+// Generated 25/09/2015 04:29:28 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,48 +19,56 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuario", schema = "seguridad")
-public class UsuarioJPA extends JpaBase{
+public class UsuarioJPA implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	
-	private long codigo;
+	private long codigoUsuario;
 	private char estado;
 	private String usuario;
 	private String clave;
 	private String nombreCompleto;
 	private String correo;
-	protected Set<RolJPA> rols = new HashSet<RolJPA>(0);
+	private Set<ProcesoJPA> procesos = new HashSet<ProcesoJPA>(0);
+	private Set<TareaJPA> tareas = new HashSet<TareaJPA>(0);
+	private Set<RolJPA> rols = new HashSet<RolJPA>(0);
 
 	public UsuarioJPA() {
 	}
 
-	public UsuarioJPA(long codigo, char estado, String usuario, String clave, String nombreCompleto, String correo) {
-		this.codigo = codigo;
+	public UsuarioJPA(long codigoUsuario, char estado, String usuario,
+			String clave, String nombreCompleto) {
+		this.codigoUsuario = codigoUsuario;
 		this.estado = estado;
 		this.usuario = usuario;
 		this.clave = clave;
 		this.nombreCompleto = nombreCompleto;
-		this.correo = correo;
 	}
 
-	public UsuarioJPA(long codigo, char estado, String usuario, String clave, String nombreCompleto, String correo, Set<RolJPA> rols) {
-		this.codigo = codigo;
+	public UsuarioJPA(long codigoUsuario, char estado, String usuario,
+			String clave, String nombreCompleto, String correo,
+			Set<ProcesoJPA> procesos, Set<TareaJPA> tareas, Set<RolJPA> rols) {
+		this.codigoUsuario = codigoUsuario;
 		this.estado = estado;
 		this.usuario = usuario;
 		this.clave = clave;
 		this.nombreCompleto = nombreCompleto;
 		this.correo = correo;
+		this.procesos = procesos;
+		this.tareas = tareas;
 		this.rols = rols;
 	}
 
 	@Id
-	@Column(name = "cod_usuario", unique = true, nullable = false)
-	public long getCodigo() {
-		return this.codigo;
+	@Column(name = "codigo_usuario", unique = true, nullable = false)
+	public long getCodigoUsuario() {
+		return this.codigoUsuario;
 	}
 
-	public void setCodigo(long codigo) {
-		this.codigo = codigo;
+	public void setCodigoUsuario(long codigoUsuario) {
+		this.codigoUsuario = codigoUsuario;
 	}
 
 	@Column(name = "estado", nullable = false, length = 1)
@@ -90,7 +98,7 @@ public class UsuarioJPA extends JpaBase{
 		this.clave = clave;
 	}
 
-	@Column(name = "nom_completo", nullable = false, length = 120)
+	@Column(name = "nombre_completo", nullable = false, length = 120)
 	public String getNombreCompleto() {
 		return this.nombreCompleto;
 	}
@@ -99,7 +107,7 @@ public class UsuarioJPA extends JpaBase{
 		this.nombreCompleto = nombreCompleto;
 	}
 
-	@Column(name = "correo", nullable = false, length = 120)
+	@Column(name = "correo", length = 120)
 	public String getCorreo() {
 		return this.correo;
 	}
@@ -108,8 +116,26 @@ public class UsuarioJPA extends JpaBase{
 		this.correo = correo;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+	public Set<ProcesoJPA> getProcesos() {
+		return this.procesos;
+	}
+
+	public void setProcesos(Set<ProcesoJPA> procesos) {
+		this.procesos = procesos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+	public Set<TareaJPA> getTareas() {
+		return this.tareas;
+	}
+
+	public void setTareas(Set<TareaJPA> tareas) {
+		this.tareas = tareas;
+	}
+
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "usu_rol", schema = "seguridad", joinColumns = { @JoinColumn(name = "cod_usuario", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "cod_rol", nullable = false, updatable = false) })
+	@JoinTable(name = "usu_rol", schema = "seguridad", joinColumns = { @JoinColumn(name = "codigo_usuario", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
 	public Set<RolJPA> getRols() {
 		return this.rols;
 	}

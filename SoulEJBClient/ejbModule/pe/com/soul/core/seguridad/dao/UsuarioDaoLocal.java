@@ -1,4 +1,4 @@
-package pe.com.soul.core.dao;
+package pe.com.soul.core.seguridad.dao;
 
 import java.util.List;
 

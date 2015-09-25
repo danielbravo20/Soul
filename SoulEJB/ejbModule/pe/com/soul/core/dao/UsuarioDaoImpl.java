@@ -13,6 +13,7 @@ import pe.com.soul.core.dao.jpa.RolJPA;
 import pe.com.soul.core.dao.jpa.UsuarioJPA;
 import pe.com.soul.core.modelo.Rol;
 import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.seguridad.dao.UsuarioDaoLocal;
 
 /**
  * Session Bean implementation class UsuarioDao
@@ -42,7 +43,7 @@ public class UsuarioDaoImpl extends BaseDaoImpl<UsuarioJPA> implements UsuarioDa
     	while(iterator.hasNext()){
     		RolJPA rolJPA = iterator.next();
     		Rol rol = new Rol();
-    		rol.setCodRol(rolJPA.getCodRol());
+    		rol.setCodRol(rolJPA.getCodigoRol());
     		rol.setNombre(rolJPA.getNombre());
     		roles.add(rol);
     	}

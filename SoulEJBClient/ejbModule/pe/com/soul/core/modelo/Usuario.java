@@ -15,6 +15,7 @@ public class Usuario extends BeanBase{
 	private String nombreCompleto;
 	private String correo;
 	private List<Rol> roles;
+	private String sessionId;
 	
 	public long getCodigo() {
 		return codigo;
@@ -57,6 +58,12 @@ public class Usuario extends BeanBase{
 	}
 	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
+	}
+	public String getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
 	}
 	
 }

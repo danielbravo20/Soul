@@ -1,10 +1,9 @@
 package pe.com.soul.core.dao.jpa;
 
-// Generated 24/09/2015 09:34:46 PM by Hibernate Tools 4.3.1
+// Generated 25/09/2015 04:29:28 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,44 +18,59 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "rol", schema = "seguridad")
-public class RolJPA extends JpaBase {
+public class RolJPA implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	
-	private long codRol;
+	private long codigoRol;
 	private String nombre;
+	private Set<TareaPlantillaJPA> tareaPlantillas = new HashSet<TareaPlantillaJPA>(0);
 	private Set<ModuloJPA> modulos = new HashSet<ModuloJPA>(0);
-	private Set<ProcesoPlantillaJPA> proPlantillas = new HashSet<ProcesoPlantillaJPA>(0);
-	private Set<TareaPlantillaJPA> tarPlantillas = new HashSet<TareaPlantillaJPA>(0);
+	private Set<ProcesoPlantillaJPA> procesoPlantillas = new HashSet<ProcesoPlantillaJPA>(
+			0);
+	private Set<TareaPlantillaJPA> tareaPlantillas_1 = new HashSet<TareaPlantillaJPA>(
+			0);
+	private Set<TareaPlantillaJPA> tareaPlantillas_2 = new HashSet<TareaPlantillaJPA>(
+			0);
+	private Set<ProcesoPlantillaJPA> procesoPlantillas_1 = new HashSet<ProcesoPlantillaJPA>(
+			0);
 	private Set<UsuarioJPA> usuarios = new HashSet<UsuarioJPA>(0);
 
 	public RolJPA() {
 	}
 
-	public RolJPA(long codRol, String nombre) {
-		this.codRol = codRol;
+	public RolJPA(long codigoRol, String nombre) {
+		this.codigoRol = codigoRol;
 		this.nombre = nombre;
 	}
 
-	public RolJPA(long codRol, String nombre, Set<ModuloJPA> modulos,
-			Set<ProcesoPlantillaJPA> proPlantillas, Set<TareaPlantillaJPA> tarPlantillas,
-			Set<UsuarioJPA> usuarios) {
-		this.codRol = codRol;
+	public RolJPA(long codigoRol, String nombre,
+			Set<TareaPlantillaJPA> tareaPlantillas, Set<ModuloJPA> modulos,
+			Set<ProcesoPlantillaJPA> procesoPlantillas,
+			Set<TareaPlantillaJPA> tareaPlantillas_1,
+			Set<TareaPlantillaJPA> tareaPlantillas_2,
+			Set<ProcesoPlantillaJPA> procesoPlantillas_1, Set<UsuarioJPA> usuarios) {
+		this.codigoRol = codigoRol;
 		this.nombre = nombre;
+		this.tareaPlantillas = tareaPlantillas;
 		this.modulos = modulos;
-		this.proPlantillas = proPlantillas;
-		this.tarPlantillas = tarPlantillas;
+		this.procesoPlantillas = procesoPlantillas;
+		this.tareaPlantillas_1 = tareaPlantillas_1;
+		this.tareaPlantillas_2 = tareaPlantillas_2;
+		this.procesoPlantillas_1 = procesoPlantillas_1;
 		this.usuarios = usuarios;
 	}
 
 	@Id
-	@Column(name = "cod_rol", unique = true, nullable = false)
-	public long getCodRol() {
-		return this.codRol;
+	@Column(name = "codigo_rol", unique = true, nullable = false)
+	public long getCodigoRol() {
+		return this.codigoRol;
 	}
 
-	public void setCodRol(long codRol) {
-		this.codRol = codRol;
+	public void setCodigoRol(long codigoRol) {
+		this.codigoRol = codigoRol;
 	}
 
 	@Column(name = "nombre", nullable = false, length = 120)
@@ -68,8 +82,17 @@ public class RolJPA extends JpaBase {
 		this.nombre = nombre;
 	}
 
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
+	public Set<TareaPlantillaJPA> getTareaPlantillas() {
+		return this.tareaPlantillas;
+	}
+
+	public void setTareaPlantillas(Set<TareaPlantillaJPA> tareaPlantillas) {
+		this.tareaPlantillas = tareaPlantillas;
+	}
+
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "mod_rol", schema = "public", joinColumns = { @JoinColumn(name = "cod_rol", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "cod_modulo", nullable = false, updatable = false) })
+	@JoinTable(name = "modulo_rol", schema = "seguridad", joinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_modulo", nullable = false, updatable = false) })
 	public Set<ModuloJPA> getModulos() {
 		return this.modulos;
 	}
@@ -78,22 +101,40 @@ public class RolJPA extends JpaBase {
 		this.modulos = modulos;
 	}
 
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols_1")
+	public Set<ProcesoPlantillaJPA> getProcesoPlantillas() {
+		return this.procesoPlantillas;
+	}
+
+	public void setProcesoPlantillas(Set<ProcesoPlantillaJPA> procesoPlantillas) {
+		this.procesoPlantillas = procesoPlantillas;
+	}
+
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
-	public Set<ProcesoPlantillaJPA> getProPlantillas() {
-		return this.proPlantillas;
+	public Set<TareaPlantillaJPA> getTareaPlantillas_1() {
+		return this.tareaPlantillas_1;
 	}
 
-	public void setProPlantillas(Set<ProcesoPlantillaJPA> proPlantillas) {
-		this.proPlantillas = proPlantillas;
+	public void setTareaPlantillas_1(Set<TareaPlantillaJPA> tareaPlantillas_1) {
+		this.tareaPlantillas_1 = tareaPlantillas_1;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
-	public Set<TareaPlantillaJPA> getTarPlantillas() {
-		return this.tarPlantillas;
+	public Set<TareaPlantillaJPA> getTareaPlantillas_2() {
+		return this.tareaPlantillas_2;
 	}
 
-	public void setTarPlantillas(Set<TareaPlantillaJPA> tarPlantillas) {
-		this.tarPlantillas = tarPlantillas;
+	public void setTareaPlantillas_2(Set<TareaPlantillaJPA> tareaPlantillas_2) {
+		this.tareaPlantillas_2 = tareaPlantillas_2;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
+	public Set<ProcesoPlantillaJPA> getProcesoPlantillas_1() {
+		return this.procesoPlantillas_1;
+	}
+
+	public void setProcesoPlantillas_1(Set<ProcesoPlantillaJPA> procesoPlantillas_1) {
+		this.procesoPlantillas_1 = procesoPlantillas_1;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")

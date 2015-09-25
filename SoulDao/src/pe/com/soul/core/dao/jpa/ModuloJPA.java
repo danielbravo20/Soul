@@ -1,10 +1,9 @@
 package pe.com.soul.core.dao.jpa;
 
-// Generated 24/09/2015 09:34:46 PM by Hibernate Tools 4.3.1
+// Generated 25/09/2015 04:29:28 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,39 +16,47 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "modulo", schema = "seguridad")
-public class ModuloJPA extends JpaBase {
-	
+public class ModuloJPA implements java.io.Serializable {
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	
-	private int codModulo;
+	private int codigoModulo;
 	private String nombre;
 	private int orden;
+	private String descripcion;
+	private String url;
 	private Set<RolJPA> rols = new HashSet<RolJPA>(0);
 
 	public ModuloJPA() {
 	}
 
-	public ModuloJPA(int codModulo, String nombre, int orden) {
-		this.codModulo = codModulo;
+	public ModuloJPA(int codigoModulo, String nombre, int orden, String url) {
+		this.codigoModulo = codigoModulo;
 		this.nombre = nombre;
 		this.orden = orden;
+		this.url = url;
 	}
 
-	public ModuloJPA(int codModulo, String nombre, int orden, Set<RolJPA> rols) {
-		this.codModulo = codModulo;
+	public ModuloJPA(int codigoModulo, String nombre, int orden,
+			String descripcion, String url, Set<RolJPA> rols) {
+		this.codigoModulo = codigoModulo;
 		this.nombre = nombre;
 		this.orden = orden;
+		this.descripcion = descripcion;
+		this.url = url;
 		this.rols = rols;
 	}
 
 	@Id
-	@Column(name = "cod_modulo", unique = true, nullable = false)
-	public int getCodModulo() {
-		return this.codModulo;
+	@Column(name = "codigo_modulo", unique = true, nullable = false)
+	public int getCodigoModulo() {
+		return this.codigoModulo;
 	}
 
-	public void setCodModulo(int codModulo) {
-		this.codModulo = codModulo;
+	public void setCodigoModulo(int codigoModulo) {
+		this.codigoModulo = codigoModulo;
 	}
 
 	@Column(name = "nombre", nullable = false, length = 60)
@@ -68,6 +75,24 @@ public class ModuloJPA extends JpaBase {
 
 	public void setOrden(int orden) {
 		this.orden = orden;
+	}
+
+	@Column(name = "descripcion", length = 250)
+	public String getDescripcion() {
+		return this.descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	@Column(name = "url", nullable = false, length = 120)
+	public String getUrl() {
+		return this.url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "modulos")

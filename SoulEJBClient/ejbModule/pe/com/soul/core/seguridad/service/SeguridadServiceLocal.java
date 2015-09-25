@@ -10,6 +10,6 @@ import pe.com.soul.core.modelo.Usuario;
 public interface SeguridadServiceLocal {
 
 	List<Usuario> obtenerUsuarios() throws Exception;
-	Object obtenerUsuario(String usuario) throws Exception;
+	Usuario registrarUsuario(String usuario, String sesionId) throws Exception;
 	
 }

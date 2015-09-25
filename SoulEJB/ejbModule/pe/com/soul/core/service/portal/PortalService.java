@@ -14,7 +14,6 @@ public class PortalService implements PortalServiceLocal {
      * Default constructor. 
      */
     public PortalService() {
-        // TODO Auto-generated constructor stub
     }
 
 }
