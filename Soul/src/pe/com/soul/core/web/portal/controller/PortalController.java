@@ -77,7 +77,7 @@ public class PortalController extends HttpServlet {
 	private Usuario obtenerUsuario(HttpServletRequest request, HttpSession session) throws Exception{
 		Usuario usuario = (Usuario)session.getAttribute(Usuario.SESSION_USUARIO_WEB_SOUL);
 		if(usuario==null){
-			usuario = seguridadServiceLocal.registrarUsuario(request.getUserPrincipal().getName(), session.getId());
+			usuario = seguridadServiceLocal.registrarUsuario(request.getUserPrincipal().getName(), session.getId(), request.getRemoteHost(), request.getRemoteAddr());
 			session.setAttribute(Usuario.SESSION_USUARIO_WEB_SOUL, usuario);
 		}
 		return usuario;

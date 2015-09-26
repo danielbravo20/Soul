@@ -14,8 +14,13 @@ public class Usuario extends BeanBase{
 	private String clave;
 	private String nombreCompleto;
 	private String correo;
+	
+	private String sesionId;
+	private String ipRemoto;
+	private String hostRemoto;
+	
 	private List<Rol> roles;
-	private String sessionId;
+	private List<Modulo> modulos;
 	
 	public long getCodigo() {
 		return codigo;
@@ -59,11 +64,29 @@ public class Usuario extends BeanBase{
 	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
 	}
-	public String getSessionId() {
-		return sessionId;
+	public String getIpRemoto() {
+		return ipRemoto;
 	}
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
+	public void setIpRemoto(String ipRemoto) {
+		this.ipRemoto = ipRemoto;
+	}
+	public String getHostRemoto() {
+		return hostRemoto;
+	}
+	public void setHostRemoto(String hostRemoto) {
+		this.hostRemoto = hostRemoto;
+	}
+	public String getSesionId() {
+		return sesionId;
+	}
+	public void setSesionId(String sesionId) {
+		this.sesionId = sesionId;
+	}
+	public List<Modulo> getModulos() {
+		return modulos;
+	}
+	public void setModulos(List<Modulo> modulos) {
+		this.modulos = modulos;
 	}
 	
 }

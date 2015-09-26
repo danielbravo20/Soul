@@ -9,8 +9,10 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaQuery;
 
+import pe.com.soul.core.dao.jpa.ModuloJPA;
 import pe.com.soul.core.dao.jpa.RolJPA;
 import pe.com.soul.core.dao.jpa.UsuarioJPA;
+import pe.com.soul.core.modelo.Modulo;
 import pe.com.soul.core.modelo.Rol;
 import pe.com.soul.core.modelo.Usuario;
 import pe.com.soul.core.seguridad.dao.UsuarioDaoLocal;
@@ -20,12 +22,12 @@ import pe.com.soul.core.seguridad.dao.UsuarioDaoLocal;
  */
 @Stateless
 @LocalBean
-public class UsuarioDaoImpl extends BaseDaoImpl<UsuarioJPA> implements UsuarioDaoLocal {
+public class UsuarioDao extends BaseDao<UsuarioJPA> implements UsuarioDaoLocal {
 
     /**
      * Default constructor. 
      */
-    public UsuarioDaoImpl() {
+    public UsuarioDao() {
     	super(UsuarioJPA.class);
     }
     
@@ -35,19 +37,40 @@ public class UsuarioDaoImpl extends BaseDaoImpl<UsuarioJPA> implements UsuarioDa
     	
     	UsuarioJPA usuarioJPA = buscar(consulta, "parametro", usuarioId);
     	Usuario usuario = new Usuario();
+    	usuario.setCodigo(usuarioJPA.getCodigoUsuario());
+    	usuario.setEstado(usuarioJPA.getEstado());
+    	usuario.setCorreo(usuarioJPA.getCorreo());
     	usuario.setNombreCompleto(usuarioJPA.getNombreCompleto());
     	
     	Set<RolJPA> rolJPAs = usuarioJPA.getRols();
-    	Iterator<RolJPA> iterator = rolJPAs.iterator();
+    	Iterator<RolJPA> iteratorRol = rolJPAs.iterator();
     	List<Rol> roles = new ArrayList<Rol>(); 
-    	while(iterator.hasNext()){
-    		RolJPA rolJPA = iterator.next();
+    	List<Modulo> modulos = new ArrayList<Modulo>();
+    	
+    	while(iteratorRol.hasNext()){
+    		RolJPA rolJPA = iteratorRol.next();
     		Rol rol = new Rol();
     		rol.setCodRol(rolJPA.getCodigoRol());
     		rol.setNombre(rolJPA.getNombre());
     		roles.add(rol);
+    		
+    		Set<ModuloJPA> moduloJPAs = rolJPA.getModulos();
+    		Iterator<ModuloJPA> iteratorModulo = moduloJPAs.iterator();
+    		
+    		while (iteratorModulo.hasNext()) {
+    			ModuloJPA moduloJPA = (ModuloJPA) iteratorModulo.next();
+    			Modulo modulo = new Modulo();
+    			modulo.setCodigoModulo(moduloJPA.getCodigoModulo());
+    			modulo.setNombre(moduloJPA.getNombre());
+    			modulo.setDescripcion(moduloJPA.getDescripcion());
+				modulo.setOrden(moduloJPA.getOrden());
+				modulo.setUrl(moduloJPA.getUrl());
+				modulos.add(modulo);
+			}
     	}
     	usuario.setRoles(roles);
+    	usuario.setModulos(modulos);
+    	
     	return usuario;
     }
 
