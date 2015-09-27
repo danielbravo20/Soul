@@ -21,6 +21,8 @@ public class Usuario extends BeanBase{
 	
 	private List<Rol> roles;
 	private List<Modulo> modulos;
+	private List<Proceso> procesos;
+	private List<ProcesoPlantilla> procesoPotenciales;
 	
 	public long getCodigo() {
 		return codigo;
@@ -87,6 +89,18 @@ public class Usuario extends BeanBase{
 	}
 	public void setModulos(List<Modulo> modulos) {
 		this.modulos = modulos;
+	}
+	public List<Proceso> getProcesos() {
+		return procesos;
+	}
+	public void setProcesos(List<Proceso> procesos) {
+		this.procesos = procesos;
+	}
+	public List<ProcesoPlantilla> getProcesoPotenciales() {
+		return procesoPotenciales;
+	}
+	public void setProcesoPotenciales(List<ProcesoPlantilla> procesoPotenciales) {
+		this.procesoPotenciales = procesoPotenciales;
 	}
 	
 }

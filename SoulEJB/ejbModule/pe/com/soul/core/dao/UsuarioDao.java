@@ -10,9 +10,11 @@ import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaQuery;
 
 import pe.com.soul.core.dao.jpa.ModuloJPA;
+import pe.com.soul.core.dao.jpa.ProcesoPlantillaJPA;
 import pe.com.soul.core.dao.jpa.RolJPA;
 import pe.com.soul.core.dao.jpa.UsuarioJPA;
 import pe.com.soul.core.modelo.Modulo;
+import pe.com.soul.core.modelo.ProcesoPlantilla;
 import pe.com.soul.core.modelo.Rol;
 import pe.com.soul.core.modelo.Usuario;
 import pe.com.soul.core.seguridad.dao.UsuarioDaoLocal;
@@ -46,6 +48,7 @@ public class UsuarioDao extends BaseDao<UsuarioJPA> implements UsuarioDaoLocal {
     	Iterator<RolJPA> iteratorRol = rolJPAs.iterator();
     	List<Rol> roles = new ArrayList<Rol>(); 
     	List<Modulo> modulos = new ArrayList<Modulo>();
+    	List<ProcesoPlantilla> procesoPlantillas = new ArrayList<ProcesoPlantilla>();
     	
     	while(iteratorRol.hasNext()){
     		RolJPA rolJPA = iteratorRol.next();
@@ -67,9 +70,23 @@ public class UsuarioDao extends BaseDao<UsuarioJPA> implements UsuarioDaoLocal {
 				modulo.setUrl(moduloJPA.getUrl());
 				modulos.add(modulo);
 			}
+    		
+    		Set<ProcesoPlantillaJPA> procesoPlantillaJPAs = rolJPA.getProcesoPlantillas_1();
+    		Iterator<ProcesoPlantillaJPA> iteratorPP = procesoPlantillaJPAs.iterator();
+    		
+    		while (iteratorPP.hasNext()) {
+				ProcesoPlantillaJPA procesoPlantillaJPA = (ProcesoPlantillaJPA) iteratorPP.next();
+				ProcesoPlantilla procesoPlantilla = new ProcesoPlantilla();
+				procesoPlantilla.setCodigoProcesoPlantilla(procesoPlantillaJPA.getCodigoProcesoPlantilla());
+				procesoPlantilla.setNombre(procesoPlantillaJPA.getNombre());
+				procesoPlantilla.setVersion(procesoPlantillaJPA.getVersion());
+				procesoPlantillas.add(procesoPlantilla);
+			}
+    		
     	}
     	usuario.setRoles(roles);
     	usuario.setModulos(modulos);
+    	usuario.setProcesoPotenciales(procesoPlantillas);
     	
     	return usuario;
     }

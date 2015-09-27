@@ -8,6 +8,8 @@
 		<project>SoulDao</project>
 		<project>SoulEJB</project>
 		<project>SoulEJBClient</project>
+		<project>CartaFianzaService</project>
+		<project>CartaFianzaServiceClient</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
