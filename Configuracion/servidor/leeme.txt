@@ -1,0 +1,2 @@
+1- Configurara el driver postgres
+   - copiar la carpeta org al directorio D:\IBM\JBOSS64\modules
