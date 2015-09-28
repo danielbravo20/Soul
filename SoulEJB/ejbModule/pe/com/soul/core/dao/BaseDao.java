@@ -20,8 +20,9 @@ public class BaseDao<T> {
     	this.entityClass = entityClass;
     }
 
-    public void guardar(T entity) {
+    public T guardar(T entity) {
     	em.persist(entity);
+    	return entity;
     }
     
     public void eliminar(T entity) {

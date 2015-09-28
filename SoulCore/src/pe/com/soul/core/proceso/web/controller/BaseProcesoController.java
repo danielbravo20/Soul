@@ -50,10 +50,10 @@ public abstract class BaseProcesoController extends BaseController{
 		printWriter.print(gson.toJson(respuesta));
 	}
 	
-	protected abstract Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, Usuario usuario);
+	protected abstract Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
 	
-	protected abstract Respuesta accionResumen(HttpServletRequest request, HttpServletResponse response, Usuario usuario);
+	protected abstract Respuesta accionResumen(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
 	
-	protected abstract Respuesta accionDetalle(HttpServletRequest request, HttpServletResponse response, Usuario usuario);
+	protected abstract Respuesta accionDetalle(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
 	
 }

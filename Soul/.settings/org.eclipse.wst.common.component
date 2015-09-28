@@ -2,6 +2,7 @@
     <wb-module deploy-name="Soul">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/generado"/>
         <property name="context-root" value="Soul"/>
         <property name="java-output-path" value="/Soul/build/classes"/>
     </wb-module>

@@ -17,11 +17,11 @@ public abstract class PreEmisionCartaFianzaV1 extends BaseProcesoController{
 	EmisionCartaFianzaServiceLocal emisionCartaFianzaServiceLocal;
 	
 	@Override
-	protected Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, Usuario usuario) {
+	protected Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		
 		respuesta.setResultado(true);
-		respuesta.setRespuesta("NADA NUEVO");
+		respuesta.setRespuesta(emisionCartaFianzaServiceLocal.crearProceso(usuario));
 		
 		return respuesta;
 	}
