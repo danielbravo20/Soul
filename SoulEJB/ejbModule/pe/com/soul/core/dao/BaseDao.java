@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public class BaseDaoImpl<T> {
+public class BaseDao<T> {
 
 	private final static String UNIT_NAME = "SoulDao";
 	
@@ -16,7 +16,7 @@ public class BaseDaoImpl<T> {
 	
 	private Class<T> entityClass;
 
-    public BaseDaoImpl(Class<T> entityClass) {
+    public BaseDao(Class<T> entityClass) {
     	this.entityClass = entityClass;
     }
 
@@ -34,7 +34,7 @@ public class BaseDaoImpl<T> {
     	return em.merge(entity);
     }
     
-    public T buscar(int entityID) {
+    public T buscar(Object entityID) {
     	return em.find(entityClass, entityID);
     }
     

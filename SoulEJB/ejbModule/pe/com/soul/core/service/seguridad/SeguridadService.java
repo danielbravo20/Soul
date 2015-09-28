@@ -22,15 +22,40 @@ public class SeguridadService implements SeguridadServiceLocal {
 	@EJB
 	UsuarioDaoLocal usuarioDaoLocal;
 	
-	private static Map<String, Usuario> sessionIds 	= new HashMap<String, Usuario>();
-	private static Map<String, String> sessionUsuario 	= new HashMap<String, String>();
+	private static Map<String, Usuario> sesionIds 		= new HashMap<String, Usuario>();
+	private static Map<String, String> sesionUsuario 	= new HashMap<String, String>();
 	
 	public List<Usuario> obtenerUsuarios() throws Exception {
 		return usuarioDaoLocal.obtenerTodo();
 	}
 
-	public Usuario registrarUsuario(String usuario, String sesionId) throws Exception {
-		return usuarioDaoLocal.obtenerUsuario(usuario);
+	public Usuario registrarUsuario(String usuarioId, String sesionId, String hostRemoto, String ipRemoto) throws Exception {
+		
+		Usuario usuario = null;
+		
+		if(sesionIds.containsKey(sesionId)){
+			throw new Exception("La sesion ingresada ya existe, no puede ser registrada...");
+		}
+		
+		if(sesionUsuario.containsKey(usuarioId)){
+			usuario = sesionIds.get(sesionUsuario.get(usuarioId));
+			
+			if(usuario.getHostRemoto().equalsIgnoreCase(hostRemoto)==false ||
+					usuario.getIpRemoto().equals(ipRemoto)==false){
+				throw new Exception("El usuario ya cuenta con un sesión activa en el equipo: "+usuario.getHostRemoto()+"("+usuario.getIpRemoto()+")");
+			}
+			
+		}
+		
+		usuario = usuarioDaoLocal.obtenerUsuario(usuarioId);
+		usuario.setSesionId(sesionId);
+		usuario.setHostRemoto(hostRemoto);
+		usuario.setIpRemoto(ipRemoto);
+		
+		sesionIds.put(sesionId, usuario);
+		sesionUsuario.put(usuarioId, sesionId);
+		
+		return usuario;
 	}
 
 }

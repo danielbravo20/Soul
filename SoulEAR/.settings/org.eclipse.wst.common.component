@@ -17,5 +17,18 @@
         <dependent-module archiveName="SoulDao.jar" deploy-path="/lib" handle="module:/resource/SoulDao/SoulDao">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="CartaFianzaService.jar" deploy-path="/" handle="module:/resource/CartaFianzaService/CartaFianzaService">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CartaFianzaServiceClient.jar" deploy-path="/" handle="module:/resource/CartaFianzaServiceClient/CartaFianzaServiceClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CartaFianzaServiceExt.jar" deploy-path="/lib" handle="module:/resource/CartaFianzaServiceExt/CartaFianzaServiceExt">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CartaFianzaExt.jar" deploy-path="/lib" handle="module:/resource/CartaFianzaExt/CartaFianzaExt">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

@@ -28,14 +28,10 @@ public class RolJPA implements java.io.Serializable {
 	private String nombre;
 	private Set<TareaPlantillaJPA> tareaPlantillas = new HashSet<TareaPlantillaJPA>(0);
 	private Set<ModuloJPA> modulos = new HashSet<ModuloJPA>(0);
-	private Set<ProcesoPlantillaJPA> procesoPlantillas = new HashSet<ProcesoPlantillaJPA>(
-			0);
-	private Set<TareaPlantillaJPA> tareaPlantillas_1 = new HashSet<TareaPlantillaJPA>(
-			0);
-	private Set<TareaPlantillaJPA> tareaPlantillas_2 = new HashSet<TareaPlantillaJPA>(
-			0);
-	private Set<ProcesoPlantillaJPA> procesoPlantillas_1 = new HashSet<ProcesoPlantillaJPA>(
-			0);
+	private Set<ProcesoPlantillaJPA> procesoPlantillas = new HashSet<ProcesoPlantillaJPA>(0);
+	private Set<TareaPlantillaJPA> tareaPlantillas_1 = new HashSet<TareaPlantillaJPA>(0);
+	private Set<TareaPlantillaJPA> tareaPlantillas_2 = new HashSet<TareaPlantillaJPA>(0);
+	private Set<ProcesoPlantillaJPA> procesoPlantillas_1 = new HashSet<ProcesoPlantillaJPA>(0);
 	private Set<UsuarioJPA> usuarios = new HashSet<UsuarioJPA>(0);
 
 	public RolJPA() {
