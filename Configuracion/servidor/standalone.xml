@@ -290,7 +290,7 @@
                         <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
                             <module-option name="dsJndiName" value="java:jboss/soulDS"/>
                             <module-option name="principalsQuery" value="select CLAVE AS passwd from SEGURIDAD.USUARIO where USUARIO=?"/>
-                            <module-option name="rolesQuery" value="SELECT R.NOMBRE AS userRoles, 'Roles' FROM SEGURIDAD.USU_ROL UR, SEGURIDAD.ROL R, SEGURIDAD.USUARIO U WHERE UR.COD_USUARIO = U.COD_USUARIO AND UR.COD_ROL = R.COD_ROL AND U.USUARIO = ?"/>
+                            <module-option name="rolesQuery" value="SELECT R.NOMBRE AS userRoles, 'Roles' FROM SEGURIDAD.USU_ROL UR, SEGURIDAD.ROL R, SEGURIDAD.USUARIO U WHERE UR.CODIGO_USUARIO = U.CODIGO_USUARIO AND UR.CODIGO_ROL = R.CODIGO_ROL AND U.USUARIO = ?"/>
                         </login-module>
                     </authentication>
                 </security-domain>
