@@ -8,7 +8,7 @@ import pe.com.soul.core.dao.ProcesoDaoLocal;
 import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Usuario;
 
-public abstract class PreEmisionCartaFianzaService{
+public abstract class PreEmisionCartaFianzaService implements EmisionCartaFianzaServiceLocal{
 
 	public static final long   PROCESO_CODIGO_PLANTILLA_PROCESO = 1;
 	public static final String PROCESO_NOMBRE 					= "EMISION DE CARTA FIANZA"; 
