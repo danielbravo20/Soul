@@ -1,6 +1,6 @@
 package pe.com.soul.core.modelo;
 
-public class Modulo extends BeanBase{
+public class Modulo extends BaseBean{
 
 	/**
 	 * 

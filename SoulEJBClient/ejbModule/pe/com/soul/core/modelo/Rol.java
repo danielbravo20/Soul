@@ -1,6 +1,6 @@
 package pe.com.soul.core.modelo;
 
-public class Rol extends BeanBase{
+public class Rol extends BaseBean{
 
 	private static final long serialVersionUID = 1L;
 	

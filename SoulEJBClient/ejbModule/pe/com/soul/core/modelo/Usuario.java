@@ -2,7 +2,7 @@ package pe.com.soul.core.modelo;
 
 import java.util.List;
 
-public class Usuario extends BeanBase{
+public class Usuario extends BaseBean{
 
 	private static final long serialVersionUID = 1L;
 	
