@@ -80,6 +80,8 @@ public class UsuarioDao extends BaseDao<UsuarioJPA> implements UsuarioDaoLocal {
 				procesoPlantilla.setCodigoProcesoPlantilla(procesoPlantillaJPA.getCodigoProcesoPlantilla());
 				procesoPlantilla.setNombre(procesoPlantillaJPA.getNombre());
 				procesoPlantilla.setVersion(procesoPlantillaJPA.getVersion());
+				procesoPlantilla.setAleas(procesoPlantillaJPA.getAleas());
+				procesoPlantilla.setEstado(procesoPlantillaJPA.getEstado());
 				procesoPlantillas.add(procesoPlantilla);
 			}
     		

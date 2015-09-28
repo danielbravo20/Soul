@@ -73,7 +73,7 @@ public class ProcesoJPA implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(generator="SEQ_CODIGO_PROCESO") 
-	@SequenceGenerator(name="SEQ_CODIGO_PROCESO",sequenceName="PROCESO.SEQ_CODIGO_PROCESO", allocationSize=5) 
+	@SequenceGenerator(name="SEQ_CODIGO_PROCESO",sequenceName="PROCESO.SEQ_CODIGO_PROCESO", allocationSize=0) 
 	@Column(name = "codigo_proceso", unique = true, nullable = false)
 	public long getCodigoProceso() {
 		return this.codigoProceso;
