@@ -20,7 +20,8 @@ public abstract class PreEmisionCartaFianzaV1 extends BaseProcesoController{
 	protected Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, Usuario usuario) {
 		Respuesta respuesta = new Respuesta();
 		
-		
+		respuesta.setResultado(true);
+		respuesta.setRespuesta("NADA NUEVO");
 		
 		return respuesta;
 	}

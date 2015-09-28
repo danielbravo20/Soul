@@ -3,7 +3,6 @@
 	<name>SoulEAR</name>
 	<comment></comment>
 	<projects>
-		<project>CartaFianzaExt</project>
 		<project>CartaFianzaService</project>
 		<project>CartaFianzaServiceClient</project>
 		<project>Soul</project>
@@ -11,7 +10,6 @@
 		<project>SoulDao</project>
 		<project>SoulEJB</project>
 		<project>SoulEJBClient</project>
-		<project>CartaFianzaServiceExt</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
