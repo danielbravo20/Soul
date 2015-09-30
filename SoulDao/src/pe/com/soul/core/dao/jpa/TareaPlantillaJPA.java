@@ -32,6 +32,7 @@ public class TareaPlantillaJPA implements java.io.Serializable {
 	private char estado;
 	private String nombre;
 	private String aleas;
+	private int orden;
 	private int prioridad;
 	private Set<RolJPA> rols = new HashSet<RolJPA>(0);
 	private Set<RolJPA> rols_1 = new HashSet<RolJPA>(0);
@@ -172,4 +173,14 @@ public class TareaPlantillaJPA implements java.io.Serializable {
 		this.tareas = tareas;
 	}
 
+	@Column(name = "orden", nullable = false)
+	public int getOrden() {
+		return orden;
+	}
+
+	public void setOrden(int orden) {
+		this.orden = orden;
+	}
+
+	
 }

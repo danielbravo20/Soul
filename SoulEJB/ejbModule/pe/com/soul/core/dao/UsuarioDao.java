@@ -37,7 +37,7 @@ public class UsuarioDao extends BaseDao<UsuarioJPA> implements UsuarioDaoLocal {
     	
     	String consulta = "select u from UsuarioJPA u where u.usuario =:parametro";
     	
-    	UsuarioJPA usuarioJPA = buscar(consulta, "parametro", usuarioId);
+    	UsuarioJPA usuarioJPA = buscarRegistro(consulta, "parametro", usuarioId);
     	Usuario usuario = new Usuario();
     	usuario.setCodigo(usuarioJPA.getCodigoUsuario());
     	usuario.setEstado(usuarioJPA.getEstado());

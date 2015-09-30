@@ -3,12 +3,15 @@ package pe.com.soul.core.dao.jpa;
 // Generated 25/09/2015 04:29:28 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -61,6 +64,8 @@ public class TareaJPA implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_tarea", unique = true, nullable = false)
+	@GeneratedValue(generator="SEQ_CODIGO_TAREA") 
+	@SequenceGenerator(name="SEQ_CODIGO_TAREA",sequenceName="PROCESO.SEQ_CODIGO_TAREA", allocationSize=0) 
 	public long getCodigoTarea() {
 		return this.codigoTarea;
 	}
@@ -99,7 +104,7 @@ public class TareaJPA implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_dueno", nullable = false)
+	@JoinColumn(name = "codigo_dueno", nullable = true)
 	public UsuarioJPA getUsuario() {
 		return this.usuario;
 	}
@@ -155,7 +160,7 @@ public class TareaJPA implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_reclamo", nullable = false, length = 29)
+	@Column(name = "fecha_reclamo", nullable = true, length = 29)
 	public Date getFechaReclamo() {
 		return this.fechaReclamo;
 	}
@@ -165,7 +170,7 @@ public class TareaJPA implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_termino", nullable = false, length = 29)
+	@Column(name = "fecha_termino", nullable = true, length = 29)
 	public Date getFechaTermino() {
 		return this.fechaTermino;
 	}

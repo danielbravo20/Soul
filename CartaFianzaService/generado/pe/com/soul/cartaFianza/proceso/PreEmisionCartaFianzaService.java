@@ -1,12 +1,10 @@
 package pe.com.soul.cartaFianza.proceso;
 
-import java.util.Date;
-
 import javax.ejb.EJB;
 
-import pe.com.soul.core.dao.ProcesoDaoLocal;
 import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.service.portal.ProcesoServiceLocal;
 
 public abstract class PreEmisionCartaFianzaService implements EmisionCartaFianzaServiceLocal{
 
@@ -16,7 +14,7 @@ public abstract class PreEmisionCartaFianzaService implements EmisionCartaFianza
 	public static final String PROCESO_VERSION 					= "v1.0.0";
 	
 	@EJB
-	ProcesoDaoLocal procesoDaoLocal;
+	ProcesoServiceLocal procesoServiceLocal;
 	
 	public Proceso crearProceso(Usuario usuario) throws Exception {
 		
@@ -25,11 +23,11 @@ public abstract class PreEmisionCartaFianzaService implements EmisionCartaFianza
 		proceso.setNombre(PROCESO_NOMBRE);
 		proceso.setAleas(PROCESO_ALEAS);
 		proceso.setVersion(PROCESO_VERSION);
-		proceso.setFechaCreacion(new Date());
 		proceso.setUsuario(usuario);
-		proceso.setEstado('1');
 		
-		return procesoDaoLocal.guardar(proceso);
+		proceso = procesoServiceLocal.crear(proceso);
+		
+		return proceso;
 	}
 
 	

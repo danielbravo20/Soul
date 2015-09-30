@@ -20,12 +20,6 @@ public class ProcesoDao extends BaseDao<ProcesoJPA> implements ProcesoDaoLocal {
 	}
 
 	@Override
-	public Proceso actualizar(Proceso proceso) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Proceso guardar(Proceso proceso) {
 		
 		ProcesoPlantillaJPA procesoPlantillaJPA = new ProcesoPlantillaJPA();
@@ -43,7 +37,34 @@ public class ProcesoDao extends BaseDao<ProcesoJPA> implements ProcesoDaoLocal {
 		procesoJPA.setFechaCreacion(proceso.getFechaCreacion());
 		procesoJPA.setFechaTermino(proceso.getFechaTermino());
 		procesoJPA.setUsuario(usuarioJPA);
+		/*
+		Tarea tarea = proceso.getTareaInicial();
+		TareaJPA tareaJPA = new TareaJPA();
+		tareaJPA.setVersion(tarea.getVersion());
+		tareaJPA.setEstado(Tarea.ESTADO_PENDIENTE);
+		tareaJPA.setNombre(tarea.getNombre());
+		tareaJPA.setAleas(tarea.getAleas());
+		tareaJPA.setPrioridad(tarea.getPrioridad());
+		tareaJPA.setFechaCreacion(tarea.getFechaCreacion());
+		tareaJPA.setFechaReclamo(tarea.getFechaReclamo());
+		tareaJPA.setFechaTermino(tarea.getFechaTermino());
+		tareaJPA.setFechaUltimaModificacion(tarea.getFechaUltimaModificacion());
 		
+		TareaPlantillaJPA tareaPlantillaJPA = new TareaPlantillaJPA();
+		tareaPlantillaJPA.setCodigoTareaPlantilla(tarea.getTareaPlantilla().getCodigoTareaPlantilla());
+		
+		if(tarea.getDueno()!=null){
+			usuarioJPA.setCodigoUsuario(tarea.getDueno().getCodigo());
+		}
+		
+		tareaJPA.setProceso(procesoJPA);
+		tareaJPA.setTareaPlantilla(tareaPlantillaJPA);
+		tareaJPA.setUsuario(usuarioJPA);
+		
+		Set<TareaJPA> tareaJPAs = new HashSet<TareaJPA>();
+		tareaJPAs.add(tareaJPA);
+		procesoJPA.setTareas(tareaJPAs);
+		*/
 		procesoJPA = this.guardar(procesoJPA);
 		proceso.setCodigoProceso(procesoJPA.getCodigoProceso()); 
 		
