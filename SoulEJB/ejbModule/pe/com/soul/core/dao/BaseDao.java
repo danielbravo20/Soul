@@ -22,9 +22,13 @@ public class BaseDao<T> {
     }
 
     public T guardar(T entity) {
+    	em.getTransaction().begin();
     	em.persist(entity);
+    	em.getTransaction().commit();
+    	em.close();
     	return entity;
     }
+    
     
     public void eliminar(T entity) {
     	T entityToBeRemoved = em.merge(entity);

@@ -33,28 +33,30 @@ public class ProcesoService implements ProcesoServiceLocal {
 	public Proceso crear(Proceso proceso) throws Exception {
 		
 		Date fecha = new Date();
-		
 		proceso.setFechaCreacion(fecha);
 		proceso.setEstado(Proceso.ESTADO_EJECUTANDO);
+		proceso = procesoDaoLocal.guardar(proceso);
+		proceso.setTareaInicial(obtenerTarea(proceso));
+		return proceso;
+	}
+	
+	public Tarea obtenerTarea(Proceso proceso) throws Exception{
 		
 		TareaPlantilla tareaPlantilla = tareaPlantillaDaoLocal.obtenerPrimeraTarea(proceso);
+		
 		Tarea tarea = new Tarea();
 		tarea.setVersion(tareaPlantilla.getVersion());
 		tarea.setEstado(Tarea.ESTADO_PENDIENTE);
 		tarea.setNombre(tareaPlantilla.getNombre());
 		tarea.setAleas(tareaPlantilla.getAleas());
 		tarea.setPrioridad(tareaPlantilla.getPrioridad());
-		tarea.setFechaCreacion(fecha);
-		tarea.setFechaUltimaModificacion(fecha);
+		tarea.setFechaCreacion(proceso.getFechaCreacion());
+		tarea.setFechaUltimaModificacion(proceso.getFechaCreacion());
 		tarea.setProceso(proceso);
 		tarea.setTareaPlantilla(tareaPlantilla);
-		proceso.setTareaInicial(tarea);
+		tarea = tareaDaoLocal.guardar(tarea);
 		
-		proceso = procesoDaoLocal.guardar(proceso);
-		//tarea = tareaDaoLocal.guardar(tarea);
-		//proceso.setPrimeraTarea(tarea);
-		
-		return proceso;
+		return tarea;
 	}
 
 }

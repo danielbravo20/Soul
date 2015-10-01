@@ -45,13 +45,13 @@ INSERT INTO PROCESO.POTENCIAL_INICIADOR VALUES (6, 1);
 INSERT INTO PROCESO.POTENCIAL_INICIADOR VALUES (1, 2);
 INSERT INTO PROCESO.POTENCIAL_INICIADOR VALUES (1, 3);
 
-INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (1, 1, '1', 'Completar Solicitud', 'completarSolicitudV1', 'v1.0.0', 1);
-INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (2, 1, '1', 'Evaluar Solicitud', 'evaluarSolicitudV1', 'v1.0.0', 1);
-INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (3, 1, '1', 'Aprobar Solicitud', 'aprobarSolicitudV1', 'v1.0.0', 1);
-INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (4, 1, '1', 'Visar Solicitud', 'visarSolicitudV1', 'v1.0.0', 1);
-INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (5, 1, '1', 'Autorizar Operación', 'autorizarOperacionV1', 'v1.0.0', 1);
-INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (6, 1, '1', 'Imprimr Carta Fianza', 'imprimirCartaFianzaV1', 'v1.0.0', 1);
-INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (7, 1, '1', 'Entregar Carta Fianza', 'entregarCartaFianzaV1', 'v1.0.0', 1);
+INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (1, 1, '1', 'Completar Solicitud', 'completarSolicitudV1', 'v1.0.0', 1, 1);
+INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (2, 1, '1', 'Evaluar Solicitud', 'evaluarSolicitudV1', 'v1.0.0', 1, 2);
+INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (3, 1, '1', 'Aprobar Solicitud', 'aprobarSolicitudV1', 'v1.0.0', 1, 3);
+INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (4, 1, '1', 'Visar Solicitud', 'visarSolicitudV1', 'v1.0.0', 1, 4);
+INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (5, 1, '1', 'Autorizar Operación', 'autorizarOperacionV1', 'v1.0.0', 1, 5);
+INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (6, 1, '1', 'Imprimr Carta Fianza', 'imprimirCartaFianzaV1', 'v1.0.0', 1, 6);
+INSERT INTO PROCESO.TAREA_PLANTILLA VALUES (7, 1, '1', 'Entregar Carta Fianza', 'entregarCartaFianzaV1', 'v1.0.0', 1, 7);
 
 SELECT * FROM SEGURIDAD.USUARIO;
 SELECT * FROM SEGURIDAD.ROL;
