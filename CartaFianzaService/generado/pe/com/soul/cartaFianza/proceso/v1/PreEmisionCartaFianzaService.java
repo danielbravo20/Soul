@@ -1,10 +1,14 @@
-package pe.com.soul.cartaFianza.proceso;
+package pe.com.soul.cartaFianza.proceso.v1;
 
 import javax.ejb.EJB;
 
+import pe.com.soul.cartaFianza.emision.tarea.v1.TareaCompletarSolicitud;
+import pe.com.soul.cartaFianza.proceso.EmisionCartaFianzaServiceLocal;
 import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.proceso.servicio.SoulTarea;
 import pe.com.soul.core.service.portal.ProcesoServiceLocal;
+import pe.com.soul.core.service.portal.TareaServiceLocal;
 
 public abstract class PreEmisionCartaFianzaService implements EmisionCartaFianzaServiceLocal{
 
@@ -16,7 +20,10 @@ public abstract class PreEmisionCartaFianzaService implements EmisionCartaFianza
 	@EJB
 	ProcesoServiceLocal procesoServiceLocal;
 	
-	public Proceso crearProceso(Usuario usuario) throws Exception {
+	@EJB
+	TareaServiceLocal tareaServiceLocal;
+	
+	public Proceso crearInstancia(Usuario usuario) throws Exception {
 		
 		Proceso proceso = new Proceso();
 		proceso.setCodigoProcesoPlantilla(PROCESO_CODIGO_PLANTILLA_PROCESO);
@@ -24,11 +31,18 @@ public abstract class PreEmisionCartaFianzaService implements EmisionCartaFianza
 		proceso.setAleas(PROCESO_ALEAS);
 		proceso.setVersion(PROCESO_VERSION);
 		proceso.setUsuario(usuario);
+		proceso = procesoServiceLocal.crearInstancia(proceso);
 		
-		proceso = procesoServiceLocal.crear(proceso);
+		crearPrimeraActividad(proceso);
 		
 		return proceso;
 	}
-
+	
+	protected void crearPrimeraActividad(Proceso proceso) throws Exception{
+		
+		SoulTarea soulTarea = new TareaCompletarSolicitud();
+		tareaServiceLocal.crearTarea(soulTarea.obtenerTareaPlantilla(), proceso, null);
+		
+	}
 	
 }

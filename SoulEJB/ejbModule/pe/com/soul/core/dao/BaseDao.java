@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,17 +17,17 @@ public class BaseDao<T> {
 	@PersistenceContext(unitName = UNIT_NAME)
 	protected EntityManager em;
 	
+	@Resource
+	private SessionContext sessionContext;
+	
 	private Class<T> entityClass;
 
     public BaseDao(Class<T> entityClass) {
     	this.entityClass = entityClass;
     }
 
-    public T guardar(T entity) {
-    	em.getTransaction().begin();
+    public T guardar(T entity) throws Exception {
     	em.persist(entity);
-    	em.getTransaction().commit();
-    	em.close();
     	return entity;
     }
     

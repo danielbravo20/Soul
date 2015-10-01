@@ -38,7 +38,12 @@ public class ProcesoDao extends BaseDao<ProcesoJPA> implements ProcesoDaoLocal {
 		procesoJPA.setFechaTermino(proceso.getFechaTermino());
 		procesoJPA.setUsuario(usuarioJPA);
 		
-		procesoJPA = this.guardar(procesoJPA);
+		try {
+			procesoJPA = this.guardar(procesoJPA);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		proceso.setCodigoProceso(procesoJPA.getCodigoProceso()); 
 		
 		return proceso;

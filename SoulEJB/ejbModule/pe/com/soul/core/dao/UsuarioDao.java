@@ -104,7 +104,12 @@ public class UsuarioDao extends BaseDao<UsuarioJPA> implements UsuarioDaoLocal {
 	public void guardar(Usuario usuario) {
 		UsuarioJPA usuarioJPA = new UsuarioJPA();
 		
-		guardar(usuarioJPA);
+		try {
+			guardar(usuarioJPA);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@SuppressWarnings({"unchecked", "rawtypes" })

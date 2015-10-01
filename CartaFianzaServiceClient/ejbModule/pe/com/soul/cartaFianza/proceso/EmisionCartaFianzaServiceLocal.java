@@ -2,12 +2,11 @@ package pe.com.soul.cartaFianza.proceso;
 
 import javax.ejb.Local;
 
-import pe.com.soul.core.modelo.Proceso;
-import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.proceso.servicio.SoulProceso;
 
 @Local
-public interface EmisionCartaFianzaServiceLocal {
+public interface EmisionCartaFianzaServiceLocal extends SoulProceso{
 
-	Proceso crearProceso(Usuario usuario) throws Exception;
+	
 	
 }

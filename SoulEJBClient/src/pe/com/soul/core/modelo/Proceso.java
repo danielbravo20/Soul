@@ -19,7 +19,6 @@ public class Proceso extends BaseBean{
 	private Date fechaCreacion;
 	private Date fechaTermino;
 	private Usuario usuario;
-	private Tarea tareaInicial;
 	
 	public long getCodigoProceso() {
 		return codigoProceso;
@@ -74,12 +73,6 @@ public class Proceso extends BaseBean{
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-	public Tarea getTareaInicial() {
-		return tareaInicial;
-	}
-	public void setTareaInicial(Tarea tareaInicial) {
-		this.tareaInicial = tareaInicial;
 	}
 
 }

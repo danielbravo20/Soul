@@ -28,7 +28,7 @@ public abstract class PreEmisionCartaFianzaV1 extends BaseProcesoController{
 		
 		if(mensajeValidacion.isConforme()){
 			respuesta.setResultado(true);
-			respuesta.setRespuesta(emisionCartaFianzaServiceLocal.crearProceso(usuario));
+			respuesta.setRespuesta(emisionCartaFianzaServiceLocal.crearInstancia(usuario));
 		}else{
 			respuesta.setResultado(false);
 			respuesta.setRespuesta(mensajeValidacion);

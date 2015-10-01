@@ -12,6 +12,25 @@ public class TareaPlantilla extends BaseBean{
 	private int prioridad;
 	private int orden;
 	
+	public TareaPlantilla() {
+	}
+	
+	public TareaPlantilla(	long codigoTareaPlantilla, 
+							String version,
+							char estado,
+							String nombre,
+							String aleas,
+							int prioridad,
+							int orden) {
+		this.codigoTareaPlantilla = codigoTareaPlantilla;
+		this.version = version;
+		this.estado = estado;
+		this.nombre = nombre;
+		this.aleas = aleas;
+		this.prioridad = prioridad;
+		this.orden = orden;
+	}
+	
 	public long getCodigoTareaPlantilla() {
 		return codigoTareaPlantilla;
 	}
