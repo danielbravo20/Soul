@@ -1,6 +1,6 @@
-package pe.com.soul.core.dao.jpa;
+package pe.com.soul.core.dao.entities;
 
-// Generated 25/09/2015 04:29:28 PM by Hibernate Tools 4.3.1
+// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tarea_plantilla", schema = "proceso")
-public class TareaPlantillaJPA implements java.io.Serializable {
+public class TareaPlantillaEntity implements java.io.Serializable {
 
 	/**
 	 * 
@@ -28,41 +28,43 @@ public class TareaPlantillaJPA implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private long codigoTareaPlantilla;
 	private String version;
-	private ProcesoPlantillaJPA procesoPlantilla;
+	private ProcesoPlantillaEntity procesoPlantilla;
 	private char estado;
 	private String nombre;
 	private String aleas;
-	private int orden;
 	private int prioridad;
-	private Set<RolJPA> rols = new HashSet<RolJPA>(0);
-	private Set<RolJPA> rols_1 = new HashSet<RolJPA>(0);
-	private Set<RolJPA> rols_2 = new HashSet<RolJPA>(0);
-	private Set<TareaJPA> tareas = new HashSet<TareaJPA>(0);
+	private int orden;
+	private Set<RolEntity> rols = new HashSet<RolEntity>(0);
+	private Set<RolEntity> rols_1 = new HashSet<RolEntity>(0);
+	private Set<RolEntity> rols_2 = new HashSet<RolEntity>(0);
+	private Set<TareaEntity> tareas = new HashSet<TareaEntity>(0);
 
-	public TareaPlantillaJPA() {
+	public TareaPlantillaEntity() {
 	}
 
-	public TareaPlantillaJPA(long codigoTareaPlantilla,
-			ProcesoPlantillaJPA procesoPlantilla, char estado, String nombre,
-			String aleas, int prioridad) {
+	public TareaPlantillaEntity(long codigoTareaPlantilla,
+			ProcesoPlantillaEntity procesoPlantilla, char estado, String nombre,
+			String aleas, int prioridad, int orden) {
 		this.codigoTareaPlantilla = codigoTareaPlantilla;
 		this.procesoPlantilla = procesoPlantilla;
 		this.estado = estado;
 		this.nombre = nombre;
 		this.aleas = aleas;
 		this.prioridad = prioridad;
+		this.orden = orden;
 	}
 
-	public TareaPlantillaJPA(long codigoTareaPlantilla,
-			ProcesoPlantillaJPA procesoPlantilla, char estado, String nombre,
-			String aleas, int prioridad, Set<RolJPA> rols, Set<RolJPA> rols_1,
-			Set<RolJPA> rols_2, Set<TareaJPA> tareas) {
+	public TareaPlantillaEntity(long codigoTareaPlantilla,
+			ProcesoPlantillaEntity procesoPlantilla, char estado, String nombre,
+			String aleas, int prioridad, int orden, Set<RolEntity> rols,
+			Set<RolEntity> rols_1, Set<RolEntity> rols_2, Set<TareaEntity> tareas) {
 		this.codigoTareaPlantilla = codigoTareaPlantilla;
 		this.procesoPlantilla = procesoPlantilla;
 		this.estado = estado;
 		this.nombre = nombre;
 		this.aleas = aleas;
 		this.prioridad = prioridad;
+		this.orden = orden;
 		this.rols = rols;
 		this.rols_1 = rols_1;
 		this.rols_2 = rols_2;
@@ -90,11 +92,11 @@ public class TareaPlantillaJPA implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_proceso_plantilla", nullable = false)
-	public ProcesoPlantillaJPA getProcesoPlantilla() {
+	public ProcesoPlantillaEntity getProcesoPlantilla() {
 		return this.procesoPlantilla;
 	}
 
-	public void setProcesoPlantilla(ProcesoPlantillaJPA procesoPlantilla) {
+	public void setProcesoPlantilla(ProcesoPlantillaEntity procesoPlantilla) {
 		this.procesoPlantilla = procesoPlantilla;
 	}
 
@@ -134,53 +136,52 @@ public class TareaPlantillaJPA implements java.io.Serializable {
 		this.prioridad = prioridad;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "potencial_dueno", schema = "proceso", joinColumns = { @JoinColumn(name = "codigo_tarea_plantilla", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
-	public Set<RolJPA> getRols() {
-		return this.rols;
-	}
-
-	public void setRols(Set<RolJPA> rols) {
-		this.rols = rols;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "editor_tarea", schema = "proceso", joinColumns = { @JoinColumn(name = "codigo_tarea_plantilla", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
-	public Set<RolJPA> getRols_1() {
-		return this.rols_1;
-	}
-
-	public void setRols_1(Set<RolJPA> rols_1) {
-		this.rols_1 = rols_1;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "administrador_tarea", schema = "proceso", joinColumns = { @JoinColumn(name = "codigo_tarea_plantilla", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
-	public Set<RolJPA> getRols_2() {
-		return this.rols_2;
-	}
-
-	public void setRols_2(Set<RolJPA> rols_2) {
-		this.rols_2 = rols_2;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tareaPlantilla")
-	public Set<TareaJPA> getTareas() {
-		return this.tareas;
-	}
-
-	public void setTareas(Set<TareaJPA> tareas) {
-		this.tareas = tareas;
-	}
-
 	@Column(name = "orden", nullable = false)
 	public int getOrden() {
-		return orden;
+		return this.orden;
 	}
 
 	public void setOrden(int orden) {
 		this.orden = orden;
 	}
 
-	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "potencial_dueno", schema = "proceso", joinColumns = { @JoinColumn(name = "codigo_tarea_plantilla", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
+	public Set<RolEntity> getRols() {
+		return this.rols;
+	}
+
+	public void setRols(Set<RolEntity> rols) {
+		this.rols = rols;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "editor_tarea", schema = "proceso", joinColumns = { @JoinColumn(name = "codigo_tarea_plantilla", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
+	public Set<RolEntity> getRols_1() {
+		return this.rols_1;
+	}
+
+	public void setRols_1(Set<RolEntity> rols_1) {
+		this.rols_1 = rols_1;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "administrador_tarea", schema = "proceso", joinColumns = { @JoinColumn(name = "codigo_tarea_plantilla", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
+	public Set<RolEntity> getRols_2() {
+		return this.rols_2;
+	}
+
+	public void setRols_2(Set<RolEntity> rols_2) {
+		this.rols_2 = rols_2;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tareaPlantilla")
+	public Set<TareaEntity> getTareas() {
+		return this.tareas;
+	}
+
+	public void setTareas(Set<TareaEntity> tareas) {
+		this.tareas = tareas;
+	}
+
 }

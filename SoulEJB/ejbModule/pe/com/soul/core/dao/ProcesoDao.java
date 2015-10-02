@@ -3,9 +3,9 @@ package pe.com.soul.core.dao;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import pe.com.soul.core.dao.jpa.ProcesoJPA;
-import pe.com.soul.core.dao.jpa.ProcesoPlantillaJPA;
-import pe.com.soul.core.dao.jpa.UsuarioJPA;
+import pe.com.soul.core.dao.entities.ProcesoEntity;
+import pe.com.soul.core.dao.entities.ProcesoPlantillaEntity;
+import pe.com.soul.core.dao.entities.UsuarioEntity;
 import pe.com.soul.core.modelo.Proceso;
 
 /**
@@ -13,38 +13,37 @@ import pe.com.soul.core.modelo.Proceso;
  */
 @Stateless
 @LocalBean
-public class ProcesoDao extends BaseDao<ProcesoJPA> implements ProcesoDaoLocal {
+public class ProcesoDao extends BaseDao<ProcesoEntity> implements ProcesoDaoLocal {
 
 	public ProcesoDao() {
-		super(ProcesoJPA.class);
+		super(ProcesoEntity.class);
 	}
 
 	@Override
 	public Proceso guardar(Proceso proceso) {
 		
-		ProcesoPlantillaJPA procesoPlantillaJPA = new ProcesoPlantillaJPA();
-		procesoPlantillaJPA.setCodigoProcesoPlantilla(proceso.getCodigoProcesoPlantilla());
+		ProcesoPlantillaEntity procesoPlantillaEntity = new ProcesoPlantillaEntity();
+		procesoPlantillaEntity.setCodigoProcesoPlantilla(proceso.getCodigoProcesoPlantilla());
 		
-		UsuarioJPA usuarioJPA = new UsuarioJPA();
-		usuarioJPA.setCodigoUsuario(proceso.getUsuario().getCodigo());
+		UsuarioEntity usuarioEntity = new UsuarioEntity();
+		usuarioEntity.setCodigoUsuario(proceso.getUsuario().getCodigo());
 		
-		ProcesoJPA procesoJPA = new ProcesoJPA();
-		procesoJPA.setProcesoPlantilla(procesoPlantillaJPA);
-		procesoJPA.setEstado(proceso.getEstado());
-		procesoJPA.setAleas(proceso.getAleas());
-		procesoJPA.setNombre(proceso.getNombre());
-		procesoJPA.setVersion(proceso.getVersion());
-		procesoJPA.setFechaCreacion(proceso.getFechaCreacion());
-		procesoJPA.setFechaTermino(proceso.getFechaTermino());
-		procesoJPA.setUsuario(usuarioJPA);
+		ProcesoEntity procesoEntity = new ProcesoEntity();
+		procesoEntity.setProcesoPlantilla(procesoPlantillaEntity);
+		procesoEntity.setEstado(proceso.getEstado());
+		procesoEntity.setAleas(proceso.getAleas());
+		procesoEntity.setNombre(proceso.getNombre());
+		procesoEntity.setVersion(proceso.getVersion());
+		procesoEntity.setFechaCreacion(proceso.getFechaCreacion());
+		procesoEntity.setFechaTermino(proceso.getFechaTermino());
+		procesoEntity.setUsuario(usuarioEntity);
 		
 		try {
-			procesoJPA = this.guardar(procesoJPA);
+			procesoEntity = this.guardar(procesoEntity);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		proceso.setCodigoProceso(procesoJPA.getCodigoProceso()); 
+		proceso.setCodigoProceso(procesoEntity.getCodigoProceso()); 
 		
 		return proceso;
 		

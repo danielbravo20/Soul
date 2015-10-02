@@ -1,6 +1,6 @@
-package pe.com.soul.core.dao.jpa;
+package pe.com.soul.core.dao.entities;
 
-// Generated 25/09/2015 04:29:28 PM by Hibernate Tools 4.3.1
+// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "rol", schema = "seguridad")
-public class RolJPA implements java.io.Serializable {
+public class RolEntity implements java.io.Serializable {
 
 	/**
 	 * 
@@ -26,28 +26,32 @@ public class RolJPA implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private long codigoRol;
 	private String nombre;
-	private Set<TareaPlantillaJPA> tareaPlantillas = new HashSet<TareaPlantillaJPA>(0);
-	private Set<ModuloJPA> modulos = new HashSet<ModuloJPA>(0);
-	private Set<ProcesoPlantillaJPA> procesoPlantillas = new HashSet<ProcesoPlantillaJPA>(0);
-	private Set<TareaPlantillaJPA> tareaPlantillas_1 = new HashSet<TareaPlantillaJPA>(0);
-	private Set<TareaPlantillaJPA> tareaPlantillas_2 = new HashSet<TareaPlantillaJPA>(0);
-	private Set<ProcesoPlantillaJPA> procesoPlantillas_1 = new HashSet<ProcesoPlantillaJPA>(0);
-	private Set<UsuarioJPA> usuarios = new HashSet<UsuarioJPA>(0);
+	private Set<TareaPlantillaEntity> tareaPlantillas = new HashSet<TareaPlantillaEntity>(0);
+	private Set<ModuloEntity> modulos = new HashSet<ModuloEntity>(0);
+	private Set<ProcesoPlantillaEntity> procesoPlantillas = new HashSet<ProcesoPlantillaEntity>(
+			0);
+	private Set<TareaPlantillaEntity> tareaPlantillas_1 = new HashSet<TareaPlantillaEntity>(
+			0);
+	private Set<TareaPlantillaEntity> tareaPlantillas_2 = new HashSet<TareaPlantillaEntity>(
+			0);
+	private Set<ProcesoPlantillaEntity> procesoPlantillas_1 = new HashSet<ProcesoPlantillaEntity>(
+			0);
+	private Set<UsuarioEntity> usuarios = new HashSet<UsuarioEntity>(0);
 
-	public RolJPA() {
+	public RolEntity() {
 	}
 
-	public RolJPA(long codigoRol, String nombre) {
+	public RolEntity(long codigoRol, String nombre) {
 		this.codigoRol = codigoRol;
 		this.nombre = nombre;
 	}
 
-	public RolJPA(long codigoRol, String nombre,
-			Set<TareaPlantillaJPA> tareaPlantillas, Set<ModuloJPA> modulos,
-			Set<ProcesoPlantillaJPA> procesoPlantillas,
-			Set<TareaPlantillaJPA> tareaPlantillas_1,
-			Set<TareaPlantillaJPA> tareaPlantillas_2,
-			Set<ProcesoPlantillaJPA> procesoPlantillas_1, Set<UsuarioJPA> usuarios) {
+	public RolEntity(long codigoRol, String nombre,
+			Set<TareaPlantillaEntity> tareaPlantillas, Set<ModuloEntity> modulos,
+			Set<ProcesoPlantillaEntity> procesoPlantillas,
+			Set<TareaPlantillaEntity> tareaPlantillas_1,
+			Set<TareaPlantillaEntity> tareaPlantillas_2,
+			Set<ProcesoPlantillaEntity> procesoPlantillas_1, Set<UsuarioEntity> usuarios) {
 		this.codigoRol = codigoRol;
 		this.nombre = nombre;
 		this.tareaPlantillas = tareaPlantillas;
@@ -79,66 +83,66 @@ public class RolJPA implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
-	public Set<TareaPlantillaJPA> getTareaPlantillas() {
+	public Set<TareaPlantillaEntity> getTareaPlantillas() {
 		return this.tareaPlantillas;
 	}
 
-	public void setTareaPlantillas(Set<TareaPlantillaJPA> tareaPlantillas) {
+	public void setTareaPlantillas(Set<TareaPlantillaEntity> tareaPlantillas) {
 		this.tareaPlantillas = tareaPlantillas;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "modulo_rol", schema = "seguridad", joinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_modulo", nullable = false, updatable = false) })
-	public Set<ModuloJPA> getModulos() {
+	public Set<ModuloEntity> getModulos() {
 		return this.modulos;
 	}
 
-	public void setModulos(Set<ModuloJPA> modulos) {
+	public void setModulos(Set<ModuloEntity> modulos) {
 		this.modulos = modulos;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols_1")
-	public Set<ProcesoPlantillaJPA> getProcesoPlantillas() {
+	public Set<ProcesoPlantillaEntity> getProcesoPlantillas() {
 		return this.procesoPlantillas;
 	}
 
-	public void setProcesoPlantillas(Set<ProcesoPlantillaJPA> procesoPlantillas) {
+	public void setProcesoPlantillas(Set<ProcesoPlantillaEntity> procesoPlantillas) {
 		this.procesoPlantillas = procesoPlantillas;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
-	public Set<TareaPlantillaJPA> getTareaPlantillas_1() {
+	public Set<TareaPlantillaEntity> getTareaPlantillas_1() {
 		return this.tareaPlantillas_1;
 	}
 
-	public void setTareaPlantillas_1(Set<TareaPlantillaJPA> tareaPlantillas_1) {
+	public void setTareaPlantillas_1(Set<TareaPlantillaEntity> tareaPlantillas_1) {
 		this.tareaPlantillas_1 = tareaPlantillas_1;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
-	public Set<TareaPlantillaJPA> getTareaPlantillas_2() {
+	public Set<TareaPlantillaEntity> getTareaPlantillas_2() {
 		return this.tareaPlantillas_2;
 	}
 
-	public void setTareaPlantillas_2(Set<TareaPlantillaJPA> tareaPlantillas_2) {
+	public void setTareaPlantillas_2(Set<TareaPlantillaEntity> tareaPlantillas_2) {
 		this.tareaPlantillas_2 = tareaPlantillas_2;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
-	public Set<ProcesoPlantillaJPA> getProcesoPlantillas_1() {
+	public Set<ProcesoPlantillaEntity> getProcesoPlantillas_1() {
 		return this.procesoPlantillas_1;
 	}
 
-	public void setProcesoPlantillas_1(Set<ProcesoPlantillaJPA> procesoPlantillas_1) {
+	public void setProcesoPlantillas_1(Set<ProcesoPlantillaEntity> procesoPlantillas_1) {
 		this.procesoPlantillas_1 = procesoPlantillas_1;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
-	public Set<UsuarioJPA> getUsuarios() {
+	public Set<UsuarioEntity> getUsuarios() {
 		return this.usuarios;
 	}
 
-	public void setUsuarios(Set<UsuarioJPA> usuarios) {
+	public void setUsuarios(Set<UsuarioEntity> usuarios) {
 		this.usuarios = usuarios;
 	}
 
