@@ -40,6 +40,7 @@ public class UsuarioDao extends BaseDao<UsuarioEntity> implements UsuarioDaoLoca
     	UsuarioEntity usuarioEntity = buscarRegistro(consulta, "parametro", usuarioId);
     	Usuario usuario = new Usuario();
     	usuario.setCodigo(usuarioEntity.getCodigoUsuario());
+    	usuario.setUsuario(usuarioEntity.getUsuario());
     	usuario.setEstado(usuarioEntity.getEstado());
     	usuario.setCorreo(usuarioEntity.getCorreo());
     	usuario.setNombreCompleto(usuarioEntity.getNombreCompleto());

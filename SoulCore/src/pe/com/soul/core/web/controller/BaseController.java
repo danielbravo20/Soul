@@ -15,7 +15,6 @@ import com.google.gson.GsonBuilder;
 
 import pe.com.soul.core.modelo.Usuario;
 import pe.com.soul.core.seguridad.service.SeguridadServiceLocal;
-import pe.com.soul.core.service.portal.PortalServiceLocal;
 import pe.com.soul.core.web.bean.Respuesta;
 
 public abstract class BaseController extends HttpServlet {
