@@ -6,7 +6,7 @@ import pe.com.soul.cartaFianza.emision.tarea.v1.TareaCompletarSolicitud;
 import pe.com.soul.cartaFianza.proceso.EmisionCartaFianzaServiceLocal;
 import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Usuario;
-import pe.com.soul.core.proceso.servicio.SoulTarea;
+import pe.com.soul.core.proceso.servicio.BaseTarea;
 import pe.com.soul.core.service.portal.ProcesoServiceLocal;
 import pe.com.soul.core.service.portal.TareaServiceLocal;
 
@@ -40,7 +40,7 @@ public abstract class PreEmisionCartaFianzaService implements EmisionCartaFianza
 	
 	protected void crearPrimeraActividad(Proceso proceso, Usuario usuario) throws Exception{
 		
-		SoulTarea soulTarea = new TareaCompletarSolicitud();
+		BaseTarea soulTarea = new TareaCompletarSolicitud();
 		tareaServiceLocal.crearTarea(soulTarea.obtenerTareaPlantilla(), proceso, usuario);
 		
 	}

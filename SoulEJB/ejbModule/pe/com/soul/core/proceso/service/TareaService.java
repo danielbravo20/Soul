@@ -1,4 +1,4 @@
-package pe.com.soul.core.service.portal;
+package pe.com.soul.core.proceso.service;
 
 import java.util.Date;
 import java.util.List;
@@ -12,6 +12,7 @@ import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Tarea;
 import pe.com.soul.core.modelo.TareaPlantilla;
 import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.service.portal.TareaServiceLocal;
 
 /**
  * Session Bean implementation class TareaService

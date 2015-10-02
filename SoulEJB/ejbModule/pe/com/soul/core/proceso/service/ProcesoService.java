@@ -1,4 +1,4 @@
-package pe.com.soul.core.service.portal;
+package pe.com.soul.core.proceso.service;
 
 import java.util.Date;
 
@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 
 import pe.com.soul.core.dao.ProcesoDaoLocal;
 import pe.com.soul.core.modelo.Proceso;
+import pe.com.soul.core.service.portal.ProcesoServiceLocal;
 
 /**
  * Session Bean implementation class ProcesoService
