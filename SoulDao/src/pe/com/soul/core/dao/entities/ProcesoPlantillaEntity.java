@@ -1,6 +1,6 @@
-package pe.com.soul.core.dao.jpa;
+package pe.com.soul.core.dao.entities;
 
-// Generated 25/09/2015 04:29:28 PM by Hibernate Tools 4.3.1
+// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "proceso_plantilla", schema = "proceso")
-public class ProcesoPlantillaJPA implements java.io.Serializable {
+public class ProcesoPlantillaEntity implements java.io.Serializable {
 
 	/**
 	 * 
@@ -35,15 +35,15 @@ public class ProcesoPlantillaJPA implements java.io.Serializable {
 	private String aleas;
 	private Date fechaValidez;
 	private boolean flagTodosInician;
-	private Set<RolJPA> rols = new HashSet<RolJPA>(0);
-	private Set<ProcesoJPA> procesos = new HashSet<ProcesoJPA>(0);
-	private Set<TareaPlantillaJPA> tareaPlantillas = new HashSet<TareaPlantillaJPA>(0);
-	private Set<RolJPA> rols_1 = new HashSet<RolJPA>(0);
+	private Set<RolEntity> rols = new HashSet<RolEntity>(0);
+	private Set<ProcesoEntity> procesos = new HashSet<ProcesoEntity>(0);
+	private Set<TareaPlantillaEntity> tareaPlantillas = new HashSet<TareaPlantillaEntity>(0);
+	private Set<RolEntity> rols_1 = new HashSet<RolEntity>(0);
 
-	public ProcesoPlantillaJPA() {
+	public ProcesoPlantillaEntity() {
 	}
 
-	public ProcesoPlantillaJPA(long codigoProcesoPlantilla, char estado,
+	public ProcesoPlantillaEntity(long codigoProcesoPlantilla, char estado,
 			String nombre, String aleas, Date fechaValidez,
 			boolean flagTodosInician) {
 		this.codigoProcesoPlantilla = codigoProcesoPlantilla;
@@ -54,10 +54,10 @@ public class ProcesoPlantillaJPA implements java.io.Serializable {
 		this.flagTodosInician = flagTodosInician;
 	}
 
-	public ProcesoPlantillaJPA(long codigoProcesoPlantilla, char estado,
+	public ProcesoPlantillaEntity(long codigoProcesoPlantilla, char estado,
 			String nombre, String aleas, Date fechaValidez,
-			boolean flagTodosInician, Set<RolJPA> rols, Set<ProcesoJPA> procesos,
-			Set<TareaPlantillaJPA> tareaPlantillas, Set<RolJPA> rols_1) {
+			boolean flagTodosInician, Set<RolEntity> rols, Set<ProcesoEntity> procesos,
+			Set<TareaPlantillaEntity> tareaPlantillas, Set<RolEntity> rols_1) {
 		this.codigoProcesoPlantilla = codigoProcesoPlantilla;
 		this.estado = estado;
 		this.nombre = nombre;
@@ -137,39 +137,39 @@ public class ProcesoPlantillaJPA implements java.io.Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "potencial_iniciador", schema = "proceso", joinColumns = { @JoinColumn(name = "codigo_proceso_plantilla", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "rol_codigo_rol", nullable = false, updatable = false) })
-	public Set<RolJPA> getRols() {
+	public Set<RolEntity> getRols() {
 		return this.rols;
 	}
 
-	public void setRols(Set<RolJPA> rols) {
+	public void setRols(Set<RolEntity> rols) {
 		this.rols = rols;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "procesoPlantilla")
-	public Set<ProcesoJPA> getProcesos() {
+	public Set<ProcesoEntity> getProcesos() {
 		return this.procesos;
 	}
 
-	public void setProcesos(Set<ProcesoJPA> procesos) {
+	public void setProcesos(Set<ProcesoEntity> procesos) {
 		this.procesos = procesos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "procesoPlantilla")
-	public Set<TareaPlantillaJPA> getTareaPlantillas() {
+	public Set<TareaPlantillaEntity> getTareaPlantillas() {
 		return this.tareaPlantillas;
 	}
 
-	public void setTareaPlantillas(Set<TareaPlantillaJPA> tareaPlantillas) {
+	public void setTareaPlantillas(Set<TareaPlantillaEntity> tareaPlantillas) {
 		this.tareaPlantillas = tareaPlantillas;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "administrador_proceso", schema = "proceso", joinColumns = { @JoinColumn(name = "codigo_proceso_plantilla", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
-	public Set<RolJPA> getRols_1() {
+	public Set<RolEntity> getRols_1() {
 		return this.rols_1;
 	}
 
-	public void setRols_1(Set<RolJPA> rols_1) {
+	public void setRols_1(Set<RolEntity> rols_1) {
 		this.rols_1 = rols_1;
 	}
 

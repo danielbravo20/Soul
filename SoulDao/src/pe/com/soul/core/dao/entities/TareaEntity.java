@@ -1,14 +1,17 @@
-package pe.com.soul.core.dao.jpa;
+package pe.com.soul.core.dao.entities;
 
-// Generated 25/09/2015 04:29:28 PM by Hibernate Tools 4.3.1
+// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,7 +21,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tarea", schema = "proceso")
-public class TareaJPA implements java.io.Serializable {
+public class TareaEntity implements java.io.Serializable {
 
 	/**
 	 * 
@@ -26,9 +29,8 @@ public class TareaJPA implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private long codigoTarea;
 	private String version;
-	private ProcesoJPA proceso;
-	private TareaPlantillaJPA tareaPlantilla;
-	private UsuarioJPA usuario;
+	private ProcesoEntity proceso;
+	private TareaPlantillaEntity tareaPlantilla;
 	private char estado;
 	private String nombre;
 	private String aleas;
@@ -37,18 +39,33 @@ public class TareaJPA implements java.io.Serializable {
 	private Date fechaReclamo;
 	private Date fechaTermino;
 	private Date fechaUltimaModificacion;
+	private String dueno;
 
-	public TareaJPA() {
+	public TareaEntity() {
 	}
 
-	public TareaJPA(long codigoTarea, ProcesoJPA proceso,
-			TareaPlantillaJPA tareaPlantilla, UsuarioJPA usuario, char estado,
-			String nombre, String aleas, int prioridad, Date fechaCreacion,
-			Date fechaReclamo, Date fechaTermino, Date fechaUltimaModificacion) {
+	public TareaEntity(long codigoTarea, ProcesoEntity proceso,
+			TareaPlantillaEntity tareaPlantilla, char estado, String nombre,
+			String aleas, int prioridad, Date fechaCreacion,
+			Date fechaUltimaModificacion) {
 		this.codigoTarea = codigoTarea;
 		this.proceso = proceso;
 		this.tareaPlantilla = tareaPlantilla;
-		this.usuario = usuario;
+		this.estado = estado;
+		this.nombre = nombre;
+		this.aleas = aleas;
+		this.prioridad = prioridad;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaUltimaModificacion = fechaUltimaModificacion;
+	}
+
+	public TareaEntity(long codigoTarea, ProcesoEntity proceso,
+			TareaPlantillaEntity tareaPlantilla, char estado, String nombre,
+			String aleas, int prioridad, Date fechaCreacion, Date fechaReclamo,
+			Date fechaTermino, Date fechaUltimaModificacion, String dueno) {
+		this.codigoTarea = codigoTarea;
+		this.proceso = proceso;
+		this.tareaPlantilla = tareaPlantilla;
 		this.estado = estado;
 		this.nombre = nombre;
 		this.aleas = aleas;
@@ -57,9 +74,12 @@ public class TareaJPA implements java.io.Serializable {
 		this.fechaReclamo = fechaReclamo;
 		this.fechaTermino = fechaTermino;
 		this.fechaUltimaModificacion = fechaUltimaModificacion;
+		this.dueno = dueno;
 	}
 
 	@Id
+	@GeneratedValue(generator="id_seq_codigo_tarea") 
+    @SequenceGenerator(name="id_seq_codigo_tarea",sequenceName="proceso.seq_codigo_tarea", allocationSize=0)
 	@Column(name = "codigo_tarea", unique = true, nullable = false)
 	public long getCodigoTarea() {
 		return this.codigoTarea;
@@ -80,32 +100,22 @@ public class TareaJPA implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_proceso", nullable = false)
-	public ProcesoJPA getProceso() {
+	public ProcesoEntity getProceso() {
 		return this.proceso;
 	}
 
-	public void setProceso(ProcesoJPA proceso) {
+	public void setProceso(ProcesoEntity proceso) {
 		this.proceso = proceso;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_tarea_plantilla", nullable = false)
-	public TareaPlantillaJPA getTareaPlantilla() {
+	public TareaPlantillaEntity getTareaPlantilla() {
 		return this.tareaPlantilla;
 	}
 
-	public void setTareaPlantilla(TareaPlantillaJPA tareaPlantilla) {
+	public void setTareaPlantilla(TareaPlantillaEntity tareaPlantilla) {
 		this.tareaPlantilla = tareaPlantilla;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_dueno", nullable = false)
-	public UsuarioJPA getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(UsuarioJPA usuario) {
-		this.usuario = usuario;
 	}
 
 	@Column(name = "estado", nullable = false, length = 1)
@@ -155,7 +165,7 @@ public class TareaJPA implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_reclamo", nullable = false, length = 29)
+	@Column(name = "fecha_reclamo", length = 29)
 	public Date getFechaReclamo() {
 		return this.fechaReclamo;
 	}
@@ -165,7 +175,7 @@ public class TareaJPA implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_termino", nullable = false, length = 29)
+	@Column(name = "fecha_termino", length = 29)
 	public Date getFechaTermino() {
 		return this.fechaTermino;
 	}
@@ -182,6 +192,15 @@ public class TareaJPA implements java.io.Serializable {
 
 	public void setFechaUltimaModificacion(Date fechaUltimaModificacion) {
 		this.fechaUltimaModificacion = fechaUltimaModificacion;
+	}
+
+	@Column(name = "dueno", length = 40)
+	public String getDueno() {
+		return this.dueno;
+	}
+
+	public void setDueno(String dueno) {
+		this.dueno = dueno;
 	}
 
 }

@@ -6,6 +6,10 @@ public class Proceso extends BaseBean{
 
 	private static final long serialVersionUID = 1L;
 
+	public static final char ESTADO_EJECUTANDO = '1';
+	public static final char ESTADO_FINALIZADO = '2';
+	public static final char ESTADO_TERMINADO = '3';
+	
 	private long codigoProceso;
 	private long codigoProcesoPlantilla;
 	private String version;
@@ -15,6 +19,7 @@ public class Proceso extends BaseBean{
 	private Date fechaCreacion;
 	private Date fechaTermino;
 	private Usuario usuario;
+	
 	public long getCodigoProceso() {
 		return codigoProceso;
 	}
@@ -69,6 +74,5 @@ public class Proceso extends BaseBean{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
+
 }

@@ -1,6 +1,6 @@
-package pe.com.soul.core.dao.jpa;
+package pe.com.soul.core.dao.entities;
 
-// Generated 25/09/2015 04:29:28 PM by Hibernate Tools 4.3.1
+// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuario", schema = "seguridad")
-public class UsuarioJPA implements java.io.Serializable {
+public class UsuarioEntity implements java.io.Serializable {
 
 	/**
 	 * 
@@ -31,14 +31,13 @@ public class UsuarioJPA implements java.io.Serializable {
 	private String clave;
 	private String nombreCompleto;
 	private String correo;
-	private Set<ProcesoJPA> procesos = new HashSet<ProcesoJPA>(0);
-	private Set<TareaJPA> tareas = new HashSet<TareaJPA>(0);
-	private Set<RolJPA> rols = new HashSet<RolJPA>(0);
+	private Set<ProcesoEntity> procesos = new HashSet<ProcesoEntity>(0);
+	private Set<RolEntity> rols = new HashSet<RolEntity>(0);
 
-	public UsuarioJPA() {
+	public UsuarioEntity() {
 	}
 
-	public UsuarioJPA(long codigoUsuario, char estado, String usuario,
+	public UsuarioEntity(long codigoUsuario, char estado, String usuario,
 			String clave, String nombreCompleto) {
 		this.codigoUsuario = codigoUsuario;
 		this.estado = estado;
@@ -47,9 +46,9 @@ public class UsuarioJPA implements java.io.Serializable {
 		this.nombreCompleto = nombreCompleto;
 	}
 
-	public UsuarioJPA(long codigoUsuario, char estado, String usuario,
+	public UsuarioEntity(long codigoUsuario, char estado, String usuario,
 			String clave, String nombreCompleto, String correo,
-			Set<ProcesoJPA> procesos, Set<TareaJPA> tareas, Set<RolJPA> rols) {
+			Set<ProcesoEntity> procesos, Set<RolEntity> rols) {
 		this.codigoUsuario = codigoUsuario;
 		this.estado = estado;
 		this.usuario = usuario;
@@ -57,7 +56,6 @@ public class UsuarioJPA implements java.io.Serializable {
 		this.nombreCompleto = nombreCompleto;
 		this.correo = correo;
 		this.procesos = procesos;
-		this.tareas = tareas;
 		this.rols = rols;
 	}
 
@@ -117,30 +115,21 @@ public class UsuarioJPA implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-	public Set<ProcesoJPA> getProcesos() {
+	public Set<ProcesoEntity> getProcesos() {
 		return this.procesos;
 	}
 
-	public void setProcesos(Set<ProcesoJPA> procesos) {
+	public void setProcesos(Set<ProcesoEntity> procesos) {
 		this.procesos = procesos;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-	public Set<TareaJPA> getTareas() {
-		return this.tareas;
-	}
-
-	public void setTareas(Set<TareaJPA> tareas) {
-		this.tareas = tareas;
-	}
-
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "usu_rol", schema = "seguridad", joinColumns = { @JoinColumn(name = "codigo_usuario", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
-	public Set<RolJPA> getRols() {
+	@JoinTable(name = "usuario_rol", schema = "seguridad", joinColumns = { @JoinColumn(name = "codigo_usuario", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
+	public Set<RolEntity> getRols() {
 		return this.rols;
 	}
 
-	public void setRols(Set<RolJPA> rols) {
+	public void setRols(Set<RolEntity> rols) {
 		this.rols = rols;
 	}
 

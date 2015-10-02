@@ -1,424 +1,351 @@
-
-CREATE SCHEMA SEGURIDAD AUTHORIZATION postgres;
-CREATE SCHEMA PROCESO AUTHORIZATION postgres;
-
-CREATE SEQUENCE PROCESO.SEQ_CODIGO_PROCESO START 101;
-
--- tables
--- Table: ADMINISTRADOR_PROCESO
-CREATE TABLE PROCESO.ADMINISTRADOR_PROCESO (
-    CODIGO_PROCESO_PLANTILLA bigint  NOT NULL,
-    CODIGO_ROL bigint  NOT NULL,
-    CONSTRAINT ADMINISTRADOR_PROCESO_pk PRIMARY KEY (CODIGO_PROCESO_PLANTILLA,CODIGO_ROL)
-);
+/*
+Created: 01/10/2015
+Modified: 01/10/2015
+Model: RE PostgreSQL 9.4
+Database: PostgreSQL 9.4
+*/
 
 
+-- Create schemas section -------------------------------------------------
 
--- Table: ADMINISTRADOR_TAREA
-CREATE TABLE PROCESO.ADMINISTRADOR_TAREA (
-    CODIGO_TAREA_PLANTILLA bigint  NOT NULL,
-    CODIGO_ROL bigint  NOT NULL,
-    CONSTRAINT ADMINISTRADOR_TAREA_pk PRIMARY KEY (CODIGO_TAREA_PLANTILLA,CODIGO_ROL)
-);
-
-
-
--- Table: EDITOR_TAREA
-CREATE TABLE PROCESO.EDITOR_TAREA (
-    CODIGO_TAREA_PLANTILLA bigint  NOT NULL,
-    CODIGO_ROL bigint  NOT NULL,
-    CONSTRAINT EDITOR_TAREA_pk PRIMARY KEY (CODIGO_TAREA_PLANTILLA,CODIGO_ROL)
-);
-
-
-
--- Table: MODULO
-CREATE TABLE SEGURIDAD.MODULO (
-    CODIGO_MODULO int  NOT NULL,
-    NOMBRE varchar(60)  NOT NULL,
-    ORDEN int  NOT NULL,
-    DESCRIPCION varchar(250)  NULL,
-    URL varchar(120)  NOT NULL,
-    CONSTRAINT MODULO_pk PRIMARY KEY (CODIGO_MODULO)
-);
-
-
-
--- Table: MODULO_ROL
-CREATE TABLE SEGURIDAD.MODULO_ROL (
-    CODIGO_ROL bigint  NOT NULL,
-    CODIGO_MODULO int  NOT NULL,
-    CONSTRAINT MODULO_ROL_pk PRIMARY KEY (CODIGO_ROL,CODIGO_MODULO)
-);
-
-
-
--- Table: POTENCIAL_DUENO
-CREATE TABLE PROCESO.POTENCIAL_DUENO (
-    CODIGO_TAREA_PLANTILLA bigint  NOT NULL,
-    CODIGO_ROL bigint  NOT NULL,
-    CONSTRAINT POTENCIAL_DUENO_pk PRIMARY KEY (CODIGO_TAREA_PLANTILLA,CODIGO_ROL)
-);
-
-
-
--- Table: POTENCIAL_INICIADOR
-CREATE TABLE PROCESO.POTENCIAL_INICIADOR (
-    CODIGO_PROCESO_PLANTILLA bigint  NOT NULL,
-    ROL_CODIGO_ROL bigint  NOT NULL,
-    CONSTRAINT POTENCIAL_INICIADOR_pk PRIMARY KEY (CODIGO_PROCESO_PLANTILLA,ROL_CODIGO_ROL)
-);
-
-
-
--- Table: PROCESO
-CREATE TABLE PROCESO.PROCESO (
-    CODIGO_PROCESO bigint  NOT NULL,
-    CODIGO_PROCESO_PLANTILLA bigint  NOT NULL,
-    ESTADO char(1)  NOT NULL,
-    NOMBRE varchar(120)  NOT NULL,
-    ALEAS varchar(100)  NOT NULL,
-    VERSION varchar(12)  NOT NULL,
-    FECHA_CREACION timestamp  NOT NULL,
-    FECHA_TERMINO timestamp  NOT NULL,
-    CODIGO_USUARIO_CREACION bigint  NOT NULL,
-    CONSTRAINT PROCESO_pk PRIMARY KEY (CODIGO_PROCESO)
-);
-
-
-
--- Table: PROCESO_PLANTILLA
-CREATE TABLE PROCESO.PROCESO_PLANTILLA (
-    CODIGO_PROCESO_PLANTILLA bigint  NOT NULL,
-    ESTADO char(1)  NOT NULL,
-    NOMBRE varchar(120)  NOT NULL,
-    ALEAS varchar(100)  NOT NULL,
-    VERSION varchar(12)  NOT NULL,
-    FECHA_VALIDEZ timestamp  NOT NULL,
-    FLAG_TODOS_INICIAN boolean  NOT NULL,
-    CONSTRAINT PROCESO_PLANTILLA_pk PRIMARY KEY (CODIGO_PROCESO_PLANTILLA)
-);
-
-
-
--- Table: ROL
-CREATE TABLE SEGURIDAD.ROL (
-    CODIGO_ROL bigint  NOT NULL,
-    NOMBRE varchar(120)  NOT NULL,
-    CONSTRAINT ROL_pk PRIMARY KEY (CODIGO_ROL)
-);
-
-
-
--- Table: TAREA
-CREATE TABLE PROCESO.TAREA (
-    CODIGO_TAREA bigint  NOT NULL,
-    CODIGO_PROCESO bigint  NOT NULL,
-    CODIGO_TAREA_PLANTILLA bigint  NOT NULL,
-    ESTADO char(1)  NOT NULL,
-    NOMBRE varchar(120)  NOT NULL,
-    ALEAS varchar(100)  NOT NULL,
-    VERSION varchar(12)  NOT NULL,
-    PRIORIDAD int  NOT NULL,
-    FECHA_CREACION timestamp  NOT NULL,
-    FECHA_RECLAMO timestamp  NOT NULL,
-    FECHA_TERMINO timestamp  NOT NULL,
-    FECHA_ULTIMA_MODIFICACION timestamp  NOT NULL,
-    CODIGO_DUENO bigint  NOT NULL,
-    CONSTRAINT TAREA_pk PRIMARY KEY (CODIGO_TAREA)
-);
-
-
-
--- Table: TAREA_PLANTILLA
-CREATE TABLE PROCESO.TAREA_PLANTILLA (
-    CODIGO_TAREA_PLANTILLA bigint  NOT NULL,
-    CODIGO_PROCESO_PLANTILLA bigint  NOT NULL,
-    ESTADO char(1)  NOT NULL,
-    NOMBRE varchar(120)  NOT NULL,
-    ALEAS varchar(100)  NOT NULL,
-    VERSION varchar(12)  NOT NULL,
-    PRIORIDAD int  NOT NULL,
-    CONSTRAINT TAREA_PLANTILLA_pk PRIMARY KEY (CODIGO_TAREA_PLANTILLA)
-);
-
-
-
--- Table: USUARIO
-CREATE TABLE SEGURIDAD.USUARIO (
-    CODIGO_USUARIO bigint  NOT NULL,
-    ESTADO char(1)  NOT NULL,
-    USUARIO varchar(40)  NOT NULL,
-    CLAVE varchar(20)  NOT NULL,
-    NOMBRE_COMPLETO varchar(120)  NOT NULL,
-    CORREO varchar(120)  NULL,
-    CONSTRAINT USUARIO_pk PRIMARY KEY (CODIGO_USUARIO)
-);
-
-
-
--- Table: USU_ROL
-CREATE TABLE SEGURIDAD.USU_ROL (
-    CODIGO_USUARIO bigint  NOT NULL,
-    CODIGO_ROL bigint  NOT NULL,
-    CONSTRAINT USU_ROL_pk PRIMARY KEY (CODIGO_USUARIO,CODIGO_ROL)
-);
-
-
-
-
-
-
-
--- foreign keys
--- Reference:  EDITOR_TAREA_ROL (table: PROCESO.EDITOR_TAREA)
-
-
-ALTER TABLE PROCESO.EDITOR_TAREA ADD CONSTRAINT EDITOR_TAREA_ROL 
-    FOREIGN KEY (CODIGO_ROL)
-    REFERENCES SEGURIDAD.ROL (CODIGO_ROL)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE SCHEMA proceso AUTHORIZATION postgres
 ;
 
--- Reference:  EDITOR_TAREA_TAR_PLANTILLA (table: PROCESO.EDITOR_TAREA)
 
-
-ALTER TABLE PROCESO.EDITOR_TAREA ADD CONSTRAINT EDITOR_TAREA_TAR_PLANTILLA 
-    FOREIGN KEY (CODIGO_TAREA_PLANTILLA)
-    REFERENCES PROCESO.TAREA_PLANTILLA (CODIGO_TAREA_PLANTILLA)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE SCHEMA seguridad AUTHORIZATION postgres
 ;
 
--- Reference:  MOD_ROL_MODULO (table: SEGURIDAD.MODULO_ROL)
+-- Create sequences section -------------------------------------------------
 
-
-ALTER TABLE SEGURIDAD.MODULO_ROL ADD CONSTRAINT MOD_ROL_MODULO 
-    FOREIGN KEY (CODIGO_MODULO)
-    REFERENCES SEGURIDAD.MODULO (CODIGO_MODULO)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE SEQUENCE proceso.seq_codigo_proceso
+ INCREMENT BY 1
+ NO MAXVALUE
+ NO MINVALUE
+ CACHE 1
 ;
 
--- Reference:  MOD_ROL_ROL (table: SEGURIDAD.MODULO_ROL)
-
-
-ALTER TABLE SEGURIDAD.MODULO_ROL ADD CONSTRAINT MOD_ROL_ROL 
-    FOREIGN KEY (CODIGO_ROL)
-    REFERENCES SEGURIDAD.ROL (CODIGO_ROL)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE SEQUENCE proceso.seq_codigo_tarea
+ INCREMENT BY 1
+ NO MAXVALUE
+ NO MINVALUE
+ CACHE 1
 ;
 
--- Reference:  POTENCIAL_DUENO_PROCESO_PLANTILLA (table: PROCESO.POTENCIAL_INICIADOR)
-
-
-ALTER TABLE PROCESO.POTENCIAL_INICIADOR ADD CONSTRAINT POTENCIAL_DUENO_PROCESO_PLANTILLA 
-    FOREIGN KEY (CODIGO_PROCESO_PLANTILLA)
-    REFERENCES PROCESO.PROCESO_PLANTILLA (CODIGO_PROCESO_PLANTILLA)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE SEQUENCE proceso.seq_proceso
+ INCREMENT BY 1
+ NO MAXVALUE
+ NO MINVALUE
+ CACHE 1
 ;
 
--- Reference:  POTENCIAL_DUENO_ROL (table: PROCESO.POTENCIAL_DUENO)
-
-
-ALTER TABLE PROCESO.POTENCIAL_DUENO ADD CONSTRAINT POTENCIAL_DUENO_ROL 
-    FOREIGN KEY (CODIGO_ROL)
-    REFERENCES SEGURIDAD.ROL (CODIGO_ROL)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE SEQUENCE proceso.seq_tarea
+ INCREMENT BY 1
+ NO MAXVALUE
+ NO MINVALUE
+ CACHE 1
 ;
 
--- Reference:  POTENCIAL_DUENO_TAR_PLANTILLA (table: PROCESO.POTENCIAL_DUENO)
-
-
-ALTER TABLE PROCESO.POTENCIAL_DUENO ADD CONSTRAINT POTENCIAL_DUENO_TAR_PLANTILLA 
-    FOREIGN KEY (CODIGO_TAREA_PLANTILLA)
-    REFERENCES PROCESO.TAREA_PLANTILLA (CODIGO_TAREA_PLANTILLA)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE SEQUENCE seguridad.seq_usuario
+ INCREMENT BY 1
+ NO MAXVALUE
+ NO MINVALUE
+ CACHE 1
 ;
 
--- Reference:  POTENCIAL_INICIADOR_ROL (table: PROCESO.POTENCIAL_INICIADOR)
+-- Create tables section -------------------------------------------------
 
+-- Table proceso.administrador_proceso
 
-ALTER TABLE PROCESO.POTENCIAL_INICIADOR ADD CONSTRAINT POTENCIAL_INICIADOR_ROL 
-    FOREIGN KEY (ROL_CODIGO_ROL)
-    REFERENCES SEGURIDAD.ROL (CODIGO_ROL)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE TABLE proceso.administrador_proceso(
+ codigo_proceso_plantilla Bigint NOT NULL,
+ codigo_rol Bigint NOT NULL
+)
 ;
 
--- Reference:  PRO_INSTANCIA_PRO_PLANTILLA (table: PROCESO.PROCESO)
+-- Add keys for table proceso.administrador_proceso
 
-
-ALTER TABLE PROCESO.PROCESO ADD CONSTRAINT PRO_INSTANCIA_PRO_PLANTILLA 
-    FOREIGN KEY (CODIGO_PROCESO_PLANTILLA)
-    REFERENCES PROCESO.PROCESO_PLANTILLA (CODIGO_PROCESO_PLANTILLA)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+ALTER TABLE proceso.administrador_proceso ADD CONSTRAINT administrador_proceso_pk PRIMARY KEY (codigo_proceso_plantilla,codigo_rol)
 ;
 
--- Reference:  PRO_INSTANCIA_USUARIO (table: PROCESO.PROCESO)
+-- Table proceso.administrador_tarea
 
-
-ALTER TABLE PROCESO.PROCESO ADD CONSTRAINT PRO_INSTANCIA_USUARIO 
-    FOREIGN KEY (CODIGO_USUARIO_CREACION)
-    REFERENCES SEGURIDAD.USUARIO (CODIGO_USUARIO)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE TABLE proceso.administrador_tarea(
+ codigo_tarea_plantilla Bigint NOT NULL,
+ codigo_rol Bigint NOT NULL
+)
 ;
 
--- Reference:  PRO_PLA_ROL_PRO_PLANTILLA (table: PROCESO.ADMINISTRADOR_PROCESO)
+-- Add keys for table proceso.administrador_tarea
 
-
-ALTER TABLE PROCESO.ADMINISTRADOR_PROCESO ADD CONSTRAINT PRO_PLA_ROL_PRO_PLANTILLA 
-    FOREIGN KEY (CODIGO_PROCESO_PLANTILLA)
-    REFERENCES PROCESO.PROCESO_PLANTILLA (CODIGO_PROCESO_PLANTILLA)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+ALTER TABLE proceso.administrador_tarea ADD CONSTRAINT administrador_tarea_pk PRIMARY KEY (codigo_tarea_plantilla,codigo_rol)
 ;
 
--- Reference:  PRO_PLA_ROL_ROL (table: PROCESO.ADMINISTRADOR_PROCESO)
+-- Table proceso.editor_tarea
 
-
-ALTER TABLE PROCESO.ADMINISTRADOR_PROCESO ADD CONSTRAINT PRO_PLA_ROL_ROL 
-    FOREIGN KEY (CODIGO_ROL)
-    REFERENCES SEGURIDAD.ROL (CODIGO_ROL)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE TABLE proceso.editor_tarea(
+ codigo_tarea_plantilla Bigint NOT NULL,
+ codigo_rol Bigint NOT NULL
+)
 ;
 
--- Reference:  TAR_INSTANCIA_PRO_INSTANCIA (table: PROCESO.TAREA)
+-- Add keys for table proceso.editor_tarea
 
-
-ALTER TABLE PROCESO.TAREA ADD CONSTRAINT TAR_INSTANCIA_PRO_INSTANCIA 
-    FOREIGN KEY (CODIGO_PROCESO)
-    REFERENCES PROCESO.PROCESO (CODIGO_PROCESO)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+ALTER TABLE proceso.editor_tarea ADD CONSTRAINT editor_tarea_pk PRIMARY KEY (codigo_tarea_plantilla,codigo_rol)
 ;
 
--- Reference:  TAR_INSTANCIA_TAR_PLANTILLA (table: PROCESO.TAREA)
+-- Table proceso.potencial_dueno
 
-
-ALTER TABLE PROCESO.TAREA ADD CONSTRAINT TAR_INSTANCIA_TAR_PLANTILLA 
-    FOREIGN KEY (CODIGO_TAREA_PLANTILLA)
-    REFERENCES PROCESO.TAREA_PLANTILLA (CODIGO_TAREA_PLANTILLA)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE TABLE proceso.potencial_dueno(
+ codigo_tarea_plantilla Bigint NOT NULL,
+ codigo_rol Bigint NOT NULL
+)
 ;
 
--- Reference:  TAR_INSTANCIA_USUARIO (table: PROCESO.TAREA)
+-- Add keys for table proceso.potencial_dueno
 
-
-ALTER TABLE PROCESO.TAREA ADD CONSTRAINT TAR_INSTANCIA_USUARIO 
-    FOREIGN KEY (CODIGO_DUENO)
-    REFERENCES SEGURIDAD.USUARIO (CODIGO_USUARIO)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+ALTER TABLE proceso.potencial_dueno ADD CONSTRAINT potencial_dueno_pk PRIMARY KEY (codigo_tarea_plantilla,codigo_rol)
 ;
 
--- Reference:  TAR_PLANTILLA_PRO_PLANTILLA (table: PROCESO.TAREA_PLANTILLA)
+-- Table proceso.potencial_iniciador
 
-
-ALTER TABLE PROCESO.TAREA_PLANTILLA ADD CONSTRAINT TAR_PLANTILLA_PRO_PLANTILLA 
-    FOREIGN KEY (CODIGO_PROCESO_PLANTILLA)
-    REFERENCES PROCESO.PROCESO_PLANTILLA (CODIGO_PROCESO_PLANTILLA)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE TABLE proceso.potencial_iniciador(
+ codigo_proceso_plantilla Bigint NOT NULL,
+ rol_codigo_rol Bigint NOT NULL
+)
 ;
 
--- Reference:  TAR_PLA_ROL_ROL (table: PROCESO.ADMINISTRADOR_TAREA)
+-- Add keys for table proceso.potencial_iniciador
 
-
-ALTER TABLE PROCESO.ADMINISTRADOR_TAREA ADD CONSTRAINT TAR_PLA_ROL_ROL 
-    FOREIGN KEY (CODIGO_ROL)
-    REFERENCES SEGURIDAD.ROL (CODIGO_ROL)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+ALTER TABLE proceso.potencial_iniciador ADD CONSTRAINT potencial_iniciador_pk PRIMARY KEY (codigo_proceso_plantilla,rol_codigo_rol)
 ;
 
--- Reference:  TAR_PLA_ROL_TAR_PLANTILLA (table: PROCESO.ADMINISTRADOR_TAREA)
+-- Table proceso.proceso
 
-
-ALTER TABLE PROCESO.ADMINISTRADOR_TAREA ADD CONSTRAINT TAR_PLA_ROL_TAR_PLANTILLA 
-    FOREIGN KEY (CODIGO_TAREA_PLANTILLA)
-    REFERENCES PROCESO.TAREA_PLANTILLA (CODIGO_TAREA_PLANTILLA)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+CREATE TABLE proceso.proceso(
+ codigo_proceso Bigint NOT NULL,
+ codigo_proceso_plantilla Bigint NOT NULL,
+ estado Character(1) NOT NULL,
+ nombre Character varying(120) NOT NULL,
+ aleas Character varying(100) NOT NULL,
+ version Character varying(12) NOT NULL,
+ fecha_creacion Timestamp NOT NULL,
+ fecha_termino Timestamp,
+ codigo_usuario_creacion Bigint NOT NULL
+)
 ;
 
--- Reference:  USU_ROL_ROL (table: SEGURIDAD.USU_ROL)
+-- Add keys for table proceso.proceso
 
-
-ALTER TABLE SEGURIDAD.USU_ROL ADD CONSTRAINT USU_ROL_ROL 
-    FOREIGN KEY (CODIGO_ROL)
-    REFERENCES SEGURIDAD.ROL (CODIGO_ROL)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+ALTER TABLE proceso.proceso ADD CONSTRAINT proceso_pk PRIMARY KEY (codigo_proceso)
 ;
 
--- Reference:  USU_ROL_USUARIO (table: SEGURIDAD.USU_ROL)
+-- Table proceso.proceso_plantilla
 
+CREATE TABLE proceso.proceso_plantilla(
+ codigo_proceso_plantilla Bigint NOT NULL,
+ estado Character(1) NOT NULL,
+ nombre Character varying(120) NOT NULL,
+ aleas Character varying(100) NOT NULL,
+ version Character varying(12) NOT NULL,
+ fecha_validez Timestamp NOT NULL,
+ flag_todos_inician Boolean NOT NULL
+)
+;
 
-ALTER TABLE SEGURIDAD.USU_ROL ADD CONSTRAINT USU_ROL_USUARIO 
-    FOREIGN KEY (CODIGO_USUARIO)
-    REFERENCES SEGURIDAD.USUARIO (CODIGO_USUARIO)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+-- Add keys for table proceso.proceso_plantilla
+
+ALTER TABLE proceso.proceso_plantilla ADD CONSTRAINT proceso_plantilla_pk PRIMARY KEY (codigo_proceso_plantilla)
+;
+
+-- Table proceso.tarea
+
+CREATE TABLE proceso.tarea(
+ codigo_tarea Bigint NOT NULL,
+ codigo_proceso Bigint NOT NULL,
+ codigo_tarea_plantilla Bigint NOT NULL,
+ estado Character(1) NOT NULL,
+ nombre Character varying(120) NOT NULL,
+ aleas Character varying(100) NOT NULL,
+ version Character varying(12) NOT NULL,
+ prioridad Integer NOT NULL,
+ fecha_creacion Timestamp NOT NULL,
+ fecha_reclamo Timestamp,
+ fecha_termino Timestamp,
+ fecha_ultima_modificacion Timestamp NOT NULL,
+ dueno Character varying(40)
+)
+;
+
+-- Add keys for table proceso.tarea
+
+ALTER TABLE proceso.tarea ADD CONSTRAINT tarea_pk PRIMARY KEY (codigo_tarea)
+;
+
+-- Table proceso.tarea_plantilla
+
+CREATE TABLE proceso.tarea_plantilla(
+ codigo_tarea_plantilla Bigint NOT NULL,
+ codigo_proceso_plantilla Bigint NOT NULL,
+ estado Character(1) NOT NULL,
+ nombre Character varying(120) NOT NULL,
+ aleas Character varying(100) NOT NULL,
+ version Character varying(12) NOT NULL,
+ prioridad Integer NOT NULL,
+ orden Integer NOT NULL
+)
+;
+
+-- Add keys for table proceso.tarea_plantilla
+
+ALTER TABLE proceso.tarea_plantilla ADD CONSTRAINT tarea_plantilla_pk PRIMARY KEY (codigo_tarea_plantilla)
+;
+
+-- Table seguridad.modulo
+
+CREATE TABLE seguridad.modulo(
+ codigo_modulo Integer NOT NULL,
+ nombre Character varying(60) NOT NULL,
+ orden Integer NOT NULL,
+ descripcion Character varying(250),
+ url Character varying(120) NOT NULL
+)
+;
+
+-- Add keys for table seguridad.modulo
+
+ALTER TABLE seguridad.modulo ADD CONSTRAINT modulo_pk PRIMARY KEY (codigo_modulo)
+;
+
+-- Table seguridad.modulo_rol
+
+CREATE TABLE seguridad.modulo_rol(
+ codigo_rol Bigint NOT NULL,
+ codigo_modulo Integer NOT NULL
+)
+;
+
+-- Add keys for table seguridad.modulo_rol
+
+ALTER TABLE seguridad.modulo_rol ADD CONSTRAINT modulo_rol_pk PRIMARY KEY (codigo_rol,codigo_modulo)
+;
+
+-- Table seguridad.rol
+
+CREATE TABLE seguridad.rol(
+ codigo_rol Bigint NOT NULL,
+ nombre Character varying(120) NOT NULL
+)
+;
+
+-- Add keys for table seguridad.rol
+
+ALTER TABLE seguridad.rol ADD CONSTRAINT rol_pk PRIMARY KEY (codigo_rol)
+;
+
+-- Table seguridad.usuario_rol
+
+CREATE TABLE seguridad.usuario_rol(
+ codigo_usuario Bigint NOT NULL,
+ codigo_rol Bigint NOT NULL
+)
+;
+
+-- Add keys for table seguridad.usuario_rol
+
+ALTER TABLE seguridad.usuario_rol ADD CONSTRAINT usuario_rol_pk PRIMARY KEY (codigo_usuario,codigo_rol)
+;
+
+-- Table seguridad.usuario
+
+CREATE TABLE seguridad.usuario(
+ codigo_usuario Bigint NOT NULL,
+ estado Character(1) NOT NULL,
+ usuario Character varying(40) NOT NULL,
+ clave Character varying(20) NOT NULL,
+ nombre_completo Character varying(120) NOT NULL,
+ correo Character varying(120)
+)
+;
+
+-- Add keys for table seguridad.usuario
+
+ALTER TABLE seguridad.usuario ADD CONSTRAINT usuario_pk PRIMARY KEY (codigo_usuario)
+;
+
+-- Create views section -------------------------------------------------
+
+CREATE VIEW proceso.tarea_potencia_dueno AS
+SELECT ta.codigo_tarea, ta.codigo_proceso, ta.codigo_tarea_plantilla, ta.estado, ta.nombre, ta.aleas, ta.version, ta.prioridad, ta.fecha_creacion, ta.fecha_reclamo, ta.fecha_termino, ta.fecha_ultima_modificacion, ta.dueno, ur.codigo_usuario
+FROM proceso.tarea ta, proceso.potencial_dueno pd, seguridad.usuario_rol ur
+WHERE ta.codigo_tarea_plantilla = pd.codigo_tarea_plantilla
+and pd.codigo_rol = ur.codigo_rol
+
+ORDER BY ta.fecha_creacion
+;
+
+-- Create relationships section ------------------------------------------------- 
+
+ALTER TABLE proceso.administrador_proceso ADD CONSTRAINT pro_pla_rol_pro_plantilla FOREIGN KEY (codigo_proceso_plantilla) REFERENCES proceso.proceso_plantilla (codigo_proceso_plantilla) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.administrador_proceso ADD CONSTRAINT pro_pla_rol_rol FOREIGN KEY (codigo_rol) REFERENCES seguridad.rol (codigo_rol) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.administrador_tarea ADD CONSTRAINT tar_pla_rol_rol FOREIGN KEY (codigo_rol) REFERENCES seguridad.rol (codigo_rol) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.administrador_tarea ADD CONSTRAINT tar_pla_rol_tar_plantilla FOREIGN KEY (codigo_tarea_plantilla) REFERENCES proceso.tarea_plantilla (codigo_tarea_plantilla) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.editor_tarea ADD CONSTRAINT editor_tarea_rol FOREIGN KEY (codigo_rol) REFERENCES seguridad.rol (codigo_rol) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.editor_tarea ADD CONSTRAINT editor_tarea_tar_plantilla FOREIGN KEY (codigo_tarea_plantilla) REFERENCES proceso.tarea_plantilla (codigo_tarea_plantilla) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE seguridad.modulo_rol ADD CONSTRAINT mod_rol_modulo FOREIGN KEY (codigo_modulo) REFERENCES seguridad.modulo (codigo_modulo) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE seguridad.modulo_rol ADD CONSTRAINT mod_rol_rol FOREIGN KEY (codigo_rol) REFERENCES seguridad.rol (codigo_rol) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.potencial_dueno ADD CONSTRAINT potencial_dueno_rol FOREIGN KEY (codigo_rol) REFERENCES seguridad.rol (codigo_rol) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.potencial_dueno ADD CONSTRAINT potencial_dueno_tar_plantilla FOREIGN KEY (codigo_tarea_plantilla) REFERENCES proceso.tarea_plantilla (codigo_tarea_plantilla) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.potencial_iniciador ADD CONSTRAINT potencial_dueno_proceso_plantilla FOREIGN KEY (codigo_proceso_plantilla) REFERENCES proceso.proceso_plantilla (codigo_proceso_plantilla) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.potencial_iniciador ADD CONSTRAINT potencial_iniciador_rol FOREIGN KEY (rol_codigo_rol) REFERENCES seguridad.rol (codigo_rol) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.proceso ADD CONSTRAINT pro_instancia_pro_plantilla FOREIGN KEY (codigo_proceso_plantilla) REFERENCES proceso.proceso_plantilla (codigo_proceso_plantilla) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.proceso ADD CONSTRAINT pro_instancia_usuario FOREIGN KEY (codigo_usuario_creacion) REFERENCES seguridad.usuario (codigo_usuario) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.tarea ADD CONSTRAINT tar_instancia_pro_instancia FOREIGN KEY (codigo_proceso) REFERENCES proceso.proceso (codigo_proceso) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.tarea ADD CONSTRAINT tar_instancia_tar_plantilla FOREIGN KEY (codigo_tarea_plantilla) REFERENCES proceso.tarea_plantilla (codigo_tarea_plantilla) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE proceso.tarea_plantilla ADD CONSTRAINT tar_plantilla_pro_plantilla FOREIGN KEY (codigo_proceso_plantilla) REFERENCES proceso.proceso_plantilla (codigo_proceso_plantilla) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE seguridad.usuario_rol ADD CONSTRAINT usuario_rol_rol FOREIGN KEY (codigo_rol) REFERENCES seguridad.rol (codigo_rol) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+ALTER TABLE seguridad.usuario_rol ADD CONSTRAINT usuario_rol_usuario FOREIGN KEY (codigo_usuario) REFERENCES seguridad.usuario (codigo_usuario) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
 
 
-
--- sequences
--- Sequence: SEQ_PROCESO
+-- Create roles section -------------------------------------------------
 
 
-CREATE SEQUENCE PROCESO.SEQ_PROCESO
-      INCREMENT BY 1
-      NO MINVALUE
-      NO MAXVALUE
-      START WITH 10000 
-      
-      NO CYCLE
-      
-;
+-- Grant permissions section -------------------------------------------------
 
-
--- Sequence: SEQ_TAREA
-
-
-CREATE SEQUENCE PROCESO.SEQ_TAREA
-      INCREMENT BY 1
-      NO MINVALUE
-      NO MAXVALUE
-      START WITH 10000 
-      
-      NO CYCLE
-      
-;
-
-
--- Sequence: SEQ_USUARIO
-
-
-CREATE SEQUENCE SEGURIDAD.SEQ_USUARIO
-      INCREMENT BY 1
-      NO MINVALUE
-      NO MAXVALUE
-      START WITH 1000 
-      
-      NO CYCLE
-      
-;
-
-
-
-
-
-
--- End of file.

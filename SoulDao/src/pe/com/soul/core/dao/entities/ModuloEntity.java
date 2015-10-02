@@ -1,6 +1,6 @@
-package pe.com.soul.core.dao.jpa;
+package pe.com.soul.core.dao.entities;
 
-// Generated 25/09/2015 04:29:28 PM by Hibernate Tools 4.3.1
+// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,31 +16,29 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "modulo", schema = "seguridad")
-public class ModuloJPA implements java.io.Serializable {
+public class ModuloEntity implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private int codigoModulo;
 	private String nombre;
 	private int orden;
 	private String descripcion;
 	private String url;
-	private Set<RolJPA> rols = new HashSet<RolJPA>(0);
+	private Set<RolEntity> rols = new HashSet<RolEntity>(0);
 
-	public ModuloJPA() {
+	public ModuloEntity() {
 	}
 
-	public ModuloJPA(int codigoModulo, String nombre, int orden, String url) {
+	public ModuloEntity(int codigoModulo, String nombre, int orden, String url) {
 		this.codigoModulo = codigoModulo;
 		this.nombre = nombre;
 		this.orden = orden;
 		this.url = url;
 	}
 
-	public ModuloJPA(int codigoModulo, String nombre, int orden,
-			String descripcion, String url, Set<RolJPA> rols) {
+	public ModuloEntity(int codigoModulo, String nombre, int orden,
+			String descripcion, String url, Set<RolEntity> rols) {
 		this.codigoModulo = codigoModulo;
 		this.nombre = nombre;
 		this.orden = orden;
@@ -96,11 +94,11 @@ public class ModuloJPA implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "modulos")
-	public Set<RolJPA> getRols() {
+	public Set<RolEntity> getRols() {
 		return this.rols;
 	}
 
-	public void setRols(Set<RolJPA> rols) {
+	public void setRols(Set<RolEntity> rols) {
 		this.rols = rols;
 	}
 

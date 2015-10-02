@@ -1,6 +1,6 @@
-package pe.com.soul.core.dao.jpa;
+package pe.com.soul.core.dao.entities;
 
-// Generated 25/09/2015 04:29:28 PM by Hibernate Tools 4.3.1
+// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "proceso", schema = "proceso")
-public class ProcesoJPA implements java.io.Serializable {
+public class ProcesoEntity implements java.io.Serializable {
 
 	/**
 	 * 
@@ -32,21 +32,21 @@ public class ProcesoJPA implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private long codigoProceso;
 	private String version;
-	private ProcesoPlantillaJPA procesoPlantilla;
-	private UsuarioJPA usuario;
+	private ProcesoPlantillaEntity procesoPlantilla;
+	private UsuarioEntity usuario;
 	private char estado;
 	private String nombre;
 	private String aleas;
 	private Date fechaCreacion;
 	private Date fechaTermino;
-	private Set<TareaJPA> tareas = new HashSet<TareaJPA>(0);
+	private Set<TareaEntity> tareas = new HashSet<TareaEntity>(0);
 
-	public ProcesoJPA() {
+	public ProcesoEntity() {
 	}
 
-	public ProcesoJPA(long codigoProceso, ProcesoPlantillaJPA procesoPlantilla,
-			UsuarioJPA usuario, char estado, String nombre, String aleas,
-			Date fechaCreacion, Date fechaTermino) {
+	public ProcesoEntity(long codigoProceso, ProcesoPlantillaEntity procesoPlantilla,
+			UsuarioEntity usuario, char estado, String nombre, String aleas,
+			Date fechaCreacion) {
 		this.codigoProceso = codigoProceso;
 		this.procesoPlantilla = procesoPlantilla;
 		this.usuario = usuario;
@@ -54,12 +54,11 @@ public class ProcesoJPA implements java.io.Serializable {
 		this.nombre = nombre;
 		this.aleas = aleas;
 		this.fechaCreacion = fechaCreacion;
-		this.fechaTermino = fechaTermino;
 	}
 
-	public ProcesoJPA(long codigoProceso, ProcesoPlantillaJPA procesoPlantilla,
-			UsuarioJPA usuario, char estado, String nombre, String aleas,
-			Date fechaCreacion, Date fechaTermino, Set<TareaJPA> tareas) {
+	public ProcesoEntity(long codigoProceso, ProcesoPlantillaEntity procesoPlantilla,
+			UsuarioEntity usuario, char estado, String nombre, String aleas,
+			Date fechaCreacion, Date fechaTermino, Set<TareaEntity> tareas) {
 		this.codigoProceso = codigoProceso;
 		this.procesoPlantilla = procesoPlantilla;
 		this.usuario = usuario;
@@ -72,8 +71,8 @@ public class ProcesoJPA implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(generator="SEQ_CODIGO_PROCESO") 
-	@SequenceGenerator(name="SEQ_CODIGO_PROCESO",sequenceName="PROCESO.SEQ_CODIGO_PROCESO", allocationSize=0) 
+	@GeneratedValue(generator="id_seq_codigo_proceso") 
+    @SequenceGenerator(name="id_seq_codigo_proceso",sequenceName="proceso.seq_codigo_proceso", allocationSize=0)
 	@Column(name = "codigo_proceso", unique = true, nullable = false)
 	public long getCodigoProceso() {
 		return this.codigoProceso;
@@ -94,21 +93,21 @@ public class ProcesoJPA implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_proceso_plantilla", nullable = false)
-	public ProcesoPlantillaJPA getProcesoPlantilla() {
+	public ProcesoPlantillaEntity getProcesoPlantilla() {
 		return this.procesoPlantilla;
 	}
 
-	public void setProcesoPlantilla(ProcesoPlantillaJPA procesoPlantilla) {
+	public void setProcesoPlantilla(ProcesoPlantillaEntity procesoPlantilla) {
 		this.procesoPlantilla = procesoPlantilla;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_usuario_creacion", nullable = false)
-	public UsuarioJPA getUsuario() {
+	public UsuarioEntity getUsuario() {
 		return this.usuario;
 	}
 
-	public void setUsuario(UsuarioJPA usuario) {
+	public void setUsuario(UsuarioEntity usuario) {
 		this.usuario = usuario;
 	}
 
@@ -150,7 +149,7 @@ public class ProcesoJPA implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_termino", nullable = false, length = 29)
+	@Column(name = "fecha_termino", length = 29)
 	public Date getFechaTermino() {
 		return this.fechaTermino;
 	}
@@ -160,11 +159,11 @@ public class ProcesoJPA implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
-	public Set<TareaJPA> getTareas() {
+	public Set<TareaEntity> getTareas() {
 		return this.tareas;
 	}
 
-	public void setTareas(Set<TareaJPA> tareas) {
+	public void setTareas(Set<TareaEntity> tareas) {
 		this.tareas = tareas;
 	}
 
