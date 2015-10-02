@@ -14,5 +14,5 @@ public interface TareaServiceLocal {
 
 	Tarea crearTarea(TareaPlantilla tareaPlantilla, Proceso proceso, Usuario dueno) throws Exception;
 	List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception;
-	
+	List<Tarea> obtenerDisponibles(Usuario usuario) throws Exception;
 }

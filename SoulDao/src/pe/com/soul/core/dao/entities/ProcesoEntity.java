@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
+// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -31,48 +31,53 @@ public class ProcesoEntity implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private long codigoProceso;
-	private String version;
 	private ProcesoPlantillaEntity procesoPlantilla;
 	private UsuarioEntity usuario;
-	private char estado;
-	private String nombre;
-	private String aleas;
-	private Date fechaCreacion;
-	private Date fechaTermino;
+	private int estadoProceso;
+	private String nombreProceso;
+	private String aleasProceso;
+	private String versionProceso;
+	private Date fechaCreacionProceso;
+	private Date fechaTerminoProceso;
 	private Set<TareaEntity> tareas = new HashSet<TareaEntity>(0);
 
 	public ProcesoEntity() {
 	}
 
 	public ProcesoEntity(long codigoProceso, ProcesoPlantillaEntity procesoPlantilla,
-			UsuarioEntity usuario, char estado, String nombre, String aleas,
-			Date fechaCreacion) {
+			UsuarioEntity usuario, int estadoProceso, String nombreProceso,
+			String aleasProceso, String versionProceso,
+			Date fechaCreacionProceso) {
 		this.codigoProceso = codigoProceso;
 		this.procesoPlantilla = procesoPlantilla;
 		this.usuario = usuario;
-		this.estado = estado;
-		this.nombre = nombre;
-		this.aleas = aleas;
-		this.fechaCreacion = fechaCreacion;
+		this.estadoProceso = estadoProceso;
+		this.nombreProceso = nombreProceso;
+		this.aleasProceso = aleasProceso;
+		this.versionProceso = versionProceso;
+		this.fechaCreacionProceso = fechaCreacionProceso;
 	}
 
 	public ProcesoEntity(long codigoProceso, ProcesoPlantillaEntity procesoPlantilla,
-			UsuarioEntity usuario, char estado, String nombre, String aleas,
-			Date fechaCreacion, Date fechaTermino, Set<TareaEntity> tareas) {
+			UsuarioEntity usuario, int estadoProceso, String nombreProceso,
+			String aleasProceso, String versionProceso,
+			Date fechaCreacionProceso, Date fechaTerminoProceso,
+			Set<TareaEntity> tareas) {
 		this.codigoProceso = codigoProceso;
 		this.procesoPlantilla = procesoPlantilla;
 		this.usuario = usuario;
-		this.estado = estado;
-		this.nombre = nombre;
-		this.aleas = aleas;
-		this.fechaCreacion = fechaCreacion;
-		this.fechaTermino = fechaTermino;
+		this.estadoProceso = estadoProceso;
+		this.nombreProceso = nombreProceso;
+		this.aleasProceso = aleasProceso;
+		this.versionProceso = versionProceso;
+		this.fechaCreacionProceso = fechaCreacionProceso;
+		this.fechaTerminoProceso = fechaTerminoProceso;
 		this.tareas = tareas;
 	}
 
 	@Id
-	@GeneratedValue(generator="id_seq_codigo_proceso") 
-    @SequenceGenerator(name="id_seq_codigo_proceso",sequenceName="proceso.seq_codigo_proceso", allocationSize=0)
+	@GeneratedValue(generator="seq_codigo_proceso") 
+    @SequenceGenerator(name="seq_codigo_proceso",sequenceName="proceso.seq_codigo_proceso", allocationSize=0) 
 	@Column(name = "codigo_proceso", unique = true, nullable = false)
 	public long getCodigoProceso() {
 		return this.codigoProceso;
@@ -80,15 +85,6 @@ public class ProcesoEntity implements java.io.Serializable {
 
 	public void setCodigoProceso(long codigoProceso) {
 		this.codigoProceso = codigoProceso;
-	}
-
-	@Column(name = "version", nullable = false, length = 12)
-	public String getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -102,7 +98,7 @@ public class ProcesoEntity implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_usuario_creacion", nullable = false)
+	@JoinColumn(name = "usuario_creacion_proceso", nullable = false)
 	public UsuarioEntity getUsuario() {
 		return this.usuario;
 	}
@@ -111,51 +107,60 @@ public class ProcesoEntity implements java.io.Serializable {
 		this.usuario = usuario;
 	}
 
-	@Column(name = "estado", nullable = false, length = 1)
-	public char getEstado() {
-		return this.estado;
+	@Column(name = "estado_proceso", nullable = false)
+	public int getEstadoProceso() {
+		return this.estadoProceso;
 	}
 
-	public void setEstado(char estado) {
-		this.estado = estado;
+	public void setEstadoProceso(int estadoProceso) {
+		this.estadoProceso = estadoProceso;
 	}
 
-	@Column(name = "nombre", nullable = false, length = 120)
-	public String getNombre() {
-		return this.nombre;
+	@Column(name = "nombre_proceso", nullable = false, length = 120)
+	public String getNombreProceso() {
+		return this.nombreProceso;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreProceso(String nombreProceso) {
+		this.nombreProceso = nombreProceso;
 	}
 
-	@Column(name = "aleas", nullable = false, length = 100)
-	public String getAleas() {
-		return this.aleas;
+	@Column(name = "aleas_proceso", nullable = false, length = 100)
+	public String getAleasProceso() {
+		return this.aleasProceso;
 	}
 
-	public void setAleas(String aleas) {
-		this.aleas = aleas;
+	public void setAleasProceso(String aleasProceso) {
+		this.aleasProceso = aleasProceso;
+	}
+
+	@Column(name = "version_proceso", nullable = false, length = 12)
+	public String getVersionProceso() {
+		return this.versionProceso;
+	}
+
+	public void setVersionProceso(String versionProceso) {
+		this.versionProceso = versionProceso;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_creacion", nullable = false, length = 29)
-	public Date getFechaCreacion() {
-		return this.fechaCreacion;
+	@Column(name = "fecha_creacion_proceso", nullable = false, length = 29)
+	public Date getFechaCreacionProceso() {
+		return this.fechaCreacionProceso;
 	}
 
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
+	public void setFechaCreacionProceso(Date fechaCreacionProceso) {
+		this.fechaCreacionProceso = fechaCreacionProceso;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_termino", length = 29)
-	public Date getFechaTermino() {
-		return this.fechaTermino;
+	@Column(name = "fecha_termino_proceso", length = 29)
+	public Date getFechaTerminoProceso() {
+		return this.fechaTerminoProceso;
 	}
 
-	public void setFechaTermino(Date fechaTermino) {
-		this.fechaTermino = fechaTermino;
+	public void setFechaTerminoProceso(Date fechaTerminoProceso) {
+		this.fechaTerminoProceso = fechaTerminoProceso;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")

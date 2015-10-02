@@ -39,7 +39,6 @@ public class UsuarioDao extends BaseDao<UsuarioEntity> implements UsuarioDaoLoca
     	
     	UsuarioEntity usuarioEntity = buscarRegistro(consulta, "parametro", usuarioId);
     	Usuario usuario = new Usuario();
-    	usuario.setCodigo(usuarioEntity.getCodigoUsuario());
     	usuario.setUsuario(usuarioEntity.getUsuario());
     	usuario.setEstado(usuarioEntity.getEstado());
     	usuario.setCorreo(usuarioEntity.getCorreo());
@@ -55,7 +54,7 @@ public class UsuarioDao extends BaseDao<UsuarioEntity> implements UsuarioDaoLoca
     		RolEntity rolEntity = iteratorRol.next();
     		Rol rol = new Rol();
     		rol.setCodRol(rolEntity.getCodigoRol());
-    		rol.setNombre(rolEntity.getNombre());
+    		rol.setNombre(rolEntity.getNombreRol());
     		roles.add(rol);
     		
     		Set<ModuloEntity> moduloEntitys = rolEntity.getModulos();
@@ -79,10 +78,10 @@ public class UsuarioDao extends BaseDao<UsuarioEntity> implements UsuarioDaoLoca
 				ProcesoPlantillaEntity procesoPlantillaEntity = (ProcesoPlantillaEntity) iteratorPP.next();
 				ProcesoPlantilla procesoPlantilla = new ProcesoPlantilla();
 				procesoPlantilla.setCodigoProcesoPlantilla(procesoPlantillaEntity.getCodigoProcesoPlantilla());
-				procesoPlantilla.setNombre(procesoPlantillaEntity.getNombre());
-				procesoPlantilla.setVersion(procesoPlantillaEntity.getVersion());
-				procesoPlantilla.setAleas(procesoPlantillaEntity.getAleas());
-				procesoPlantilla.setEstado(procesoPlantillaEntity.getEstado());
+				procesoPlantilla.setNombre(procesoPlantillaEntity.getNombreProceso());
+				procesoPlantilla.setVersion(procesoPlantillaEntity.getVersionProceso());
+				procesoPlantilla.setAleas(procesoPlantillaEntity.getAleasProceso());
+				procesoPlantilla.setEstado(procesoPlantillaEntity.getEstadoProceso());
 				procesoPlantillas.add(procesoPlantilla);
 			}
     		

@@ -30,18 +30,18 @@ public abstract class PreEmisionCartaFianzaService implements EmisionCartaFianza
 		proceso.setNombre(PROCESO_NOMBRE);
 		proceso.setAleas(PROCESO_ALEAS);
 		proceso.setVersion(PROCESO_VERSION);
-		proceso.setUsuario(usuario);
+		proceso.setCreador(usuario.getUsuario());
 		proceso = procesoServiceLocal.crearInstancia(proceso);
 		
-		crearPrimeraActividad(proceso);
+		crearPrimeraActividad(proceso, usuario);
 		
 		return proceso;
 	}
 	
-	protected void crearPrimeraActividad(Proceso proceso) throws Exception{
+	protected void crearPrimeraActividad(Proceso proceso, Usuario usuario) throws Exception{
 		
 		SoulTarea soulTarea = new TareaCompletarSolicitud();
-		tareaServiceLocal.crearTarea(soulTarea.obtenerTareaPlantilla(), proceso, null);
+		tareaServiceLocal.crearTarea(soulTarea.obtenerTareaPlantilla(), proceso, usuario);
 		
 	}
 	

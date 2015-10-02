@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
+// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,9 +25,8 @@ public class UsuarioEntity implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private long codigoUsuario;
-	private char estado;
 	private String usuario;
+	private int estado;
 	private String clave;
 	private String nombreCompleto;
 	private String correo;
@@ -37,21 +36,19 @@ public class UsuarioEntity implements java.io.Serializable {
 	public UsuarioEntity() {
 	}
 
-	public UsuarioEntity(long codigoUsuario, char estado, String usuario,
-			String clave, String nombreCompleto) {
-		this.codigoUsuario = codigoUsuario;
-		this.estado = estado;
+	public UsuarioEntity(String usuario, int estado, String clave,
+			String nombreCompleto) {
 		this.usuario = usuario;
+		this.estado = estado;
 		this.clave = clave;
 		this.nombreCompleto = nombreCompleto;
 	}
 
-	public UsuarioEntity(long codigoUsuario, char estado, String usuario,
-			String clave, String nombreCompleto, String correo,
-			Set<ProcesoEntity> procesos, Set<RolEntity> rols) {
-		this.codigoUsuario = codigoUsuario;
-		this.estado = estado;
+	public UsuarioEntity(String usuario, int estado, String clave,
+			String nombreCompleto, String correo, Set<ProcesoEntity> procesos,
+			Set<RolEntity> rols) {
 		this.usuario = usuario;
+		this.estado = estado;
 		this.clave = clave;
 		this.nombreCompleto = nombreCompleto;
 		this.correo = correo;
@@ -60,31 +57,22 @@ public class UsuarioEntity implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "codigo_usuario", unique = true, nullable = false)
-	public long getCodigoUsuario() {
-		return this.codigoUsuario;
-	}
-
-	public void setCodigoUsuario(long codigoUsuario) {
-		this.codigoUsuario = codigoUsuario;
-	}
-
-	@Column(name = "estado", nullable = false, length = 1)
-	public char getEstado() {
-		return this.estado;
-	}
-
-	public void setEstado(char estado) {
-		this.estado = estado;
-	}
-
-	@Column(name = "usuario", nullable = false, length = 40)
+	@Column(name = "usuario", unique = true, nullable = false, length = 40)
 	public String getUsuario() {
 		return this.usuario;
 	}
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	@Column(name = "estado", nullable = false)
+	public int getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
 
 	@Column(name = "clave", nullable = false, length = 20)
@@ -124,7 +112,7 @@ public class UsuarioEntity implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "usuario_rol", schema = "seguridad", joinColumns = { @JoinColumn(name = "codigo_usuario", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
+	@JoinTable(name = "usuario_rol", schema = "seguridad", joinColumns = { @JoinColumn(name = "usuario", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_rol", nullable = false, updatable = false) })
 	public Set<RolEntity> getRols() {
 		return this.rols;
 	}

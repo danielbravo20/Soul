@@ -25,17 +25,18 @@ public class ProcesoDao extends BaseDao<ProcesoEntity> implements ProcesoDaoLoca
 		ProcesoPlantillaEntity procesoPlantillaEntity = new ProcesoPlantillaEntity();
 		procesoPlantillaEntity.setCodigoProcesoPlantilla(proceso.getCodigoProcesoPlantilla());
 		
-		UsuarioEntity usuarioEntity = new UsuarioEntity();
-		usuarioEntity.setCodigoUsuario(proceso.getUsuario().getCodigo());
-		
 		ProcesoEntity procesoEntity = new ProcesoEntity();
 		procesoEntity.setProcesoPlantilla(procesoPlantillaEntity);
-		procesoEntity.setEstado(proceso.getEstado());
-		procesoEntity.setAleas(proceso.getAleas());
-		procesoEntity.setNombre(proceso.getNombre());
-		procesoEntity.setVersion(proceso.getVersion());
-		procesoEntity.setFechaCreacion(proceso.getFechaCreacion());
-		procesoEntity.setFechaTermino(proceso.getFechaTermino());
+		procesoEntity.setEstadoProceso(proceso.getEstado());
+		procesoEntity.setAleasProceso(proceso.getAleas());
+		procesoEntity.setNombreProceso(proceso.getNombre());
+		procesoEntity.setVersionProceso(proceso.getVersion());
+		procesoEntity.setFechaCreacionProceso(proceso.getFechaCreacion());
+		procesoEntity.setFechaTerminoProceso(proceso.getFechaTermino());
+		
+		UsuarioEntity usuarioEntity = new UsuarioEntity();
+		usuarioEntity.setUsuario(proceso.getCreador());
+		
 		procesoEntity.setUsuario(usuarioEntity);
 		
 		try {

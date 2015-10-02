@@ -32,13 +32,13 @@ public class TareaPlantillaDao extends BaseDao<TareaPlantillaEntity> implements 
     	if(tareaPlantillaEntitys!=null){
     		TareaPlantillaEntity tareaPlantillaEntity = tareaPlantillaEntitys.get(0);
     		tareaPlantilla = new TareaPlantilla();
-	    	tareaPlantilla.setAleas(tareaPlantillaEntity.getAleas());
+	    	tareaPlantilla.setAleas(tareaPlantillaEntity.getAleasTarea());
 	    	tareaPlantilla.setCodigoTareaPlantilla(tareaPlantillaEntity.getCodigoTareaPlantilla());
-	    	tareaPlantilla.setEstado(tareaPlantillaEntity.getEstado());
-	    	tareaPlantilla.setNombre(tareaPlantillaEntity.getNombre());
-	    	tareaPlantilla.setPrioridad(tareaPlantillaEntity.getPrioridad());
-	    	tareaPlantilla.setVersion(tareaPlantillaEntity.getVersion());
-	    	tareaPlantilla.setOrden(tareaPlantillaEntity.getOrden());
+	    	tareaPlantilla.setEstado(tareaPlantillaEntity.getEstadoTarea());
+	    	tareaPlantilla.setNombre(tareaPlantillaEntity.getNombreTarea());
+	    	tareaPlantilla.setPrioridad(tareaPlantillaEntity.getPrioridadTarea());
+	    	tareaPlantilla.setVersion(tareaPlantillaEntity.getVersionTarea());
+	    	tareaPlantilla.setOrden(tareaPlantillaEntity.getOrdenTarea());
     	}
     	
 		return tareaPlantilla;

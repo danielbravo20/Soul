@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
+// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -29,11 +29,11 @@ public class ProcesoPlantillaEntity implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private long codigoProcesoPlantilla;
-	private String version;
-	private char estado;
-	private String nombre;
-	private String aleas;
-	private Date fechaValidez;
+	private char estadoProceso;
+	private String nombreProceso;
+	private String aleasProceso;
+	private String versionProceso;
+	private Date fechaValidezProceso;
 	private boolean flagTodosInician;
 	private Set<RolEntity> rols = new HashSet<RolEntity>(0);
 	private Set<ProcesoEntity> procesos = new HashSet<ProcesoEntity>(0);
@@ -43,26 +43,29 @@ public class ProcesoPlantillaEntity implements java.io.Serializable {
 	public ProcesoPlantillaEntity() {
 	}
 
-	public ProcesoPlantillaEntity(long codigoProcesoPlantilla, char estado,
-			String nombre, String aleas, Date fechaValidez,
-			boolean flagTodosInician) {
+	public ProcesoPlantillaEntity(long codigoProcesoPlantilla, char estadoProceso,
+			String nombreProceso, String aleasProceso, String versionProceso,
+			Date fechaValidezProceso, boolean flagTodosInician) {
 		this.codigoProcesoPlantilla = codigoProcesoPlantilla;
-		this.estado = estado;
-		this.nombre = nombre;
-		this.aleas = aleas;
-		this.fechaValidez = fechaValidez;
+		this.estadoProceso = estadoProceso;
+		this.nombreProceso = nombreProceso;
+		this.aleasProceso = aleasProceso;
+		this.versionProceso = versionProceso;
+		this.fechaValidezProceso = fechaValidezProceso;
 		this.flagTodosInician = flagTodosInician;
 	}
 
-	public ProcesoPlantillaEntity(long codigoProcesoPlantilla, char estado,
-			String nombre, String aleas, Date fechaValidez,
-			boolean flagTodosInician, Set<RolEntity> rols, Set<ProcesoEntity> procesos,
-			Set<TareaPlantillaEntity> tareaPlantillas, Set<RolEntity> rols_1) {
+	public ProcesoPlantillaEntity(long codigoProcesoPlantilla, char estadoProceso,
+			String nombreProceso, String aleasProceso, String versionProceso,
+			Date fechaValidezProceso, boolean flagTodosInician, Set<RolEntity> rols,
+			Set<ProcesoEntity> procesos, Set<TareaPlantillaEntity> tareaPlantillas,
+			Set<RolEntity> rols_1) {
 		this.codigoProcesoPlantilla = codigoProcesoPlantilla;
-		this.estado = estado;
-		this.nombre = nombre;
-		this.aleas = aleas;
-		this.fechaValidez = fechaValidez;
+		this.estadoProceso = estadoProceso;
+		this.nombreProceso = nombreProceso;
+		this.aleasProceso = aleasProceso;
+		this.versionProceso = versionProceso;
+		this.fechaValidezProceso = fechaValidezProceso;
 		this.flagTodosInician = flagTodosInician;
 		this.rols = rols;
 		this.procesos = procesos;
@@ -80,50 +83,50 @@ public class ProcesoPlantillaEntity implements java.io.Serializable {
 		this.codigoProcesoPlantilla = codigoProcesoPlantilla;
 	}
 
-	@Column(name = "version", nullable = false, length = 12)
-	public String getVersion() {
-		return this.version;
+	@Column(name = "estado_proceso", nullable = false, length = 1)
+	public char getEstadoProceso() {
+		return this.estadoProceso;
 	}
 
-	public void setVersion(String version) {
-		this.version = version;
+	public void setEstadoProceso(char estadoProceso) {
+		this.estadoProceso = estadoProceso;
 	}
 
-	@Column(name = "estado", nullable = false, length = 1)
-	public char getEstado() {
-		return this.estado;
+	@Column(name = "nombre_proceso", nullable = false, length = 120)
+	public String getNombreProceso() {
+		return this.nombreProceso;
 	}
 
-	public void setEstado(char estado) {
-		this.estado = estado;
+	public void setNombreProceso(String nombreProceso) {
+		this.nombreProceso = nombreProceso;
 	}
 
-	@Column(name = "nombre", nullable = false, length = 120)
-	public String getNombre() {
-		return this.nombre;
+	@Column(name = "aleas_proceso", nullable = false, length = 100)
+	public String getAleasProceso() {
+		return this.aleasProceso;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setAleasProceso(String aleasProceso) {
+		this.aleasProceso = aleasProceso;
 	}
 
-	@Column(name = "aleas", nullable = false, length = 100)
-	public String getAleas() {
-		return this.aleas;
+	@Column(name = "version_proceso", nullable = false, length = 12)
+	public String getVersionProceso() {
+		return this.versionProceso;
 	}
 
-	public void setAleas(String aleas) {
-		this.aleas = aleas;
+	public void setVersionProceso(String versionProceso) {
+		this.versionProceso = versionProceso;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_validez", nullable = false, length = 29)
-	public Date getFechaValidez() {
-		return this.fechaValidez;
+	@Column(name = "fecha_validez_proceso", nullable = false, length = 29)
+	public Date getFechaValidezProceso() {
+		return this.fechaValidezProceso;
 	}
 
-	public void setFechaValidez(Date fechaValidez) {
-		this.fechaValidez = fechaValidez;
+	public void setFechaValidezProceso(Date fechaValidezProceso) {
+		this.fechaValidezProceso = fechaValidezProceso;
 	}
 
 	@Column(name = "flag_todos_inician", nullable = false)

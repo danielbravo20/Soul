@@ -22,9 +22,7 @@ public abstract class PreEmisionCartaFianzaV1 extends BaseProcesoController{
 	protected Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		
-		ProcesoUtil procesoUtil = getProcesoUtil();
-		
-		MensajeValidacion mensajeValidacion = procesoUtil.validacionCampos(request, response);
+		MensajeValidacion mensajeValidacion =  getProcesoUtil().validacionCampos(request, response);
 		
 		if(mensajeValidacion.isConforme()){
 			respuesta.setResultado(true);

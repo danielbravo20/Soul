@@ -6,19 +6,19 @@ public class Proceso extends BaseBean{
 
 	private static final long serialVersionUID = 1L;
 
-	public static final char ESTADO_EJECUTANDO = '1';
-	public static final char ESTADO_FINALIZADO = '2';
-	public static final char ESTADO_TERMINADO = '3';
+	public static final int ESTADO_EJECUTANDO = 1;
+	public static final int ESTADO_FINALIZADO = 2;
+	public static final int ESTADO_TERMINADO = 3;
 	
 	private long codigoProceso;
 	private long codigoProcesoPlantilla;
 	private String version;
-	private char estado;
+	private int estado;
 	private String nombre;
 	private String aleas;
 	private Date fechaCreacion;
 	private Date fechaTermino;
-	private Usuario usuario;
+	private String creador;
 	
 	public long getCodigoProceso() {
 		return codigoProceso;
@@ -38,10 +38,11 @@ public class Proceso extends BaseBean{
 	public void setVersion(String version) {
 		this.version = version;
 	}
-	public char getEstado() {
+	
+	public int getEstado() {
 		return estado;
 	}
-	public void setEstado(char estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
 	public String getNombre() {
@@ -68,11 +69,12 @@ public class Proceso extends BaseBean{
 	public void setFechaTermino(Date fechaTermino) {
 		this.fechaTermino = fechaTermino;
 	}
-	public Usuario getUsuario() {
-		return usuario;
+	public String getCreador() {
+		return creador;
 	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setCreador(String creador) {
+		this.creador = creador;
 	}
+
 
 }

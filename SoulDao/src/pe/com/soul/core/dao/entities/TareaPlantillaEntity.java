@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
+// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,13 +27,13 @@ public class TareaPlantillaEntity implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private long codigoTareaPlantilla;
-	private String version;
 	private ProcesoPlantillaEntity procesoPlantilla;
-	private char estado;
-	private String nombre;
-	private String aleas;
-	private int prioridad;
-	private int orden;
+	private int estadoTarea;
+	private String nombreTarea;
+	private String aleasTarea;
+	private String versionTarea;
+	private int prioridadTarea;
+	private int ordenTarea;
 	private Set<RolEntity> rols = new HashSet<RolEntity>(0);
 	private Set<RolEntity> rols_1 = new HashSet<RolEntity>(0);
 	private Set<RolEntity> rols_2 = new HashSet<RolEntity>(0);
@@ -43,28 +43,32 @@ public class TareaPlantillaEntity implements java.io.Serializable {
 	}
 
 	public TareaPlantillaEntity(long codigoTareaPlantilla,
-			ProcesoPlantillaEntity procesoPlantilla, char estado, String nombre,
-			String aleas, int prioridad, int orden) {
+			ProcesoPlantillaEntity procesoPlantilla, int estadoTarea,
+			String nombreTarea, String aleasTarea, String versionTarea,
+			int prioridadTarea, int ordenTarea) {
 		this.codigoTareaPlantilla = codigoTareaPlantilla;
 		this.procesoPlantilla = procesoPlantilla;
-		this.estado = estado;
-		this.nombre = nombre;
-		this.aleas = aleas;
-		this.prioridad = prioridad;
-		this.orden = orden;
+		this.estadoTarea = estadoTarea;
+		this.nombreTarea = nombreTarea;
+		this.aleasTarea = aleasTarea;
+		this.versionTarea = versionTarea;
+		this.prioridadTarea = prioridadTarea;
+		this.ordenTarea = ordenTarea;
 	}
 
 	public TareaPlantillaEntity(long codigoTareaPlantilla,
-			ProcesoPlantillaEntity procesoPlantilla, char estado, String nombre,
-			String aleas, int prioridad, int orden, Set<RolEntity> rols,
-			Set<RolEntity> rols_1, Set<RolEntity> rols_2, Set<TareaEntity> tareas) {
+			ProcesoPlantillaEntity procesoPlantilla, int estadoTarea,
+			String nombreTarea, String aleasTarea, String versionTarea,
+			int prioridadTarea, int ordenTarea, Set<RolEntity> rols, Set<RolEntity> rols_1,
+			Set<RolEntity> rols_2, Set<TareaEntity> tareas) {
 		this.codigoTareaPlantilla = codigoTareaPlantilla;
 		this.procesoPlantilla = procesoPlantilla;
-		this.estado = estado;
-		this.nombre = nombre;
-		this.aleas = aleas;
-		this.prioridad = prioridad;
-		this.orden = orden;
+		this.estadoTarea = estadoTarea;
+		this.nombreTarea = nombreTarea;
+		this.aleasTarea = aleasTarea;
+		this.versionTarea = versionTarea;
+		this.prioridadTarea = prioridadTarea;
+		this.ordenTarea = ordenTarea;
 		this.rols = rols;
 		this.rols_1 = rols_1;
 		this.rols_2 = rols_2;
@@ -81,15 +85,6 @@ public class TareaPlantillaEntity implements java.io.Serializable {
 		this.codigoTareaPlantilla = codigoTareaPlantilla;
 	}
 
-	@Column(name = "version", nullable = false, length = 12)
-	public String getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_proceso_plantilla", nullable = false)
 	public ProcesoPlantillaEntity getProcesoPlantilla() {
@@ -100,49 +95,58 @@ public class TareaPlantillaEntity implements java.io.Serializable {
 		this.procesoPlantilla = procesoPlantilla;
 	}
 
-	@Column(name = "estado", nullable = false, length = 1)
-	public char getEstado() {
-		return this.estado;
+	@Column(name = "estado_tarea", nullable = false)
+	public int getEstadoTarea() {
+		return this.estadoTarea;
 	}
 
-	public void setEstado(char estado) {
-		this.estado = estado;
+	public void setEstadoTarea(int estadoTarea) {
+		this.estadoTarea = estadoTarea;
 	}
 
-	@Column(name = "nombre", nullable = false, length = 120)
-	public String getNombre() {
-		return this.nombre;
+	@Column(name = "nombre_tarea", nullable = false, length = 120)
+	public String getNombreTarea() {
+		return this.nombreTarea;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreTarea(String nombreTarea) {
+		this.nombreTarea = nombreTarea;
 	}
 
-	@Column(name = "aleas", nullable = false, length = 100)
-	public String getAleas() {
-		return this.aleas;
+	@Column(name = "aleas_tarea", nullable = false, length = 100)
+	public String getAleasTarea() {
+		return this.aleasTarea;
 	}
 
-	public void setAleas(String aleas) {
-		this.aleas = aleas;
+	public void setAleasTarea(String aleasTarea) {
+		this.aleasTarea = aleasTarea;
 	}
 
-	@Column(name = "prioridad", nullable = false)
-	public int getPrioridad() {
-		return this.prioridad;
+	@Column(name = "version_tarea", nullable = false, length = 12)
+	public String getVersionTarea() {
+		return this.versionTarea;
 	}
 
-	public void setPrioridad(int prioridad) {
-		this.prioridad = prioridad;
+	public void setVersionTarea(String versionTarea) {
+		this.versionTarea = versionTarea;
 	}
 
-	@Column(name = "orden", nullable = false)
-	public int getOrden() {
-		return this.orden;
+	@Column(name = "prioridad_tarea", nullable = false)
+	public int getPrioridadTarea() {
+		return this.prioridadTarea;
 	}
 
-	public void setOrden(int orden) {
-		this.orden = orden;
+	public void setPrioridadTarea(int prioridadTarea) {
+		this.prioridadTarea = prioridadTarea;
+	}
+
+	@Column(name = "orden_tarea", nullable = false)
+	public int getOrdenTarea() {
+		return this.ordenTarea;
+	}
+
+	public void setOrdenTarea(int ordenTarea) {
+		this.ordenTarea = ordenTarea;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)

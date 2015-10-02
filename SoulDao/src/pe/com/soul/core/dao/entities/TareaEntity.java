@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
+// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 
@@ -28,58 +28,62 @@ public class TareaEntity implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private long codigoTarea;
-	private String version;
 	private ProcesoEntity proceso;
 	private TareaPlantillaEntity tareaPlantilla;
-	private char estado;
-	private String nombre;
-	private String aleas;
-	private int prioridad;
-	private Date fechaCreacion;
-	private Date fechaReclamo;
-	private Date fechaTermino;
-	private Date fechaUltimaModificacion;
-	private String dueno;
+	private int estadoTarea;
+	private String nombreTarea;
+	private String aleasTarea;
+	private String versionTarea;
+	private int prioridadTarea;
+	private Date fechaCreacionTarea;
+	private Date fechaReclamoTarea;
+	private Date fechaTerminoTarea;
+	private Date fechaUltimaModificacionTarea;
+	private String duenoTarea;
 
 	public TareaEntity() {
 	}
 
 	public TareaEntity(long codigoTarea, ProcesoEntity proceso,
-			TareaPlantillaEntity tareaPlantilla, char estado, String nombre,
-			String aleas, int prioridad, Date fechaCreacion,
-			Date fechaUltimaModificacion) {
+			TareaPlantillaEntity tareaPlantilla, int estadoTarea, String nombreTarea,
+			String aleasTarea, String versionTarea, int prioridadTarea,
+			Date fechaCreacionTarea, Date fechaUltimaModificacionTarea) {
 		this.codigoTarea = codigoTarea;
 		this.proceso = proceso;
 		this.tareaPlantilla = tareaPlantilla;
-		this.estado = estado;
-		this.nombre = nombre;
-		this.aleas = aleas;
-		this.prioridad = prioridad;
-		this.fechaCreacion = fechaCreacion;
-		this.fechaUltimaModificacion = fechaUltimaModificacion;
+		this.estadoTarea = estadoTarea;
+		this.nombreTarea = nombreTarea;
+		this.aleasTarea = aleasTarea;
+		this.versionTarea = versionTarea;
+		this.prioridadTarea = prioridadTarea;
+		this.fechaCreacionTarea = fechaCreacionTarea;
+		this.fechaUltimaModificacionTarea = fechaUltimaModificacionTarea;
 	}
 
 	public TareaEntity(long codigoTarea, ProcesoEntity proceso,
-			TareaPlantillaEntity tareaPlantilla, char estado, String nombre,
-			String aleas, int prioridad, Date fechaCreacion, Date fechaReclamo,
-			Date fechaTermino, Date fechaUltimaModificacion, String dueno) {
+			TareaPlantillaEntity tareaPlantilla, int estadoTarea, String nombreTarea,
+			String aleasTarea, String versionTarea, int prioridadTarea,
+			Date fechaCreacionTarea, Date fechaReclamoTarea,
+			Date fechaTerminoTarea, Date fechaUltimaModificacionTarea,
+			String duenoTarea) {
 		this.codigoTarea = codigoTarea;
 		this.proceso = proceso;
 		this.tareaPlantilla = tareaPlantilla;
-		this.estado = estado;
-		this.nombre = nombre;
-		this.aleas = aleas;
-		this.prioridad = prioridad;
-		this.fechaCreacion = fechaCreacion;
-		this.fechaReclamo = fechaReclamo;
-		this.fechaTermino = fechaTermino;
-		this.fechaUltimaModificacion = fechaUltimaModificacion;
-		this.dueno = dueno;
+		this.estadoTarea = estadoTarea;
+		this.nombreTarea = nombreTarea;
+		this.aleasTarea = aleasTarea;
+		this.versionTarea = versionTarea;
+		this.prioridadTarea = prioridadTarea;
+		this.fechaCreacionTarea = fechaCreacionTarea;
+		this.fechaReclamoTarea = fechaReclamoTarea;
+		this.fechaTerminoTarea = fechaTerminoTarea;
+		this.fechaUltimaModificacionTarea = fechaUltimaModificacionTarea;
+		this.duenoTarea = duenoTarea;
 	}
 
 	@Id
-	@GeneratedValue(generator="id_seq_codigo_tarea") 
-    @SequenceGenerator(name="id_seq_codigo_tarea",sequenceName="proceso.seq_codigo_tarea", allocationSize=0)
+	@GeneratedValue(generator="seq_codigo_tarea") 
+    @SequenceGenerator(name="seq_codigo_tarea",sequenceName="proceso.seq_codigo_tarea", allocationSize=0)
 	@Column(name = "codigo_tarea", unique = true, nullable = false)
 	public long getCodigoTarea() {
 		return this.codigoTarea;
@@ -87,15 +91,6 @@ public class TareaEntity implements java.io.Serializable {
 
 	public void setCodigoTarea(long codigoTarea) {
 		this.codigoTarea = codigoTarea;
-	}
-
-	@Column(name = "version", nullable = false, length = 12)
-	public String getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -118,89 +113,99 @@ public class TareaEntity implements java.io.Serializable {
 		this.tareaPlantilla = tareaPlantilla;
 	}
 
-	@Column(name = "estado", nullable = false, length = 1)
-	public char getEstado() {
-		return this.estado;
+	@Column(name = "estado_tarea", nullable = false)
+	public int getEstadoTarea() {
+		return this.estadoTarea;
 	}
 
-	public void setEstado(char estado) {
-		this.estado = estado;
+	public void setEstadoTarea(int estadoTarea) {
+		this.estadoTarea = estadoTarea;
 	}
 
-	@Column(name = "nombre", nullable = false, length = 120)
-	public String getNombre() {
-		return this.nombre;
+	@Column(name = "nombre_tarea", nullable = false, length = 120)
+	public String getNombreTarea() {
+		return this.nombreTarea;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreTarea(String nombreTarea) {
+		this.nombreTarea = nombreTarea;
 	}
 
-	@Column(name = "aleas", nullable = false, length = 100)
-	public String getAleas() {
-		return this.aleas;
+	@Column(name = "aleas_tarea", nullable = false, length = 100)
+	public String getAleasTarea() {
+		return this.aleasTarea;
 	}
 
-	public void setAleas(String aleas) {
-		this.aleas = aleas;
+	public void setAleasTarea(String aleasTarea) {
+		this.aleasTarea = aleasTarea;
 	}
 
-	@Column(name = "prioridad", nullable = false)
-	public int getPrioridad() {
-		return this.prioridad;
+	@Column(name = "version_tarea", nullable = false, length = 12)
+	public String getVersionTarea() {
+		return this.versionTarea;
 	}
 
-	public void setPrioridad(int prioridad) {
-		this.prioridad = prioridad;
+	public void setVersionTarea(String versionTarea) {
+		this.versionTarea = versionTarea;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_creacion", nullable = false, length = 29)
-	public Date getFechaCreacion() {
-		return this.fechaCreacion;
+	@Column(name = "prioridad_tarea", nullable = false)
+	public int getPrioridadTarea() {
+		return this.prioridadTarea;
 	}
 
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_reclamo", length = 29)
-	public Date getFechaReclamo() {
-		return this.fechaReclamo;
-	}
-
-	public void setFechaReclamo(Date fechaReclamo) {
-		this.fechaReclamo = fechaReclamo;
+	public void setPrioridadTarea(int prioridadTarea) {
+		this.prioridadTarea = prioridadTarea;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_termino", length = 29)
-	public Date getFechaTermino() {
-		return this.fechaTermino;
+	@Column(name = "fecha_creacion_tarea", nullable = false, length = 29)
+	public Date getFechaCreacionTarea() {
+		return this.fechaCreacionTarea;
 	}
 
-	public void setFechaTermino(Date fechaTermino) {
-		this.fechaTermino = fechaTermino;
+	public void setFechaCreacionTarea(Date fechaCreacionTarea) {
+		this.fechaCreacionTarea = fechaCreacionTarea;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_ultima_modificacion", nullable = false, length = 29)
-	public Date getFechaUltimaModificacion() {
-		return this.fechaUltimaModificacion;
+	@Column(name = "fecha_reclamo_tarea", length = 29)
+	public Date getFechaReclamoTarea() {
+		return this.fechaReclamoTarea;
 	}
 
-	public void setFechaUltimaModificacion(Date fechaUltimaModificacion) {
-		this.fechaUltimaModificacion = fechaUltimaModificacion;
+	public void setFechaReclamoTarea(Date fechaReclamoTarea) {
+		this.fechaReclamoTarea = fechaReclamoTarea;
 	}
 
-	@Column(name = "dueno", length = 40)
-	public String getDueno() {
-		return this.dueno;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fecha_termino_tarea", length = 29)
+	public Date getFechaTerminoTarea() {
+		return this.fechaTerminoTarea;
 	}
 
-	public void setDueno(String dueno) {
-		this.dueno = dueno;
+	public void setFechaTerminoTarea(Date fechaTerminoTarea) {
+		this.fechaTerminoTarea = fechaTerminoTarea;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fecha_ultima_modificacion_tarea", nullable = false, length = 29)
+	public Date getFechaUltimaModificacionTarea() {
+		return this.fechaUltimaModificacionTarea;
+	}
+
+	public void setFechaUltimaModificacionTarea(
+			Date fechaUltimaModificacionTarea) {
+		this.fechaUltimaModificacionTarea = fechaUltimaModificacionTarea;
+	}
+
+	@Column(name = "dueno_tarea", length = 40)
+	public String getDuenoTarea() {
+		return this.duenoTarea;
+	}
+
+	public void setDuenoTarea(String duenoTarea) {
+		this.duenoTarea = duenoTarea;
 	}
 
 }

@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 01/10/2015 10:53:53 PM by Hibernate Tools 4.3.1
+// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,9 +25,10 @@ public class RolEntity implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private long codigoRol;
-	private String nombre;
+	private String nombreRol;
 	private Set<TareaPlantillaEntity> tareaPlantillas = new HashSet<TareaPlantillaEntity>(0);
 	private Set<ModuloEntity> modulos = new HashSet<ModuloEntity>(0);
+	private Set<UsuarioEntity> usuarios = new HashSet<UsuarioEntity>(0);
 	private Set<ProcesoPlantillaEntity> procesoPlantillas = new HashSet<ProcesoPlantillaEntity>(
 			0);
 	private Set<TareaPlantillaEntity> tareaPlantillas_1 = new HashSet<TareaPlantillaEntity>(
@@ -36,31 +37,30 @@ public class RolEntity implements java.io.Serializable {
 			0);
 	private Set<ProcesoPlantillaEntity> procesoPlantillas_1 = new HashSet<ProcesoPlantillaEntity>(
 			0);
-	private Set<UsuarioEntity> usuarios = new HashSet<UsuarioEntity>(0);
 
 	public RolEntity() {
 	}
 
-	public RolEntity(long codigoRol, String nombre) {
+	public RolEntity(long codigoRol, String nombreRol) {
 		this.codigoRol = codigoRol;
-		this.nombre = nombre;
+		this.nombreRol = nombreRol;
 	}
 
-	public RolEntity(long codigoRol, String nombre,
+	public RolEntity(long codigoRol, String nombreRol,
 			Set<TareaPlantillaEntity> tareaPlantillas, Set<ModuloEntity> modulos,
-			Set<ProcesoPlantillaEntity> procesoPlantillas,
+			Set<UsuarioEntity> usuarios, Set<ProcesoPlantillaEntity> procesoPlantillas,
 			Set<TareaPlantillaEntity> tareaPlantillas_1,
 			Set<TareaPlantillaEntity> tareaPlantillas_2,
-			Set<ProcesoPlantillaEntity> procesoPlantillas_1, Set<UsuarioEntity> usuarios) {
+			Set<ProcesoPlantillaEntity> procesoPlantillas_1) {
 		this.codigoRol = codigoRol;
-		this.nombre = nombre;
+		this.nombreRol = nombreRol;
 		this.tareaPlantillas = tareaPlantillas;
 		this.modulos = modulos;
+		this.usuarios = usuarios;
 		this.procesoPlantillas = procesoPlantillas;
 		this.tareaPlantillas_1 = tareaPlantillas_1;
 		this.tareaPlantillas_2 = tareaPlantillas_2;
 		this.procesoPlantillas_1 = procesoPlantillas_1;
-		this.usuarios = usuarios;
 	}
 
 	@Id
@@ -73,13 +73,13 @@ public class RolEntity implements java.io.Serializable {
 		this.codigoRol = codigoRol;
 	}
 
-	@Column(name = "nombre", nullable = false, length = 120)
-	public String getNombre() {
-		return this.nombre;
+	@Column(name = "nombre_rol", nullable = false, length = 120)
+	public String getNombreRol() {
+		return this.nombreRol;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreRol(String nombreRol) {
+		this.nombreRol = nombreRol;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
@@ -99,6 +99,15 @@ public class RolEntity implements java.io.Serializable {
 
 	public void setModulos(Set<ModuloEntity> modulos) {
 		this.modulos = modulos;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
+	public Set<UsuarioEntity> getUsuarios() {
+		return this.usuarios;
+	}
+
+	public void setUsuarios(Set<UsuarioEntity> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols_1")
@@ -135,15 +144,6 @@ public class RolEntity implements java.io.Serializable {
 
 	public void setProcesoPlantillas_1(Set<ProcesoPlantillaEntity> procesoPlantillas_1) {
 		this.procesoPlantillas_1 = procesoPlantillas_1;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")
-	public Set<UsuarioEntity> getUsuarios() {
-		return this.usuarios;
-	}
-
-	public void setUsuarios(Set<UsuarioEntity> usuarios) {
-		this.usuarios = usuarios;
 	}
 
 }

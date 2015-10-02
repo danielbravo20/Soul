@@ -43,8 +43,11 @@ public class TareaController extends BaseController {
 			Usuario usuario = obtenerUsuario(request, session);
 			
 			if("reclamadas".equals(accion)){
-				respuesta.setResultado(true);
 				respuesta.setRespuesta(tareaServiceLocal.obtenerReclamadas(usuario));
+				respuesta.setResultado(true);
+			}else if("disponibles".equals(accion)){
+				respuesta.setRespuesta(tareaServiceLocal.obtenerDisponibles(usuario));
+				respuesta.setResultado(true);
 			}
 		}
 		

@@ -6,14 +6,66 @@ public class Tarea extends BaseBean{
 
 	private static final long serialVersionUID = 1L;
 
-	public static final char ESTADO_PENDIENTE = '1';
-	public static final char ESTADO_RECLAMADO = '2';
-	public static final char ESTADO_ATENDIDO = '3';
+	public static final int ESTADO_PENDIENTE = 1;
+	public static final int ESTADO_RECLAMADO = 2;
+	public static final int ESTADO_TERMINADO = 3;
+	
+	public Tarea() {
+	}
+	
+	public Tarea(	long codigoTarea,
+					long codigoProceso,
+					long codigoTareaPlantilla,
+					int estadoTarea,
+					String nombreTarea,
+					String aleasTarea,
+					String versionTarea,
+					int prioridadTarea,
+					Date fechaCreacionTarea,
+					Date fechaReclamoTarea,
+					Date fechaTerminoTarea,
+					Date fechaUltimaModificacionTarea,
+					String duenoTarea, 
+					long codigoProcesoPlantilla,
+					int estadoProceso,
+					String nombreProceso,
+					String aleasProceso,
+					String versionProceso,
+					Date fechaCreacionProceso,
+					Date fechaTerminoProceso,
+					String usuarioProceso) {
+	
+		this.codigoTarea = codigoTarea;
+		this.version = versionTarea;
+		this.estado = estadoTarea;
+		this.nombre = nombreTarea;
+		this.aleas = aleasTarea;
+		this.prioridad = prioridadTarea;
+		this.fechaCreacion = fechaCreacionTarea;
+		this.fechaReclamo = fechaReclamoTarea;
+		this.fechaTermino = fechaTerminoTarea;
+		this.fechaUltimaModificacion = fechaUltimaModificacionTarea;
+		this.dueno = duenoTarea;
+		
+		Proceso proceso = new Proceso();
+		proceso.setCodigoProceso(codigoProceso);
+		proceso.setCodigoProcesoPlantilla(codigoProcesoPlantilla);
+		proceso.setEstado(estadoProceso);
+		proceso.setNombre(nombreProceso);
+		proceso.setAleas(aleasProceso);
+		proceso.setVersion(versionProceso);
+		proceso.setFechaCreacion(fechaCreacionProceso);
+		proceso.setFechaTermino(fechaTerminoProceso);
+		proceso.setCreador(usuarioProceso);
+		
+		this.proceso = proceso;
+		
+	}
 	
 	private long codigoTarea;
 	private String version;
-	private Usuario dueno;
-	private char estado;
+	private String dueno;
+	private int estado;
 	private String nombre;
 	private String aleas;
 	private int prioridad;
@@ -36,18 +88,15 @@ public class Tarea extends BaseBean{
 	public void setVersion(String version) {
 		this.version = version;
 	}
-	public Usuario getDueno() {
-		return dueno;
-	}
-	public void setDueno(Usuario dueno) {
-		this.dueno = dueno;
-	}
-	public char getEstado() {
+
+	public int getEstado() {
 		return estado;
 	}
-	public void setEstado(char estado) {
+
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -101,6 +150,14 @@ public class Tarea extends BaseBean{
 	}
 	public void setTareaPlantilla(TareaPlantilla tareaPlantilla) {
 		this.tareaPlantilla = tareaPlantilla;
+	}
+
+	public String getDueno() {
+		return dueno;
+	}
+
+	public void setDueno(String dueno) {
+		this.dueno = dueno;
 	}
 	
 }

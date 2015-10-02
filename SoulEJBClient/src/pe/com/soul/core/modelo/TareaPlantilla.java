@@ -6,7 +6,7 @@ public class TareaPlantilla extends BaseBean{
 	
 	private long codigoTareaPlantilla;
 	private String version;
-	private char estado;
+	private int estado;
 	private String nombre;
 	private String aleas;
 	private int prioridad;
@@ -17,7 +17,7 @@ public class TareaPlantilla extends BaseBean{
 	
 	public TareaPlantilla(	long codigoTareaPlantilla, 
 							String version,
-							char estado,
+							int estado,
 							String nombre,
 							String aleas,
 							int prioridad,
@@ -43,12 +43,15 @@ public class TareaPlantilla extends BaseBean{
 	public void setVersion(String version) {
 		this.version = version;
 	}
-	public char getEstado() {
+	
+	public int getEstado() {
 		return estado;
 	}
-	public void setEstado(char estado) {
+
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}

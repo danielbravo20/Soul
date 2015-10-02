@@ -31,27 +31,6 @@ CREATE SEQUENCE proceso.seq_codigo_tarea
  CACHE 1
 ;
 
-CREATE SEQUENCE proceso.seq_proceso
- INCREMENT BY 1
- NO MAXVALUE
- NO MINVALUE
- CACHE 1
-;
-
-CREATE SEQUENCE proceso.seq_tarea
- INCREMENT BY 1
- NO MAXVALUE
- NO MINVALUE
- CACHE 1
-;
-
-CREATE SEQUENCE seguridad.seq_usuario
- INCREMENT BY 1
- NO MAXVALUE
- NO MINVALUE
- CACHE 1
-;
-
 -- Create tables section -------------------------------------------------
 
 -- Table proceso.administrador_proceso
@@ -122,17 +101,16 @@ ALTER TABLE proceso.potencial_iniciador ADD CONSTRAINT potencial_iniciador_pk PR
 -- Table proceso.proceso
 
 CREATE TABLE proceso.proceso(
- codigo_proceso Bigint NOT NULL,
- codigo_proceso_plantilla Bigint NOT NULL,
- estado Character(1) NOT NULL,
- nombre Character varying(120) NOT NULL,
- aleas Character varying(100) NOT NULL,
- version Character varying(12) NOT NULL,
- fecha_creacion Timestamp NOT NULL,
- fecha_termino Timestamp,
- codigo_usuario_creacion Bigint NOT NULL
-)
-;
+ 	codigo_proceso Bigint NOT NULL,
+ 	codigo_proceso_plantilla Bigint NOT NULL,
+ 	estado_proceso Integer NOT NULL,
+ 	nombre_proceso Character varying(120) NOT NULL,
+ 	aleas_proceso Character varying(100) NOT NULL,
+ 	version_proceso Character varying(12) NOT NULL,
+ 	fecha_creacion_proceso Timestamp NOT NULL,
+ 	fecha_termino_proceso Timestamp,
+ 	usuario_creacion_proceso Character varying(40) NOT NULL
+);
 
 -- Add keys for table proceso.proceso
 
@@ -143,11 +121,11 @@ ALTER TABLE proceso.proceso ADD CONSTRAINT proceso_pk PRIMARY KEY (codigo_proces
 
 CREATE TABLE proceso.proceso_plantilla(
  codigo_proceso_plantilla Bigint NOT NULL,
- estado Character(1) NOT NULL,
- nombre Character varying(120) NOT NULL,
- aleas Character varying(100) NOT NULL,
- version Character varying(12) NOT NULL,
- fecha_validez Timestamp NOT NULL,
+ estado_proceso Character(1) NOT NULL,
+ nombre_proceso Character varying(120) NOT NULL,
+ aleas_proceso Character varying(100) NOT NULL,
+ version_proceso Character varying(12) NOT NULL,
+ fecha_validez_proceso Timestamp NOT NULL,
  flag_todos_inician Boolean NOT NULL
 )
 ;
@@ -163,16 +141,16 @@ CREATE TABLE proceso.tarea(
  codigo_tarea Bigint NOT NULL,
  codigo_proceso Bigint NOT NULL,
  codigo_tarea_plantilla Bigint NOT NULL,
- estado Character(1) NOT NULL,
- nombre Character varying(120) NOT NULL,
- aleas Character varying(100) NOT NULL,
- version Character varying(12) NOT NULL,
- prioridad Integer NOT NULL,
- fecha_creacion Timestamp NOT NULL,
- fecha_reclamo Timestamp,
- fecha_termino Timestamp,
- fecha_ultima_modificacion Timestamp NOT NULL,
- dueno Character varying(40)
+ estado_tarea Integer NOT NULL,
+ nombre_tarea Character varying(120) NOT NULL,
+ aleas_tarea Character varying(100) NOT NULL,
+ version_tarea Character varying(12) NOT NULL,
+ prioridad_tarea Integer NOT NULL,
+ fecha_creacion_tarea Timestamp NOT NULL,
+ fecha_reclamo_tarea Timestamp,
+ fecha_termino_tarea Timestamp,
+ fecha_ultima_modificacion_tarea Timestamp NOT NULL,
+ dueno_tarea Character varying(40)
 )
 ;
 
@@ -186,12 +164,12 @@ ALTER TABLE proceso.tarea ADD CONSTRAINT tarea_pk PRIMARY KEY (codigo_tarea)
 CREATE TABLE proceso.tarea_plantilla(
  codigo_tarea_plantilla Bigint NOT NULL,
  codigo_proceso_plantilla Bigint NOT NULL,
- estado Character(1) NOT NULL,
- nombre Character varying(120) NOT NULL,
- aleas Character varying(100) NOT NULL,
- version Character varying(12) NOT NULL,
- prioridad Integer NOT NULL,
- orden Integer NOT NULL
+ estado_tarea Integer NOT NULL,
+ nombre_tarea Character varying(120) NOT NULL,
+ aleas_tarea Character varying(100) NOT NULL,
+ version_tarea Character varying(12) NOT NULL,
+ prioridad_tarea Integer NOT NULL,
+ orden_tarea Integer NOT NULL
 )
 ;
 
@@ -233,7 +211,7 @@ ALTER TABLE seguridad.modulo_rol ADD CONSTRAINT modulo_rol_pk PRIMARY KEY (codig
 
 CREATE TABLE seguridad.rol(
  codigo_rol Bigint NOT NULL,
- nombre Character varying(120) NOT NULL
+ nombre_rol Character varying(120) NOT NULL
 )
 ;
 
@@ -245,22 +223,21 @@ ALTER TABLE seguridad.rol ADD CONSTRAINT rol_pk PRIMARY KEY (codigo_rol)
 -- Table seguridad.usuario_rol
 
 CREATE TABLE seguridad.usuario_rol(
- codigo_usuario Bigint NOT NULL,
+ usuario Character varying(40) NOT NULL,
  codigo_rol Bigint NOT NULL
 )
 ;
 
 -- Add keys for table seguridad.usuario_rol
 
-ALTER TABLE seguridad.usuario_rol ADD CONSTRAINT usuario_rol_pk PRIMARY KEY (codigo_usuario,codigo_rol)
+ALTER TABLE seguridad.usuario_rol ADD CONSTRAINT usuario_rol_pk PRIMARY KEY (usuario,codigo_rol)
 ;
 
 -- Table seguridad.usuario
 
 CREATE TABLE seguridad.usuario(
- codigo_usuario Bigint NOT NULL,
- estado Character(1) NOT NULL,
  usuario Character varying(40) NOT NULL,
+ estado Integer NOT NULL,
  clave Character varying(20) NOT NULL,
  nombre_completo Character varying(120) NOT NULL,
  correo Character varying(120)
@@ -269,19 +246,44 @@ CREATE TABLE seguridad.usuario(
 
 -- Add keys for table seguridad.usuario
 
-ALTER TABLE seguridad.usuario ADD CONSTRAINT usuario_pk PRIMARY KEY (codigo_usuario)
+ALTER TABLE seguridad.usuario ADD CONSTRAINT usuario_pk PRIMARY KEY (usuario)
 ;
 
 -- Create views section -------------------------------------------------
 
-CREATE VIEW proceso.tarea_potencia_dueno AS
-SELECT ta.codigo_tarea, ta.codigo_proceso, ta.codigo_tarea_plantilla, ta.estado, ta.nombre, ta.aleas, ta.version, ta.prioridad, ta.fecha_creacion, ta.fecha_reclamo, ta.fecha_termino, ta.fecha_ultima_modificacion, ta.dueno, ur.codigo_usuario
-FROM proceso.tarea ta, proceso.potencial_dueno pd, seguridad.usuario_rol ur
-WHERE ta.codigo_tarea_plantilla = pd.codigo_tarea_plantilla
-and pd.codigo_rol = ur.codigo_rol
 
-ORDER BY ta.fecha_creacion
-;
+CREATE VIEW proceso.tarea_potencial_dueno AS
+	SELECT 	ta.codigo_tarea,
+		ta.codigo_proceso,
+		ta.codigo_tarea_plantilla,
+		ta.estado_tarea,
+		ta.nombre_tarea,
+		ta.aleas_tarea,
+		ta.version_tarea,
+		ta.prioridad_tarea,
+		ta.fecha_creacion_tarea,
+		ta.fecha_reclamo_tarea,
+		ta.fecha_termino_tarea,
+		ta.fecha_ultima_modificacion_tarea,
+		ta.dueno_tarea,
+		codigo_proceso_plantilla,
+		estado_proceso,
+		nombre_proceso,
+		aleas_proceso,
+		version_proceso,
+		fecha_creacion_proceso,
+		fecha_termino_proceso,
+		usuario_creacion_proceso
+	   FROM proceso.tarea ta,
+	        proceso.proceso pr,
+			proceso.potencial_dueno pd, 
+		    seguridad.usuario_rol ur
+	 WHERE ta.codigo_tarea_plantilla = pd.codigo_tarea_plantilla
+	   and ta.codigo_proceso = pr.codigo_proceso
+	   and pd.codigo_rol = ur.codigo_rol
+	   and ta.estado_tarea <> 3
+	   and pr.estado_proceso = 1
+ORDER BY ta.fecha_creacion_tarea;
 
 -- Create relationships section ------------------------------------------------- 
 
@@ -324,7 +326,7 @@ ALTER TABLE proceso.potencial_iniciador ADD CONSTRAINT potencial_iniciador_rol F
 ALTER TABLE proceso.proceso ADD CONSTRAINT pro_instancia_pro_plantilla FOREIGN KEY (codigo_proceso_plantilla) REFERENCES proceso.proceso_plantilla (codigo_proceso_plantilla) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
-ALTER TABLE proceso.proceso ADD CONSTRAINT pro_instancia_usuario FOREIGN KEY (codigo_usuario_creacion) REFERENCES seguridad.usuario (codigo_usuario) ON DELETE NO ACTION ON UPDATE NO ACTION
+ALTER TABLE proceso.proceso ADD CONSTRAINT pro_instancia_usuario FOREIGN KEY (usuario_creacion_proceso) REFERENCES seguridad.usuario (usuario) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
 ALTER TABLE proceso.tarea ADD CONSTRAINT tar_instancia_pro_instancia FOREIGN KEY (codigo_proceso) REFERENCES proceso.proceso (codigo_proceso) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -339,7 +341,7 @@ ALTER TABLE proceso.tarea_plantilla ADD CONSTRAINT tar_plantilla_pro_plantilla F
 ALTER TABLE seguridad.usuario_rol ADD CONSTRAINT usuario_rol_rol FOREIGN KEY (codigo_rol) REFERENCES seguridad.rol (codigo_rol) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
-ALTER TABLE seguridad.usuario_rol ADD CONSTRAINT usuario_rol_usuario FOREIGN KEY (codigo_usuario) REFERENCES seguridad.usuario (codigo_usuario) ON DELETE NO ACTION ON UPDATE NO ACTION
+ALTER TABLE seguridad.usuario_rol ADD CONSTRAINT usuario_rol_usuario FOREIGN KEY (usuario) REFERENCES seguridad.usuario (usuario) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
 

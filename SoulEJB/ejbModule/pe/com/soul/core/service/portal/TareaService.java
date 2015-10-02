@@ -39,7 +39,7 @@ public class TareaService implements TareaServiceLocal {
 		tarea.setTareaPlantilla(tareaPlantilla);
 		
 		if(dueno!=null){
-			tarea.setDueno(dueno);
+			tarea.setDueno(dueno.getUsuario());
 		}
 		
     	return tareaDaoLocal.guardar(tarea);
@@ -48,6 +48,11 @@ public class TareaService implements TareaServiceLocal {
 	@Override
 	public List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception {
 		return tareaDaoLocal.obtenerReclamadas(usuario);
+	}
+
+	@Override
+	public List<Tarea> obtenerDisponibles(Usuario usuario) throws Exception {
+		return tareaDaoLocal.obtenerDisponibles(usuario);
 	}
 
 }

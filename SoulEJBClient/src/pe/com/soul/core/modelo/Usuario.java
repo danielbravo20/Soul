@@ -8,9 +8,8 @@ public class Usuario extends BaseBean{
 	
 	public static final String SESSION_USUARIO_WEB_SOUL = "SESSION_USUARIO_WEB_SOUL";
 	
-	private long codigo;
-	private char estado;
 	private String usuario;
+	private int estado;
 	private String clave;
 	private String nombreCompleto;
 	private String correo;
@@ -23,17 +22,12 @@ public class Usuario extends BaseBean{
 	private List<Modulo> modulos;
 	private List<Proceso> procesos;
 	private List<ProcesoPlantilla> procesoPotenciales;
+
 	
-	public long getCodigo() {
-		return codigo;
-	}
-	public void setCodigo(long codigo) {
-		this.codigo = codigo;
-	}
-	public char getEstado() {
+	public int getEstado() {
 		return estado;
 	}
-	public void setEstado(char estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
 	public String getUsuario() {

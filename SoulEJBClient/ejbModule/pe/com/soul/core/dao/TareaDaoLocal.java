@@ -12,4 +12,5 @@ public interface TareaDaoLocal {
 
 	Tarea guardar(Tarea tarea) throws Exception;
 	List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception;
+	List<Tarea> obtenerDisponibles(Usuario usuario) throws Exception;
 }
