@@ -238,7 +238,7 @@ ALTER TABLE seguridad.usuario_rol ADD CONSTRAINT usuario_rol_pk PRIMARY KEY (usu
 CREATE TABLE seguridad.usuario(
  usuario Character varying(40) NOT NULL,
  estado Integer NOT NULL,
- clave Character varying(20) NOT NULL,
+ clave Character varying(70) NOT NULL,
  nombre_completo Character varying(120) NOT NULL,
  correo Character varying(120)
 )

@@ -1,8 +1,8 @@
 
-INSERT INTO SEGURIDAD.USUARIO VALUES ('daniel', '1', 'clave1', 'daniel bravo', 'daniel@correo.com');
-INSERT INTO SEGURIDAD.USUARIO VALUES ('edwin', '1', 'clave1', 'edwin rebaza', 'edwin@correo.com');
-INSERT INTO SEGURIDAD.USUARIO VALUES ('david', '1', 'clave1', 'david huertas', 'david@correo.com');
-INSERT INTO SEGURIDAD.USUARIO VALUES ('manuel', '1', 'clave1', 'manuel flores', 'manuel@correo.com');
+INSERT INTO SEGURIDAD.USUARIO VALUES ('daniel', '1', '9010e72389a80487d473017425c6ec7951068abed82a4df32459c91f0e45d2ea', 'daniel bravo', 'daniel@correo.com');
+INSERT INTO SEGURIDAD.USUARIO VALUES ('edwin', '1', '9010e72389a80487d473017425c6ec7951068abed82a4df32459c91f0e45d2ea', 'edwin rebaza', 'edwin@correo.com');
+INSERT INTO SEGURIDAD.USUARIO VALUES ('david', '1', '9010e72389a80487d473017425c6ec7951068abed82a4df32459c91f0e45d2ea', 'david huertas', 'david@correo.com');
+INSERT INTO SEGURIDAD.USUARIO VALUES ('manuel', '1', '9010e72389a80487d473017425c6ec7951068abed82a4df32459c91f0e45d2ea', 'manuel flores', 'manuel@correo.com');
 
 INSERT INTO SEGURIDAD.ROL VALUES (1, 'Administrador');
 INSERT INTO SEGURIDAD.ROL VALUES (2, 'Analista');
