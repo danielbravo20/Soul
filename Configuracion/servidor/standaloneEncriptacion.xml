@@ -290,9 +290,10 @@
                             <module-option name="dsJndiName" value="java:jboss/soulDS"/>
                             <module-option name="principalsQuery" value="select CLAVE AS passwd from SEGURIDAD.USUARIO where USUARIO = ?"/>
                             <module-option name="rolesQuery" value="SELECT R.NOMBRE AS userRoles, 'Roles' FROM SEGURIDAD.USU_ROL UR, SEGURIDAD.ROL R, SEGURIDAD.USUARIO U WHERE UR.CODIGO_USUARIO = U.CODIGO_USUARIO AND UR.CODIGO_ROL = R.CODIGO_ROL AND U.USUARIO = ?"/>
-							<module-option name="password-stacking" value="useFirstPass"/>  
-							<module-option name="hashAlgorithm" value="SHA-256"/>
+							<module-option name="password-stacking" value="useFirstPass"/>
+                            <module-option name="hashAlgorithm" value="MD5"/>
                             <module-option name="hashEncoding" value="hex"/>
+                            <module-option name="managedConnectionFactoryName" value="jboss.jca:service=LocalTxCM,name=soulDS"/>
                         </login-module>
                     </authentication>
                 </security-domain>
