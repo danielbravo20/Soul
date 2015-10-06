@@ -1,3 +1,4 @@
 1- Configurara el driver postgres
    - copiar la carpeta "postgresql" del  org al directorio "D:\IBM\EAP-6.4.0\modules\system\layers\base\org"
    - copiar el archivo standalone.xml en "D:\IBM\EAP-6.4.0\standalone\configuration"
+   - el usuario de la base de datos postgres debe ser "postgres" y su clave debe ser "admin"

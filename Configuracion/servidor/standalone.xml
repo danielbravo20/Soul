@@ -148,8 +148,7 @@
                         <max-pool-size>20</max-pool-size>
                     </pool>
                     <security>
-                        <user-name>postgres</user-name>
-                        <password>db2admin</password>
+                        <security-domain>encrypted-ds</security-domain>
                     </security>
                     <validation>
                         <validate-on-match>false</validate-on-match>
@@ -289,8 +288,12 @@
                     <authentication>
                         <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
                             <module-option name="dsJndiName" value="java:jboss/soulDS"/>
-                            <module-option name="principalsQuery" value="select CLAVE AS passwd from SEGURIDAD.USUARIO where USUARIO=?"/>
-                            <module-option name="rolesQuery" value="SELECT R.NOMBRE AS userRoles, 'Roles' FROM SEGURIDAD.USU_ROL UR, SEGURIDAD.ROL R, SEGURIDAD.USUARIO U WHERE UR.CODIGO_USUARIO = U.CODIGO_USUARIO AND UR.CODIGO_ROL = R.CODIGO_ROL AND U.USUARIO = ?"/>
+                            <module-option name="principalsQuery" value="select CLAVE AS passwd from SEGURIDAD.USUARIO where USUARIO = ?"/>
+                            <module-option name="rolesQuery" value="SELECT R.NOMBRE_ROL AS userRoles, 'Roles' FROM SEGURIDAD.USUARIO_ROL UR, SEGURIDAD.ROL R, SEGURIDAD.USUARIO U WHERE UR.USUARIO = U.USUARIO AND UR.CODIGO_ROL = R.CODIGO_ROL AND U.USUARIO = ?"/>
+							<module-option name="password-stacking" value="useFirstPass"/>
+                            <module-option name="hashAlgorithm" value="MD5"/>
+                            <module-option name="hashEncoding" value="hex"/>
+                            <module-option name="managedConnectionFactoryName" value="jboss.jca:service=LocalTxCM,name=soulDS"/>
                         </login-module>
                     </authentication>
                 </security-domain>
@@ -313,6 +316,15 @@
                     <authorization>
                         <policy-module code="Delegating" flag="required"/>
                     </authorization>
+                </security-domain>
+                <security-domain name="encrypted-ds" cache-type="default">
+                    <authentication>
+                        <login-module code="org.picketbox.datasource.security.SecureIdentityLoginModule" flag="required">
+                            <module-option name="username" value="postgres"/>
+                            <module-option name="password" value="-baefe5e824a431d"/>
+                            <module-option name="managedConnectionFactoryName" value="jboss.jca:service=LocalTxCM,name=soulDS"/>
+                        </login-module>
+                    </authentication>
                 </security-domain>
             </security-domains>
         </subsystem>
@@ -361,7 +373,7 @@
 
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
         <socket-binding name="management-native" interface="management" port="${jboss.management.native.port:9999}"/>
-        <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
+        <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9991}"/>
         <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9443}"/>
         <socket-binding name="ajp" port="8009"/>
         <socket-binding name="http" port="8080"/>

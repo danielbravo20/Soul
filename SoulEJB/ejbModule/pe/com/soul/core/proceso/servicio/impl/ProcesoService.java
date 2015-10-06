@@ -1,4 +1,4 @@
-package pe.com.soul.core.proceso.service;
+package pe.com.soul.core.proceso.servicio.impl;
 
 import java.util.Date;
 

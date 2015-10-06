@@ -3,8 +3,8 @@ package pe.com.soul.core.proceso.servicio;
 import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Usuario;
 
-public interface BaseProceso {
+public interface BaseProcesoServicio {
 	
-	Proceso crearInstancia(Usuario usuario) throws Exception;
+	Proceso accionCrearInstancia(Usuario usuario) throws Exception;
 	
 }

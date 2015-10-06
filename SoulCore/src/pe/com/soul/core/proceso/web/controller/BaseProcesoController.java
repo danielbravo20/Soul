@@ -9,9 +9,12 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import pe.com.soul.core.modelo.MensajeValidacion;
 import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.proceso.servicio.BaseProcesoServicio;
 import pe.com.soul.core.web.bean.Respuesta;
 import pe.com.soul.core.web.controller.BaseController;
+import pe.com.soul.core.web.util.ProcesoUtil;
 
 public abstract class BaseProcesoController extends BaseController{
 
@@ -29,13 +32,12 @@ public abstract class BaseProcesoController extends BaseController{
 		if(accion != null && session!=null){
 			
 			Usuario usuario = obtenerUsuario(request, session);
-			
 			if("crear".equals(accion)){
 				respuesta = accionCrear(request, response, usuario);
 			}else if("resumen".equals(accion)){
-				respuesta = accionResumen(request, response, usuario);
+				//respuesta = accionResumen(request, response, usuario);
 			}else if("detalle".equals(accion)){
-				respuesta = accionDetalle(request, response, usuario);
+				//respuesta = accionDetalle(request, response, usuario);
 			}else if("reclamar".equals(accion)){
 				
 			}else if("trabajar".equals(accion)){
@@ -50,10 +52,27 @@ public abstract class BaseProcesoController extends BaseController{
 		printWriter.print(gson.toJson(respuesta));
 	}
 	
-	protected abstract Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
+	public Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception {
+		Respuesta respuesta = new Respuesta();
+		MensajeValidacion mensajeValidacion =  getProcesoUtil().validacionCampos(request, response);
+		
+		if(mensajeValidacion.isConforme()){
+			respuesta.setResultado(true);
+			respuesta.setRespuesta(getBaseProcesoService().accionCrearInstancia(usuario));
+		}else{
+			respuesta.setResultado(false);
+			respuesta.setRespuesta(mensajeValidacion);
+		}
+		
+		return respuesta;
+	}
 	
-	protected abstract Respuesta accionResumen(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
+	public abstract ProcesoUtil getProcesoUtil();
 	
-	protected abstract Respuesta accionDetalle(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
+	public abstract BaseProcesoServicio getBaseProcesoService();
+	
+	//protected abstract Respuesta accionResumen(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
+	
+	//protected abstract Respuesta accionDetalle(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
 	
 }
