@@ -1,0 +1,119 @@
+@charset "utf-8";
+
+	body, html {
+	    font-family: "Open Sans",Arial,serif;
+	    background: #fff;
+	}
+
+	body {
+		margin-left: 0px;
+		margin-top: 0px;
+		margin-right: 0px;
+		margin-bottom: 0px;
+	}
+	
+	/* CARGADOR */
+	
+	.CARGADOR_FONDO {
+	  width: 100%;
+	  height: 100%;
+	  background: #aaaaaa;
+	  background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 650, color-stop(0%, #ffffff), color-stop(100%, #999999));
+	  background: -webkit-radial-gradient(#ffffff,#999999 650px);
+	  background: -moz-radial-gradient(#ffffff,#999999 650px);
+	  background: -o-radial-gradient(#ffffff,#999999 650px);
+	  background: -ms-radial-gradient(#ffffff,#999999 650px);
+	  background: radial-gradient(#ffffff,#999999 650px);
+	  opacity: 0.5;
+	  filter: alpha(opacity=50);
+	  position: fixed;
+	  top: 0px;
+	  left: 0px;
+	  display: none;
+	  z-index: 100000;
+	}
+	
+	.CARGADOR_MODAL_CONTENEDOR {
+		background-color: #fff;
+		position: relative;
+		overflow: visible;
+		height: 100%;
+		padding-top: 50px;
+	}
+	
+	.CARGADOR_MODAL {
+		-webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.175);
+		box-shadow: 0 3px 3px rgba(0,0,0,0.175);
+		padding: 10px;
+		background-color: #fff;
+		display: none;
+		z-index: 100011;
+		outline: 0px;
+		position: fixed;
+		top: 0px;
+		left: 0px;
+	}
+	
+	.CARGADOR_MODAL .CARGADOR_MODAL_IMG {
+		position: relative;
+		height: 80px;
+		margin-bottom: 5px;
+		display: block;
+		background-image: url(../imagenes/cargador.gif);
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	
+	.CARGADOR_MODAL .CARGADOR_MODAL_IMG_ERROR {
+		position: relative;
+		height: 80px;
+		margin-bottom: 5px;
+		display: block;
+		background-image: url(../imagenes/error.png);
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	
+	@media (max-width: 499px) {
+		.CARGADOR_MODAL_ANCHO {
+			/*height: 150px;*/
+			width: 250px;
+		}
+		.CARGADOR_MODAL_CONTENEDOR_ANCHO {
+			padding-top: 15px;
+		}
+	}
+	
+	
+	
+	@media (min-width: 500px) {
+		.CARGADOR_MODAL_ANCHO {
+			height: 219px;
+			width: 400px;
+		}
+		.CARGADOR_MODAL_CONTENEDOR_ANCHO {
+			padding-top: 50px;
+		}
+	}
+	
+	.CARGADOR_MODAL .CARGADOR_MODAL_TEXTO {
+		color: #929292;
+		text-align: center;
+		display: block;
+	}
+	
+	
+	
+.js-clingify-placeholder {
+    height: auto !important;
+    box-shadow: 1px 1px 10px rgba(27,27,27,0.2);
+}
+
+#content-below {
+    padding: 15px 0;
+    border-top: 1px solid #cdcdcd;
+    background: #e6e6e6;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=10;IE=9; IE=8" >
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="msapplication-TileColor" content="#2b5797">
+	<meta name="msapplication-TileImage" content="/Soul/imagenes/icono/mstile-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<title>SOUL</title>
+	<link rel="stylesheet" type="text/css" href="js/ui-bootstrap/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/estilo-tema.css" />
+	<link rel="stylesheet" type="text/css" href="css/colour-red.css" />
+	<link rel="stylesheet" type="text/css" href="css/textos.css" />
+	<link rel="stylesheet" type="text/css" href="css/estructura.css" />
+	<link rel="apple-touch-icon" sizes="57x57" href="/Soul/imagenes/icono/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/Soul/imagenes/icono/apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/Soul/imagenes/icono/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/Soul/imagenes/icono/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/Soul/imagenes/icono/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/Soul/imagenes/icono/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/Soul/imagenes/icono/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/Soul/imagenes/icono/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/Soul/imagenes/icono/apple-touch-icon-180x180.png">
+	<link rel="icon" type="image/png" href="/Soul/imagenes/icono/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="/Soul/imagenes/icono/favicon-194x194.png" sizes="194x194">
+	<link rel="icon" type="image/png" href="/Soul/imagenes/icono/favicon-96x96.png" sizes="96x96">
+	<link rel="icon" type="image/png" href="/Soul/imagenes/icono/android-chrome-192x192.png" sizes="192x192">
+	<link rel="icon" type="image/png" href="/Soul/imagenes/icono/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="/Soul/imagenes/icono/manifest.json">
+	
+	<script type="text/javascript" src="/Soul/js/jquery/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="/Soul/js/angular/angular.min.js"></script>
+	<script type="text/javascript" src="/Soul/js/ui-bootstrap/ui-bootstrap-tpls-0.13.4.min.js"></script>
+	<script type="text/javascript" src="/Soul/js/coreComun.js"></script>
+	<script type="text/javascript" src="/Soul/js/acceder.js"></script>
+</head>
+<body class="POR_FONDO" ng-app="acceder" ng-controller="Logeo">
+<script type="text/ng-template" id="confirmaracceso.html">
+	<div class="modal-header">
+		<h3 class="modal-title">Confirma Logeo</h3>
+	</div>
+	<div class="modal-body">
+		<p><i class="glyphicon glyphicon-info-sign"></i> Ya se encuentra logueado en otro dispositivo o navegador.<br><br>Desea acceder desde aquí?</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="Si()">SI</button>
+		<button class="btn btn-warning" ng-click="Cancelar()">Cancelar</button>
+	</div>
+</script>
+<div class="js-clingify-placeholder" style="height: 60px;">
+	<div id="navigation" class="js-clingify-wrapper">
+		<div class="header" data-toggle="clingify">
+			<div class="header-inner container">
+			  <div class="navbar">
+				<div class="pull-left">
+				  <!--branding/logo-->
+				  <a class="navbar-brand" href="index.htm" title="Home">
+				  	<div>
+				  		<img src="imagenes/SoulLogo.png" width="60px" height="60px"/>
+						<span class="fancy" style=" font-size: 38px;">&nbsp;soul</span>
+				  	</div>
+				  </a>
+				  <div class="slogan">Flujos de trabajo en la Nube</div>
+				</div>
+			</div>
+		  </div>
+		</div>
+	</div>
+</div>
+<br>
+<form class="form-login form-wrapper form-narrow" name="frm_log_acceso" method="post" action="j_security_check">
+  <h3 class="title-divider">
+    <span>Logeo</span> 
+    <small>Lo registrado? <a href="pricing.htm">Regístrate Aquí</a>.</small>
+  </h3>
+  <div class="form-group">
+    <label class="sr-only" for="login-email-page">Usuario</label>
+    <input type="text"  id="usuario" class="form-control email" placeholder="Usuario">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="login-password-page">Clave</label>
+    <input type="password" id="clave" class="form-control password" placeholder="Clave">
+  </div>
+  <input type="button" class="btn btn-primary" ng-click="acceder()" value="Logeo">
+  | <a href="#">Te olvidaste tu clave?</a> 
+</form>
+<div ng-include="'/Soul/web/piepagina.html'"></div>
+</body>
+</html>

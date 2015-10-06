@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=10;IE=9; IE=8" >
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="msapplication-TileColor" content="#2b5797">
+	<meta name="msapplication-TileImage" content="/Soul/imagenes/icono/mstile-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<title>Soul</title>
+	<link rel="stylesheet" type="text/css" href="/Soul/js/ui-bootstrap/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/Soul/css/estilo-tema.css" />
+	<link rel="stylesheet" type="text/css" href="/Soul/css/colour-red.css" />
+	<link rel="stylesheet" type="text/css" href="/Soul/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="/Soul/css/textos.css" />
+	<link rel="stylesheet" type="text/css" href="/Soul/css/estructura.css" />
+	<link rel="apple-touch-icon" sizes="57x57" href="/Soul/imagenes/icono/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="/Soul/imagenes/icono/apple-touch-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="/Soul/imagenes/icono/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="/Soul/imagenes/icono/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="/Soul/imagenes/icono/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="/Soul/imagenes/icono/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="/Soul/imagenes/icono/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="/Soul/imagenes/icono/apple-touch-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/Soul/imagenes/icono/apple-touch-icon-180x180.png" />
+	<link rel="icon" type="image/png" href="/Soul/imagenes/icono/favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="/Soul/imagenes/icono/favicon-194x194.png" sizes="194x194" />
+	<link rel="icon" type="image/png" href="/Soul/imagenes/icono/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/png" href="/Soul/imagenes/icono/android-chrome-192x192.png" sizes="192x192" />
+	<link rel="icon" type="image/png" href="/Soul/imagenes/icono/favicon-16x16.png" sizes="16x16" />
+	<link rel="manifest" href="/Soul/imagenes/icono/manifest.json" />
+	
+	<script type="text/javascript" src="js/funciones.js"></script>
+	<script type="text/javascript" src="/Soul/js/jquery/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="/Soul/js/angular/angular.min.js"></script>
+	<script type="text/javascript" src="/Soul/js/angular/angular-locale_es-es.js"></script>
+	<script type="text/javascript" src="/Soul/js/ng-file-upload/ng-file-upload.js"></script>
+	<script type="text/javascript" src="/Soul/js/angular-hotkeys/angular-hotkeys.js"></script>
+	<script type="text/javascript" src="/Soul/js/ui-bootstrap/ui-bootstrap-tpls-0.13.4.min.js"></script>
+	<script type="text/javascript" src="/Soul/js/coreComun.js"></script>
+	<script type="text/javascript" src="controlador/core-2.js"></script>
+	<script type="text/javascript" src="controlador/index.js"></script>
+	<script type="text/javascript" src="controlador/index-reglas.js"></script>
+</head>
+<body ng-app="portal" ng-controller="principal">
+	<div class="js-clingify-placeholder" style="height: 60px;">
+		<div id="navigation" class="js-clingify-wrapper">
+			<div class="header" data-toggle="clingify">
+				<div class="header-inner container">
+				  <div class="navbar">
+					<div class="pull-left">
+					  <!--branding/logo-->
+					  <a class="navbar-brand" href="index.html" title="Home">
+					  	<div>
+					  		<img src="/Soul/imagenes/SoulLogo.png" width="60px" height="60px"/>
+							<span class="fancy" style=" font-size: 38px;">&nbsp;soul</span>
+					  	</div>
+					  </a>
+					  <div class="slogan">Flujos de trabajo en la Nube</div>
+					</div>
+		            <!--Search trigger -->
+		            <a href="http://demos.themelize.me/appStrap2.5.4/theme/#search" class="search-form-tigger" data-toggle="search-form" data-target=".header-search">
+						<i class="fa fa-search fa-flip-horizontal search-icon"></i>
+					</a>
+			          <!-- mobile collapse menu button - data-toggle="toggle" = default BS menu - data-toggle="jpanel-menu" = jPanel Menu -->
+			          <a href="http://demos.themelize.me/appStrap2.5.4/theme/#top" class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse" data-direction="right"><i class="fa fa-bars"></i></a>
+			          
+			          <!--everything within this div is collapsed on mobile-->
+			          <div class="navbar-collapse collapse">
+			            <!--main navigation-->
+			            <ul class="nav navbar-nav">
+							<li class="dropdown" dropdown="">
+								<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+									<i class="glyphicon glyphicon-book"></i> Módulos <b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li ng-repeat="modulo in data.modulos | orderBy:'+orden'"><a ng-click="cargarModulo($index)"><i ng-class="modulo.icono"></i> {{modulo.nombre}}</a></li>
+								</ul>
+							</li>
+							<li class="dropdown" dropdown="">
+								<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false" ng-style="imagen.estiloB">
+									<div ng-show="imagen.esCargado" class="foto_perfil_marcoB"><img ng-src="{{imagen.url}}" width="32" height="32" ></div><i ng-hide="imagen.esCargado" class="glyphicon glyphicon-user"></i> {{data.usuario}} <b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href ng-click="verPerfil()"><i class="glyphicon glyphicon-pencil"></i> Ver Perfil</a></li>
+									<li><a href="{{texto.url.desconectar}}"><i class="glyphicon glyphicon-off"></i> Desconectar</a></li>
+								</ul>
+							</li>
+			            </ul>
+			          </div>
+				</div>
+			  </div>
+			</div>
+		</div>
+		<div style="height: 5px"></div>
+		<div class="container-fluid" ng-show="seccion == 'Modulos'">
+			<tabset>
+				<tab ng-repeat="modulo in data.modulos | orderBy:'+orden'" vertical="true" active="modulo.activo" ng-click="restaurarModulo($index)">
+					<tab-heading> 
+						<i class="glyphicon" ng-class="modulo.icono"></i>&nbsp; 
+						<span class="nexo-visibleMediumFull">{{modulo.nombre}}</span>
+						<span style="color:red" ng-show="modulo.alertas>0">&nbsp;&nbsp;&nbsp;&nbsp; {{modulo.alertas}} <i class="glyphicon glyphicon-bell"></i></span>
+					</tab-heading>
+					<div ng-include="texto.url.hostname+'/'+modulo.url"></div>
+				</tab>
+			</tabset>
+		</div>
+		<div ng-include="'/Soul/web/piepagina.html'"></div>
+		<cargas-de></cargas-de>
+	</div>
+	<div style="min-width: 343px;">asd
+	</div>
+</body>
+</html>
