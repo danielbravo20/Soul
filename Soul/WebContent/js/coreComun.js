@@ -17,7 +17,7 @@ var coreComun = angular.module('coreComun', []);
 	});
 	
 	coreComun.factory("cargador", function($timeout) {
-		debugger;
+		
 		var config = {
 			esVisible : false,
 			tipoMensaje : 1,

@@ -35,7 +35,7 @@ var portal = angular.module('portal', ['core','ui.bootstrap','drahak.hotkeys']);
 			}
 		};
 
-		var getCU = function(){ debugger;
+		var getCU = function(){
 			ajax.get({
 				url : "portal",
 				data : {accion:"cu"},

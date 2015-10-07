@@ -43,72 +43,82 @@
 	<script type="text/javascript" src="controlador/index-reglas.js"></script>
 </head>
 <body ng-app="portal" ng-controller="principal">
-	<div class="js-clingify-placeholder" style="height: 60px;">
-		<div id="navigation" class="js-clingify-wrapper">
-			<div class="header" data-toggle="clingify">
-				<div class="header-inner container">
-				  <div class="navbar">
-					<div class="pull-left">
-					  <!--branding/logo-->
-					  <a class="navbar-brand" href="index.html" title="Home">
-					  	<div>
-					  		<img src="/Soul/imagenes/SoulLogo.png" width="60px" height="60px"/>
-							<span class="fancy" style=" font-size: 38px;">&nbsp;soul</span>
-					  	</div>
-					  </a>
-					  <div class="slogan">Flujos de trabajo en la Nube</div>
+	<div style="min-width: 343px;">
+		<div class="js-clingify-placeholder" style="height: 60px;">
+			<div id="navigation" class="js-clingify-wrapper">
+				<div class="header" data-toggle="clingify">
+					<div class="header-inner container">
+					  <div class="navbar">
+						<div class="pull-left">
+						  <!--branding/logo-->
+						  <a class="navbar-brand" href="index.html" title="Home">
+						  	<div>
+						  		<img src="/Soul/imagenes/SoulLogo.png" width="60px" height="60px"/>
+								<span class="fancy" style=" font-size: 38px;">&nbsp;soul</span>
+						  	</div>
+						  </a>
+						  <div class="slogan">Flujos de trabajo en la Nube</div>
+						</div>
+			            <!--Search trigger -->
+			            <a href="http://demos.themelize.me/appStrap2.5.4/theme/#search" class="search-form-tigger" data-toggle="search-form" data-target=".header-search">
+							<i class="fa fa-search fa-flip-horizontal search-icon"></i>
+						</a>
+				          <!-- mobile collapse menu button - data-toggle="toggle" = default BS menu - data-toggle="jpanel-menu" = jPanel Menu -->
+				          <a href="http://demos.themelize.me/appStrap2.5.4/theme/#top" class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse" data-direction="right"><i class="fa fa-bars"></i></a>
+				          
+				          <!--everything within this div is collapsed on mobile-->
+				          <div class="navbar-collapse collapse">
+				            <!--main navigation-->
+				            <ul class="nav navbar-nav">
+								<li class="dropdown" dropdown="">
+									<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+										<i class="glyphicon glyphicon-book"></i> Módulos <b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu">
+										<li ng-repeat="modulo in data.modulos | orderBy:'+orden'"><a ng-click="cargarModulo($index)"><i ng-class="modulo.icono"></i> {{modulo.nombre}}</a></li>
+									</ul>
+								</li>
+								<li class="dropdown" dropdown="">
+									<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false" ng-style="imagen.estiloB">
+										<div ng-show="imagen.esCargado" class="foto_perfil_marcoB"><img ng-src="{{imagen.url}}" width="32" height="32" ></div><i ng-hide="imagen.esCargado" class="glyphicon glyphicon-user"></i> {{data.usuario}} <b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu">
+										<li><a href ng-click="verPerfil()"><i class="glyphicon glyphicon-pencil"></i> Ver Perfil</a></li>
+										<li><a href="{{texto.url.desconectar}}"><i class="glyphicon glyphicon-off"></i> Desconectar</a></li>
+									</ul>
+								</li>
+				            </ul>
+				          </div>
 					</div>
-		            <!--Search trigger -->
-		            <a href="http://demos.themelize.me/appStrap2.5.4/theme/#search" class="search-form-tigger" data-toggle="search-form" data-target=".header-search">
-						<i class="fa fa-search fa-flip-horizontal search-icon"></i>
-					</a>
-			          <!-- mobile collapse menu button - data-toggle="toggle" = default BS menu - data-toggle="jpanel-menu" = jPanel Menu -->
-			          <a href="http://demos.themelize.me/appStrap2.5.4/theme/#top" class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse" data-direction="right"><i class="fa fa-bars"></i></a>
-			          
-			          <!--everything within this div is collapsed on mobile-->
-			          <div class="navbar-collapse collapse">
-			            <!--main navigation-->
-			            <ul class="nav navbar-nav">
-							<li class="dropdown" dropdown="">
-								<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-									<i class="glyphicon glyphicon-book"></i> Módulos <b class="caret"></b>
-								</a>
-								<ul class="dropdown-menu">
-									<li ng-repeat="modulo in data.modulos | orderBy:'+orden'"><a ng-click="cargarModulo($index)"><i ng-class="modulo.icono"></i> {{modulo.nombre}}</a></li>
-								</ul>
-							</li>
-							<li class="dropdown" dropdown="">
-								<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false" ng-style="imagen.estiloB">
-									<div ng-show="imagen.esCargado" class="foto_perfil_marcoB"><img ng-src="{{imagen.url}}" width="32" height="32" ></div><i ng-hide="imagen.esCargado" class="glyphicon glyphicon-user"></i> {{data.usuario}} <b class="caret"></b>
-								</a>
-								<ul class="dropdown-menu">
-									<li><a href ng-click="verPerfil()"><i class="glyphicon glyphicon-pencil"></i> Ver Perfil</a></li>
-									<li><a href="{{texto.url.desconectar}}"><i class="glyphicon glyphicon-off"></i> Desconectar</a></li>
-								</ul>
-							</li>
-			            </ul>
-			          </div>
+				  </div>
 				</div>
-			  </div>
 			</div>
+			<div style="height: 5px"></div>
+			<div class="container-fluid" ng-show="seccion == 'Modulos'">
+				<tabset>
+					<tab>
+						<tab-heading> 
+							<i class="glyphicon" class="glyphicon glyphicon-check"></i>&nbsp;PROCESOS
+						</tab-heading>
+						<div ng-include="'modulo/procesos.html'"></div>
+					</tab>
+					<tab>
+						<tab-heading> 
+							<i class="glyphicon" class="glyphicon glyphicon-print"></i>&nbsp;REPORTES
+						</tab-heading>
+						<div ng-include="'modulo/reportes.html'"></div>
+					</tab>
+					<tab>
+						<tab-heading> 
+							<i class="glyphicon" class="glyphicon glyphicon-flag"></i>&nbsp;ADMINISTRACION
+						</tab-heading>
+						<div ng-include="'modulo/administracion.html'"></div>
+					</tab>
+				</tabset>
+			</div>
+			<div ng-include="'/Soul/web/piepagina.html'"></div>
+			<cargas-de></cargas-de>
 		</div>
-		<div style="height: 5px"></div>
-		<div class="container-fluid" ng-show="seccion == 'Modulos'">
-			<tabset>
-				<tab ng-repeat="modulo in data.modulos | orderBy:'+orden'" vertical="true" active="modulo.activo" ng-click="restaurarModulo($index)">
-					<tab-heading> 
-						<i class="glyphicon" ng-class="modulo.icono"></i>&nbsp; 
-						<span class="nexo-visibleMediumFull">{{modulo.nombre}}</span>
-						<span style="color:red" ng-show="modulo.alertas>0">&nbsp;&nbsp;&nbsp;&nbsp; {{modulo.alertas}} <i class="glyphicon glyphicon-bell"></i></span>
-					</tab-heading>
-					<div ng-include="texto.url.hostname+'/'+modulo.url"></div>
-				</tab>
-			</tabset>
-		</div>
-		<div ng-include="'/Soul/web/piepagina.html'"></div>
-		<cargas-de></cargas-de>
-	</div>
-	<div style="min-width: 343px;">asd
 	</div>
 </body>
 </html>

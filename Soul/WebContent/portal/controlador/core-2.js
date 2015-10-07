@@ -157,7 +157,7 @@ var core = angular.module('core', ['coreComun','ngFileUpload']);
 					});
 				}
 			},
-			get : function(tipo,data,callback){debugger;
+			get : function(tipo,data,callback){
 				if(typeof(tipo)=="object"){
 					tipo.url = hostname+tipoUrl[tipo.url];
 					this._get(tipo);
