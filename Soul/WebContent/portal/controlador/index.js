@@ -87,6 +87,10 @@ var portal = angular.module('portal', ['core','ui.bootstrap','drahak.hotkeys']);
 
 		getCU();
 		
+		$scope.getControlador = function(nombreControlador){
+			return angular.element(document.querySelector('[ng-controller='+nombreControlador+']')).scope();
+		}
+		
 	});
 	
 	portal.run(function(pagerConfig, paginationConfig){

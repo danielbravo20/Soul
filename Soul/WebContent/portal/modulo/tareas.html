@@ -1,101 +1,61 @@
 <script type="text/javascript" src="/Soul/portal/controlador/modulo/tareas.js"></script>
-<div style="height:5px"></div>
-<div ng-controller="tare">
-	<div data-slide-toggle="filtro.esOculto" data-slide-toggle-duration="500">
+<div ng-controller="tareas">
+	<div class="row" ng-show="tareasConfig.vista == 'lista'">
+		<div class="col-md-8">
 		<div class="panel panel-default">
-		  <div class="panel-heading">Filtrar Tareas</div>
-		  <table class="table">
-			<tbody>
-			  <tr>
-				<td><b>Buscar :</b> <input type="text" ng-model="filtro.data.buscar" class="form-control input-sm nexo-tareaFiltroA"></td>
-			  </tr>
-			  <tr>
-				<td>
-					<b>Unidad de Negocio: </b> <select class="form-control input-sm nexo-tareaFiltroB" ng-model="filtro.data.codigoUnidadNegocio" ng-options="UN.codigo as UN.nombre for UN in data.unidadesNegocio"></select>
-					<b>Producto: </b> <select class="form-control input-sm nexo-tareaFiltroB" ng-model="filtro.data.codigoProducto" ng-options="prod.codigo as prod.nombre for prod in data.unidadesNegocio[filtro.data.codigoUnidadNegocio].producto"></select>
-				</td>
-			  </tr>
-			  <tr>
-				<td>
-					<b>Proceso: </b> <select class="form-control input-sm nexo-tareaFiltroB" ng-model="filtro.data.codigoProceso" ng-options="proc.codigo as proc.nombre for proc in data.unidadesNegocio[filtro.data.codigoUnidadNegocio].producto[filtro.data.codigoProducto].proceso"><option value=""></option></select>
-					<b>Tarea: </b> <select class="form-control input-sm nexo-tareaFiltroB" ng-model="filtro.data.codigoTarea" ng-options="tare.codigo as tare.nombre for tare in data.unidadesNegocio[filtro.data.codigoUnidadNegocio].producto[filtro.data.codigoProducto].proceso[filtro.data.codigoProceso].tarea"><option value=""></option></select>
-				</td>
-			  </tr>
-			  <tr>
-				<td>
-					<strong>Fecha de Creación | Desde: </strong>
-					<p class="input-group" style="width: 200px; display: inline-block">
-						<input type="date" class="form-control input-sm" ng-model="filtro.data.fechaDesde" is-open="$parent.fecha.abierto.A" style="width: 150px;" max-date="filtro.data.fechaHasta" datepicker-popup/>
-						<span class="input-group-btn" style="display:inline-block">
-							<button type="button" class="btn btn-default btn-sm" ng-click="$parent.fecha.abrir($event,'A')"><i class="glyphicon glyphicon-calendar"></i>&nbsp;</button>
-						</span>
-					</p>
-					<strong>Hasta: </strong> 
-					<p class="input-group" style="width: 200px; display: inline-block">
-						<input type="date" class="form-control input-sm" ng-model="filtro.data.fechaHasta" is-open="$parent.fecha.abierto.B" style="width: 150px;" min-date="filtro.data.fechaDesde" datepicker-popup/>
-						<span class="input-group-btn" style="display:inline-block">
-							<button type="button" class="btn btn-default btn-sm" ng-click="$parent.fecha.abrir($event,'B')"><i class="glyphicon glyphicon-calendar"></i>&nbsp;</button>
-						</span>
-					</p>
-				</td>
-			  </tr>
-			  <tr>
-				<td>
-					<a class="btn btn-primary btn-sm" ng-click="filtrar()"><i class="glyphicon glyphicon-filter"></i> Filtrar</a>
-					<a class="btn btn-info btn-sm" ng-click="limpiar()"><i class="glyphicon glyphicon-filter"></i> Limpiar</a>
-					<a class="btn btn-danger btn-sm" ng-click="restaurarFiltro()"><i class="glyphicon glyphicon-chevron-up"></i> Cancelar</a>
-				</td>
-			  </tr>
-			</tbody>
-		  </table>
-		</div>
-	</div>
-	<div>
-		<div class="col-md-6" ng-class="{'hidden': ocultaListaTarea == true}">
-			<div class="panel panel-default">
-			  <div class="panel-heading" style="position: relative;">
-				<div class="nexo-tituloFull" style=" font-weight:bold">
-					TAREAS &nbsp;
-				</div>
-				<div style="display:inline-block">
-					<select class="form-control input-sm" style="max-width: 200px" ng-model="filtro.data.tipoTarea" ng-options="tipoTarea.id as tipoTarea.descripcion for tipoTarea in tiposTarea" ng-change="listar()"></select>
-				</div>
-				<div class="nexo-tituloBFull" style="right: 135px; top: 17px;font-size: 12px;" ng-show="actualizarListado.mensaje.length>0">
-					<i class="glyphicon glyphicon-refresh"></i> Actualizado hace {{actualizarListado.mensaje}}
-				</div>
-				<div style="display:inline-block;   right: 12px;  position: absolute;  top: 12px;">
-					<a class="btn btn-default btn-sm" ng-click="cambiarOrden()" tooltip="Cambiar Orden"><i ng-class="{'glyphicon glyphicon-circle-arrow-down' : filtro.data.ordenFecha == 'DESC', 'glyphicon glyphicon-circle-arrow-up' : filtro.data.ordenFecha == 'ASC'}"></i></a>
-					<a class="btn btn-default btn-sm" ng-click="actualizar()" tooltip="Actualizar"><i class="glyphicon glyphicon-refresh"></i></a>
-					<a class="btn btn-default btn-sm" ng-show="filtro.esOculto" ng-click="filtro.esOculto = false"  tooltip="Filtrar"><i class="glyphicon glyphicon-filter"></i></a>
-				</div>
-			  </div>
-			  <table class="table table-striped table-hover">
-				<thead>
-				  <tr>
-					<th>Tarea</th>
-					<th>Descripción</th>
-					<th>Creado Hace</th>
-				  </tr>
-				</thead>
-				<tbody>
-				  <tr ng-repeat="tarea in grillaTarea.items" ng-click="verResumen($index)" ng-class="{info: $index === codigoTareaSeleccionada, danger : tarea.error}" ng-style="{'cursor': tarea.puntero}">
-					<td>{{tarea._data.proceso.nombre}}&nbsp;&nbsp; <strong>N° {{tarea.codigo}}</strong><br><small><a>{{tarea._data.tarea.nombre}}</a></small><br></td>
-					<td>{{tarea.codigoTipoDocumento+' - '+tarea.numeroDocumento}}<br><small>{{"Dueño : "+tarea.duenoUsuario}}</small></td>
-					<td class="text-center"><a ng-class="tarea.creacionColor" tooltip="Fecha de Creación: {{tarea.fechaCreacion | date: 'dd/MM/yyyy hh:mm:ss a'}}"><i class="glyphicon glyphicon-bell"></i></a><br>{{tarea.creacionDescripcion}}</td>
-				  </tr>
-				</tbody>
-			  </table>
+		  <div class="panel-heading form-inline">
+		  	<select class="form-control input-sm" placeholder="Tipo de Tarea"><option value=""></option><option value="1" selected="selected">TAREAS PENDIENTES</option><option value="1">TAREAS RECLAMADAS</option></select>
+		  	<a class="btn btn-info btn-sm" ng-click="filtrar.abrir()" tooltip="Filtrar"><i class="glyphicon glyphicon-filter"></i></a>
+		  </div>
+			<table class="table table-striped table-hover">
+			    <thead>
+			        <tr>
+			            <th>Proceso</th>
+			            <th>Tarea</th>
+			            <th>Descripción</th>
+			            <th style="text-align: center;">Responsable</th>
+			            <th>Creado Hace</th>
+			            <th>&nbsp;</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr ng-repeat="tarea in tareas">
+			            <th>{{tarea.proceso.nombre}}</th>
+			            <td>{{tarea.nombre}}</td>
+			            <td>{{tarea.version}}</td>
+			            <td style="text-align: center;">
+			            	<a  popover-template="'modulo/procesos_perfilDueno.html'" 
+			            		popover-placement="right"
+			            		popover-trigger="mouseenter"
+			            		>
+			            		<div class="foto_perfil_marcoB"><img ng-src="{{tarea.urlFoto}}" width="32" height="32"/></div>
+			            	</a>
+			            </td>
+			            <td><a class="btn btn-sm" ng-class="tarea.fechaCreacionEstilo" tooltip="Fecha de Creación: {{tarea.fechaCreacion | date: 'dd/MM/yyyy hh:mm:ss a'}}"><i class="glyphicon glyphicon-bell"></i></a> {{tarea.fechaCreacionResumen}}</td>
+			            <td style="text-align: right;">
+			            	<a class="btn btn-info btn-sm" tooltip="Ver Detalle" ng-click="verDetalle()"><i class="glyphicon glyphicon-align-justify"></i></a>
+			            	<a class="btn btn-info btn-sm" tooltip="Trabajar"><i class="glyphicon glyphicon-chevron-right"></i></a>
+			            </td>
+			        </tr>
+			    </tbody>
+			</table>
 			</div>
-			<pagination total-items="grillaTarea.totalItems" ng-model="filtro.data.paginacionNro" max-size="5" class="pagination-sm nexo-visibleMediumFull" boundary-links="true" rotate="false"></pagination>
-			<pagination total-items="grillaTarea.totalItems" ng-model="filtro.data.paginacionNro" max-size="5" class="pagination-sm nexo-visibleSmall" boundary-links="true" rotate="false" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" ></pagination>
 		</div>
-		<div class="col-md-6 nexo-visibleFull" ng-show="codigoTareaSeleccionada < 0">
-			<div class="well"><h1>Seleccione una tarea para ver el detalle</h1></div>
-		</div>
-		<div class="col-md-6" ng-show="codigoTareaSeleccionada >= 0">
-			<a class="btn btn-danger btn-sm nexo-visibleSmallMedium" ng-click="cerrarResumen()" style="float: left;"><i class="glyphicon glyphicon-remove"></i></a>
-			<div ng-include="urlResumenTarea"></div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+			  <div class="panel-heading"><strong>Nueva Solicitud</strong></div>
+				<table class="table table-striped table-hover">
+				    <tbody>
+				        <tr ng-repeat="proceso in data.procesoPotenciales | orderBy:'+codigoProcesoPlantillas'">
+				        	<th>{{proceso.nombre}}</th>
+				        	<td style="text-align: right;">
+				            	<a class="btn btn-info btn-sm" ng-click="iniciarProceso(proceso.codigoProcesoPlantilla)" tooltip="Iniciar"><i class="glyphicon glyphicon-play"></i></a>
+				            </td>
+				        </tr>
+				    </tbody>
+				</table>
+			</div>
 		</div>
 	</div>
-	
+	<div ng-include="'modulo/base_iniciarproceso.html'" ng-show="tareasConfig.vista == 'inicio'"></div>
 </div>

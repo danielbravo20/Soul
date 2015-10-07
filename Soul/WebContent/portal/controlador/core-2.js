@@ -23,6 +23,7 @@ var core = angular.module('core', ['coreComun','ngFileUpload']);
 	core.factory("ajax", function($http, hostname, cargador, texto, Upload) {
 		var tipoUrl = {
 			"portal" : "/portal/portalController",
+			"tarea" : "/portal/tareaController",
 			"perfil" : "/portal/perfilController"
 		};
 		return {

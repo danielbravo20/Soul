@@ -1,72 +1,38 @@
-portal.registerCtrl('procesos', function($scope, $modal) {
+portal.registerCtrl('procesos', function($scope, $modal, ajax) {
 	
+	$scope.vistaTarea = "lista";
 	$scope.tareas = [];
 	
 	var listarTareas = function(){
-		var lista = [];
-			
-			lista.push({
-				codigoProceso : 1,
-				nombreProceso : "Emision",
-				colorProceso : "#66FF66",
-				codigoTarea : 1,
-				nombreTarea : "Completar Solicitud",
-				descripcion : "DNI 2231232",
-				codigoUsuarioDueno : 1,
-				dueno : "Miguel Grau Seminario",
-				duenoRol : "Almirante",
-				tieneFoto : true,
-				sexo : "M",
-				fechaCreacion : new Date(),
-				fechaCreacionEstilo : "btn-warning",
-				fechaCreacionResumen : "2 Días"
-			});
-			
-			lista.push({
-				codigoProceso : 2,
-				nombreProceso : "Modificación",
-				colorProceso : "#0099FF",
-				codigoTarea : 2,
-				nombreTarea : "Completar Solicitud",
-				descripcion : "DNI 3424332",
-				codigoUsuarioDueno : 2,
-				dueno : "Sarita Colonia",
-				duenoRol : "Santa",
-				tieneFoto : true,
-				sexo : "M",
-				fechaCreacion : new Date(),
-				fechaCreacionEstilo : "btn-success",
-				fechaCreacionResumen : "1 Hora"
-			});
-			
-			lista.push({
-				codigoProceso : 1,
-				nombreProceso : "Renovacion",
-				colorProceso : "#CC66FF",
-				codigoTarea : 3,
-				nombreTarea : "Visar Solicitud",
-				descripcion : "DNI 2231232",
-				codigoUsuarioDueno : 3,
-				dueno : "Tupac Amaru",
-				duenoRol : "Cacique",
-				tieneFoto : true,
-				sexo : "F",
-				fechaCreacion : new Date(),
-				fechaCreacionEstilo : "btn-success",
-				fechaCreacionResumen : "3 Horas"
-			});
 		
-		for(var i in lista){
-			if(lista[i].tieneFoto){
-				lista[i].urlFoto = "/Soul/imagenes/fotos/"+lista[i].codigoUsuarioDueno+".png";
-			} else if(!lista[i].tieneFoto && lista[i].sexo=='M'){
-				lista[i].urlFoto = "/Soul/imagenes/icono_varon.png";
-			} else if(!lista[i].tieneFoto && lista[i].sexo=='F'){
-				lista[i].urlFoto = "/Soul/imagenes/icono_mujer.png";
-			}
-		}
-		
-		$scope.tareas = lista;
+		ajax.get({
+			url : "tarea",
+			data : {accion:"disponibles"},
+			getRespuesta : function(lista){
+				
+				for(var i in lista){
+					
+					lista[i].codigoUsuarioDueno = 1;
+					lista[i].duenoRol = "Almirante";
+					lista[i].tieneFoto = true;
+					lista[i].sexo = "M";
+					lista[i].fechaCreacionEstilo = "btn-warning";
+					lista[i].fechaCreacionResumen = "2 Días";
+					
+					if(lista[i].tieneFoto){
+						lista[i].urlFoto = "/Soul/imagenes/fotos/"+lista[i].codigoUsuarioDueno+".png";
+					} else if(!lista[i].tieneFoto && lista[i].sexo=='M'){
+						lista[i].urlFoto = "/Soul/imagenes/icono_varon.png";
+					} else if(!lista[i].tieneFoto && lista[i].sexo=='F'){
+						lista[i].urlFoto = "/Soul/imagenes/icono_mujer.png";
+					}
+				}
+				
+				$scope.tareas = lista;
+				
+			}/*,
+			mostrarCargador : true*/
+		});
 		
 	};
 	
@@ -89,6 +55,14 @@ portal.registerCtrl('procesos', function($scope, $modal) {
 		});
 			modalInstance.result.then(function(){	
 			});
+	}
+	
+	$scope.iniciarProceso = function(codigoProcesoPlantilla){
+		$scope.vistaTarea = "inicio";
+	}
+	
+	$scope.instanciarTareas = function(){
+		$scope.vistaTarea = "lista";
 	}
 	
 	// FILTRO
