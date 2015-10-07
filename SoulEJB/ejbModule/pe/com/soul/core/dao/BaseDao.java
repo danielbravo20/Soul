@@ -38,11 +38,11 @@ public class BaseDao<T> {
 
     }
     
-    public T actualizar(T entity) {
+    public T actualizarEntity(T entity) {
     	return em.merge(entity);
     }
     
-    public T buscar(Object entityID) {
+    public T obtenerEntity(Object entityID) {
     	return em.find(entityClass, entityID);
     }
     

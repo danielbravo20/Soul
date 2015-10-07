@@ -96,7 +96,7 @@ public class UsuarioDao extends BaseDao<UsuarioEntity> implements UsuarioDaoLoca
 	@Override
 	public Usuario actualizar(Usuario usuario) {
 		UsuarioEntity usuarioEntity = new UsuarioEntity();
-		actualizar(usuarioEntity);
+		actualizarEntity(usuarioEntity);
 		return usuario;
 	}
 

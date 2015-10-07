@@ -13,6 +13,10 @@ public class Tarea extends BaseBean{
 	public Tarea() {
 	}
 	
+	public Tarea(long codigoTarea) {
+		this.codigoTarea = codigoTarea;
+	}
+	
 	public Tarea(	long codigoTarea,
 					long codigoProceso,
 					long codigoTareaPlantilla,

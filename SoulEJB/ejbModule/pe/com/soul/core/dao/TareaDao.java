@@ -10,7 +10,9 @@ import javax.persistence.Query;
 import pe.com.soul.core.dao.entities.ProcesoEntity;
 import pe.com.soul.core.dao.entities.TareaEntity;
 import pe.com.soul.core.dao.entities.TareaPlantillaEntity;
+import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Tarea;
+import pe.com.soul.core.modelo.TareaPlantilla;
 import pe.com.soul.core.modelo.Usuario;
 
 /**
@@ -88,21 +90,76 @@ public class TareaDao extends BaseDao<TareaEntity> implements TareaDaoLocal {
 		return query.getResultList();
 		
 	}
+
+	@Override
+	public Tarea obtener(Long codigoTarea) throws Exception {
+		Tarea tarea = new Tarea();
+		TareaEntity tareaEntity = obtenerEntity(codigoTarea);
+		tarea = parseTarea(tareaEntity);
+		tarea.setProceso(parseProceso(tareaEntity.getProceso()));
+		TareaPlantilla tareaPlantilla = new TareaPlantilla();
+		tareaPlantilla.setCodigoTareaPlantilla(tareaEntity.getTareaPlantilla().getCodigoTareaPlantilla());
+		tarea.setTareaPlantilla(tareaPlantilla);
+		return tarea;
+	}
+	
+	public Tarea actualizar(Tarea tarea) throws Exception{
+		TareaEntity tareaEntity = parseTarea(tarea);
+		ProcesoEntity procesoEntity = new ProcesoEntity();
+		procesoEntity.setCodigoProceso(tarea.getProceso().getCodigoProceso());
+		tareaEntity.setProceso(procesoEntity);
+		TareaPlantillaEntity tareaPlantillaEntity = new TareaPlantillaEntity();
+		tareaPlantillaEntity.setCodigoTareaPlantilla(tarea.getTareaPlantilla().getCodigoTareaPlantilla());
+		tareaEntity.setTareaPlantilla(tareaPlantillaEntity);
+		actualizarEntity(parseTarea(tarea));
+		
+		return tarea;
+	}
 	
 	private Tarea parseTarea(TareaEntity tareaEntity){
-		Tarea tarea = new Tarea();
-		tarea.setCodigoTarea(tareaEntity.getCodigoTarea());
-		tarea.setVersion(tareaEntity.getVersionTarea());
-		tarea.setEstado(tareaEntity.getEstadoTarea());
-		tarea.setNombre(tareaEntity.getNombreTarea());
-		tarea.setAleas(tareaEntity.getAleasTarea());
-		tarea.setDueno(tareaEntity.getDuenoTarea());
-		tarea.setPrioridad(tareaEntity.getPrioridadTarea());
-		tarea.setFechaCreacion(tareaEntity.getFechaCreacionTarea());
-		tarea.setFechaReclamo(tareaEntity.getFechaReclamoTarea());
-		tarea.setFechaTermino(tareaEntity.getFechaTerminoTarea());
-		tarea.setFechaUltimaModificacion(tareaEntity.getFechaUltimaModificacionTarea());
+		Tarea tarea = null;
+		if(tareaEntity!=null){
+			tarea = new Tarea();
+			tarea.setCodigoTarea(tareaEntity.getCodigoTarea());
+			tarea.setVersion(tareaEntity.getVersionTarea());
+			tarea.setEstado(tareaEntity.getEstadoTarea());
+			tarea.setNombre(tareaEntity.getNombreTarea());
+			tarea.setAleas(tareaEntity.getAleasTarea());
+			tarea.setDueno(tareaEntity.getDuenoTarea());
+			tarea.setPrioridad(tareaEntity.getPrioridadTarea());
+			tarea.setFechaCreacion(tareaEntity.getFechaCreacionTarea());
+			tarea.setFechaReclamo(tareaEntity.getFechaReclamoTarea());
+			tarea.setFechaTermino(tareaEntity.getFechaTerminoTarea());
+			tarea.setFechaUltimaModificacion(tareaEntity.getFechaUltimaModificacionTarea());
+		}
 		return tarea;
+	}
+	
+	private TareaEntity parseTarea(Tarea tarea){
+		TareaEntity tareaEntity = new TareaEntity();
+		tareaEntity.setCodigoTarea(tarea.getCodigoTarea());
+		tareaEntity.setVersionTarea(tarea.getVersion());
+		tareaEntity.setEstadoTarea(tarea.getEstado());
+		tareaEntity.setNombreTarea(tarea.getNombre());
+		tareaEntity.setAleasTarea(tarea.getAleas());
+		tareaEntity.setDuenoTarea(tarea.getDueno());
+		tareaEntity.setPrioridadTarea(tarea.getPrioridad());
+		tareaEntity.setFechaCreacionTarea(tarea.getFechaCreacion());
+		tareaEntity.setFechaReclamoTarea(tarea.getFechaReclamo());
+		tareaEntity.setFechaTerminoTarea(tarea.getFechaTermino());
+		tareaEntity.setFechaUltimaModificacionTarea(tarea.getFechaUltimaModificacion());
+		return tareaEntity;
+	}
+	
+	private Proceso parseProceso(ProcesoEntity procesoEntity){
+		Proceso proceso = new Proceso();
+		proceso.setCodigoProceso(procesoEntity.getCodigoProceso());
+		proceso.setEstado(procesoEntity.getEstadoProceso());
+		proceso.setAleas(procesoEntity.getAleasProceso());
+		proceso.setVersion(procesoEntity.getVersionProceso());
+		proceso.setFechaCreacion(procesoEntity.getFechaCreacionProceso());
+		proceso.setFechaTermino(procesoEntity.getFechaTerminoProceso());
+		return proceso;
 	}
 
 }

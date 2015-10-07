@@ -55,5 +55,24 @@ public class TareaService implements TareaServiceLocal {
 	public List<Tarea> obtenerDisponibles(Usuario usuario) throws Exception {
 		return tareaDaoLocal.obtenerDisponibles(usuario);
 	}
+	
+	public void liberar(Tarea tarea, Usuario usuario) throws Exception{
+		tarea = tareaDaoLocal.obtener(tarea.getCodigoTarea());
+		if (tarea.getProceso().getEstado()==Proceso.ESTADO_EJECUTANDO) {
+			if(tarea.getEstado()==Tarea.ESTADO_RECLAMADO){
+				tarea.setDueno(null);
+				tarea.setEstado(Tarea.ESTADO_PENDIENTE);
+				tarea.setFechaReclamo(null);
+				tarea.setFechaUltimaModificacion(new Date());
+				tareaDaoLocal.actualizar(tarea);
+			}else{
+				throw new Exception("La tarea no esta reclamada...");
+			}
+				
+		}else{
+			throw new Exception("El proceso no esta en ejecución...");
+		}
+		
+	}
 
 }
