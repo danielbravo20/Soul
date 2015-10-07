@@ -1026,3 +1026,21 @@ body a .de-em {
 .owl-controls.clickable .owl-page:hover span {
   background: #be3e1d;
 }
+
+.btn-info {
+    /*color: #4b4b4b;*/
+    background-color: #F6FCFD;
+    border-color: #46b8da;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+.btn-danger {
+    /*color: #4b4b4b;*/
+    background-color: #F9E4E3;
+    border-color: #d43f3a;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}

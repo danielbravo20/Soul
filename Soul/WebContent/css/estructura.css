@@ -117,3 +117,23 @@
     bottom: 0px;
     width: 100%;
 }
+
+	.foto_perfil_marcoA {
+  		-webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.175);
+  		box-shadow: 1px 1px 2px rgba(0,0,0,0.175);
+		border: 2px solid #f5f5f5;
+		border-radius: 50px;
+		width: 100px;
+		overflow: hidden;
+		height: 100px;
+	}
+
+	.foto_perfil_marcoB {
+  		-webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.175);
+  		box-shadow: 1px 1px 2px rgba(0,0,0,0.175);
+		border-radius: 16px;
+		width: 32px;
+		overflow: hidden;
+		height: 32px;
+		display: inline-table;
+	}
