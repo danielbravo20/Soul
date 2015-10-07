@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
+// Generated 07/10/2015 10:05:11 AM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,10 +21,6 @@ import javax.persistence.Table;
 @Table(name = "usuario", schema = "seguridad")
 public class UsuarioEntity implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String usuario;
 	private int estado;
 	private String clave;
@@ -75,7 +71,7 @@ public class UsuarioEntity implements java.io.Serializable {
 		this.estado = estado;
 	}
 
-	@Column(name = "clave", nullable = false, length = 20)
+	@Column(name = "clave", nullable = false, length = 70)
 	public String getClave() {
 		return this.clave;
 	}

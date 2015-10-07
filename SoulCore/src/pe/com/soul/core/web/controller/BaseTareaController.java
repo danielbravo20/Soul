@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import pe.com.soul.core.modelo.MensajeValidacion;
-import pe.com.soul.core.modelo.Tarea;
 import pe.com.soul.core.modelo.Usuario;
 import pe.com.soul.core.servicio.BaseTareaServicio;
 import pe.com.soul.core.web.bean.Respuesta;
@@ -39,15 +38,15 @@ public abstract class BaseTareaController extends BaseController{
 			}else if("liberar".equals(accion)){
 				respuesta = accionLiberar(request, response, usuario, tkiid);
 			}else if("trabajar".equals(accion)){
-				//respuesta = accionDetalle(request, response, usuario);
+				respuesta = accionTrabajar(request, response, usuario, tkiid);
 			}else if("completar".equals(accion)){
-				
+				respuesta = accionCompletar(request, response, usuario, tkiid);
 			}else if("cancelar".equals(accion)){
-			
+				respuesta = accionCancelar(request, response, usuario, tkiid);
 			}else if("rechazar".equals(accion)){
-			
+				respuesta = accionRechazar(request, response, usuario, tkiid);
 			}else if("observar".equals(accion)){
-				
+				respuesta = accionObservar(request, response, usuario, tkiid);
 			}
 		}
 		
@@ -58,41 +57,67 @@ public abstract class BaseTareaController extends BaseController{
 	
 	public Respuesta accionReclamar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
-		getBaseTareaService().accionReclamar(new Tarea(new Long(tkiid)), usuario);
+		try{
+			respuesta.setRespuesta(getBaseTareaService().accionReclamar(new Long(tkiid)));
+			respuesta.setResultado(true);
+		}catch(Exception e){
+			respuesta.setResultado(false);
+			respuesta.setMensajeError(e.getMessage());
+		}
 		return respuesta;
 	}
 	
 	public Respuesta accionLiberar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
-		getBaseTareaService().accionLiberar(new Tarea(new Long(tkiid)), usuario);
+		try{
+			respuesta.setRespuesta(getBaseTareaService().accionLiberar(new Long(tkiid)));
+			respuesta.setResultado(true);
+		}catch(Exception e){
+			respuesta.setResultado(false);
+			respuesta.setMensajeError(e.getMessage());
+		}
 		return respuesta;
 	}
 	
-	public Respuesta accionTrabajar(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception {
+	public Respuesta accionTrabajar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
-		respuesta.setRespuesta(getBaseTareaService().accionTrabajar(null));
+		try{
+			respuesta.setRespuesta(getBaseTareaService().accionTrabajar(new Long(tkiid)));
+			respuesta.setResultado(true);
+		}catch(Exception e){
+			respuesta.setResultado(false);
+			respuesta.setMensajeError(e.getMessage());
+		}
 		return respuesta;
 	}
 	
-	public Respuesta accionCompletar(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception {
+	public Respuesta accionCompletar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
+		Respuesta respuesta = new Respuesta();
+		MensajeValidacion mensajeValidacion = getTareaUtil().validacionCompletar(request, response);
+		if(mensajeValidacion.isConforme()){
+			Object objeto = getTareaUtil().poblarCompletar(request, response);
+			respuesta.setRespuesta(getBaseTareaService().accionCompletar(new Long(tkiid), objeto));
+			respuesta.setResultado(true);
+		}else{
+			respuesta.setResultado(false);
+			respuesta.setMensajeError(mensajeValidacion.getMensaje());
+		}
+		return respuesta;
+	}
+	
+	public Respuesta accionCancelar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		
 		return respuesta;
 	}
 	
-	public Respuesta accionCancelar(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception {
+	public Respuesta accionRechazar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		
 		return respuesta;
 	}
 	
-	public Respuesta accionRechazar(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception {
-		Respuesta respuesta = new Respuesta();
-		
-		return respuesta;
-	}
-	
-	public Respuesta accionObservar(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception {
+	public Respuesta accionObservar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		
 		return respuesta;

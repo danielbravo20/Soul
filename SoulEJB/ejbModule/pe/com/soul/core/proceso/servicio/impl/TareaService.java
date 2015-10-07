@@ -3,8 +3,10 @@ package pe.com.soul.core.proceso.servicio.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 
 import pe.com.soul.core.dao.TareaDaoLocal;
@@ -23,6 +25,9 @@ public class TareaService implements TareaServiceLocal {
 
 	@EJB
 	TareaDaoLocal tareaDaoLocal;
+	
+	@Resource
+    private SessionContext sessionContext;
 	
     public Tarea crearTarea(TareaPlantilla tareaPlantilla, Proceso proceso, Usuario dueno) throws Exception{
     	
@@ -56,23 +61,96 @@ public class TareaService implements TareaServiceLocal {
 		return tareaDaoLocal.obtenerDisponibles(usuario);
 	}
 	
-	public void liberar(Tarea tarea, Usuario usuario) throws Exception{
-		tarea = tareaDaoLocal.obtener(tarea.getCodigoTarea());
-		if (tarea.getProceso().getEstado()==Proceso.ESTADO_EJECUTANDO) {
-			if(tarea.getEstado()==Tarea.ESTADO_RECLAMADO){
-				tarea.setDueno(null);
-				tarea.setEstado(Tarea.ESTADO_PENDIENTE);
-				tarea.setFechaReclamo(null);
-				tarea.setFechaUltimaModificacion(new Date());
-				tareaDaoLocal.actualizar(tarea);
+	public Tarea liberar(long tkiid) throws Exception{
+		Tarea tarea = tareaDaoLocal.obtener(tkiid);
+		if(tarea!=null){
+			if (tarea.getProceso().getEstado()==Proceso.ESTADO_EJECUTANDO) {
+				if(tarea.getEstado()==Tarea.ESTADO_RECLAMADO){
+					tarea.setDueno(null);
+					tarea.setEstado(Tarea.ESTADO_PENDIENTE);
+					tarea.setFechaReclamo(null);
+					tarea.setFechaUltimaModificacion(new Date());
+					tarea = tareaDaoLocal.actualizar(tarea);
+				}else{
+					throw new Exception("La tarea no esta reclamada...");
+				}
+					
 			}else{
-				throw new Exception("La tarea no esta reclamada...");
+				throw new Exception("El proceso no esta en ejecución...");
 			}
-				
 		}else{
-			throw new Exception("El proceso no esta en ejecución...");
+			throw new Exception("La tarea no existe...");
 		}
-		
+		return tarea;
+	}
+	
+	public Tarea reclamar(long tkiid) throws Exception{
+		Tarea tarea = tareaDaoLocal.obtener(tkiid);
+		if(tarea!=null){
+			if (tarea.getProceso().getEstado()==Proceso.ESTADO_EJECUTANDO) {
+				Date fecha = new Date();
+				if(tarea.getEstado()==Tarea.ESTADO_PENDIENTE){
+					tarea.setDueno(sessionContext.getCallerPrincipal().getName());
+					tarea.setEstado(Tarea.ESTADO_RECLAMADO);
+					tarea.setFechaReclamo(fecha);
+					tarea.setFechaUltimaModificacion(fecha);
+					tarea = tareaDaoLocal.actualizar(tarea);
+				}else{
+					throw new Exception("La tarea no esta disponible...");
+				}
+					
+			}else{
+				throw new Exception("El proceso no esta en ejecución...");
+			}
+		}else{
+			throw new Exception("La tarea no existe...");
+		}
+		return tarea;
+	}
+
+	@Override
+	public Tarea trabajar(long tkiid) throws Exception {
+		Tarea tarea = tareaDaoLocal.obtener(tkiid);
+		if(tarea!=null){
+			if (tarea.getProceso().getEstado()==Proceso.ESTADO_EJECUTANDO) {
+				if(tarea.getEstado()==Tarea.ESTADO_PENDIENTE){
+					tarea = reclamar(tkiid);
+				}
+				if(tarea.getEstado()==Tarea.ESTADO_RECLAMADO && tarea.getDueno().equalsIgnoreCase(sessionContext.getCallerPrincipal().getName())){
+					return tarea;
+				}else{
+					throw new Exception("La tarea no esta reclamada...");
+				}
+					
+			}else{
+				throw new Exception("El proceso no esta en ejecución...");
+			}
+		}else{
+			throw new Exception("La tarea no existe...");
+		}
+	}
+
+	@Override
+	public Tarea completar(long tkiid) throws Exception {
+		Tarea tarea = tareaDaoLocal.obtener(tkiid);
+		if(tarea!=null){
+			if (tarea.getProceso().getEstado()==Proceso.ESTADO_EJECUTANDO) {
+				if(tarea.getEstado()==Tarea.ESTADO_RECLAMADO && tarea.getDueno().equalsIgnoreCase(sessionContext.getCallerPrincipal().getName())){
+					Date fecha = new Date();
+					tarea.setEstado(Tarea.ESTADO_TERMINADO);
+					tarea.setFechaTermino(fecha);
+					tarea.setFechaUltimaModificacion(fecha);
+					tarea = tareaDaoLocal.actualizar(tarea);
+				}else{
+					throw new Exception("La tarea no esta reclamada...");
+				}
+			}else{
+				throw new Exception("El proceso no esta en ejecución...");
+			}
+		}else{
+			throw new Exception("La tarea no existe...");
+		}
+		return tarea;
 	}
 
 }

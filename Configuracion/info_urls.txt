@@ -1,0 +1,21 @@
+
+--Crear instancia
+http://localhost:8080/Soul/portal/emisionCartaFianzaV1?accion=crear&tipoFianza=LIC&monedaFianza=USD&montoFianza=5000
+
+--Obtener tareas disponibles
+http://localhost:8080/Soul/portal/tareaController?accion=disponibles
+
+--Obtener tarea reclamadas
+http://localhost:8080/Soul/portal/tareaController?accion=reclamadas
+
+--Reclamar tarea
+http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=reclamar&tkiid=3
+
+--Liberar tarea
+http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=liberar&tkiid=3
+
+--Trabajar tarea
+http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=trabajar&tkiid=3
+
+--Completar tarea
+http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=completar&tkiid=1&tipoFianza=GUR&monedaFianza=PEN&montoFianza=500000

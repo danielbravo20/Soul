@@ -79,6 +79,7 @@ public class Tarea extends BaseBean{
 	private Date fechaUltimaModificacion;
 	private Proceso proceso;
 	private TareaPlantilla tareaPlantilla;
+	private Object objeto;
 	
 	public long getCodigoTarea() {
 		return codigoTarea;
@@ -162,6 +163,14 @@ public class Tarea extends BaseBean{
 
 	public void setDueno(String dueno) {
 		this.dueno = dueno;
+	}
+
+	public Object getObjeto() {
+		return objeto;
+	}
+
+	public void setObjeto(Object objeto) {
+		this.objeto = objeto;
 	}
 	
 }

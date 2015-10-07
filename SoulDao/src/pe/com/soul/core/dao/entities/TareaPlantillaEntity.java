@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
+// Generated 07/10/2015 10:05:11 AM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,10 +21,6 @@ import javax.persistence.Table;
 @Table(name = "tarea_plantilla", schema = "proceso")
 public class TareaPlantillaEntity implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private long codigoTareaPlantilla;
 	private ProcesoPlantillaEntity procesoPlantilla;
 	private int estadoTarea;
@@ -37,7 +32,6 @@ public class TareaPlantillaEntity implements java.io.Serializable {
 	private Set<RolEntity> rols = new HashSet<RolEntity>(0);
 	private Set<RolEntity> rols_1 = new HashSet<RolEntity>(0);
 	private Set<RolEntity> rols_2 = new HashSet<RolEntity>(0);
-	private Set<TareaEntity> tareas = new HashSet<TareaEntity>(0);
 
 	public TareaPlantillaEntity() {
 	}
@@ -60,7 +54,7 @@ public class TareaPlantillaEntity implements java.io.Serializable {
 			ProcesoPlantillaEntity procesoPlantilla, int estadoTarea,
 			String nombreTarea, String aleasTarea, String versionTarea,
 			int prioridadTarea, int ordenTarea, Set<RolEntity> rols, Set<RolEntity> rols_1,
-			Set<RolEntity> rols_2, Set<TareaEntity> tareas) {
+			Set<RolEntity> rols_2) {
 		this.codigoTareaPlantilla = codigoTareaPlantilla;
 		this.procesoPlantilla = procesoPlantilla;
 		this.estadoTarea = estadoTarea;
@@ -72,7 +66,6 @@ public class TareaPlantillaEntity implements java.io.Serializable {
 		this.rols = rols;
 		this.rols_1 = rols_1;
 		this.rols_2 = rols_2;
-		this.tareas = tareas;
 	}
 
 	@Id
@@ -177,15 +170,6 @@ public class TareaPlantillaEntity implements java.io.Serializable {
 
 	public void setRols_2(Set<RolEntity> rols_2) {
 		this.rols_2 = rols_2;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tareaPlantilla")
-	public Set<TareaEntity> getTareas() {
-		return this.tareas;
-	}
-
-	public void setTareas(Set<TareaEntity> tareas) {
-		this.tareas = tareas;
 	}
 
 }

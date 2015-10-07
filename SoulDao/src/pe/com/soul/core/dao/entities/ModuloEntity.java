@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
+// Generated 07/10/2015 10:05:11 AM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,10 +18,6 @@ import javax.persistence.Table;
 @Table(name = "modulo", schema = "seguridad")
 public class ModuloEntity implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int codigoModulo;
 	private String nombre;
 	private int orden;

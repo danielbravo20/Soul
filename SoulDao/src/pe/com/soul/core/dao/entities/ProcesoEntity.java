@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
+// Generated 07/10/2015 10:05:11 AM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -26,12 +26,7 @@ import javax.persistence.TemporalType;
 @Table(name = "proceso", schema = "proceso")
 public class ProcesoEntity implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private long codigoProceso;
-	private ProcesoPlantillaEntity procesoPlantilla;
 	private UsuarioEntity usuario;
 	private int estadoProceso;
 	private String nombreProceso;
@@ -39,32 +34,30 @@ public class ProcesoEntity implements java.io.Serializable {
 	private String versionProceso;
 	private Date fechaCreacionProceso;
 	private Date fechaTerminoProceso;
+	private long codigoProcesoPlantilla;
 	private Set<TareaEntity> tareas = new HashSet<TareaEntity>(0);
 
 	public ProcesoEntity() {
 	}
 
-	public ProcesoEntity(long codigoProceso, ProcesoPlantillaEntity procesoPlantilla,
-			UsuarioEntity usuario, int estadoProceso, String nombreProceso,
-			String aleasProceso, String versionProceso,
-			Date fechaCreacionProceso) {
+	public ProcesoEntity(long codigoProceso, UsuarioEntity usuario, int estadoProceso,
+			String nombreProceso, String aleasProceso, String versionProceso,
+			Date fechaCreacionProceso, long codigoProcesoPlantilla) {
 		this.codigoProceso = codigoProceso;
-		this.procesoPlantilla = procesoPlantilla;
 		this.usuario = usuario;
 		this.estadoProceso = estadoProceso;
 		this.nombreProceso = nombreProceso;
 		this.aleasProceso = aleasProceso;
 		this.versionProceso = versionProceso;
 		this.fechaCreacionProceso = fechaCreacionProceso;
+		this.codigoProcesoPlantilla = codigoProcesoPlantilla;
 	}
 
-	public ProcesoEntity(long codigoProceso, ProcesoPlantillaEntity procesoPlantilla,
-			UsuarioEntity usuario, int estadoProceso, String nombreProceso,
-			String aleasProceso, String versionProceso,
+	public ProcesoEntity(long codigoProceso, UsuarioEntity usuario, int estadoProceso,
+			String nombreProceso, String aleasProceso, String versionProceso,
 			Date fechaCreacionProceso, Date fechaTerminoProceso,
-			Set<TareaEntity> tareas) {
+			long codigoProcesoPlantilla, Set<TareaEntity> tareas) {
 		this.codigoProceso = codigoProceso;
-		this.procesoPlantilla = procesoPlantilla;
 		this.usuario = usuario;
 		this.estadoProceso = estadoProceso;
 		this.nombreProceso = nombreProceso;
@@ -72,29 +65,20 @@ public class ProcesoEntity implements java.io.Serializable {
 		this.versionProceso = versionProceso;
 		this.fechaCreacionProceso = fechaCreacionProceso;
 		this.fechaTerminoProceso = fechaTerminoProceso;
+		this.codigoProcesoPlantilla = codigoProcesoPlantilla;
 		this.tareas = tareas;
 	}
 
 	@Id
-	@GeneratedValue(generator="seq_codigo_proceso") 
-    @SequenceGenerator(name="seq_codigo_proceso",sequenceName="proceso.seq_codigo_proceso", allocationSize=0) 
 	@Column(name = "codigo_proceso", unique = true, nullable = false)
+	@GeneratedValue(generator="id_seq_codigo_proceso") 
+    @SequenceGenerator(name="id_seq_codigo_proceso",sequenceName="proceso.seq_codigo_proceso", allocationSize=0)
 	public long getCodigoProceso() {
 		return this.codigoProceso;
 	}
 
 	public void setCodigoProceso(long codigoProceso) {
 		this.codigoProceso = codigoProceso;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_proceso_plantilla", nullable = false)
-	public ProcesoPlantillaEntity getProcesoPlantilla() {
-		return this.procesoPlantilla;
-	}
-
-	public void setProcesoPlantilla(ProcesoPlantillaEntity procesoPlantilla) {
-		this.procesoPlantilla = procesoPlantilla;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -161,6 +145,15 @@ public class ProcesoEntity implements java.io.Serializable {
 
 	public void setFechaTerminoProceso(Date fechaTerminoProceso) {
 		this.fechaTerminoProceso = fechaTerminoProceso;
+	}
+
+	@Column(name = "codigo_proceso_plantilla", nullable = false)
+	public long getCodigoProcesoPlantilla() {
+		return this.codigoProcesoPlantilla;
+	}
+
+	public void setCodigoProcesoPlantilla(long codigoProcesoPlantilla) {
+		this.codigoProcesoPlantilla = codigoProcesoPlantilla;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")

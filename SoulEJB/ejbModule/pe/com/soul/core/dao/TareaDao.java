@@ -9,7 +9,6 @@ import javax.persistence.Query;
 
 import pe.com.soul.core.dao.entities.ProcesoEntity;
 import pe.com.soul.core.dao.entities.TareaEntity;
-import pe.com.soul.core.dao.entities.TareaPlantillaEntity;
 import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Tarea;
 import pe.com.soul.core.modelo.TareaPlantilla;
@@ -42,9 +41,6 @@ public class TareaDao extends BaseDao<TareaEntity> implements TareaDaoLocal {
 		ProcesoEntity procesoEntity = new ProcesoEntity();
 		procesoEntity.setCodigoProceso(tarea.getProceso().getCodigoProceso());
 		
-		TareaPlantillaEntity tareaPlantillaEntity = new TareaPlantillaEntity();
-		tareaPlantillaEntity.setCodigoTareaPlantilla(tarea.getTareaPlantilla().getCodigoTareaPlantilla());
-		
 		if(tarea.getDueno()!=null){
 			tareaEntity.setDuenoTarea(tarea.getDueno());
 			tareaEntity.setEstadoTarea(Tarea.ESTADO_RECLAMADO);
@@ -54,7 +50,7 @@ public class TareaDao extends BaseDao<TareaEntity> implements TareaDaoLocal {
 		}
 		
 		tareaEntity.setProceso(procesoEntity);
-		tareaEntity.setTareaPlantilla(tareaPlantillaEntity);
+		tareaEntity.setCodigoTareaPlantilla(tarea.getTareaPlantilla().getCodigoTareaPlantilla());
 		
 		tareaEntity = guardar(tareaEntity);
 		
@@ -82,7 +78,7 @@ public class TareaDao extends BaseDao<TareaEntity> implements TareaDaoLocal {
 	@SuppressWarnings("unchecked")
 	public List<Tarea> obtenerDisponibles(Usuario usuario) throws Exception {
 		
-		String consulta = "select new pe.com.soul.core.modelo.Tarea(t.id.codigoTarea, t.id.codigoProceso, t.id.codigoTareaPlantilla, t.id.estadoTarea, t.id.nombreTarea, t.id.aleasTarea, t.id.versionTarea, t.id.prioridadTarea, t.id.fechaCreacionTarea, t.id.fechaReclamoTarea, t.id.fechaTerminoTarea, t.id.fechaUltimaModificacionTarea, t.id.duenoTarea, t.id.codigoProcesoPlantilla, t.id.estadoProceso, t.id.nombreProceso, t.id.aleasProceso, t.id.versionProceso, t.id.fechaCreacionProceso, t.id.fechaTerminoProceso, t.id.usuarioCreacionProceso) from pe.com.soul.core.dao.entities.TareaPotencialDuenoEntity t where t.id.duenoTarea =:parametro ";
+		String consulta = "select new pe.com.soul.core.modelo.Tarea(t.id.codigoTarea, t.id.codigoProceso, t.id.codigoTareaPlantilla, t.id.estadoTarea, t.id.nombreTarea, t.id.aleasTarea, t.id.versionTarea, t.id.prioridadTarea, t.id.fechaCreacionTarea, t.id.fechaReclamoTarea, t.id.fechaTerminoTarea, t.id.fechaUltimaModificacionTarea, t.id.duenoTarea, t.id.codigoProcesoPlantilla, t.id.estadoProceso, t.id.nombreProceso, t.id.aleasProceso, t.id.versionProceso, t.id.fechaCreacionProceso, t.id.fechaTerminoProceso, t.id.usuarioCreacionProceso) from pe.com.soul.core.dao.entities.TareaPotencialDuenoEntity t where t.id.duenoPotencial =:parametro ";
 		
 		Query query = em.createQuery(consulta);
 		query.setParameter("parametro", usuario.getUsuario());
@@ -98,7 +94,7 @@ public class TareaDao extends BaseDao<TareaEntity> implements TareaDaoLocal {
 		tarea = parseTarea(tareaEntity);
 		tarea.setProceso(parseProceso(tareaEntity.getProceso()));
 		TareaPlantilla tareaPlantilla = new TareaPlantilla();
-		tareaPlantilla.setCodigoTareaPlantilla(tareaEntity.getTareaPlantilla().getCodigoTareaPlantilla());
+		tareaPlantilla.setCodigoTareaPlantilla(tareaEntity.getCodigoTareaPlantilla());
 		tarea.setTareaPlantilla(tareaPlantilla);
 		return tarea;
 	}
@@ -108,11 +104,8 @@ public class TareaDao extends BaseDao<TareaEntity> implements TareaDaoLocal {
 		ProcesoEntity procesoEntity = new ProcesoEntity();
 		procesoEntity.setCodigoProceso(tarea.getProceso().getCodigoProceso());
 		tareaEntity.setProceso(procesoEntity);
-		TareaPlantillaEntity tareaPlantillaEntity = new TareaPlantillaEntity();
-		tareaPlantillaEntity.setCodigoTareaPlantilla(tarea.getTareaPlantilla().getCodigoTareaPlantilla());
-		tareaEntity.setTareaPlantilla(tareaPlantillaEntity);
-		actualizarEntity(parseTarea(tarea));
-		
+		tareaEntity.setCodigoTareaPlantilla(tarea.getTareaPlantilla().getCodigoTareaPlantilla());
+		actualizarEntity(tareaEntity);
 		return tarea;
 	}
 	

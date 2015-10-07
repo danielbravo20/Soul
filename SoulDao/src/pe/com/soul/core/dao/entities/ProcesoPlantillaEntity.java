@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
+// Generated 07/10/2015 10:05:11 AM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,10 +24,6 @@ import javax.persistence.TemporalType;
 @Table(name = "proceso_plantilla", schema = "proceso")
 public class ProcesoPlantillaEntity implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private long codigoProcesoPlantilla;
 	private char estadoProceso;
 	private String nombreProceso;
@@ -36,7 +32,6 @@ public class ProcesoPlantillaEntity implements java.io.Serializable {
 	private Date fechaValidezProceso;
 	private boolean flagTodosInician;
 	private Set<RolEntity> rols = new HashSet<RolEntity>(0);
-	private Set<ProcesoEntity> procesos = new HashSet<ProcesoEntity>(0);
 	private Set<TareaPlantillaEntity> tareaPlantillas = new HashSet<TareaPlantillaEntity>(0);
 	private Set<RolEntity> rols_1 = new HashSet<RolEntity>(0);
 
@@ -58,8 +53,7 @@ public class ProcesoPlantillaEntity implements java.io.Serializable {
 	public ProcesoPlantillaEntity(long codigoProcesoPlantilla, char estadoProceso,
 			String nombreProceso, String aleasProceso, String versionProceso,
 			Date fechaValidezProceso, boolean flagTodosInician, Set<RolEntity> rols,
-			Set<ProcesoEntity> procesos, Set<TareaPlantillaEntity> tareaPlantillas,
-			Set<RolEntity> rols_1) {
+			Set<TareaPlantillaEntity> tareaPlantillas, Set<RolEntity> rols_1) {
 		this.codigoProcesoPlantilla = codigoProcesoPlantilla;
 		this.estadoProceso = estadoProceso;
 		this.nombreProceso = nombreProceso;
@@ -68,7 +62,6 @@ public class ProcesoPlantillaEntity implements java.io.Serializable {
 		this.fechaValidezProceso = fechaValidezProceso;
 		this.flagTodosInician = flagTodosInician;
 		this.rols = rols;
-		this.procesos = procesos;
 		this.tareaPlantillas = tareaPlantillas;
 		this.rols_1 = rols_1;
 	}
@@ -146,15 +139,6 @@ public class ProcesoPlantillaEntity implements java.io.Serializable {
 
 	public void setRols(Set<RolEntity> rols) {
 		this.rols = rols;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "procesoPlantilla")
-	public Set<ProcesoEntity> getProcesos() {
-		return this.procesos;
-	}
-
-	public void setProcesos(Set<ProcesoEntity> procesos) {
-		this.procesos = procesos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "procesoPlantilla")

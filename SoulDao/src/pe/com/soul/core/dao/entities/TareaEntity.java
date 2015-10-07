@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 02/10/2015 05:12:22 PM by Hibernate Tools 4.3.1
+// Generated 07/10/2015 10:05:11 AM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 
@@ -23,13 +23,8 @@ import javax.persistence.TemporalType;
 @Table(name = "tarea", schema = "proceso")
 public class TareaEntity implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private long codigoTarea;
 	private ProcesoEntity proceso;
-	private TareaPlantillaEntity tareaPlantilla;
 	private int estadoTarea;
 	private String nombreTarea;
 	private String aleasTarea;
@@ -40,17 +35,17 @@ public class TareaEntity implements java.io.Serializable {
 	private Date fechaTerminoTarea;
 	private Date fechaUltimaModificacionTarea;
 	private String duenoTarea;
+	private long codigoTareaPlantilla;
 
 	public TareaEntity() {
 	}
 
-	public TareaEntity(long codigoTarea, ProcesoEntity proceso,
-			TareaPlantillaEntity tareaPlantilla, int estadoTarea, String nombreTarea,
-			String aleasTarea, String versionTarea, int prioridadTarea,
-			Date fechaCreacionTarea, Date fechaUltimaModificacionTarea) {
+	public TareaEntity(long codigoTarea, ProcesoEntity proceso, int estadoTarea,
+			String nombreTarea, String aleasTarea, String versionTarea,
+			int prioridadTarea, Date fechaCreacionTarea,
+			Date fechaUltimaModificacionTarea, long codigoTareaPlantilla) {
 		this.codigoTarea = codigoTarea;
 		this.proceso = proceso;
-		this.tareaPlantilla = tareaPlantilla;
 		this.estadoTarea = estadoTarea;
 		this.nombreTarea = nombreTarea;
 		this.aleasTarea = aleasTarea;
@@ -58,17 +53,17 @@ public class TareaEntity implements java.io.Serializable {
 		this.prioridadTarea = prioridadTarea;
 		this.fechaCreacionTarea = fechaCreacionTarea;
 		this.fechaUltimaModificacionTarea = fechaUltimaModificacionTarea;
+		this.codigoTareaPlantilla = codigoTareaPlantilla;
 	}
 
-	public TareaEntity(long codigoTarea, ProcesoEntity proceso,
-			TareaPlantillaEntity tareaPlantilla, int estadoTarea, String nombreTarea,
-			String aleasTarea, String versionTarea, int prioridadTarea,
-			Date fechaCreacionTarea, Date fechaReclamoTarea,
-			Date fechaTerminoTarea, Date fechaUltimaModificacionTarea,
-			String duenoTarea) {
+	public TareaEntity(long codigoTarea, ProcesoEntity proceso, int estadoTarea,
+			String nombreTarea, String aleasTarea, String versionTarea,
+			int prioridadTarea, Date fechaCreacionTarea,
+			Date fechaReclamoTarea, Date fechaTerminoTarea,
+			Date fechaUltimaModificacionTarea, String duenoTarea,
+			long codigoTareaPlantilla) {
 		this.codigoTarea = codigoTarea;
 		this.proceso = proceso;
-		this.tareaPlantilla = tareaPlantilla;
 		this.estadoTarea = estadoTarea;
 		this.nombreTarea = nombreTarea;
 		this.aleasTarea = aleasTarea;
@@ -79,12 +74,13 @@ public class TareaEntity implements java.io.Serializable {
 		this.fechaTerminoTarea = fechaTerminoTarea;
 		this.fechaUltimaModificacionTarea = fechaUltimaModificacionTarea;
 		this.duenoTarea = duenoTarea;
+		this.codigoTareaPlantilla = codigoTareaPlantilla;
 	}
 
 	@Id
-	@GeneratedValue(generator="seq_codigo_tarea") 
-    @SequenceGenerator(name="seq_codigo_tarea",sequenceName="proceso.seq_codigo_tarea", allocationSize=0)
 	@Column(name = "codigo_tarea", unique = true, nullable = false)
+	@GeneratedValue(generator="id_seq_codigo_tarea") 
+    @SequenceGenerator(name="id_seq_codigo_tarea",sequenceName="proceso.seq_codigo_tarea", allocationSize=0)
 	public long getCodigoTarea() {
 		return this.codigoTarea;
 	}
@@ -101,16 +97,6 @@ public class TareaEntity implements java.io.Serializable {
 
 	public void setProceso(ProcesoEntity proceso) {
 		this.proceso = proceso;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_tarea_plantilla", nullable = false)
-	public TareaPlantillaEntity getTareaPlantilla() {
-		return this.tareaPlantilla;
-	}
-
-	public void setTareaPlantilla(TareaPlantillaEntity tareaPlantilla) {
-		this.tareaPlantilla = tareaPlantilla;
 	}
 
 	@Column(name = "estado_tarea", nullable = false)
@@ -206,6 +192,15 @@ public class TareaEntity implements java.io.Serializable {
 
 	public void setDuenoTarea(String duenoTarea) {
 		this.duenoTarea = duenoTarea;
+	}
+
+	@Column(name = "codigo_tarea_plantilla", nullable = false)
+	public long getCodigoTareaPlantilla() {
+		return this.codigoTareaPlantilla;
+	}
+
+	public void setCodigoTareaPlantilla(long codigoTareaPlantilla) {
+		this.codigoTareaPlantilla = codigoTareaPlantilla;
 	}
 
 }

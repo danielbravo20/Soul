@@ -4,7 +4,6 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import pe.com.soul.core.dao.entities.ProcesoEntity;
-import pe.com.soul.core.dao.entities.ProcesoPlantillaEntity;
 import pe.com.soul.core.dao.entities.UsuarioEntity;
 import pe.com.soul.core.modelo.Proceso;
 
@@ -22,11 +21,8 @@ public class ProcesoDao extends BaseDao<ProcesoEntity> implements ProcesoDaoLoca
 	@Override
 	public Proceso guardar(Proceso proceso) {
 		
-		ProcesoPlantillaEntity procesoPlantillaEntity = new ProcesoPlantillaEntity();
-		procesoPlantillaEntity.setCodigoProcesoPlantilla(proceso.getCodigoProcesoPlantilla());
-		
 		ProcesoEntity procesoEntity = new ProcesoEntity();
-		procesoEntity.setProcesoPlantilla(procesoPlantillaEntity);
+		procesoEntity.setCodigoProcesoPlantilla(proceso.getCodigoProcesoPlantilla());
 		procesoEntity.setEstadoProceso(proceso.getEstado());
 		procesoEntity.setAleasProceso(proceso.getAleas());
 		procesoEntity.setNombreProceso(proceso.getNombre());
