@@ -1,15 +1,20 @@
 package pe.com.soul.cartaFianza.proceso.v1;
 
+import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 
-import pe.com.soul.cartaFianza.proceso.EmisionCartaFianzaServiceLocal;
 import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.TareaPlantilla;
 import pe.com.soul.core.modelo.Usuario;
 import pe.com.soul.core.proceso.service.BaseProcesoServiceImpl;
+import pe.com.soul.core.proceso.servicio.BaseProcesoServicio;
 import pe.com.soul.core.service.portal.ProcesoServiceLocal;
 
-public abstract class PreEmisionCartaFianzaService extends BaseProcesoServiceImpl implements EmisionCartaFianzaServiceLocal{
+@DeclareRoles("Administrador")
+public abstract class PreEmisionCartaFianzaService extends BaseProcesoServiceImpl implements BaseProcesoServicio{
 
 	public static final long   PROCESO_CODIGO_PLANTILLA_PROCESO = 1;
 	public static final String PROCESO_NOMBRE 					= "EMISION DE CARTA FIANZA"; 
@@ -18,9 +23,13 @@ public abstract class PreEmisionCartaFianzaService extends BaseProcesoServiceImp
 	
 	@EJB
 	ProcesoServiceLocal procesoServiceLocal;
+	
+	@Resource
+    private SessionContext sessionContext;
 
 	public Proceso crearInstancia(Usuario usuario) throws Exception {
-		
+		System.out.println("-->>> "+sessionContext.isCallerInRole("Administrador"));
+		System.out.println(sessionContext.getCallerPrincipal());
 		Proceso proceso = new Proceso();
 		proceso.setCodigoProcesoPlantilla(PROCESO_CODIGO_PLANTILLA_PROCESO);
 		proceso.setNombre(PROCESO_NOMBRE);
@@ -32,6 +41,7 @@ public abstract class PreEmisionCartaFianzaService extends BaseProcesoServiceImp
 		return proceso;
 	}
 	
+	@RolesAllowed("Administrador")
 	public TareaPlantilla definirPrimeraTarea(Proceso proceso, Usuario usuario) throws Exception{
 		TareaPlantilla plantilla = new TareaPlantilla();
 		plantilla.setCodigoTareaPlantilla(1);
