@@ -4,7 +4,8 @@ Modified: 07/10/2015
 Model: RE PostgreSQL 9.4
 Database: PostgreSQL 9.4
 */
-
+DROP SCHEMA proceso CASCADE;
+DROP SCHEMA seguridad CASCADE;
 
 -- Create schemas section -------------------------------------------------
 
