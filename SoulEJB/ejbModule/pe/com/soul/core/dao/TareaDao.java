@@ -60,7 +60,7 @@ public class TareaDao extends BaseDao<TareaEntity> implements TareaDaoLocal {
 	@Override
 	public List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception {
 		
-		String consulta = "select t from TareaEntity t where t.duenoTarea =:parametro ";
+		String consulta = "select t from TareaEntity t where t.estadoTarea=2 and t.duenoTarea =:parametro ";
     	
     	List<TareaEntity> tareasEntity = buscarRegistros(consulta, "parametro", usuario.getUsuario());
 		List<Tarea> tareas = new ArrayList<Tarea>();
