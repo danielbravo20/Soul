@@ -2,7 +2,9 @@
 <div ng-controller="base_iniciarproceso" class="row">
 	<div class="col-md-12">
 		<div ng-include="'plantillas/inc_iniciarproceso_titulo.html'"></div>
-		<div ng-include="baseIPConfig.url"></div>
+		<form name="frm_iniciarproceso" novalidate>
+			<div ng-include="baseIPConfig.url"></div>
+		</form>
 		<div ng-include="'plantillas/inc_iniciarproceso_botonera.html'"></div>
 	</div>
 </div>

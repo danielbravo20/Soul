@@ -20,15 +20,25 @@ portal.registerCtrl('base_iniciarproceso', function($scope, hostname, ajax) {
 	}
 	
 	$scope.iniciarProceso = function(){
-		ajax.getAjax({
-			url 			: hostname+"/portal/"+$scope.data.PROCESO_CARGADO.aleas,
-			data 			: angular.extend({},{accion : "crear"},$scope.baseIPConfig.data),
-			getRespuesta 	: function(respuesta){
-				if(respuesta.codigoProceso && respuesta.codigoProcesoPlantilla){
-					alert("Solicitud Creada Corréctamente");
+		$scope.$broadcast('show-errors-check-validity');
+		if ($scope.frm_iniciarproceso.$invalid) { return; }
+		if ($scope.frm_iniciarproceso.$valid) {
+			ajax.getAjax({
+				url 			: hostname+"/portal/"+$scope.data.PROCESO_CARGADO.aleas,
+				data 			: angular.extend({},{accion : "crear"},$scope.baseIPConfig.data),
+				getRespuesta 	: function(respuesta){
+					if(respuesta.codigoProceso && respuesta.codigoProcesoPlantilla){
+						alert("Solicitud Creada Corréctamente");
+						$scope.resetear();
+					}
 				}
-			}
-		});
+			});
+		}
+	}
+	
+	$scope.resetear = function(){
+	    $scope.$broadcast('show-errors-reset');
+	    $scope.baseIPConfig.data = {};
 	}
 	
 	$scope.cerrarProcesoInicio = function(){
