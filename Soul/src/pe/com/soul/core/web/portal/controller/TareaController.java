@@ -48,6 +48,9 @@ public class TareaController extends BaseController {
 			}else if("disponibles".equals(accion)){
 				respuesta.setRespuesta(tareaServiceLocal.obtenerDisponibles(usuario));
 				respuesta.setResultado(true);
+			}else if("consultar".equals(accion)){
+				respuesta.setRespuesta(tareaServiceLocal.consultarTarea(Long.parseLong(request.getParameter("codigoProceso"))));
+				respuesta.setResultado(true);
 			}
 		}
 		

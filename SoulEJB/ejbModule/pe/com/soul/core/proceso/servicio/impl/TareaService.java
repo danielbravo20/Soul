@@ -51,6 +51,11 @@ public class TareaService implements TareaServiceLocal {
     	return tareaDaoLocal.guardar(tarea);
     }
 
+    @Override
+	public List<Tarea> consultarTarea(long codigoProceso) throws Exception {
+		return tareaDaoLocal.consultarTarea(codigoProceso);
+	}
+    
 	@Override
 	public List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception {
 		return tareaDaoLocal.obtenerReclamadas(usuario);
@@ -76,7 +81,7 @@ public class TareaService implements TareaServiceLocal {
 				}
 					
 			}else{
-				throw new Exception("El proceso no esta en ejecución...");
+				throw new Exception("El proceso no esta en ejecuciï¿½n...");
 			}
 		}else{
 			throw new Exception("La tarea no existe...");
@@ -100,7 +105,7 @@ public class TareaService implements TareaServiceLocal {
 				}
 					
 			}else{
-				throw new Exception("El proceso no esta en ejecución...");
+				throw new Exception("El proceso no esta en ejecuciï¿½n...");
 			}
 		}else{
 			throw new Exception("La tarea no existe...");
@@ -123,7 +128,7 @@ public class TareaService implements TareaServiceLocal {
 				}
 					
 			}else{
-				throw new Exception("El proceso no esta en ejecución...");
+				throw new Exception("El proceso no esta en ejecuciï¿½n...");
 			}
 		}else{
 			throw new Exception("La tarea no existe...");
@@ -145,7 +150,7 @@ public class TareaService implements TareaServiceLocal {
 					throw new Exception("La tarea no esta reclamada...");
 				}
 			}else{
-				throw new Exception("El proceso no esta en ejecución...");
+				throw new Exception("El proceso no esta en ejecuciï¿½n...");
 			}
 		}else{
 			throw new Exception("La tarea no existe...");

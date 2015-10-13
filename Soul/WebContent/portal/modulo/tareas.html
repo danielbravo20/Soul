@@ -19,7 +19,7 @@
 			        </tr>
 			    </thead>
 			    <tbody>
-			        <tr ng-repeat="tarea in tareas">
+			        <tr ng-repeat="tarea in tareasConfig.lista">
 			            <th>{{tarea.proceso.nombre}}</th>
 			            <td>{{tarea.nombre}}</td>
 			            <td>{{tarea.version}}</td>
@@ -33,8 +33,8 @@
 			            </td>
 			            <td><a class="btn btn-sm" ng-class="tarea.fechaCreacionEstilo" tooltip="Fecha de Creación: {{tarea.fechaCreacion | date: 'dd/MM/yyyy hh:mm:ss a'}}"><i class="glyphicon glyphicon-bell"></i></a> {{tarea.fechaCreacionResumen}}</td>
 			            <td style="text-align: right;">
-			            	<a class="btn btn-info btn-sm" tooltip="Ver Detalle" ng-click="verDetalle()"><i class="glyphicon glyphicon-align-justify"></i></a>
-			            	<a class="btn btn-info btn-sm" tooltip="Trabajar"><i class="glyphicon glyphicon-chevron-right"></i></a>
+			            	<a class="btn btn-info btn-sm" tooltip="Ver Detalle" ng-click="verDetalle(tarea.codigoTarea)"><i class="glyphicon glyphicon-align-justify"></i></a>
+			            	<a class="btn btn-info btn-sm" tooltip="Trabajar" ng-click="trabajar(tarea.codigoTarea)"><i class="glyphicon glyphicon-chevron-right"></i></a>
 			            </td>
 			        </tr>
 			    </tbody>
@@ -58,4 +58,5 @@
 		</div>
 	</div>
 	<div ng-include="'modulo/base_iniciarproceso.html'" ng-show="tareasConfig.vista == 'inicio'"></div>
+	<div ng-include="'modulo/base_trabajartarea.html'" ng-show="tareasConfig.vista == 'trabajar'"></div>
 </div>

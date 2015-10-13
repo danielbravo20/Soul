@@ -19,6 +19,8 @@ public interface TareaServiceLocal {
 	Tarea trabajar(long tkiid) throws Exception;
 	Tarea completar(long tkiid) throws Exception;
 	
+	List<Tarea> consultarTarea(long codigoProceso) throws Exception;
 	List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception;
 	List<Tarea> obtenerDisponibles(Usuario usuario) throws Exception;
+	
 }

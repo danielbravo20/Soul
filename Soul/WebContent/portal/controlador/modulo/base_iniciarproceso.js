@@ -1,8 +1,8 @@
-portal.registerCtrl('base_iniciarproceso', function($scope, hostname, ajax) {
+portal.registerCtrl('base_iniciarproceso', function($scope, $modal, hostname, ajax) {
 	
 	$scope.baseIPConfig = {};
 	
-	$scope.instanciar = function(codigoProcesoPlantilla){
+	$scope.instanciar = function(){
 		$scope.baseIPConfig = {
 			visibleBotonIniciar : true,
 			url : "",
@@ -28,22 +28,82 @@ portal.registerCtrl('base_iniciarproceso', function($scope, hostname, ajax) {
 				data 			: angular.extend({},{accion : "crear"},$scope.baseIPConfig.data),
 				getRespuesta 	: function(respuesta){
 					if(respuesta.codigoProceso && respuesta.codigoProcesoPlantilla){
-						alert("Solicitud Creada Corréctamente");
 						$scope.resetear();
+						$scope.abrirModalCreado(respuesta);
 					}
 				}
 			});
 		}
 	}
 	
+	$scope.abrirModalCreado = function(objRespuesta){
+		var modalInstance = $modal.open({
+			animation: true,
+			templateUrl: 'modulo/base_iniciarproceso_creado.html',
+			controller: 'Modal_base_iniciarproceso_creado',
+			resolve: {
+				config : function(){
+					return {
+						codigoProceso : objRespuesta.codigoProceso,
+						trabajar : function(objTarea){
+							$scope.cerrarProcesoInicio();
+							$scope.trabajar(objTarea);
+						}
+					};
+				}
+			}
+		});
+		modalInstance.result.then(function () {
+			$scope.cerrarProcesoInicio();
+	    }, function () {
+	    	$scope.cerrarProcesoInicio();
+	    });
+	};
+	
 	$scope.resetear = function(){
 	    $scope.$broadcast('show-errors-reset');
 	    $scope.baseIPConfig.data = {};
-	}
+	};
 	
 	$scope.cerrarProcesoInicio = function(){
 		$scope.instanciar();
-		$scope.tareasConfig.vista = "lista";
-	}
+		$scope.$parent.instanciar();
+	};
+	
+});
+
+portal.registerCtrl('Modal_base_iniciarproceso_creado', function ($scope, $modalInstance, $timeout, ajax, cargador, config) {
+
+	$scope.haBuscado = false;
+	$scope.contador = 0;
+	
+	$scope.Trabajar = function(){
+		ajax.get({
+			url : "tarea",
+			data : {accion:"consultar", codigoProceso : config.codigoProceso},
+			getRespuesta : function(objTarea){
+				if(Tarea.codigoTarea){
+					config.trabajar(objTarea);
+					$modalInstance.close();
+				} else {
+					if($scope.contador>=2){
+						$scope.haBuscado = true;
+						$scope.contador = 0;
+						cargador.ocultar();
+					} else {
+						$timeout(function(){
+							$scope.contador++;
+							$scope.Trabajar();
+						}, 2*1000);
+					}
+				}
+			},
+			mostrarCargadorInicial : true
+		});
+	};
+	
+	$scope.VerTareas = function(){
+		$modalInstance.close();
+	};
 	
 });

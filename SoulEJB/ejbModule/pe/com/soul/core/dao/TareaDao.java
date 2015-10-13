@@ -56,6 +56,23 @@ public class TareaDao extends BaseDao<TareaEntity> implements TareaDaoLocal {
 		
 		return parseTarea(tareaEntity);
 	}
+	
+	@Override
+	public List<Tarea> consultarTarea(long codigoProceso) throws Exception {
+		
+		String consulta = "select t from TareaEntity t INNER JOIN t.proceso pr where pr.codigoProceso =:parametro";
+    	
+    	List<TareaEntity> tareasEntity = buscarRegistros(consulta, "parametro", codigoProceso);
+		List<Tarea> tareas = new ArrayList<Tarea>();
+    	
+		if(tareasEntity!=null){
+			for (int x = 0; x < tareasEntity.size(); x++) {
+				tareas.add(parseTarea(tareasEntity.get(x)));
+			}
+		}
+		
+		return tareas;
+	}
 
 	@Override
 	public List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception {

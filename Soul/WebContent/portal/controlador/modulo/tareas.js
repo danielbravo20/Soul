@@ -1,10 +1,14 @@
 portal.registerCtrl('tareas', function($scope, $modal, ajax) {
 	
-	$scope.tareasConfig = {
-		vista : "lista"
-	};
+	$scope.tareasConfig = {};
 	
-	$scope.tareas = [];
+	$scope.instanciar = function(codigoProcesoPlantilla){
+		$scope.tareasConfig = {
+			vista : "lista",
+			lista : []
+		};
+		listarTareas();
+	};
 	
 	var listarTareas = function(){
 		
@@ -31,7 +35,7 @@ portal.registerCtrl('tareas', function($scope, $modal, ajax) {
 					}
 				}
 				
-				$scope.tareas = lista;
+				$scope.tareasConfig.lista = lista;
 				
 			}/*,
 			mostrarCargador : true*/
@@ -39,10 +43,9 @@ portal.registerCtrl('tareas', function($scope, $modal, ajax) {
 		
 	};
 	
-	listarTareas();
+	$scope.instanciar();
 	
-	
-	$scope.verDetalle = function(){
+	$scope.verDetalle = function(codigoTarea){
 		var modalInstance = $modal.open({
 			animation: true,
 			templateUrl: 'modulo/procesos_detalleTarea.html',
@@ -65,8 +68,12 @@ portal.registerCtrl('tareas', function($scope, $modal, ajax) {
 		$scope.tareasConfig.vista = "inicio";
 	}
 	
-	$scope.instanciarTareas = function(){
-		$scope.vistaTarea = "lista";
+	$scope.trabajar = function(tarea){ console.log(tarea);
+		if(typeof(tarea)!="object"){
+			tarea = util.getObjeto($scope.tareasConfig.lista,{codigoTarea : tarea});
+		}
+		$scope.getControlador("base_trabajartarea").cargarTrabajar(tarea);
+		$scope.tareasConfig.vista = "trabajar";
 	}
 	
 	// FILTRO
