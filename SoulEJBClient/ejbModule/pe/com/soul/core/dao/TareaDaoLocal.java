@@ -11,6 +11,7 @@ import pe.com.soul.core.modelo.Usuario;
 public interface TareaDaoLocal {
 
 	Tarea guardar(Tarea tarea) throws Exception;
+	List<Tarea> consultarTarea(long codigoProceso) throws Exception;
 	List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception;
 	List<Tarea> obtenerDisponibles(Usuario usuario) throws Exception;
 	Tarea obtener(Long codigoTarea) throws Exception;

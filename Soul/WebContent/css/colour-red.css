@@ -1027,13 +1027,32 @@ body a .de-em {
   background: #be3e1d;
 }
 
+.well > .btn-info {
+    background-color: #5bc0de;
+    border-color: #46b8da;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+.well > .btn-info.active, .well > .btn-info.focus, .well > .btn-info:active, .well > .btn-info:focus, .well > .btn-info:hover, .well > .open>.dropdown-toggle.btn-info {
+	/*color: #fff;*/
+    background-color: #31b0d5;
+    border-color: #46b8da;
+}
+
 .btn-info {
-    /*color: #4b4b4b;*/
     background-color: #F6FCFD;
     border-color: #46b8da;
     border-left: none;
     border-right: none;
     border-top: none;
+}
+
+.btn-info.active, .btn-info.focus, .btn-info:active, .btn-info:focus, .btn-info:hover, .open>.dropdown-toggle.btn-info {
+	/*color: #fff;*/
+    background-color: #90D4E9;
+    border-color: #46b8da;
 }
 
 .btn-danger {

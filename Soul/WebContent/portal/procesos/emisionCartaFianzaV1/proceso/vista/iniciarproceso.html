@@ -7,22 +7,29 @@
 		    <tbody>
 			  <tr>
 				<th><span class="frm_requerido">(*)</span> Tipo de Fianza :</th>
-				<td>
+				<td class="form-group" show-errors='{showSuccess: true}'>
 					<select name="tipoBusqueda" ng-model="baseIPConfig.data.tipoFianza" class="form-control input-sm" required>
 						<option value="LIC">LICITACION</option>
 						<option value="REQ">REQUERIMIENTO</option>
 						<option value="DET">DETALLE</option>
 					</select>
+					<p class="help-block" ng-if="frm_iniciarproceso.tipoBusqueda.$error.required">Seleccione un valor correcto</p>
 				</td>
 			  </tr>
 			  <tr>
 				<th><span class="frm_requerido">(*)</span> Monto :</th>
 				<td class="form-inline">
-					<select name="monedaFianza" ng-model="baseIPConfig.data.monedaFianza" class="form-control input-sm" required>
-						<option value="USD">DÓLARES AMERICANOS</option>
-						<option value="PEN">NUEVOS SOLES</option>
-					</select>
-					<input type="text" name="montoFianza" ng-model="baseIPConfig.data.montoFianza" class="form-control input-sm" required>
+					<span class="form-group" show-errors='{showSuccess: true}'>
+						<select name="monedaFianza" ng-model="baseIPConfig.data.monedaFianza" class="form-control input-sm" required>
+							<option value="USD">DÓLARES AMERICANOS</option>
+							<option value="PEN">NUEVOS SOLES</option>
+						</select>
+						<p class="help-block" ng-if="frm_iniciarproceso.monedaFianza.$error.required">Seleccione un valor correcto</p>
+					</span>
+					<span class="form-group" show-errors='{showSuccess: true}'>
+						<input type="number" name="montoFianza" ng-model="baseIPConfig.data.montoFianza" class="form-control input-sm" required>
+						<p class="help-block" ng-if="frm_iniciarproceso.montoFianza.$error.required">Ingrese un valor correcto</p>
+					</span>
 				</td>
 			  </tr>
 		    </tbody>

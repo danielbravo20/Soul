@@ -85,7 +85,7 @@ public class TareaService implements TareaServiceLocal {
 				}
 					
 			}else{
-				throw new Exception("El proceso no esta en ejecución...");
+				throw new Exception("El proceso no esta en ejecuciï¿½n...");
 			}
 		}else{
 			throw new Exception("La tarea no existe...");
@@ -109,7 +109,7 @@ public class TareaService implements TareaServiceLocal {
 				}
 					
 			}else{
-				throw new Exception("El proceso no esta en ejecución...");
+				throw new Exception("El proceso no esta en ejecuciï¿½n...");
 			}
 		}else{
 			throw new Exception("La tarea no existe...");
@@ -132,7 +132,7 @@ public class TareaService implements TareaServiceLocal {
 				}
 					
 			}else{
-				throw new Exception("El proceso no esta en ejecución...");
+				throw new Exception("El proceso no esta en ejecuciï¿½n...");
 			}
 		}else{
 			throw new Exception("La tarea no existe...");
@@ -154,7 +154,7 @@ public class TareaService implements TareaServiceLocal {
 					throw new Exception("La tarea no esta reclamada...");
 				}
 			}else{
-				throw new Exception("El proceso no esta en ejecución...");
+				throw new Exception("El proceso no esta en ejecuciï¿½n...");
 			}
 		}else{
 			throw new Exception("La tarea no existe...");

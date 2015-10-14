@@ -25,4 +25,5 @@ public interface TareaServiceLocal {
 	List<Tarea> consultarTarea(long codigoProceso) throws Exception;
 	List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception;
 	List<Tarea> obtenerDisponibles(Usuario usuario) throws Exception;
+	
 }
