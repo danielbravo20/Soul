@@ -22,12 +22,19 @@ public class ProcesoService implements ProcesoServiceLocal {
 	
 	@Override
 	public Proceso crearInstancia(Proceso proceso) throws Exception {
-		
 		Date fecha = new Date();
 		proceso.setFechaCreacion(fecha);
 		proceso.setEstado(Proceso.ESTADO_EJECUTANDO);
 		proceso = procesoDaoLocal.guardar(proceso);
-		
+		return proceso;
+	}
+
+	@Override
+	public Proceso terminar(Proceso proceso) throws Exception {
+		Date fecha = new Date();
+		proceso.setFechaTermino(fecha);
+		proceso.setEstado(Proceso.ESTADO_TERMINADO);
+		proceso = procesoDaoLocal.actualizar(proceso);
 		return proceso;
 	}
 	

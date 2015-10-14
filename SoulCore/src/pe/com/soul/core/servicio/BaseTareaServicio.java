@@ -8,8 +8,8 @@ public interface BaseTareaServicio {
 	Tarea accionLiberar(long tkiid) throws Exception;
 	Tarea accionTrabajar(long tkiid) throws Exception;
 	Tarea accionCompletar(long tkiid, Object object) throws Exception;
-	void accionCancelar(Tarea tarea) throws Exception;
-	void accionRechazar(Tarea tarea) throws Exception;
-	void accionObservar(Tarea tarea) throws Exception;
+	Tarea accionCancelar(long tkiid, Object object) throws Exception;
+	Tarea accionRechazar(long tkiid, Object object) throws Exception;
+	Tarea accionObservar(long tkiid, Object object) throws Exception;
 	
 }

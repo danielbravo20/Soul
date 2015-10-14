@@ -14,6 +14,7 @@ import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Tarea;
 import pe.com.soul.core.modelo.TareaPlantilla;
 import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.service.portal.ProcesoServiceLocal;
 import pe.com.soul.core.service.portal.TareaServiceLocal;
 
 /**
@@ -26,10 +27,13 @@ public class TareaService implements TareaServiceLocal {
 	@EJB
 	TareaDaoLocal tareaDaoLocal;
 	
+	@EJB
+	ProcesoServiceLocal procesoServiceLocal;
+	
 	@Resource
     private SessionContext sessionContext;
 	
-    public Tarea crearTarea(TareaPlantilla tareaPlantilla, Proceso proceso, Usuario dueno) throws Exception{
+    public Tarea crearTarea(TareaPlantilla tareaPlantilla, Proceso proceso, String dueno) throws Exception{
     	
     	Date fechaCreacion = new Date();
     	
@@ -45,12 +49,17 @@ public class TareaService implements TareaServiceLocal {
 		tarea.setTareaPlantilla(tareaPlantilla);
 		
 		if(dueno!=null){
-			tarea.setDueno(dueno.getUsuario());
+			tarea.setDueno(dueno);
 		}
 		
     	return tareaDaoLocal.guardar(tarea);
     }
 
+    @Override
+	public List<Tarea> consultarTarea(long codigoProceso) throws Exception {
+		return tareaDaoLocal.consultarTarea(codigoProceso);
+	}
+    
 	@Override
 	public List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception {
 		return tareaDaoLocal.obtenerReclamadas(usuario);
@@ -151,6 +160,42 @@ public class TareaService implements TareaServiceLocal {
 			throw new Exception("La tarea no existe...");
 		}
 		return tarea;
+	}
+
+	@Override
+	public Tarea cancelar(long tkiid) throws Exception {
+		Tarea tarea = tareaDaoLocal.obtener(tkiid);
+		if(tarea!=null){
+			if (tarea.getProceso().getEstado()==Proceso.ESTADO_EJECUTANDO) {
+				if(tarea.getEstado()==Tarea.ESTADO_RECLAMADO && tarea.getDueno().equalsIgnoreCase(sessionContext.getCallerPrincipal().getName())){
+					Date fecha = new Date();
+					tarea.setEstado(Tarea.ESTADO_TERMINADO);
+					tarea.setFechaTermino(fecha);
+					tarea.setFechaUltimaModificacion(fecha);
+					tarea = tareaDaoLocal.actualizar(tarea);
+					tarea.setProceso(procesoServiceLocal.terminar(tarea.getProceso()));
+				}else{
+					throw new Exception("La tarea no esta reclamada...");
+				}
+			}else{
+				throw new Exception("El proceso no esta en ejecución...");
+			}
+		}else{
+			throw new Exception("La tarea no existe...");
+		}
+		return tarea;
+	}
+
+	@Override
+	public Tarea rechazar(long tkiid) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Tarea observar(long tkiid) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

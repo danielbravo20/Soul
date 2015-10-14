@@ -42,7 +42,7 @@ public abstract class PreEmisionCartaFianzaService extends BaseProcesoServicioIm
 	}
 	
 	@RolesAllowed("Administrador")
-	public TareaPlantilla definirPrimeraTarea(Proceso proceso, Usuario usuario) throws Exception{
+	public TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{
 		TareaPlantilla plantilla = new TareaPlantilla();
 		plantilla.setCodigoTareaPlantilla(1);
 		plantilla.setNombre("Completar Solicitud");
@@ -52,6 +52,11 @@ public abstract class PreEmisionCartaFianzaService extends BaseProcesoServicioIm
 		plantilla.setPrioridad(1);
 		plantilla.setVersion("v1.0.0");
 		return plantilla;
+	}
+
+	@Override
+	public String definirProximoDueno(Proceso proceso) throws Exception {
+		return sessionContext.getCallerPrincipal().getName();
 	}
 	
 }

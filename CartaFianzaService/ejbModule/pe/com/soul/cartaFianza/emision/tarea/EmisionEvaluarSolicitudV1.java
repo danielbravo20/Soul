@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @LocalBean
-public class EmisionCompletarSolicitudV1 extends PreEmisionEvaluarSolicitudV1 implements EmisionCompletarSolicitudV1Local {
+public class EmisionEvaluarSolicitudV1 extends PreEmisionEvaluarSolicitudV1 implements EmisionEvaluarSolicitudV1Local {
 	
 	
 }

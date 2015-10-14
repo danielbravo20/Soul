@@ -19,7 +19,7 @@ public class ProcesoDao extends BaseDao<ProcesoEntity> implements ProcesoDaoLoca
 	}
 
 	@Override
-	public Proceso guardar(Proceso proceso) {
+	public Proceso guardar(Proceso proceso) throws Exception {
 		
 		ProcesoEntity procesoEntity = new ProcesoEntity();
 		procesoEntity.setCodigoProcesoPlantilla(proceso.getCodigoProcesoPlantilla());
@@ -35,12 +35,21 @@ public class ProcesoDao extends BaseDao<ProcesoEntity> implements ProcesoDaoLoca
 		
 		procesoEntity.setUsuario(usuarioEntity);
 		
-		try {
-			procesoEntity = this.guardar(procesoEntity);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		procesoEntity = this.guardarEntity(procesoEntity);
 		proceso.setCodigoProceso(procesoEntity.getCodigoProceso()); 
+		
+		return proceso;
+		
+	}
+	
+	@Override
+	public Proceso actualizar(Proceso proceso) throws Exception {
+		String consulta = "select p from ProcesoEntity p where p.codigoProceso =:parametro ";
+    	
+		ProcesoEntity procesoEntity = buscarRegistro(consulta, "parametro", proceso.getCodigoProceso());
+		proceso.setEstado(proceso.getEstado());
+		proceso.setFechaTermino(proceso.getFechaTermino());
+		procesoEntity = this.actualizarEntity(procesoEntity);
 		
 		return proceso;
 		

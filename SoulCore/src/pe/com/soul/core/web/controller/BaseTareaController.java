@@ -107,19 +107,43 @@ public abstract class BaseTareaController extends BaseController{
 	
 	public Respuesta accionCancelar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
-		
+		MensajeValidacion mensajeValidacion = getTareaUtil().validacionCancelar(request, response);
+		if(mensajeValidacion.isConforme()){
+			Object objeto = getTareaUtil().poblarCancelar(request, response);
+			respuesta.setRespuesta(getBaseTareaService().accionCancelar(new Long(tkiid), objeto));
+			respuesta.setResultado(true);
+		}else{
+			respuesta.setResultado(false);
+			respuesta.setMensajeError(mensajeValidacion.getMensaje());
+		}
 		return respuesta;
 	}
 	
 	public Respuesta accionRechazar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
-		
+		MensajeValidacion mensajeValidacion = getTareaUtil().validacionRechazar(request, response);
+		if(mensajeValidacion.isConforme()){
+			Object objeto = getTareaUtil().poblarRechazar(request, response);
+			respuesta.setRespuesta(getBaseTareaService().accionRechazar(new Long(tkiid), objeto));
+			respuesta.setResultado(true);
+		}else{
+			respuesta.setResultado(false);
+			respuesta.setMensajeError(mensajeValidacion.getMensaje());
+		}
 		return respuesta;
 	}
 	
 	public Respuesta accionObservar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
-		
+		MensajeValidacion mensajeValidacion = getTareaUtil().validacionObservar(request, response);
+		if(mensajeValidacion.isConforme()){
+			Object objeto = getTareaUtil().poblarObservar(request, response);
+			respuesta.setRespuesta(getBaseTareaService().accionObservar(new Long(tkiid), objeto));
+			respuesta.setResultado(true);
+		}else{
+			respuesta.setResultado(false);
+			respuesta.setMensajeError(mensajeValidacion.getMensaje());
+		}
 		return respuesta;
 	}
 	

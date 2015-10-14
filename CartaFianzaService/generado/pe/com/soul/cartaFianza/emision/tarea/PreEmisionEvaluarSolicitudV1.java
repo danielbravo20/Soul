@@ -9,7 +9,7 @@ import pe.com.soul.core.modelo.TareaPlantilla;
 import pe.com.soul.core.servicio.BaseTareaServicio;
 import pe.com.soul.core.servicio.impl.BaseTareaServicioImpl;
 
-public abstract class PreEmisionCompletarSolicitudV1 extends BaseTareaServicioImpl implements BaseTareaServicio{
+public abstract class PreEmisionEvaluarSolicitudV1 extends BaseTareaServicioImpl implements BaseTareaServicio{
 	
 	@Override
 	public Object trabajar(Tarea tarea) throws Exception {
@@ -35,11 +35,11 @@ public abstract class PreEmisionCompletarSolicitudV1 extends BaseTareaServicioIm
 	@Override
 	public TareaPlantilla definirProximaTareaCompletar(Tarea tarea) throws Exception {
 		TareaPlantilla tareaPlantilla = new TareaPlantilla();
-		tareaPlantilla.setCodigoTareaPlantilla(2);
-		tareaPlantilla.setAleas("evaluarSolicitudV1");
+		tareaPlantilla.setCodigoTareaPlantilla(3);
+		tareaPlantilla.setAleas("aprobarSolicitudV1");
 		tareaPlantilla.setEstado(1);
-		tareaPlantilla.setNombre("Evaluar Solicitud");
-		tareaPlantilla.setOrden(2);
+		tareaPlantilla.setNombre("Aprobar Solicitud");
+		tareaPlantilla.setOrden(3);
 		tareaPlantilla.setPrioridad(1);
 		tareaPlantilla.setVersion("v1.0.0");
 		return tareaPlantilla;
@@ -49,4 +49,36 @@ public abstract class PreEmisionCompletarSolicitudV1 extends BaseTareaServicioIm
 	public String definirProximoDuenoCompletar(Tarea tarea) throws Exception {
 		return null;
 	}
+	
+	@Override
+	public Object cancelar(Tarea tarea) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object rechazar(Tarea tarea) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object observar(Tarea tarea) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TareaPlantilla definirProximaTareaObservar(Tarea tarea)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String definirProximoDuenoObservar(Tarea tarea) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

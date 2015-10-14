@@ -105,7 +105,7 @@ public class UsuarioDao extends BaseDao<UsuarioEntity> implements UsuarioDaoLoca
 		UsuarioEntity usuarioEntity = new UsuarioEntity();
 		
 		try {
-			guardar(usuarioEntity);
+			guardarEntity(usuarioEntity);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -8,4 +8,7 @@ import pe.com.soul.core.modelo.Proceso;
 public interface ProcesoServiceLocal {
 
 	Proceso crearInstancia(Proceso proceso) throws Exception;
+	
+	Proceso terminar(Proceso proceso) throws Exception;
+	
 }

@@ -26,7 +26,7 @@ public class BaseDao<T> {
     	this.entityClass = entityClass;
     }
 
-    public T guardar(T entity) throws Exception {
+    public T guardarEntity(T entity) throws Exception {
     	em.persist(entity);
     	return entity;
     }

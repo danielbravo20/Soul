@@ -15,12 +15,15 @@ public abstract class BaseProcesoServicioImpl implements BaseProcesoServicio{
 	
 	public Proceso accionCrearInstancia(Usuario usuario) throws Exception{
 		Proceso proceso = crearInstancia(usuario);
-		tareaServiceLocal.crearTarea(definirPrimeraTarea(proceso, usuario), proceso, usuario);
+		tareaServiceLocal.crearTarea(definirProximaTarea(proceso), proceso, definirProximoDueno(proceso));
 		return proceso;
 	}
 	
 	public abstract Proceso crearInstancia(Usuario usuario) throws Exception;
 	
-	public abstract TareaPlantilla definirPrimeraTarea(Proceso proceso, Usuario usuario) throws Exception;
+	public abstract TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception;
+	
+	public abstract String definirProximoDueno(Proceso proceso) throws Exception;
+	
 	
 }

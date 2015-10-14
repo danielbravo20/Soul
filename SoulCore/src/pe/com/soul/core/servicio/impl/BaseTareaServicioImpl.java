@@ -3,6 +3,7 @@ package pe.com.soul.core.servicio.impl;
 import javax.ejb.EJB;
 
 import pe.com.soul.core.modelo.Tarea;
+import pe.com.soul.core.modelo.TareaPlantilla;
 import pe.com.soul.core.service.portal.TareaServiceLocal;
 import pe.com.soul.core.servicio.BaseTareaServicio;
 
@@ -33,29 +34,52 @@ public abstract class BaseTareaServicioImpl implements BaseTareaServicio {
 		Tarea tarea = tareaServiceLocal.completar(tkiid);
 		tarea.setObjeto(objeto);
 		tarea.setObjeto(completar(tarea));
+		TareaPlantilla tareaPlantilla = definirProximaTareaCompletar(tarea);
+		tareaServiceLocal.crearTarea(tareaPlantilla, tarea.getProceso(), definirProximoDuenoCompletar(tarea));
 		return tarea;
 	}
 
 	@Override
-	public void accionCancelar(Tarea tarea) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public Tarea accionCancelar(long tkiid, Object objeto) throws Exception {
+		Tarea tarea = tareaServiceLocal.cancelar(tkiid);
+		tarea.setObjeto(objeto);
+		tarea.setObjeto(cancelar(tarea));
+		return tarea;
 	}
 
 	@Override
-	public void accionRechazar(Tarea tarea) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public Tarea accionRechazar(long tkiid, Object objeto) throws Exception {
+		Tarea tarea = tareaServiceLocal.rechazar(tkiid);
+		tarea.setObjeto(objeto);
+		tarea.setObjeto(rechazar(tarea));
+		return tarea;
 	}
 
 	@Override
-	public void accionObservar(Tarea tarea) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public Tarea accionObservar(long tkiid, Object objeto) throws Exception {
+		Tarea tarea = tareaServiceLocal.observar(tkiid);
+		tarea.setObjeto(objeto);
+		tarea.setObjeto(observar(tarea));
+		TareaPlantilla tareaPlantilla = definirProximaTareaObservar(tarea);
+		tareaServiceLocal.crearTarea(tareaPlantilla, tarea.getProceso(), definirProximoDuenoObservar(tarea));
+		return tarea;
 	}
 	
 	public abstract Object trabajar(Tarea tarea) throws Exception;
 	
 	public abstract Object completar(Tarea tarea) throws Exception;
 	
+	public abstract TareaPlantilla definirProximaTareaCompletar(Tarea tarea) throws Exception;
+	
+	public abstract String definirProximoDuenoCompletar(Tarea tarea) throws Exception;
+	
+	public abstract Object cancelar(Tarea tarea) throws Exception;
+	
+	public abstract Object rechazar(Tarea tarea) throws Exception;
+	
+	public abstract Object observar(Tarea tarea) throws Exception;
+	
+	public abstract TareaPlantilla definirProximaTareaObservar(Tarea tarea) throws Exception;
+	
+	public abstract String definirProximoDuenoObservar(Tarea tarea) throws Exception;
 }

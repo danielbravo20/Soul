@@ -9,7 +9,7 @@ import pe.com.soul.cartaFianza.bean.Solicitud;
 import pe.com.soul.core.modelo.MensajeValidacion;
 import pe.com.soul.core.web.util.TareaUtil;
 
-public abstract class PreCompletarSolicitudV1Util implements TareaUtil{
+public abstract class PreEvaluarSolicitudV1Util implements TareaUtil{
 
 	@Override
 	public MensajeValidacion validacionCompletar(HttpServletRequest request, HttpServletResponse response) {
@@ -50,17 +50,20 @@ public abstract class PreCompletarSolicitudV1Util implements TareaUtil{
 
 	@Override
 	public MensajeValidacion validacionCancelar(HttpServletRequest request, HttpServletResponse response) {
-		return new MensajeValidacion(true);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public MensajeValidacion validacionRechazar(HttpServletRequest request, HttpServletResponse response) {
-		return new MensajeValidacion(true);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public MensajeValidacion validacionGuardar(HttpServletRequest request, HttpServletResponse response) {
-		return new MensajeValidacion(true);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -86,7 +89,8 @@ public abstract class PreCompletarSolicitudV1Util implements TareaUtil{
 
 	@Override
 	public Object poblarCancelar(HttpServletRequest request, HttpServletResponse response) {
-		return new Solicitud();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

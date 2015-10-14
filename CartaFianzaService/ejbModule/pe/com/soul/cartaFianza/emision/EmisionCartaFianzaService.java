@@ -12,7 +12,6 @@ import pe.com.soul.cartaFianza.emision.PreEmisionCartaFianzaService;
 @Stateless
 @LocalBean
 public class EmisionCartaFianzaService extends PreEmisionCartaFianzaService implements EmisionCartaFianzaServiceLocal {
-
 	
 
 }
