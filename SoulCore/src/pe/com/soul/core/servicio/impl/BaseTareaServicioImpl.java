@@ -34,14 +34,18 @@ public abstract class BaseTareaServicioImpl implements BaseTareaServicio {
 		Tarea tarea = tareaServiceLocal.completar(tkiid);
 		tarea.setObjeto(objeto);
 		tarea.setObjeto(completar(tarea));
-		TareaPlantilla tareaPlantilla = definirProximaTareaCompletar(tarea);
-		tareaServiceLocal.crearTarea(tareaPlantilla, tarea.getProceso(), definirProximoDuenoCompletar(tarea));
+		TareaPlantilla tareaPlantilla = proximaTareaCompletar(tarea);
+		if(tareaPlantilla!=null){
+			tareaServiceLocal.crearTarea(tareaPlantilla, tarea.getProceso(), proximoDuenoCompletar(tarea));
+		}else{
+			tareaServiceLocal.finalizar(tkiid);
+		}
 		return tarea;
 	}
 
 	@Override
 	public Tarea accionCancelar(long tkiid, Object objeto) throws Exception {
-		Tarea tarea = tareaServiceLocal.cancelar(tkiid);
+		Tarea tarea = tareaServiceLocal.terminar(tkiid);
 		tarea.setObjeto(objeto);
 		tarea.setObjeto(cancelar(tarea));
 		return tarea;
@@ -49,7 +53,7 @@ public abstract class BaseTareaServicioImpl implements BaseTareaServicio {
 
 	@Override
 	public Tarea accionRechazar(long tkiid, Object objeto) throws Exception {
-		Tarea tarea = tareaServiceLocal.rechazar(tkiid);
+		Tarea tarea = tareaServiceLocal.terminar(tkiid);
 		tarea.setObjeto(objeto);
 		tarea.setObjeto(rechazar(tarea));
 		return tarea;
@@ -57,11 +61,18 @@ public abstract class BaseTareaServicioImpl implements BaseTareaServicio {
 
 	@Override
 	public Tarea accionObservar(long tkiid, Object objeto) throws Exception {
-		Tarea tarea = tareaServiceLocal.observar(tkiid);
+		Tarea tarea = tareaServiceLocal.completar(tkiid);
 		tarea.setObjeto(objeto);
 		tarea.setObjeto(observar(tarea));
-		TareaPlantilla tareaPlantilla = definirProximaTareaObservar(tarea);
-		tareaServiceLocal.crearTarea(tareaPlantilla, tarea.getProceso(), definirProximoDuenoObservar(tarea));
+		TareaPlantilla tareaPlantilla = proximaTareaObservar(tarea);
+		tareaServiceLocal.crearTarea(tareaPlantilla, tarea.getProceso(), proximoDuenoObservar(tarea));
+		return tarea;
+	}
+	
+	@Override
+	public Tarea accionTransferir(long tkiid, String nuevoUsuario) throws Exception {
+		Tarea tarea = tareaServiceLocal.transferir(tkiid, nuevoUsuario);
+		tarea.setObjeto(transferir(tarea, nuevoUsuario));
 		return tarea;
 	}
 	
@@ -69,9 +80,9 @@ public abstract class BaseTareaServicioImpl implements BaseTareaServicio {
 	
 	public abstract Object completar(Tarea tarea) throws Exception;
 	
-	public abstract TareaPlantilla definirProximaTareaCompletar(Tarea tarea) throws Exception;
+	public abstract TareaPlantilla proximaTareaCompletar(Tarea tarea) throws Exception;
 	
-	public abstract String definirProximoDuenoCompletar(Tarea tarea) throws Exception;
+	public abstract String proximoDuenoCompletar(Tarea tarea) throws Exception;
 	
 	public abstract Object cancelar(Tarea tarea) throws Exception;
 	
@@ -79,7 +90,9 @@ public abstract class BaseTareaServicioImpl implements BaseTareaServicio {
 	
 	public abstract Object observar(Tarea tarea) throws Exception;
 	
-	public abstract TareaPlantilla definirProximaTareaObservar(Tarea tarea) throws Exception;
+	public abstract Object transferir(Tarea tarea, String nuevoUsuario) throws Exception;
 	
-	public abstract String definirProximoDuenoObservar(Tarea tarea) throws Exception;
+	public abstract TareaPlantilla proximaTareaObservar(Tarea tarea) throws Exception;
+	
+	public abstract String proximoDuenoObservar(Tarea tarea) throws Exception;
 }

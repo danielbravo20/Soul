@@ -8,6 +8,5 @@ import pe.com.soul.cartaFianza.emision.controller.PreEmisionCartaFianzaV1;
 public class EmisionCartaFianzaV1 extends PreEmisionCartaFianzaV1{
 	
 	private static final long serialVersionUID = 1L;
-
 	
 }

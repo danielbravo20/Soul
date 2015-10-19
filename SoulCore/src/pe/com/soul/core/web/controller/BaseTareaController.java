@@ -47,6 +47,8 @@ public abstract class BaseTareaController extends BaseController{
 				respuesta = accionRechazar(request, response, usuario, tkiid);
 			}else if("observar".equals(accion)){
 				respuesta = accionObservar(request, response, usuario, tkiid);
+			}else if("transferir".equals(accion) && request.getParameter("nuevoDueno")!=null){
+				respuesta = accionTransferir(request, response, usuario, tkiid);
 			}
 		}
 		
@@ -143,6 +145,18 @@ public abstract class BaseTareaController extends BaseController{
 		}else{
 			respuesta.setResultado(false);
 			respuesta.setMensajeError(mensajeValidacion.getMensaje());
+		}
+		return respuesta;
+	}
+	
+	public Respuesta accionTransferir(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
+		Respuesta respuesta = new Respuesta();
+		try{
+			respuesta.setRespuesta(getBaseTareaService().accionTransferir(new Long(tkiid), request.getParameter("nuevoDueno")));
+			respuesta.setResultado(true);
+		}catch(Exception e){
+			respuesta.setResultado(false);
+			respuesta.setMensajeError(e.getMessage());
 		}
 		return respuesta;
 	}

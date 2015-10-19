@@ -33,7 +33,7 @@ public abstract class PreEmisionCompletarSolicitudV1 extends BaseTareaServicioIm
 	}
 	
 	@Override
-	public TareaPlantilla definirProximaTareaCompletar(Tarea tarea) throws Exception {
+	public TareaPlantilla proximaTareaCompletar(Tarea tarea) throws Exception {
 		TareaPlantilla tareaPlantilla = new TareaPlantilla();
 		tareaPlantilla.setCodigoTareaPlantilla(2);
 		tareaPlantilla.setAleas("evaluarSolicitudV1");
@@ -46,7 +46,44 @@ public abstract class PreEmisionCompletarSolicitudV1 extends BaseTareaServicioIm
 	}
 
 	@Override
-	public String definirProximoDuenoCompletar(Tarea tarea) throws Exception {
+	public String proximoDuenoCompletar(Tarea tarea) throws Exception {
 		return null;
 	}
+
+	@Override
+	public Object cancelar(Tarea tarea) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object rechazar(Tarea tarea) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object observar(Tarea tarea) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TareaPlantilla proximaTareaObservar(Tarea tarea)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String proximoDuenoObservar(Tarea tarea) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Object transferir(Tarea tarea, String nuevoUsuario) throws Exception {
+		return null;
+	}
+	
 }

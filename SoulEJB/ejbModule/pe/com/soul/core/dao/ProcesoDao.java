@@ -44,11 +44,10 @@ public class ProcesoDao extends BaseDao<ProcesoEntity> implements ProcesoDaoLoca
 	
 	@Override
 	public Proceso actualizar(Proceso proceso) throws Exception {
-		String consulta = "select p from ProcesoEntity p where p.codigoProceso =:parametro ";
-    	
-		ProcesoEntity procesoEntity = buscarRegistro(consulta, "parametro", proceso.getCodigoProceso());
-		proceso.setEstado(proceso.getEstado());
-		proceso.setFechaTermino(proceso.getFechaTermino());
+
+		ProcesoEntity procesoEntity = obtenerEntity(proceso.getCodigoProceso());
+		procesoEntity.setEstadoProceso(proceso.getEstado());
+		procesoEntity.setFechaTerminoProceso(proceso.getFechaTermino());
 		procesoEntity = this.actualizarEntity(procesoEntity);
 		
 		return proceso;

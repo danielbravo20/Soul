@@ -16,11 +16,11 @@ public interface TareaServiceLocal {
 	
 	Tarea liberar(long tkiid) throws Exception;
 	Tarea reclamar(long tkiid) throws Exception;
+	Tarea transferir(long tkiid, String nuevoUsuario) throws Exception;
 	Tarea trabajar(long tkiid) throws Exception;
 	Tarea completar(long tkiid) throws Exception;
-	Tarea cancelar(long tkiid) throws Exception;
-	Tarea rechazar(long tkiid) throws Exception;
-	Tarea observar(long tkiid) throws Exception;
+	Tarea terminar(long tkiid) throws Exception;
+	Tarea finalizar(long tkiid) throws Exception;
 	
 	List<Tarea> consultarTarea(long codigoProceso) throws Exception;
 	List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception;

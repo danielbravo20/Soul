@@ -8,11 +8,18 @@ public class Solicitud extends BaseBean{
 
 	private static final long serialVersionUID = 1L;
 
+	private Long codigo;
 	private String tipoFianza;
 	private BigDecimal montoFianza;
 	private String monedaFianza;
 	private Cliente cliente;
 	
+	public Long getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
 	public String getTipoFianza() {
 		return tipoFianza;
 	}

@@ -26,6 +26,8 @@ import javax.persistence.TemporalType;
 @Table(name = "proceso", schema = "proceso")
 public class ProcesoEntity implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private long codigoProceso;
 	private UsuarioEntity usuario;
 	private int estadoProceso;

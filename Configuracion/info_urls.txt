@@ -1,6 +1,20 @@
 
+
+----------------------------------------------------------------------------------------------------------------------------
+---------------------------                     Acciones a nivel de proceso                      ---------------------------
+
 --Crear instancia
 http://localhost:8080/Soul/portal/emisionCartaFianzaV1?accion=crear&tipoFianza=LIC&monedaFianza=USD&montoFianza=5000
+
+--resumen
+http://localhost:8080/Soul/portal/emisionCartaFianzaV1?accion=resumen&codigoProceso=10001
+
+--detalle
+http://localhost:8080/Soul/portal/emisionCartaFianzaV1?accion=detalle&codigoProceso=10001
+
+
+----------------------------------------------------------------------------------------------------------------------------
+---------------------------                       Acciones a nivel tarea                         ---------------------------
 
 --Obtener tareas disponibles
 http://localhost:8080/Soul/portal/tareaController?accion=disponibles
@@ -19,3 +33,6 @@ http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=trabajar&t
 
 --Completar tarea
 http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=completar&tkiid=1&tipoFianza=GUR&monedaFianza=PEN&montoFianza=500000
+
+--Transferir tarea
+http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=transferir&tkiid=3&nuevoDueno=edwin

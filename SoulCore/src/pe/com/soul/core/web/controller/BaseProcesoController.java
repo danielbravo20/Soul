@@ -25,6 +25,8 @@ public abstract class BaseProcesoController extends BaseController{
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
 		
 		String accion = request.getParameter("accion");
+		String codigoProceso = request.getParameter("codigoProceso");
+		
 		Respuesta respuesta = null;
 		HttpSession session = request.getSession(false);
 		
@@ -33,17 +35,14 @@ public abstract class BaseProcesoController extends BaseController{
 			Usuario usuario = obtenerUsuario(request, session);
 			if("crear".equals(accion)){
 				respuesta = accionCrear(request, response, usuario);
-			}else if("resumen".equals(accion)){
-				//respuesta = accionResumen(request, response, usuario);
-			}else if("detalle".equals(accion)){
-				//respuesta = accionDetalle(request, response, usuario);
-			}else if("reclamar".equals(accion)){
-				
-			}else if("trabajar".equals(accion)){
-			
-			}else if("completar".equals(accion)){
-				
+			}else if(codigoProceso!=null){
+				if("resumen".equals(accion)){
+					respuesta = accionResumen(request, response, usuario);
+				}else if("detalle".equals(accion)){
+					respuesta = accionDetalle(request, response, usuario);
+				}
 			}
+			
 		}
 		
 		response.setContentType("text/html; charset=UTF-8");
@@ -70,8 +69,8 @@ public abstract class BaseProcesoController extends BaseController{
 	
 	public abstract BaseProcesoServicio getBaseProcesoService();
 	
-	//protected abstract Respuesta accionResumen(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
+	protected abstract Respuesta accionResumen(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
 	
-	//protected abstract Respuesta accionDetalle(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
+	protected abstract Respuesta accionDetalle(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
 	
 }

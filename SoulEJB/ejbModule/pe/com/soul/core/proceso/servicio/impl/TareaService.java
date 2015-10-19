@@ -163,7 +163,7 @@ public class TareaService implements TareaServiceLocal {
 	}
 
 	@Override
-	public Tarea cancelar(long tkiid) throws Exception {
+	public Tarea terminar(long tkiid) throws Exception {
 		Tarea tarea = tareaDaoLocal.obtener(tkiid);
 		if(tarea!=null){
 			if (tarea.getProceso().getEstado()==Proceso.ESTADO_EJECUTANDO) {
@@ -185,17 +185,42 @@ public class TareaService implements TareaServiceLocal {
 		}
 		return tarea;
 	}
-
+	
 	@Override
-	public Tarea rechazar(long tkiid) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Tarea finalizar(long tkiid) throws Exception {
+		Tarea tarea = tareaDaoLocal.obtener(tkiid);
+		if(tarea!=null){
+			if (tarea.getProceso().getEstado()==Proceso.ESTADO_EJECUTANDO) {
+				tarea.setProceso(procesoServiceLocal.finalizar(tarea.getProceso()));
+			}else{
+				throw new Exception("El proceso no esta en ejecución...");
+			}
+		}else{
+			throw new Exception("La tarea no existe...");
+		}
+		return tarea;
 	}
-
+	
 	@Override
-	public Tarea observar(long tkiid) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Tarea transferir(long tkiid, String nuevoUsuario) throws Exception {
+		Tarea tarea = tareaDaoLocal.obtener(tkiid);
+		if(tarea!=null){
+			if (tarea.getProceso().getEstado()==Proceso.ESTADO_EJECUTANDO) {
+				if(tarea.getEstado()==Tarea.ESTADO_RECLAMADO){
+					Date fecha = new Date();
+					tarea.setFechaUltimaModificacion(fecha);
+					tarea.setDueno(nuevoUsuario);
+					tarea = tareaDaoLocal.actualizar(tarea);
+				}else{
+					throw new Exception("La tarea no esta reclamada...");
+				}
+			}else{
+				throw new Exception("El proceso no esta en ejecución...");
+			}
+		}else{
+			throw new Exception("La tarea no existe...");
+		}
+		return tarea;
 	}
 
 }

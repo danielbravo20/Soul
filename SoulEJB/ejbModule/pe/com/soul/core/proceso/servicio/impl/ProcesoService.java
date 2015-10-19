@@ -37,6 +37,15 @@ public class ProcesoService implements ProcesoServiceLocal {
 		proceso = procesoDaoLocal.actualizar(proceso);
 		return proceso;
 	}
+
+	@Override
+	public Proceso finalizar(Proceso proceso) throws Exception {
+		Date fecha = new Date();
+		proceso.setFechaTermino(fecha);
+		proceso.setEstado(Proceso.ESTADO_FINALIZADO);
+		proceso = procesoDaoLocal.actualizar(proceso);
+		return proceso;
+	}
 	
 	
 

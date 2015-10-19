@@ -11,5 +11,5 @@ public interface BaseTareaServicio {
 	Tarea accionCancelar(long tkiid, Object object) throws Exception;
 	Tarea accionRechazar(long tkiid, Object object) throws Exception;
 	Tarea accionObservar(long tkiid, Object object) throws Exception;
-	
+	Tarea accionTransferir(long tkiid, String nuevoUsuario) throws Exception;
 }
