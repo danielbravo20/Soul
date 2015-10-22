@@ -24,7 +24,7 @@ import javax.persistence.Version;
 public class Tarea implements java.io.Serializable {
 
 	private TareaId id;
-	private String version;
+	private String versionTarea;
 	private Consulta consultaByCodConTrabajar;
 	private Consulta consultaByCodConCompletar;
 	private Proceso proceso;
@@ -151,14 +151,14 @@ public class Tarea implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Version
+	
 	@Column(name = "version", nullable = false, length = 10)
-	public String getVersion() {
-		return this.version;
+	public String getVersionTarea() {
+		return this.versionTarea;
 	}
 
-	public void setVersion(String version) {
-		this.version = version;
+	public void setVersionTarea(String versionTarea) {
+		this.versionTarea = versionTarea;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -27,5 +27,8 @@
         <dependent-module archiveName="postgresql-9.4-1202.jdbc4.jar" deploy-path="lib" handle="module:/classpath/lib/EarContent/lib/postgresql-9.4-1202.jdbc4.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="CaptivaJPA.jar" deploy-path="/lib" handle="module:/resource/CaptivaJPA/CaptivaJPA">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

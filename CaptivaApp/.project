@@ -6,6 +6,7 @@
 		<project>CaptivaWeb</project>
 		<project>CaptivaEJB</project>
 		<project>CaptivaEJBClient</project>
+		<project>CaptivaJPA</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
