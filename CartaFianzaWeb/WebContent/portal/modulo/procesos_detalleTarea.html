@@ -1,0 +1,48 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Filtrar Tareas</div>
+  <table class="table">
+	<tbody>
+	  <tr>
+		<td><strong>Buscar :</strong> <input type="text" ng-model="filtro.data.buscar" class="form-control input-sm nexo-tareaFiltroA"></td>
+	  </tr>
+	  <tr>
+		<td><strong>Proceso :</strong> <select class="form-control input-sm nexo-tareaFiltroB" ng-model="filtro.data.codigoProceso" ng-options="proc.codigo as proc.nombre for proc in data.unidadesNegocio[filtro.data.codigoUnidadNegocio].producto[filtro.data.codigoProducto].proceso"><option value=""></option></select></td>
+	  </tr>
+	  <tr>
+		<td>
+			<strong>Tarea :</strong> <select class="form-control input-sm nexo-tareaFiltroB" ng-model="filtro.data.codigoTarea" ng-options="tare.codigo as tare.nombre for tare in data.unidadesNegocio[filtro.data.codigoUnidadNegocio].producto[filtro.data.codigoProducto].proceso[filtro.data.codigoProceso].tarea"><option value=""></option></select>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+			<strong>Fecha de Creación :</strong>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+			<strong>Desde : </strong>
+			<p class="input-group" style="width: 200px; display: inline-block">
+				<input type="date" class="form-control input-sm" ng-model="filtro.data.fechaDesde" is-open="$parent.fecha.abierto.A" style="width: 150px;" max-date="filtro.data.fechaHasta" datepicker-popup/>
+				<span class="input-group-btn" style="display:inline-block">
+					<button type="button" class="btn btn-default btn-sm" ng-click="$parent.fecha.abrir($event,'A')"><i class="glyphicon glyphicon-calendar"></i>&nbsp;</button>
+				</span>
+			</p>
+			<strong>Hasta : </strong>
+			<p class="input-group" style="width: 200px; display: inline-block">
+				<input type="date" class="form-control input-sm" ng-model="filtro.data.fechaHasta" is-open="$parent.fecha.abierto.B" style="width: 150px;" min-date="filtro.data.fechaDesde" datepicker-popup/>
+				<span class="input-group-btn" style="display:inline-block">
+					<button type="button" class="btn btn-default btn-sm" ng-click="$parent.fecha.abrir($event,'B')"><i class="glyphicon glyphicon-calendar"></i>&nbsp;</button>
+				</span>
+			</p>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+			<a class="btn btn-info btn-sm" ng-click="filtrar()"><i class="glyphicon glyphicon-filter"></i> Filtrar</a>
+			<a class="btn btn-info btn-sm" ng-click="limpiar()"><i class="glyphicon glyphicon-repeat"></i> Limpiar</a>
+			<a class="btn btn-danger btn-sm" ng-click="cancelar()"><i class="glyphicon glyphicon-chevron-up"></i> Cancelar</a>
+		</td>
+	  </tr>
+	</tbody>
+  </table>
+</div>
