@@ -160,6 +160,27 @@
                         <share-prepared-statements>false</share-prepared-statements>
                     </statement>
                 </datasource>
+                <datasource jta="false" jndi-name="java:jboss/captivaDS" pool-name="captivaDS" enabled="true" use-java-context="true" use-ccm="false">
+                    <connection-url>jdbc:postgresql://localhost:5432/Captiva</connection-url>
+                    <driver-class>org.postgresql.Driver</driver-class>
+                    <driver>postgresql</driver>
+                    <pool>
+                        <min-pool-size>2</min-pool-size>
+                        <max-pool-size>20</max-pool-size>
+                    </pool>
+                    <security>
+                        <security-domain>encrypted-ds</security-domain>
+                    </security>
+                    <validation>
+                        <validate-on-match>false</validate-on-match>
+                        <background-validation>false</background-validation>
+                        <background-validation-millis>1</background-validation-millis>
+                    </validation>
+                    <statement>
+                        <prepared-statement-cache-size>0</prepared-statement-cache-size>
+                        <share-prepared-statements>false</share-prepared-statements>
+                    </statement>
+                </datasource>
                 <drivers>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
@@ -290,7 +311,7 @@
                             <module-option name="dsJndiName" value="java:jboss/soulDS"/>
                             <module-option name="principalsQuery" value="select CLAVE AS passwd from SEGURIDAD.USUARIO where USUARIO = ?"/>
                             <module-option name="rolesQuery" value="SELECT R.NOMBRE_ROL AS userRoles, 'Roles' FROM SEGURIDAD.USUARIO_ROL UR, SEGURIDAD.ROL R, SEGURIDAD.USUARIO U WHERE UR.USUARIO = U.USUARIO AND UR.CODIGO_ROL = R.CODIGO_ROL AND U.USUARIO = ?"/>
-							<module-option name="password-stacking" value="useFirstPass"/>
+                            <module-option name="password-stacking" value="useFirstPass"/>
                             <module-option name="hashAlgorithm" value="MD5"/>
                             <module-option name="hashEncoding" value="hex"/>
                             <module-option name="managedConnectionFactoryName" value="jboss.jca:service=LocalTxCM,name=soulDS"/>
@@ -385,5 +406,4 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
-
 </server>
