@@ -1,0 +1,207 @@
+<script type="text/javascript" src="../webControlador/proyectogestionar.js"></script>
+<div ng-controller="proyectogestionar">
+	<div class="page-header"><h1>Proyectos</h1></div>
+	<div class="panel panel-default" ng-show="vista === 'lista'">
+	  <div class="panel-heading">Cartera de Proyectos</div>
+	  <table class="table">
+		<thead>
+		  <tr>
+			<th>Proyecto</th>
+			<th>Trabajar Versión</th>
+			<th>Opciones</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr ng-repeat="proyecto in data.PROYECTOS">
+			<td>{{proyecto.NOMBRE}}</td>
+			<td><a class="btn btn-primary btn-sm" ng-click="trabajar($index)" href="" tooltip="Trabajar"><i class="glyphicon glyphicon-play"></i></a>
+			</td>
+		  </tr>
+		  <tr ng-show="data.Usuario.perfil=='PRO_MAN'">
+			<td colspan="4"><a class="btn btn-primary" ng-click="nuevoCargar($index)" href="#"><i class="glyphicon glyphicon-plus"></i></a></td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+	<div class="panel panel-default" ng-show="vista === 'mantener'">
+	  <div class="panel-heading">Nuevo Proyecto</div>
+	  <table class="table">
+		<tbody>
+		  <tr>
+			<th width="40%">Código de Proyecto (*) :</th>
+			<td width="60%"><input type="text" ng-model="cargado.PRO_codigoProyecto" class="form-control" ng-disabled="esEdicion"></td>
+		  </tr>
+		  <tr>
+			<th>Nombre (*) :</th>
+			<td><input type="text" ng-model="cargado.PRO_nombre" class="form-control"></td>
+		  </tr>
+		  <tr>
+			<th>Descripción :</th>
+			<td><input type="text" ng-model="cargado.PRO_descripcion" class="form-control"></td>
+		  </tr>
+		  <tr>
+			<th>Estado (*) :</th>
+			<td>
+				<input type="radio" ng-model="cargado.PRO_estado" data-ng-value="1"> Activo
+				<input type="radio" ng-model="cargado.PRO_estado" data-ng-value="0"> Inactivo
+			</td>
+		  </tr>
+		  <tr>
+			<th>Fecha de Creación (*) :</th>
+			<td>
+				<div class="row">
+					<div class="col-md-6">
+						<p class="input-group">
+						  <input type="text" class="form-control" ng-model="cargado.PRO_fechaCreacion" is-open="$parent.fecha.abierto.A" datepicker-popup="{{$parent.fecha.formato}}" />
+						  <span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="$parent.fecha.abrir($event,'A')"><i class="glyphicon glyphicon-calendar"></i></button>
+						  </span>
+						</p>
+					</div>
+				</div>
+			</td>
+		  </tr>
+		  <tr>
+			<th>Fecha de Finalización (*) :</th>
+			<td>
+				<div class="row">
+					<div class="col-md-6">
+						<p class="input-group">
+						  <input type="text" class="form-control" ng-model="cargado.PRO_fechaFinalizacion" is-open="$parent.fecha.abierto.B" datepicker-popup="{{$parent.fecha.formato}}" />
+						  <span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="$parent.fecha.abrir($event,'B')"><i class="glyphicon glyphicon-calendar"></i></button>
+						  </span>
+						</p>
+					</div>
+				</div>
+			</td>
+		  </tr>
+		  <tr ng-show="esEdicion">
+			<td colspan="2">
+				<div class="panel panel-default">
+				  <div class="panel-heading">Versiones</div>
+					<table class="table">
+						<thead>
+						  <tr>
+							<th>Nro de Versión</th>
+							<th>Unidad de Negocio</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr ng-repeat="version in cargado.versiones">
+							<td>{{version.numeroVersion}}</td>
+							<td>{{version.codigoUnidadNegocio}}</td>
+						  </tr>
+						  <tr ng-hide="esEdicion">
+							<td>1</td>
+							<td><select class="form-control" 
+									ng-model="cargado.nuevaUnidadNegocio" 
+									ng-options="un.codigoUnidadNegocio as un.descripcion for un in data.UnidadesNegocio"
+								></select></td>
+						  </tr>
+						</tbody>
+					</table>
+				</div>
+			</td>
+		  </tr>
+		  <tr ng-hide="esEdicion">
+			<td colspan="2">
+				<div class="panel panel-default">
+				  <div class="panel-heading">Versiones</div>
+					<table class="table">
+						<tbody>
+						  <tr>
+							<th width="40%">Versión Inicial (*) :</th>
+							<td width="60%">1</td>
+						  </tr>
+						  <tr>
+							<th>Banca Inicial (*) :</th>
+							<td><select class="form-control" 
+									ng-model="cargado.VER_codigoUnidadNegocio" 
+									ng-options="un.codigoUnidadNegocio as un.descripcion for un in data.UnidadesNegocio"
+								></select></td>
+						  </tr>
+						  <tr>
+							<th>Estado (*) :</th>
+							<td>
+								<input type="radio" ng-model="cargado.VER_estado" data-ng-value="1"> Activo
+								<input type="radio" ng-model="cargado.VER_estado" data-ng-value="0"> Inactivo
+							</td>
+						  </tr>
+						  <tr>
+							<th>Tiempo Estimado :</th>
+							<td><input type="text" ng-model="cargado.VER_tiempoEstimado" class="form-control"></td>
+						  </tr>
+						  <tr>
+							<th>Fecha de Creacion :</th>
+							<td>
+								<div class="row">
+									<div class="col-md-6">
+										<p class="input-group">
+										  <input type="text" class="form-control" ng-model="cargado.VER_fechaCreacion" is-open="$parent.fecha.abierto.C" datepicker-popup="{{$parent.fecha.formato}}" />
+										  <span class="input-group-btn">
+											<button type="button" class="btn btn-default" ng-click="$parent.fecha.abrir($event,'C')"><i class="glyphicon glyphicon-calendar"></i></button>
+										  </span>
+										</p>
+									</div>
+								</div>
+							</td>
+						  </tr>
+						  <tr>
+							<th>Fecha de Finalizacion :</th>
+							<td>
+								<div class="row">
+									<div class="col-md-6">
+										<p class="input-group">
+										  <input type="text" class="form-control" ng-model="cargado.VER_fechaFinalizacion" is-open="$parent.fecha.abierto.D" datepicker-popup="{{$parent.fecha.formato}}" />
+										  <span class="input-group-btn">
+											<button type="button" class="btn btn-default" ng-click="$parent.fecha.abrir($event,'D')"><i class="glyphicon glyphicon-calendar"></i></button>
+										  </span>
+										</p>
+									</div>
+								</div>
+							</td>
+						  </tr>
+						</tbody>
+					</table>
+				</div>
+			</td>
+		  </tr>
+		  <tr>
+			<td colspan="2">
+				<div class="panel panel-default">
+				  <div class="panel-heading">Equipo</div>
+					<table class="table">
+						<thead>
+						  <tr>
+							<th>Usuario</th>
+							<th>Nombre</th>
+							<th>Rol</th>
+							<th>Asignar como Equipo</th>
+							<th>Asignar Responsable</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr ng-repeat="usuario in Usuarios">
+							<td>{{usuario.codigoUsuario}}</td>
+							<td>{{usuario.nombre}}</td>
+							<td>{{getComboxId('Perfil',usuario.perfil)}}</td>
+							<td><input type="checkbox" ng-model="usuario.esDelEquipo"></td>
+							<td><input type="radio" ng-show="usuario.perfil=='PRO_MAN' && usuario.esDelEquipo" ng-model="cargado.UsuarioResponsable" value="{{usuario.codigoUsuario}}"></td>
+						  </tr>
+						</tbody>
+					</table>
+				</div>
+			</td>
+		  </tr>
+		  <tr>
+			<td colspan="2">
+				<a class="btn btn-primary" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">Guardar</span><span ng-show="!esEdicion">Registrar</span></a>
+				<a class="btn btn-primary" ng-click="eliminar()" ng-show="esEdicion"><i class="glyphicon glyphicon-trash"></i> Eliminar Proyecto</a>
+				<a class="btn btn-primary" ng-click="instanciar()" href="#"><i class="glyphicon glyphicon-chevron-left"></i> Listar</a>
+			</td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+<div ng-repeat="subSeccion in models.lists | filter : { seccionId : seccion.lista[seccion.actual-1].id }">
+	<div class="filaTitulo">
+		&nbsp;&nbsp;
+		<i class="glyphicon glyphicon-list-alt"></i> 
+		{{subSeccion.nombre}}
+		<i class="glyphicon glyphicon-edit seccionEditar" 
+			ng-click="models.actual = $index" 
+			popover-template="'popover_subSeccion.html'" 
+			popover-title="Editar" 
+			popover-placement="right" style="color: brown;"
+			eid="subSeccionEditar_{{$index}}"
+			ng-show="config.esEdicion"></i>
+	</div>
+	<div ng-include="'tareagestionar_atributo.html'"></div>
+</div>
+<div class="filaTitulo" ng-show="config.esEdicion">
+	&nbsp;&nbsp;
+	<a ng-click="subSeccionAgregar(seccion.lista[seccion.actual-1].id)"><i class="glyphicon glyphicon-plus"></i></a>
+</div>

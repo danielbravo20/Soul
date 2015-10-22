@@ -1,0 +1,9 @@
+<accordion close-others="tabs.unoALaVes">
+	<accordion-group ng-repeat="tab in tabs.lista" is-open="tab.activo">
+		<accordion-heading>	
+			<i class="glyphicon" ng-class="{true:'glyphicon-folder-open', false:'glyphicon-folder-close'}[tab.activo]"></i>&nbsp; {{tab.nombre}}
+			<span style="color:red" ng-show="tab.alertas>0">&nbsp;&nbsp;&nbsp;&nbsp; {{tab.alertas}} <i class="glyphicon glyphicon-bell"></i></span>
+		</accordion-heading>
+		<div ng-include="tab.url"></div>
+	</accordion-group>
+</accordion>

@@ -1,0 +1,77 @@
+<script type="text/javascript" src="../webControlador/clase.js"></script>
+<div ng-controller="clase" style="padding-top: 5px;">
+	<div class="container-fluid show-grid" ng-show="vista === 'lista'">
+		<div class="panel panel-default">
+		  <div class="panel-heading">Listado de Clases</div>
+		  <table class="table">
+			<thead>
+			  <tr>
+				<th><input type="text" ng-model="buscar.COD_CLASE" placeholder="Código" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.NOMBRE" placeholder="Nombre" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.PAQUETE" placeholder="Paquete" class="form-control input-sm"></th>
+				<th>Opción</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="item in data.CLASE | orderBy: 'COD_CLASE' | filter:buscar" ng-show="pag.get($index) == pag.actual">
+				<td>{{item.COD_CLASE}}</td>
+				<td>{{item.NOMBRE}}</td>
+				<td>{{item.PAQUETE}}</td>
+				<td>
+					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.COD_CLASE)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.COD_CLASE)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+					<a class="btn btn-info btn-sm" ng-click="gestionarAtributos(item.COD_CLASE)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></a>
+					<a class="btn btn-warning btn-sm" ng-click="clonar(item.COD_CLASE)" tooltip="Clonar"><i class="glyphicon glyphicon-transfer"></i></a>
+				</td>
+			  </tr>
+			  <tr>
+				<td colspan="4"><a class="btn btn-primary btn-sm" ng-click="nuevo()" tooltip="Nuevo"><i class="glyphicon glyphicon-plus"></i></a></td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+		<pagination total-items="pag.total" ng-model="pag.actual" max-size="pag.max" class="pagination-sm" boundary-links="true" items-per-page="pag.itemxPagina" style="margin: 0px 0;"></pagination>
+	</div>
+	<div class="container-fluid show-grid" ng-show="vista === 'mantener'">
+		<div class="panel panel-default">
+		  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
+		  <form name="FRM_CLASE">
+		  <table class="table">
+			<tbody>
+			  <tr>
+				<th>Codigo (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CLA_COD_CLASE" name="CLA_COD_CLASE" ng-disabled="esEdicion" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Nombre (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CLA_NOMBRE" name="CLA_NOMBRE" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Paquete (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CLA_PAQUETE" name="CLA_PAQUETE" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Autor :</th>
+				<td><input type="text" ng-model="cargado.CLA_INF_AUTOR" class="form-control input-sm"></td>
+			  </tr>
+			  <tr>
+				<th>Descripción :</th>
+				<td><input type="text" ng-model="cargado.CLA_INF_DESCRIPCION" class="form-control input-sm"></td>
+			  </tr>
+			  <tr>
+				<th>Nivel :</th>
+				<td><input type="number" ng-model="cargado.CLA_NIVEL" class="form-control input-sm"></td>
+			  </tr>
+			  <tr>
+				<td colspan="2">
+					<a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">GUARDAR</span><span ng-show="!esEdicion">REGISTRAR</span></a>
+					<a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR</a>
+				</td>
+			  </tr>
+			</tbody>
+		  </table>
+		  </form>
+		</div>
+	</div>
+	<div ng-include="'atributo.html'" ng-show="vista === 'atributos'"></div>
+</div>

@@ -1,0 +1,27 @@
+<div class="modal-header">
+	<h3 class="modal-title">Clonar</h3>
+</div>
+<div class="modal-body">
+	<div class="panel panel-default">
+	  <table class="table table-bordered">
+		<tbody>
+		  <tr>
+			<td><span class="frm_requerido">(*)</span> Nuevo Código :</td>
+			<td><input type="text" ng-model="clonarObj.CLA_COD_CLASE" class="form-control input-sm"></td>
+		  </tr>
+		  <tr>
+			<td><span class="frm_requerido">(*)</span> Nuevo Nombre :</td>
+			<td><input type="text" ng-model="clonarObj.CLA_NOMBRE" class="form-control input-sm"></td>
+		  </tr>
+		  <tr>
+			<td><span class="frm_requerido">(*)</span> Incluir Atributos :</td>
+			<td><input type="checkbox" ng-model="clonarObj.ADC_ATRIBUTOS" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+</div>
+<div class="modal-footer">
+	<a class="btn btn-danger btn-sm" ng-click="clonar()"><i class="glyphicon glyphicon-transfer"></i> Clonar</a>
+	<a class="btn btn-info btn-sm" ng-click="cancelar()"><i class="glyphicon glyphicon-remove-circle"></i> Cancelar</a>
+</div>

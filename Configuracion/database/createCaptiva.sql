@@ -1,1155 +1,621 @@
+/*
+Created: 20/10/2015
+Modified: 20/10/2015
+Model: RE PostgreSQL 9.4
+Database: PostgreSQL 9.4
+*/
+
+
+-- Create schemas section -------------------------------------------------
+
+CREATE SCHEMA soul AUTHORIZATION postgres
+;
+
+-- Create tables section -------------------------------------------------
+
+-- Table soul.atributo
+
+CREATE TABLE soul.atributo(
+ cod_atributo Integer NOT NULL,
+ cod_clase Integer NOT NULL,
+ nombre Character varying(120) NOT NULL,
+ tipo Character varying(255) NOT NULL,
+ flg_lista Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_nombre Character varying(120),
+ web_formato Character varying(120),
+ inf_nombre Character varying(120),
+ inf_descripcion Character varying(255),
+ inf_autor Character varying(120),
+ web_men_validacion Character varying(250),
+ web_for_validacion Character varying(250)
+)
+;
+
+-- Add keys for table soul.atributo
+
+ALTER TABLE soul.atributo ADD CONSTRAINT objeto_pk PRIMARY KEY (cod_atributo)
+;
+
+-- Table soul.atributo_sql
+
+CREATE TABLE soul.atributo_sql(
+ cod_tabla Integer NOT NULL,
+ cod_atributo Integer NOT NULL,
+ campo Character varying(50) NOT NULL,
+ tipo Character varying(50) NOT NULL,
+ longitud Integer,
+ precision Integer,
+ pk Character(1) DEFAULT '0'::bpchar NOT NULL,
+ obligatorio Character(1) DEFAULT '0'::bpchar NOT NULL,
+ fk_tabla Integer,
+ fk_uno_mucho Character(1),
+ fn_bus_nombre Character varying(120),
+ fn_bus_catalogo Character varying(50),
+ val_defecto Character varying(120),
+ fk_campo Integer
+)
+;
+
+-- Add keys for table soul.atributo_sql
+
+ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_sql_pk PRIMARY KEY (cod_tabla,cod_atributo)
+;
+
+-- Table soul.catalogo
+
+CREATE TABLE soul.catalogo(
+ cod_catalogo Character varying(50) NOT NULL,
+ cod_atributo Character varying(50) NOT NULL,
+ valor_1 Character varying(100),
+ valor_2 Character varying(100),
+ descripcion Character varying(100),
+ lim_cod_atributo Integer,
+ lim_valor_1 Integer,
+ lim_valor_2 Integer,
+ cabecera Character(1) NOT NULL,
+ cod_proyecto Integer
+)
+;
+
+-- Create indexes for table soul.catalogo
+
+CREATE INDEX IX_Relationship29 ON soul.catalogo (cod_proyecto)
+;
+
+-- Add keys for table soul.catalogo
+
+ALTER TABLE soul.catalogo ADD CONSTRAINT catalogo_pk PRIMARY KEY (cod_catalogo,cod_atributo)
+;
+
+-- Table soul.clase
+
+CREATE TABLE soul.clase(
+ cod_clase Integer NOT NULL,
+ nombre Character varying(120) NOT NULL,
+ paquete Character varying(250) NOT NULL,
+ cod_proyecto Integer NOT NULL,
+ inf_autor Character varying(120),
+ inf_descripcion Character varying(255),
+ nivel Integer
+)
+;
 
-CREATE SCHEMA soul;
+-- Add keys for table soul.clase
 
-CREATE TABLE soul.ATRIBUTO (
+ALTER TABLE soul.clase ADD CONSTRAINT clase_pk PRIMARY KEY (cod_clase)
+;
 
-		COD_ATRIBUTO INTEGER NOT NULL,
+-- Table soul.configuracion
 
-		COD_CLASE INTEGER NOT NULL,
+CREATE TABLE soul.configuracion(
+ cod_proyecto Integer NOT NULL,
+ usuario Character varying(20) NOT NULL,
+ ruta_workspace Character varying(255) NOT NULL,
+ ruta_script_sql Character varying(255) NOT NULL
+)
+;
 
-		NOMBRE VARCHAR(120) NOT NULL,
+-- Add keys for table soul.configuracion
 
-		TIPO VARCHAR(255) NOT NULL,
+ALTER TABLE soul.configuracion ADD CONSTRAINT configuracion_pk PRIMARY KEY (cod_proyecto,usuario)
+;
 
-		FLG_LISTA CHAR(1) NOT NULL DEFAULT '0',
+-- Table soul.consulta
 
-		WEB_NOMBRE VARCHAR(120),
+CREATE TABLE soul.consulta(
+ cod_consulta Integer NOT NULL,
+ sql_ale_sto_procedure Character varying(120) NOT NULL,
+ jav_paquete Character varying(255) NOT NULL,
+ jav_interface Character varying(255) NOT NULL,
+ cod_proyecto Integer NOT NULL,
+ nombre Character varying(120) DEFAULT ''::character varying NOT NULL
+)
+;
 
-		WEB_FORMATO VARCHAR(120),
+-- Add keys for table soul.consulta
 
-		INF_NOMBRE VARCHAR(120),
+ALTER TABLE soul.consulta ADD CONSTRAINT consulta_pk PRIMARY KEY (cod_consulta)
+;
 
-		INF_DESCRIPCION VARCHAR(255),
+-- Table soul.consulta_atributo
 
-		INF_AUTOR VARCHAR(120),
+CREATE TABLE soul.consulta_atributo(
+ cod_consulta Integer NOT NULL,
+ cod_atributo Integer NOT NULL,
+ flg_condicion Character(1) DEFAULT '0'::bpchar NOT NULL,
+ flg_visible Character(1) DEFAULT '1'::bpchar NOT NULL,
+ cod_tabla Integer DEFAULT 0 NOT NULL
+)
+;
 
-		WEB_MEN_VALIDACION VARCHAR(250),
+-- Add keys for table soul.consulta_atributo
 
-		WEB_FOR_VALIDACION VARCHAR(250)
+ALTER TABLE soul.consulta_atributo ADD CONSTRAINT con_atributo_pk PRIMARY KEY (cod_consulta,cod_atributo)
+;
 
-	)
+-- Table soul.consulta_tabla
 
-	;
+CREATE TABLE soul.consulta_tabla(
+ cod_consulta Integer NOT NULL,
+ cod_tabla Integer NOT NULL,
+ fk Character(1) DEFAULT '0'::bpchar NOT NULL,
+ flg_uno_muchos Character(1) DEFAULT '0'::bpchar NOT NULL,
+ cod_tab_padre Integer
+)
+;
 
-CREATE TABLE soul.ATRIBUTO_SQL (
+-- Add keys for table soul.consulta_tabla
 
-		COD_TABLA INTEGER NOT NULL,
+ALTER TABLE soul.consulta_tabla ADD CONSTRAINT con_tabla_pk PRIMARY KEY (cod_consulta,cod_tabla)
+;
 
-		COD_ATRIBUTO INTEGER NOT NULL,
+-- Table soul.datasource
 
-		CAMPO VARCHAR(50) NOT NULL,
+CREATE TABLE soul.datasource(
+ cod_datasource Character varying(100) NOT NULL,
+ cod_proyecto Integer,
+ estado Character(1),
+ descripcion Character varying(255) NOT NULL
+)
+;
 
-		TIPO VARCHAR(50) NOT NULL,
+-- Create indexes for table soul.datasource
 
-		LONGITUD INTEGER,
+CREATE INDEX IX_Relationship33 ON soul.datasource (cod_proyecto)
+;
 
-		PRECISION INTEGER,
+-- Add keys for table soul.datasource
 
-		PK CHAR(1) NOT NULL DEFAULT '0',
+ALTER TABLE soul.datasource ADD CONSTRAINT sql150708145914480 PRIMARY KEY (cod_datasource)
+;
 
-		OBLIGATORIO CHAR(1) NOT NULL DEFAULT '0',
+-- Table soul.esquema
 
-		FK_TABLA INTEGER,
+CREATE TABLE soul.esquema(
+ cod_esquema Character varying(100) NOT NULL,
+ cod_proyecto Integer,
+ estado Character(1),
+ descripcion Character varying(255) NOT NULL
+)
+;
 
-		FK_UNO_MUCHO CHAR(1),
+-- Create indexes for table soul.esquema
 
-		FN_BUS_NOMBRE VARCHAR(120),
+CREATE INDEX IX_Relationship35 ON soul.esquema (cod_proyecto)
+;
 
-		FN_BUS_CATALOGO VARCHAR(50),
+-- Add keys for table soul.esquema
 
-		VAL_DEFECTO VARCHAR(120),
+ALTER TABLE soul.esquema ADD CONSTRAINT sql150708145914380 PRIMARY KEY (cod_esquema)
+;
 
-		FK_CAMPO INTEGER
+-- Table soul.mantenimiento
 
-	)
+CREATE TABLE soul.mantenimiento(
+ cod_mantenimiento Character varying(80) NOT NULL,
+ cod_proyecto Integer,
+ nombre Character varying(100) NOT NULL,
+ descripcion Character varying(255),
+ cod_esquema Character varying(100) NOT NULL,
+ cod_datasource Character varying(100) NOT NULL
+)
+;
+
+-- Create indexes for table soul.mantenimiento
+
+CREATE INDEX IX_Relationship38 ON soul.mantenimiento (cod_proyecto)
+;
+
+-- Add keys for table soul.mantenimiento
+
+ALTER TABLE soul.mantenimiento ADD CONSTRAINT sql150717091917330 PRIMARY KEY (cod_mantenimiento)
+;
 
-	;
+-- Table soul.mantenimiento_atributo
+
+CREATE TABLE soul.mantenimiento_atributo(
+ cod_atributo Integer NOT NULL,
+ cod_mantenimiento Character varying(80),
+ nombre Character varying(50) NOT NULL,
+ tipo_dato Character varying(50) NOT NULL,
+ longitud Integer,
+ precision Integer,
+ es_llave_primaria Character(1),
+ es_listado Character(1),
+ es_busqueda Character(1),
+ es_obligatorio Character(1),
+ descripcion Character varying(255)
+)
+;
+
+-- Create indexes for table soul.mantenimiento_atributo
+
+CREATE INDEX IX_Relationship37 ON soul.mantenimiento_atributo (cod_mantenimiento)
+;
+
+-- Add keys for table soul.mantenimiento_atributo
+
+ALTER TABLE soul.mantenimiento_atributo ADD CONSTRAINT sql150721084249850 PRIMARY KEY (cod_atributo)
+;
+
+-- Table soul.mantenimiento_rol
+
+CREATE TABLE soul.mantenimiento_rol(
+ cod_rol Character varying(100) NOT NULL,
+ cod_mantenimiento Character varying(80) NOT NULL
+)
+;
+
+-- Add keys for table soul.mantenimiento_rol
+
+ALTER TABLE soul.mantenimiento_rol ADD CONSTRAINT sql150721084032400 PRIMARY KEY (cod_rol,cod_mantenimiento)
+;
 
-CREATE TABLE soul.CATALOGO (
+-- Table soul.proceso
+
+CREATE TABLE soul.proceso(
+ cod_proceso Integer NOT NULL,
+ cod_proyecto Integer NOT NULL,
+ inf_nombre Character varying(120) NOT NULL,
+ cod_uni_negocio Character varying(12) NOT NULL,
+ cod_producto Character varying(12) NOT NULL,
+ inf_sufijo Character varying(6),
+ bpm_plantilla Character varying(120) NOT NULL,
+ bpm_act_inicio Integer NOT NULL,
+ jav_paquete Character varying(255) NOT NULL,
+ jav_clase Character varying(120) NOT NULL,
+ jav_ale_proceso Character varying(120),
+ jav_datasource Character varying(120) NOT NULL,
+ cod_con_resumen Integer NOT NULL,
+ cod_con_detalle Integer NOT NULL,
+ jav_doc_sequence Character varying(120)
+)
+;
+
+-- Create indexes for table soul.proceso
+
+CREATE INDEX IX_proceso_proyecto_fk ON soul.proceso (cod_proyecto)
+;
+
+-- Add keys for table soul.proceso
+
+ALTER TABLE soul.proceso ADD CONSTRAINT proceso_pk PRIMARY KEY (cod_proceso)
+;
+
+-- Table soul.proceso_inicio
+
+CREATE TABLE soul.proceso_inicio(
+ cod_proceso Integer NOT NULL,
+ cod_atributo Integer NOT NULL,
+ bpm_flg_entrada Character(1) DEFAULT '0'::bpchar NOT NULL,
+ bpm_obj_referencia Character varying(60),
+ bpm_flg_piid Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_flg_referencia Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_flg_validacion Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_men_validacion Character varying(255),
+ web_val_omision Character varying(255),
+ web_requerido Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_nom_cat_combo Character varying(255),
+ sql_flg_autogenerado Character(1) DEFAULT '0'::bpchar NOT NULL,
+ sql_nom_secuencial Character varying(255)
+)
+;
+
+-- Add keys for table soul.proceso_inicio
+
+ALTER TABLE soul.proceso_inicio ADD CONSTRAINT pro_ini_atributo_pk PRIMARY KEY (cod_proceso,cod_atributo)
+;
+
+-- Table soul.proyecto
+
+CREATE TABLE soul.proyecto(
+ cod_proyecto Integer NOT NULL,
+ nombre Character varying(120) NOT NULL,
+ jav_pro_libreria Character varying(255) NOT NULL,
+ jav_pro_ejb Character varying(255) NOT NULL,
+ jav_pro_cli_ejb Character varying(255) NOT NULL,
+ jav_pro_web Character varying(255) NOT NULL,
+ jav_paquete Character varying(255) NOT NULL,
+ jav_paq_controlador Character varying(255) NOT NULL,
+ jav_pre_controlador Character varying(50) NOT NULL,
+ jav_pro_ejb_ext Character varying(255)
+)
+;
+
+-- Add keys for table soul.proyecto
+
+ALTER TABLE soul.proyecto ADD CONSTRAINT proyecto_pk PRIMARY KEY (cod_proyecto)
+;
+
+-- Table soul.rol
+
+CREATE TABLE soul.rol(
+ cod_rol Character varying(100) NOT NULL,
+ cod_proyecto Integer,
+ estado Character(1),
+ descripcion Character varying(255) NOT NULL
+)
+;
+
+-- Create indexes for table soul.rol
+
+CREATE INDEX IX_Relationship32 ON soul.rol (cod_proyecto)
+;
+
+-- Add keys for table soul.rol
+
+ALTER TABLE soul.rol ADD CONSTRAINT sql150708145914240 PRIMARY KEY (cod_rol)
+;
+
+-- Table soul.tabla
+
+CREATE TABLE soul.tabla(
+ cod_tabla Integer NOT NULL,
+ esquema Character varying(50) NOT NULL,
+ nombre Character varying(50) NOT NULL,
+ cod_proyecto Integer NOT NULL,
+ orden Integer
+)
+;
+
+-- Add keys for table soul.tabla
+
+ALTER TABLE soul.tabla ADD CONSTRAINT tabla_pk PRIMARY KEY (cod_tabla)
+;
+
+-- Table soul.tarea
+
+CREATE TABLE soul.tarea(
+ cod_tarea Integer NOT NULL,
+ cod_proceso Integer NOT NULL,
+ nombre Character varying(120) NOT NULL,
+ version Character varying(10) NOT NULL,
+ cod_con_trabajar Integer NOT NULL,
+ cod_con_completar Integer NOT NULL,
+ sql_aleas Character varying(20) NOT NULL,
+ sql_datasource Character varying(120) NOT NULL,
+ bpm_nombre Character varying(255) NOT NULL,
+ jav_paquete Character varying(255) NOT NULL,
+ jav_clase Character varying(255) NOT NULL,
+ web_acc_completar Character(1) DEFAULT '1'::bpchar NOT NULL,
+ web_acc_grabar Character(1) DEFAULT '1'::bpchar NOT NULL,
+ web_acc_cancelar Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_acc_rechazar Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_acc_observar Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_acc_salir Character(1) DEFAULT '1'::bpchar NOT NULL,
+ web_acc_subsanar Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_par_his_comentario Character varying(120) NOT NULL,
+ web_par_his_accion Character varying(120) NOT NULL,
+ web_tie_rojo Integer NOT NULL,
+ web_tie_amarillo Integer NOT NULL,
+ web_flg_arc_adjuntos Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_flg_arc_adicionales Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_nom_configuracion Character varying(120),
+ tipo_vista Character(1)
+)
+;
+
+-- Add keys for table soul.tarea
+
+ALTER TABLE soul.tarea ADD CONSTRAINT tarea_pk PRIMARY KEY (cod_proceso,cod_tarea)
+;
+
+-- Table soul.tarea_atr_cancelar
+
+CREATE TABLE soul.tarea_atr_cancelar(
+ cod_proceso Integer NOT NULL,
+ cod_tarea Integer NOT NULL,
+ cod_atributo Integer NOT NULL,
+ jav_val_omision Character varying(250),
+ web_flg_validacion Character(1)
+)
+;
+
+-- Add keys for table soul.tarea_atr_cancelar
+
+ALTER TABLE soul.tarea_atr_cancelar ADD CONSTRAINT tarea_atr_cancelar_pk PRIMARY KEY (cod_proceso,cod_tarea,cod_atributo)
+;
+
+-- Table soul.tarea_atr_completar
+
+CREATE TABLE soul.tarea_atr_completar(
+ cod_proceso Integer NOT NULL,
+ cod_tarea Integer NOT NULL,
+ cod_atributo Integer NOT NULL,
+ jav_val_omision Character varying(250),
+ web_flg_validacion Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_tab_campo Integer,
+ web_ord_validacion Integer
+)
+;
+
+-- Add keys for table soul.tarea_atr_completar
+
+ALTER TABLE soul.tarea_atr_completar ADD CONSTRAINT tar_atr_completar_pk PRIMARY KEY (cod_proceso,cod_tarea,cod_atributo)
+;
+
+-- Table soul.tarea_atr_observar
+
+CREATE TABLE soul.tarea_atr_observar(
+ cod_proceso Integer NOT NULL,
+ cod_tarea Integer NOT NULL,
+ cod_atributo Integer NOT NULL,
+ jav_val_omision Character varying(250),
+ web_flg_validacion Character(1)
+)
+;
+
+-- Add keys for table soul.tarea_atr_observar
+
+ALTER TABLE soul.tarea_atr_observar ADD CONSTRAINT tarea_atr_observar_pk PRIMARY KEY (cod_proceso,cod_tarea,cod_atributo)
+;
+
+-- Table soul.tarea_atr_rechazar
+
+CREATE TABLE soul.tarea_atr_rechazar(
+ cod_proceso Integer NOT NULL,
+ cod_tarea Integer NOT NULL,
+ cod_atributo Integer NOT NULL,
+ jav_val_omision Character varying(250),
+ web_flg_validacion Character(1)
+)
+;
 
-		COD_CATALOGO VARCHAR(50) NOT NULL,
+-- Add keys for table soul.tarea_atr_rechazar
 
-		COD_ATRIBUTO VARCHAR(50) NOT NULL,
+ALTER TABLE soul.tarea_atr_rechazar ADD CONSTRAINT tarea_atr_rechazar_pk PRIMARY KEY (cod_proceso,cod_tarea,cod_atributo)
+;
 
-		VALOR_1 VARCHAR(100),
+-- Table soul.usuario
 
-		VALOR_2 VARCHAR(100),
+CREATE TABLE soul.usuario(
+ cod_usuario Character varying(50) NOT NULL,
+ clave Character varying(100) NOT NULL,
+ nombre Character varying(100) NOT NULL,
+ perfil Character varying(50) NOT NULL,
+ descripcion Character varying(250)
+)
+;
 
-		DESCRIPCION VARCHAR(100),
+-- Add keys for table soul.usuario
 
-		LIM_COD_ATRIBUTO INTEGER,
+ALTER TABLE soul.usuario ADD CONSTRAINT pk_cod_usuario PRIMARY KEY (cod_usuario)
+;
 
-		LIM_VALOR_1 INTEGER,
+-- Create relationships section ------------------------------------------------- 
 
-		LIM_VALOR_2 INTEGER,
+ALTER TABLE soul.atributo ADD CONSTRAINT objeto_clase_fk FOREIGN KEY (cod_clase) REFERENCES soul.clase (cod_clase) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
 
-		CABECERA CHAR(1) NOT NULL,
+ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_sql_objeto_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
 
-		COD_PROYECTO INTEGER NOT NULL DEFAULT 0
+ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_atr_sql_tabla_fk FOREIGN KEY (cod_tabla) REFERENCES soul.tabla (cod_tabla) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
 
-	)
+ALTER TABLE soul.clase ADD CONSTRAINT clase_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
 
-	;
+ALTER TABLE soul.configuracion ADD CONSTRAINT configuracion_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-CREATE TABLE soul.CLASE (
+ALTER TABLE soul.consulta ADD CONSTRAINT consulta_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
 
-		COD_CLASE INTEGER NOT NULL,
+ALTER TABLE soul.consulta_atributo ADD CONSTRAINT con_atributo_atributo_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-		NOMBRE VARCHAR(120) NOT NULL,
+ALTER TABLE soul.consulta_atributo ADD CONSTRAINT con_atributo_consulta_fk FOREIGN KEY (cod_consulta) REFERENCES soul.consulta (cod_consulta) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-		PAQUETE VARCHAR(250) NOT NULL,
+ALTER TABLE soul.consulta_tabla ADD CONSTRAINT con_tabla_consulta_fk FOREIGN KEY (cod_consulta) REFERENCES soul.consulta (cod_consulta) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-		COD_PROYECTO INTEGER NOT NULL,
+ALTER TABLE soul.consulta_tabla ADD CONSTRAINT con_tabla_tabla_fk FOREIGN KEY (cod_tabla) REFERENCES soul.tabla (cod_tabla) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-		INF_AUTOR VARCHAR(120),
+ALTER TABLE soul.consulta_tabla ADD CONSTRAINT con_tabla_tabla_fk1 FOREIGN KEY (cod_tab_padre) REFERENCES soul.tabla (cod_tabla) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
 
-		INF_DESCRIPCION VARCHAR(255),
+ALTER TABLE soul.proceso ADD CONSTRAINT proceso_consulta_fk FOREIGN KEY (cod_con_resumen) REFERENCES soul.consulta (cod_consulta) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
 
-		NIVEL INTEGER
+ALTER TABLE soul.proceso ADD CONSTRAINT proceso_consulta_fk1 FOREIGN KEY (cod_con_detalle) REFERENCES soul.consulta (cod_consulta) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
 
-	)
+ALTER TABLE soul.proceso ADD CONSTRAINT proceso_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE CASCADE
+;
 
-	;
+ALTER TABLE soul.proceso_inicio ADD CONSTRAINT pro_ini_atributo_atributo_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-CREATE TABLE soul.CONFIGURACION (
+ALTER TABLE soul.proceso_inicio ADD CONSTRAINT pro_ini_atributo_proceso_fk FOREIGN KEY (cod_proceso) REFERENCES soul.proceso (cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-		COD_PROYECTO INTEGER NOT NULL,
+ALTER TABLE soul.tabla ADD CONSTRAINT tabla_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
 
-		USUARIO VARCHAR(20) NOT NULL,
+ALTER TABLE soul.tarea ADD CONSTRAINT tarea_consulta_fk FOREIGN KEY (cod_con_trabajar) REFERENCES soul.consulta (cod_consulta) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
 
-		RUTA_WORKSPACE VARCHAR(255) NOT NULL,
+ALTER TABLE soul.tarea ADD CONSTRAINT tarea_consulta_fk1 FOREIGN KEY (cod_con_completar) REFERENCES soul.consulta (cod_consulta) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
 
-		RUTA_SCRIPT_SQL VARCHAR(255) NOT NULL
+ALTER TABLE soul.tarea ADD CONSTRAINT tarea_proceso_fk FOREIGN KEY (cod_proceso) REFERENCES soul.proceso (cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-	)
+ALTER TABLE soul.tarea_atr_cancelar ADD CONSTRAINT tar_atr_cancelar_atributo_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-	;
+ALTER TABLE soul.tarea_atr_cancelar ADD CONSTRAINT tar_atr_cancelar_tarea_fk FOREIGN KEY (cod_tarea, cod_proceso) REFERENCES soul.tarea (cod_tarea, cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-CREATE TABLE soul.CONSULTA (
+ALTER TABLE soul.tarea_atr_completar ADD CONSTRAINT tar_atr_completar_atributo_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-		COD_CONSULTA INTEGER NOT NULL,
+ALTER TABLE soul.tarea_atr_completar ADD CONSTRAINT tar_atr_completar_tarea_fk FOREIGN KEY (cod_tarea, cod_proceso) REFERENCES soul.tarea (cod_tarea, cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-		SQL_ALE_STO_PROCEDURE VARCHAR(120) NOT NULL,
+ALTER TABLE soul.tarea_atr_observar ADD CONSTRAINT tarea_atr_observar_atributo_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-		JAV_PAQUETE VARCHAR(255) NOT NULL,
+ALTER TABLE soul.tarea_atr_observar ADD CONSTRAINT tarea_atr_observar_tarea_fk FOREIGN KEY (cod_tarea, cod_proceso) REFERENCES soul.tarea (cod_tarea, cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-		JAV_INTERFACE VARCHAR(255) NOT NULL,
+ALTER TABLE soul.tarea_atr_rechazar ADD CONSTRAINT tar_atr_rechazar_atributo_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-		COD_PROYECTO INTEGER NOT NULL,
+ALTER TABLE soul.tarea_atr_rechazar ADD CONSTRAINT tar_atr_rechazar_tarea_fk FOREIGN KEY (cod_tarea, cod_proceso) REFERENCES soul.tarea (cod_tarea, cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-		NOMBRE VARCHAR(120) NOT NULL DEFAULT ''
+ALTER TABLE soul.catalogo ADD CONSTRAINT Relationship29 FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
 
-	)
+ALTER TABLE soul.rol ADD CONSTRAINT Relationship32 FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
 
-	;
+ALTER TABLE soul.datasource ADD CONSTRAINT Relationship33 FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
 
-CREATE TABLE soul.CONSULTA_ATRIBUTO (
+ALTER TABLE soul.esquema ADD CONSTRAINT Relationship35 FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
 
-		COD_CONSULTA INTEGER NOT NULL,
+ALTER TABLE soul.mantenimiento_atributo ADD CONSTRAINT Relationship37 FOREIGN KEY (cod_mantenimiento) REFERENCES soul.mantenimiento (cod_mantenimiento) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
 
-		COD_ATRIBUTO INTEGER NOT NULL,
+ALTER TABLE soul.mantenimiento ADD CONSTRAINT Relationship38 FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
 
-		FLG_CONDICION CHAR(1) NOT NULL DEFAULT '0',
+ALTER TABLE soul.mantenimiento_rol ADD CONSTRAINT Relationship39 FOREIGN KEY (cod_rol) REFERENCES soul.rol (cod_rol) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
 
-		FLG_VISIBLE CHAR(1) NOT NULL DEFAULT '1',
+ALTER TABLE soul.mantenimiento_rol ADD CONSTRAINT Relationship40 FOREIGN KEY (cod_mantenimiento) REFERENCES soul.mantenimiento (cod_mantenimiento) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
 
-		COD_TABLA INTEGER NOT NULL DEFAULT 0
 
-	)
 
-	;
+-- Create roles section -------------------------------------------------
 
-CREATE TABLE soul.CONSULTA_TABLA (
 
-		COD_CONSULTA INTEGER NOT NULL,
-
-		COD_TABLA INTEGER NOT NULL,
-
-		FK CHAR(1) NOT NULL DEFAULT '0',
-
-		FLG_UNO_MUCHOS CHAR(1) NOT NULL DEFAULT '0',
-
-		COD_TAB_PADRE INTEGER
-
-	)
-
-	;
-
-CREATE TABLE soul.DATASOURCE (
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		COD_DATASOURCE VARCHAR(100) NOT NULL,
-
-		DESCRIPCION VARCHAR(255) NOT NULL,
-
-		ESTADO CHAR(1)
-
-	)
-
-	;
-
-CREATE TABLE soul.EQUIPO (
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		COD_USUARIO VARCHAR(50) NOT NULL,
-
-		ES_RESPONSABLE CHAR(1) NOT NULL,
-
-		CARPETA_DESTINO_WORKSPACE VARCHAR(255) NOT NULL DEFAULT '',
-
-		CARPETA_DESTINO_PARCIAL VARCHAR(250) NOT NULL DEFAULT ''
-
-	)
-
-	;
-
-CREATE TABLE soul.ESQUEMA (
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		COD_ESQUEMA VARCHAR(100) NOT NULL,
-
-		DESCRIPCION VARCHAR(255) NOT NULL,
-
-		ESTADO CHAR(1)
-
-	)
-
-	;
-
-CREATE TABLE soul.MANTENIMIENTO (
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		COD_MANTENIMIENTO VARCHAR(80) NOT NULL,
-
-		NOMBRE VARCHAR(100) NOT NULL,
-
-		DESCRIPCION VARCHAR(255),
-
-		COD_ESQUEMA VARCHAR(100) NOT NULL,
-
-		COD_DATASOURCE VARCHAR(100) NOT NULL
-
-	)
-
-	;
-
-CREATE TABLE soul.MANTENIMIENTO_ATRIBUTO (
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		COD_MANTENIMIENTO VARCHAR(80) NOT NULL,
-
-		COD_ATRIBUTO INTEGER NOT NULL,
-
-		NOMBRE VARCHAR(50) NOT NULL,
-
-		TIPO_DATO VARCHAR(50) NOT NULL,
-
-		LONGITUD INTEGER,
-
-		PRECISION INTEGER,
-
-		ES_LLAVE_PRIMARIA CHAR(1),
-
-		ES_LISTADO CHAR(1),
-
-		ES_BUSQUEDA CHAR(1),
-
-		ES_OBLIGATORIO CHAR(1),
-
-		DESCRIPCION VARCHAR(255)
-
-	)
-
-	;
-
-CREATE TABLE soul.MANTENIMIENTO_ROL (
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		COD_MANTENIMIENTO VARCHAR(80) NOT NULL,
-
-		COD_ROL VARCHAR(100) NOT NULL
-
-	)
-
-	;
-
-CREATE TABLE soul.PROCESO (
-
-		COD_PROCESO INTEGER NOT NULL,
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		INF_NOMBRE VARCHAR(120) NOT NULL,
-
-		COD_UNI_NEGOCIO VARCHAR(12) NOT NULL,
-
-		COD_PRODUCTO VARCHAR(12) NOT NULL,
-
-		INF_SUFIJO VARCHAR(6),
-
-		BPM_PLANTILLA VARCHAR(120) NOT NULL,
-
-		BPM_ACT_INICIO INTEGER NOT NULL,
-
-		JAV_PAQUETE VARCHAR(255) NOT NULL,
-
-		JAV_CLASE VARCHAR(120) NOT NULL,
-
-		JAV_ALE_PROCESO VARCHAR(120),
-
-		JAV_DATASOURCE VARCHAR(120) NOT NULL,
-
-		COD_CON_RESUMEN INTEGER NOT NULL,
-
-		COD_CON_DETALLE INTEGER NOT NULL,
-
-		JAV_DOC_SEQUENCE VARCHAR(120)
-
-	)
-
-	;
-
-CREATE TABLE soul.PROCESO_INICIO (
-
-		COD_PROCESO INTEGER NOT NULL,
-
-		COD_ATRIBUTO INTEGER NOT NULL,
-
-		BPM_FLG_ENTRADA CHAR(1) NOT NULL DEFAULT '0',
-
-		BPM_OBJ_REFERENCIA VARCHAR(60),
-
-		BPM_FLG_PIID CHAR(1) NOT NULL DEFAULT '0',
-
-		WEB_FLG_REFERENCIA CHAR(1) NOT NULL DEFAULT '0',
-
-		WEB_FLG_VALIDACION CHAR(1) NOT NULL DEFAULT '0',
-
-		WEB_MEN_VALIDACION VARCHAR(255),
-
-		WEB_VAL_OMISION VARCHAR(255),
-
-		WEB_REQUERIDO CHAR(1) NOT NULL DEFAULT '0',
-
-		WEB_NOM_CAT_COMBO VARCHAR(255),
-
-		SQL_FLG_AUTOGENERADO CHAR(1) NOT NULL DEFAULT '0',
-
-		SQL_NOM_SECUENCIAL VARCHAR(255),
-
-		COD_PROYECTO INTEGER NOT NULL
-
-	)
-
-	;
-
-CREATE TABLE soul.PROYECTO (
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		NOMBRE VARCHAR(120) NOT NULL,
-
-		JAV_PRO_LIBRERIA VARCHAR(255) NOT NULL,
-
-		JAV_PRO_EJB VARCHAR(255) NOT NULL,
-
-		JAV_PRO_CLI_EJB VARCHAR(255) NOT NULL,
-
-		JAV_PRO_WEB VARCHAR(255) NOT NULL,
-
-		JAV_PAQUETE VARCHAR(255) NOT NULL,
-
-		JAV_PAQ_CONTROLADOR VARCHAR(255) NOT NULL,
-
-		JAV_PRE_CONTROLADOR VARCHAR(50) NOT NULL,
-
-		JAV_PRO_EJB_EXT VARCHAR(255)
-
-	)
-
-	;
-
-CREATE TABLE soul.ROL (
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		COD_ROL VARCHAR(100) NOT NULL,
-
-		DESCRIPCION VARCHAR(255) NOT NULL,
-
-		ESTADO CHAR(1)
-
-	)
-
-	;
-
-CREATE TABLE soul.TABLA (
-
-		COD_TABLA INTEGER NOT NULL,
-
-		ESQUEMA VARCHAR(50) NOT NULL,
-
-		NOMBRE VARCHAR(50) NOT NULL,
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		ORDEN INTEGER
-
-	)
-
-	;
-
-CREATE TABLE soul.TAREA (
-
-		COD_TAREA INTEGER NOT NULL,
-
-		COD_PROCESO INTEGER NOT NULL,
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		NOMBRE VARCHAR(120) NOT NULL,
-
-		VERSION VARCHAR(10) NOT NULL,
-
-		COD_CON_TRABAJAR INTEGER NOT NULL,
-
-		COD_CON_COMPLETAR INTEGER NOT NULL,
-
-		SQL_ALEAS VARCHAR(20) NOT NULL,
-
-		SQL_DATASOURCE VARCHAR(120) NOT NULL,
-
-		BPM_NOMBRE VARCHAR(255) NOT NULL,
-
-		JAV_PAQUETE VARCHAR(255) NOT NULL,
-
-		JAV_CLASE VARCHAR(255) NOT NULL,
-
-		WEB_ACC_COMPLETAR CHAR(1) NOT NULL DEFAULT '1',
-
-		WEB_ACC_GRABAR CHAR(1) NOT NULL DEFAULT '1',
-
-		WEB_ACC_CANCELAR CHAR(1) NOT NULL DEFAULT '0',
-
-		WEB_ACC_RECHAZAR CHAR(1) NOT NULL DEFAULT '0',
-
-		WEB_ACC_OBSERVAR CHAR(1) NOT NULL DEFAULT '0',
-
-		WEB_ACC_SALIR CHAR(1) NOT NULL DEFAULT '1',
-
-		WEB_ACC_SUBSANAR CHAR(1) NOT NULL DEFAULT '0',
-
-		WEB_PAR_HIS_COMENTARIO VARCHAR(120) NOT NULL,
-
-		WEB_PAR_HIS_ACCION VARCHAR(120) NOT NULL,
-
-		WEB_TIE_ROJO INTEGER NOT NULL,
-
-		WEB_TIE_AMARILLO INTEGER NOT NULL,
-
-		WEB_FLG_ARC_ADJUNTOS CHAR(1) NOT NULL DEFAULT '0',
-
-		WEB_FLG_ARC_ADICIONALES CHAR(1) NOT NULL DEFAULT '0',
-
-		WEB_NOM_CONFIGURACION VARCHAR(120),
-
-		TIPO_VISTA CHAR(1)
-
-	)
-
-	;
-
-CREATE TABLE soul.TAREA_ATRIBUTO (
-
-		TAREA_SECCION_ID VARCHAR(20) NOT NULL,
-
-		TAREA_SUB_SECCION_ID INTEGER NOT NULL,
-
-		TAREA_ATRIBUTO_ID INTEGER NOT NULL,
-
-		COD_CLASE INTEGER NOT NULL,
-
-		COD_ATRIBUTO INTEGER NOT NULL,
-
-		NOMBRE VARCHAR(120) NOT NULL,
-
-		ACTIVO CHAR(1) NOT NULL,
-
-		EDITOR_TIPO_CAMPO CHAR(1),
-
-		EDITOR_OBLIGATORIO CHAR(1)
-
-	)
-
-	;
-
-CREATE TABLE soul.TAREA_ATR_CANCELAR (
-
-		COD_PROCESO INTEGER NOT NULL,
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		COD_TAREA INTEGER NOT NULL,
-
-		COD_ATRIBUTO INTEGER NOT NULL,
-
-		JAV_VAL_OMISION VARCHAR(250),
-
-		WEB_FLG_VALIDACION CHAR(1)
-
-	)
-
-	;
-
-CREATE TABLE soul.TAREA_ATR_COMPLETAR (
-
-		COD_PROCESO INTEGER NOT NULL,
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		COD_TAREA INTEGER NOT NULL,
-
-		COD_ATRIBUTO INTEGER NOT NULL,
-
-		JAV_VAL_OMISION VARCHAR(250),
-
-		WEB_FLG_VALIDACION CHAR(1) NOT NULL DEFAULT '0',
-
-		WEB_TAB_CAMPO INTEGER,
-
-		WEB_ORD_VALIDACION INTEGER
-
-	)
-
-	;
-
-CREATE TABLE soul.TAREA_ATR_OBSERVAR (
-
-		COD_PROCESO INTEGER NOT NULL,
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		COD_TAREA INTEGER NOT NULL,
-
-		COD_ATRIBUTO INTEGER NOT NULL,
-
-		JAV_VAL_OMISION VARCHAR(250),
-
-		WEB_FLG_VALIDACION CHAR(1)
-
-	)
-
-	;
-
-CREATE TABLE soul.TAREA_ATR_RECHAZAR (
-
-		COD_PROCESO INTEGER NOT NULL,
-
-		COD_PROYECTO INTEGER NOT NULL,
-
-		COD_TAREA INTEGER NOT NULL,
-
-		COD_ATRIBUTO INTEGER NOT NULL,
-
-		JAV_VAL_OMISION VARCHAR(250),
-
-		WEB_FLG_VALIDACION CHAR(1)
-
-	)
-
-	;
-
-CREATE TABLE soul.USUARIO (
-
-		COD_USUARIO VARCHAR(50) NOT NULL,
-
-		CLAVE VARCHAR(100) NOT NULL,
-
-		NOMBRE VARCHAR(100) NOT NULL,
-
-		PERFIL VARCHAR(50) NOT NULL,
-
-		DESCRIPCION VARCHAR(250)
-
-	)
-
-	;
-
-ALTER TABLE soul.ATRIBUTO ADD CONSTRAINT OBJETO_PK PRIMARY KEY
-
-	(COD_ATRIBUTO);
-
-ALTER TABLE soul.ATRIBUTO_SQL ADD CONSTRAINT OBJ_SQL_PK PRIMARY KEY
-
-	(COD_TABLA,
-
-	 COD_ATRIBUTO);
-
-ALTER TABLE soul.CATALOGO ADD CONSTRAINT CATALOGO_PK PRIMARY KEY
-
-	(COD_CATALOGO,
-
-	 COD_ATRIBUTO,
-
-	 COD_PROYECTO);
-
-ALTER TABLE soul.CLASE ADD CONSTRAINT CLASE_PK PRIMARY KEY
-
-	(COD_CLASE);
-
-ALTER TABLE soul.CONFIGURACION ADD CONSTRAINT CONFIGURACION_PK PRIMARY KEY
-
-	(COD_PROYECTO,
-
-	 USUARIO);
-
-ALTER TABLE soul.CONSULTA ADD CONSTRAINT CONSULTA_PK PRIMARY KEY
-
-	(COD_CONSULTA);
-
-ALTER TABLE soul.CONSULTA_ATRIBUTO ADD CONSTRAINT CON_ATRIBUTO_PK PRIMARY KEY
-
-	(COD_CONSULTA,
-
-	 COD_ATRIBUTO);
-
-ALTER TABLE soul.CONSULTA_TABLA ADD CONSTRAINT CON_TABLA_PK PRIMARY KEY
-
-	(COD_CONSULTA,
-
-	 COD_TABLA);
-
-ALTER TABLE soul.DATASOURCE ADD CONSTRAINT SQL150708145914480 PRIMARY KEY
-
-	(COD_PROYECTO,
-
-	 COD_DATASOURCE);
-
-ALTER TABLE soul.EQUIPO ADD CONSTRAINT SQL150708144027730 PRIMARY KEY
-
-	(COD_PROYECTO,
-
-	 COD_USUARIO);
-
-ALTER TABLE soul.ESQUEMA ADD CONSTRAINT SQL150708145914380 PRIMARY KEY
-
-	(COD_PROYECTO,
-
-	 COD_ESQUEMA);
-
-ALTER TABLE soul.MANTENIMIENTO ADD CONSTRAINT SQL150717091917330 PRIMARY KEY
-
-	(COD_PROYECTO,
-
-	 COD_MANTENIMIENTO);
-
-ALTER TABLE soul.MANTENIMIENTO_ATRIBUTO ADD CONSTRAINT SQL150721084249850 PRIMARY KEY
-
-	(COD_PROYECTO,
-
-	 COD_MANTENIMIENTO,
-
-	 COD_ATRIBUTO);
-
-ALTER TABLE soul.MANTENIMIENTO_ROL ADD CONSTRAINT SQL150721084032400 PRIMARY KEY
-
-	(COD_PROYECTO,
-
-	 COD_MANTENIMIENTO,
-
-	 COD_ROL);
-
-
-ALTER TABLE soul.PROCESO ADD CONSTRAINT PROCESO_PK PRIMARY KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO);
-
-ALTER TABLE soul.PROCESO_INICIO ADD CONSTRAINT PRO_INI_ATRIBUTO_PK PRIMARY KEY
-
-	(COD_PROCESO,
-
-	 COD_ATRIBUTO,
-
-	 COD_PROYECTO);
-
-ALTER TABLE soul.PROYECTO ADD CONSTRAINT PROYECTO_PK PRIMARY KEY
-
-	(COD_PROYECTO);
-
-ALTER TABLE soul.ROL ADD CONSTRAINT SQL150708145914240 PRIMARY KEY
-
-	(COD_PROYECTO,
-
-	 COD_ROL);
-
-ALTER TABLE soul.TABLA ADD CONSTRAINT TABLA_PK PRIMARY KEY
-
-	(COD_TABLA);
-
-ALTER TABLE soul.TAREA ADD CONSTRAINT TAREA_PK PRIMARY KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA);
-
-ALTER TABLE soul.TAREA_ATR_CANCELAR ADD CONSTRAINT TAREA_ATR_CANCELAR_PK PRIMARY KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA,
-
-	 COD_ATRIBUTO);
-
-ALTER TABLE soul.TAREA_ATR_COMPLETAR ADD CONSTRAINT TAR_ATR_COMPLETAR_PK PRIMARY KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA,
-
-	 COD_ATRIBUTO);
-
-ALTER TABLE soul.TAREA_ATR_OBSERVAR ADD CONSTRAINT TAREA_ATR_OBSERVAR_PK PRIMARY KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA,
-
-	 COD_ATRIBUTO);
-
-ALTER TABLE soul.TAREA_ATR_RECHAZAR ADD CONSTRAINT TAREA_ATR_RECHAZAR_PK PRIMARY KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA,
-
-	 COD_ATRIBUTO);
-
-
-
-ALTER TABLE soul.USUARIO ADD CONSTRAINT PK_COD_USUARIO PRIMARY KEY
-
-	(COD_USUARIO);
-
-	
-ALTER TABLE soul.ATRIBUTO ADD CONSTRAINT OBJETO_CLASE_FK FOREIGN KEY
-
-	(COD_CLASE)
-
-	REFERENCES soul.CLASE
-
-	(COD_CLASE)
-
-	ON DELETE RESTRICT;
-
-
-ALTER TABLE soul.ATRIBUTO_SQL ADD CONSTRAINT OBJ_ATR_SQL_TABLA_FK FOREIGN KEY
-
-	(COD_TABLA)
-
-	REFERENCES soul.TABLA
-
-	(COD_TABLA)
-
-	ON DELETE RESTRICT;
-
-ALTER TABLE soul.ATRIBUTO_SQL ADD CONSTRAINT OBJ_SQL_OBJETO_FK FOREIGN KEY
-
-	(COD_ATRIBUTO)
-
-	REFERENCES soul.ATRIBUTO
-
-	(COD_ATRIBUTO)
-
-	ON DELETE RESTRICT;
-
-ALTER TABLE soul.CLASE ADD CONSTRAINT CLASE_PROYECTO_FK FOREIGN KEY
-
-	(COD_PROYECTO)
-
-	REFERENCES soul.PROYECTO
-
-	(COD_PROYECTO)
-
-	ON DELETE RESTRICT;
-
-ALTER TABLE soul.CONFIGURACION ADD CONSTRAINT CONFIGURACION_PROYECTO_FK FOREIGN KEY
-
-	(COD_PROYECTO)
-
-	REFERENCES soul.PROYECTO
-
-	(COD_PROYECTO)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.CONSULTA ADD CONSTRAINT CONSULTA_PROYECTO_FK FOREIGN KEY
-
-	(COD_PROYECTO)
-
-	REFERENCES soul.PROYECTO
-
-	(COD_PROYECTO)
-
-	ON DELETE RESTRICT;
-
-ALTER TABLE soul.CONSULTA_ATRIBUTO ADD CONSTRAINT CON_ATRIBUTO_ATRIBUTO_FK FOREIGN KEY
-
-	(COD_ATRIBUTO)
-
-	REFERENCES soul.ATRIBUTO
-
-	(COD_ATRIBUTO)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.CONSULTA_ATRIBUTO ADD CONSTRAINT CON_ATRIBUTO_CONSULTA_FK FOREIGN KEY
-
-	(COD_CONSULTA)
-
-	REFERENCES soul.CONSULTA
-
-	(COD_CONSULTA)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.CONSULTA_TABLA ADD CONSTRAINT CON_TABLA_CONSULTA_FK FOREIGN KEY
-
-	(COD_CONSULTA)
-
-	REFERENCES soul.CONSULTA
-
-	(COD_CONSULTA)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.CONSULTA_TABLA ADD CONSTRAINT CON_TABLA_TABLA_FK FOREIGN KEY
-
-	(COD_TABLA)
-
-	REFERENCES soul.TABLA
-
-	(COD_TABLA)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.CONSULTA_TABLA ADD CONSTRAINT CON_TABLA_TABLA_FK1 FOREIGN KEY
-
-	(COD_TAB_PADRE)
-
-	REFERENCES soul.TABLA
-
-	(COD_TABLA)
-
-	ON DELETE RESTRICT;
-
-ALTER TABLE soul.PROCESO ADD CONSTRAINT PROCESO_CONSULTA_FK FOREIGN KEY
-
-	(COD_CON_RESUMEN)
-
-	REFERENCES soul.CONSULTA
-
-	(COD_CONSULTA)
-
-	ON DELETE RESTRICT;
-
-ALTER TABLE soul.PROCESO ADD CONSTRAINT PROCESO_CONSULTA_FK1 FOREIGN KEY
-
-	(COD_CON_DETALLE)
-
-	REFERENCES soul.CONSULTA
-
-	(COD_CONSULTA)
-
-	ON DELETE RESTRICT;
-
-
-ALTER TABLE soul.PROCESO ADD CONSTRAINT PROCESO_PROYECTO_FK FOREIGN KEY
-
-	(COD_PROYECTO)
-
-	REFERENCES soul.PROYECTO
-
-	(COD_PROYECTO)
-
-	ON DELETE RESTRICT;
-
-ALTER TABLE soul.PROCESO_INICIO ADD CONSTRAINT PRO_INI_ATRIBUTO_ATRIBUTO_FK FOREIGN KEY
-
-	(COD_ATRIBUTO)
-
-	REFERENCES soul.ATRIBUTO
-
-	(COD_ATRIBUTO)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.PROCESO_INICIO ADD CONSTRAINT PRO_INI_ATRIBUTO_PROCESO_FK FOREIGN KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO)
-
-	REFERENCES soul.PROCESO
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.TABLA ADD CONSTRAINT TABLA_PROYECTO_FK FOREIGN KEY
-
-	(COD_PROYECTO)
-
-	REFERENCES soul.PROYECTO
-
-	(COD_PROYECTO)
-
-	ON DELETE RESTRICT;
-
-ALTER TABLE soul.TAREA ADD CONSTRAINT TAREA_CONSULTA_FK FOREIGN KEY
-
-	(COD_CON_TRABAJAR)
-
-	REFERENCES soul.CONSULTA
-
-	(COD_CONSULTA)
-
-	ON DELETE RESTRICT;
-
-ALTER TABLE soul.TAREA ADD CONSTRAINT TAREA_CONSULTA_FK1 FOREIGN KEY
-
-	(COD_CON_COMPLETAR)
-
-	REFERENCES soul.CONSULTA
-
-	(COD_CONSULTA)
-
-	ON DELETE RESTRICT;
-
-ALTER TABLE soul.TAREA ADD CONSTRAINT TAREA_PROCESO_FK FOREIGN KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO)
-
-	REFERENCES soul.PROCESO
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.TAREA_ATR_CANCELAR ADD CONSTRAINT TAR_ATR_CANCELAR_ATRIBUTO_FK FOREIGN KEY
-
-	(COD_ATRIBUTO)
-
-	REFERENCES soul.ATRIBUTO
-
-	(COD_ATRIBUTO)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.TAREA_ATR_CANCELAR ADD CONSTRAINT TAR_ATR_CANCELAR_TAREA_FK FOREIGN KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA)
-
-	REFERENCES soul.TAREA
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.TAREA_ATR_COMPLETAR ADD CONSTRAINT TAR_ATR_COMPLETAR_ATRIBUTO_FK FOREIGN KEY
-
-	(COD_ATRIBUTO)
-
-	REFERENCES soul.ATRIBUTO
-
-	(COD_ATRIBUTO)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.TAREA_ATR_COMPLETAR ADD CONSTRAINT TAR_ATR_COMPLETAR_TAREA_FK FOREIGN KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA)
-
-	REFERENCES soul.TAREA
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.TAREA_ATR_OBSERVAR ADD CONSTRAINT TAREA_ATR_OBSERVAR_ATRIBUTO_FK FOREIGN KEY
-
-	(COD_ATRIBUTO)
-
-	REFERENCES soul.ATRIBUTO
-
-	(COD_ATRIBUTO)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.TAREA_ATR_OBSERVAR ADD CONSTRAINT TAREA_ATR_OBSERVAR_TAREA_FK FOREIGN KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA)
-
-	REFERENCES soul.TAREA
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.TAREA_ATR_RECHAZAR ADD CONSTRAINT TAR_ATR_RECHAZAR_ATRIBUTO_FK FOREIGN KEY
-
-	(COD_ATRIBUTO)
-
-	REFERENCES soul.ATRIBUTO
-
-	(COD_ATRIBUTO)
-
-	ON DELETE CASCADE;
-
-ALTER TABLE soul.TAREA_ATR_RECHAZAR ADD CONSTRAINT TAR_ATR_RECHAZAR_TAREA_FK FOREIGN KEY
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA)
-
-	REFERENCES soul.TAREA
-
-	(COD_PROCESO,
-
-	 COD_PROYECTO,
-
-	 COD_TAREA)
-
-	ON DELETE CASCADE;
-
-CREATE VIEW soul.PROCESO_INICIO_ATRIBUTO_CLASE (COD_PROYECTO, COD_PROCESO, COD_ATRIBUTO, NOM_ATRIBUTO, COD_CLASE, NOM_CLASE, BPM_FLG_ENTRADA, BPM_OBJ_REFERENCIA, BPM_FLG_PIID, WEB_FLG_REFERENCIA, WEB_FLG_VALIDACION, WEB_MEN_VALIDACION, WEB_VAL_OMISION, WEB_REQUERIDO, WEB_NOM_CAT_COMBO, SQL_FLG_AUTOGENERADO, SQL_NOM_SECUENCIAL) AS
-
-SELECT VISTA.COD_PROYECTO AS COD_PROYECTO,
-
-	       VISTA.COD_PROCESO AS COD_PROCESO,
-
-		   VISTA.COD_ATRIBUTO AS COD_ATRIBUTO,
-
-		   VISTA.NOM_ATRIBUTO AS NOM_ATRIBUTO,
-
-		   VISTA.COD_CLASE AS COD_CLASE,
-
-		   VISTA.NOM_CLASE AS NOM_CLASE,
-
-		   VISTA.BPM_FLG_ENTRADA AS BPM_FLG_ENTRADA,
-
-		   VISTA.BPM_OBJ_REFERENCIA AS BPM_OBJ_REFERENCIA,
-
-		   VISTA.BPM_FLG_PIID AS BPM_FLG_PIID,
-
-		   VISTA.WEB_FLG_REFERENCIA AS WEB_FLG_REFERENCIA,
-
-		   VISTA.WEB_FLG_VALIDACION AS WEB_FLG_VALIDACION,
-
-		   VISTA.WEB_MEN_VALIDACION AS WEB_MEN_VALIDACION,
-
-		   VISTA.WEB_VAL_OMISION AS WEB_VAL_OMISION,
-
-		   VISTA.WEB_REQUERIDO AS WEB_REQUERIDO,
-
-		   VISTA.WEB_NOM_CAT_COMBO AS WEB_NOM_CAT_COMBO,
-
-		   VISTA.SQL_FLG_AUTOGENERADO AS SQL_FLG_AUTOGENERADO,
-
-		   VISTA.SQL_NOM_SECUENCIAL AS SQL_NOM_SECUENCIAL	
-
-  FROM (SELECT PI.COD_PROYECTO AS COD_PROYECTO,
-
-       PI.COD_PROCESO AS COD_PROCESO,
-
-	   ATR.COD_ATRIBUTO AS COD_ATRIBUTO,
-
-	   ATR.NOMBRE AS NOM_ATRIBUTO,
-
-	   ATR.COD_CLASE AS COD_CLASE,
-
-	   CLA.NOMBRE AS NOM_CLASE,
-
-	   PI.BPM_FLG_ENTRADA AS BPM_FLG_ENTRADA,
-
-	   PI.BPM_OBJ_REFERENCIA AS BPM_OBJ_REFERENCIA,
-
-	   PI.BPM_FLG_PIID AS BPM_FLG_PIID,
-
-	   PI.WEB_FLG_REFERENCIA AS WEB_FLG_REFERENCIA,
-
-	   PI.WEB_FLG_VALIDACION AS WEB_FLG_VALIDACION,
-
-	   PI.WEB_MEN_VALIDACION AS WEB_MEN_VALIDACION,
-
-	   PI.WEB_VAL_OMISION AS WEB_VAL_OMISION,
-
-	   PI.WEB_REQUERIDO AS WEB_REQUERIDO,
-
-	   PI.WEB_NOM_CAT_COMBO AS WEB_NOM_CAT_COMBO,
-
-	   PI.SQL_FLG_AUTOGENERADO AS SQL_FLG_AUTOGENERADO,
-
-	   PI.SQL_NOM_SECUENCIAL AS SQL_NOM_SECUENCIAL	
-
-  FROM soul.PROCESO_INICIO PI, 
-
-       soul.ATRIBUTO ATR,
-
-       soul.CLASE CLA
-
- WHERE PI.COD_ATRIBUTO = ATR.COD_ATRIBUTO
-
-   AND ATR.COD_CLASE = CLA.COD_CLASE
-
-   ORDER BY ATR.COD_CLASE, ATR.COD_ATRIBUTO ASC) AS VISTA;
+-- Grant permissions section -------------------------------------------------
 

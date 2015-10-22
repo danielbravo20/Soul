@@ -1,0 +1,96 @@
+<script type="text/javascript" src="../webControlador/procesoatributoinicio.js"></script>
+<div ng-controller="procesoatributoinicio" style="padding-top: 5px;">
+	<div class="row">
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+			  <li><b>ATRIBUTOS DE INICIO DEL PROCESO "{{INF_NOMBRE | uppercase}}"</b></li>
+			</ol>
+		</div>
+	</div>
+	<div class="container-fluid show-grid" ng-show="vista === 'lista'">
+		<div class="panel panel-default">
+		  <div class="panel-heading">Listado de Atributos - <a class="btn btn-info btn-sm" ng-click="$parent.instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR PROCESOS</a></div>
+		  <table class="table">
+			<thead>
+			  <tr>
+				<th><input type="text" ng-model="buscar.NOM_CLASE" placeholder="Clase" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.NOM_ATRIBUTO" placeholder="Atributo" class="form-control input-sm"></th>
+				<th>Opción</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="item in data.PROCESO_INICIO | orderBy: 'NOM_CLASE' | filter:buscar" ng-show="pag.get($index) == pag.actual">
+				<td>{{item.NOM_CLASE}}</td>
+				<td>{{item.NOM_ATRIBUTO}}</td>
+				<td>
+					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.COD_ATRIBUTO)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.COD_ATRIBUTO)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+				</td>
+			  </tr>
+			  <tr>
+				<td colspan="3"><a class="btn btn-primary btn-sm" ng-click="nuevo()" tooltip="Nuevo"><i class="glyphicon glyphicon-plus"></i></a></td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div> 
+		<pagination total-items="pag.total" ng-model="pag.actual" max-size="pag.max" class="pagination-sm" boundary-links="true" items-per-page="pag.itemxPagina" style="margin: 0px 0;"></pagination>
+	</div>
+	<div class="container-fluid show-grid" ng-show="vista === 'mantener'">
+		<div class="panel panel-default">
+		  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
+		  <form name="FRM_PROCESO_ATRIBUTO_INICIO" novalidate>
+		  <table class="table">
+			<tbody>
+			  <tr>
+				<th>Clase :</th>
+				<td><select class="form-control input-sm" 
+						ng-model="cargado.PRI_COD_CLASE" 
+						ng-options="item.COD_CLASE as item.NOMBRE for item in data.CLASE | orderBy: 'NOMBRE'" 
+						ng-change="cargarComboAtributo()" 
+						ng-disabled="esEdicion"
+					></select></td>
+			  </tr>
+			  <tr>
+				<th>Atributo (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'>
+					<select class="form-control input-sm" name="PRI_COD_ATRIBUTO"
+					ng-model="cargado.PRI_COD_ATRIBUTO" 
+					ng-options="item.COD_ATRIBUTO as item.NOMBRE for item in ATRIBUTOS_CLASE | orderBy: 'NOMBRE'" 
+					ng-disabled="esEdicion" required></select></td>
+			  </tr>
+			  <tr>
+			  	<th>¿Se envia al proceso? (*) </th>
+				<td><input type="checkbox" ng-model="cargado.PRI_BPM_FLG_ENTRADA" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+			  </tr>
+			  <tr>
+			  	<th>¿Forma parte del nombre del proceso? (*) </th>
+				<td><input type="checkbox" ng-model="cargado.PRI_BPM_FLG_PIID" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+			  </tr>
+			  <tr>
+			  	<th>¿Validar atributo? (*) </th>
+				<td><input type="checkbox" ng-model="cargado.PRI_WEB_FLG_VALIDACION" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+			  </tr>
+			  <tr>
+				<th>Valor por Omisión :</th>
+				<td><input type="text" ng-model="cargado.PRI_WEB_VAL_OMISION" class="form-control input-sm"></td>
+			  </tr>
+			  <tr>
+			  	<th>¿Es un campo autogenerado? (*) </th>
+				<td><input type="checkbox" ng-model="cargado.PRI_SQL_FLG_AUTOGENERADO" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+			  </tr>
+			  <tr>
+				<th>Nombre del Sequence :</th>
+				<td><input type="text" ng-model="cargado.PRI_SQL_NOM_SECUENCIAL" class="form-control input-sm"></td>
+			  </tr>
+			  <tr>
+				<td colspan="2">
+					<a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">GUARDAR</span><span ng-show="!esEdicion">REGISTRAR</span></a>
+					<a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR</a>
+				</td>
+			  </tr>
+			</tbody>
+		  </table>
+		  </form>
+		</div>
+	</div>
+</div>

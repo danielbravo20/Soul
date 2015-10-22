@@ -1,0 +1,135 @@
+<script type="text/javascript" src="../webControlador/tareagestionar.js"></script>
+<div ng-controller="tareagestionar">
+	<div class="separadorBtn btn-group">
+		<a class="btn btn-primary btn-sm" ng-model="config.esEdicion" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">MODO EDITOR</a>
+		<input type="checkbox" ng-model="config.datosDummy" ng-true-value="true" ng-false-value="false" 
+			class="form-control input-sm" 
+			style="width:30px;display: inline-block;margin: 0px 5px 0px 20px;"
+		>
+		<label style="position: relative; display: inline; float: right; margin-bottom: 0px; padding-top: 8px;">Mostrar Info Dummy</label>
+	</div>
+	<table style="width: 100%;">
+		<tr>
+			<td width="20%" style="border: 1px solid #ccc; padding: 5px;" valign="top" ng-show="config.esEdicion">
+				<div>
+					<accordion close-others="false">
+						<accordion-group>
+							<accordion-heading>Vista</accordion-heading>
+							<div class="btn-group">
+						        <label class="btn btn-primary btn-sm" ng-model="config.tipoVista" btn-radio="'H'"> Acordeon </label>
+						        <label class="btn btn-primary btn-sm" ng-model="config.tipoVista" btn-radio="'V'"> Tabs </label>
+						    </div>
+						</accordion-group>
+					</accordion>
+					<accordion close-others="false">
+						<accordion-group>
+							<accordion-heading>Acciones</accordion-heading>
+							  <table class="table">
+								<tbody>
+									<tr><td><input type="checkbox" ng-model="config.WEB_ACC_COMPLETAR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">COMPLETAR</td></tr>
+								  	<tr>
+								  		<td><input type="checkbox" ng-model="config.WEB_ACC_SUBOBS_SHOW" class="form-control input-sm" style="width:30px" ng-true-value="true" ng-false-value="false"></td>
+								  		<td>
+											<div class="btn-group" ng-show="config.WEB_ACC_SUBOBS_SHOW">
+										        <label class="btn btn-primary btn-sm"  ng-model="config.WEB_ACC_SUBOBS" btn-radio="'O'" title="Observar"> OBS.</label>
+										        <label class="btn btn-primary btn-sm" ng-model="config.WEB_ACC_SUBOBS" btn-radio="'S'" title="Subsanar"> SUB.</label>
+										    </div>
+										    <div class="btn-group" ng-hide="config.WEB_ACC_SUBOBS_SHOW">
+										        <label class="btn btn-primary btn-sm" disabled="disabled" ng-model="config.WEB_ACC_SUBOBS" btn-radio="'O'" title="Observar"> OBS.</label>
+										        <label class="btn btn-primary btn-sm" disabled="disabled" ng-model="config.WEB_ACC_SUBOBS" btn-radio="'S'" title="Subsanar"> SUB.</label>
+										    </div>
+								  		</td>
+								  	</tr>
+								  	<tr><td><input type="checkbox" ng-model="config.WEB_ACC_GRABAR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">GRABAR</td></tr>
+								  	<tr><td><input type="checkbox" ng-model="config.WEB_ACC_CANCELAR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">CANCELAR</td></tr>
+								  	<tr><td><input type="checkbox" ng-model="config.WEB_ACC_RECHAZAR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">RECHAZAR</td></tr>
+								  	<tr><td><input type="checkbox" ng-model="config.WEB_ACC_SALIR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">SALIR</td></tr>
+								</tbody>
+							  </table>
+							</accordion-group>
+					</accordion>
+					<accordion close-others="false">
+						<accordion-group>
+							<accordion-heading>Atributos</accordion-heading>
+							<select class="form-control input-sm" ng-model="atrBuscar.COD_TABLA" ng-options="tabla.COD_TABLA as tabla.NOMBRE for tabla in tablas | orderBy: 'NOMBRE'">
+								<option></option>
+							</select>
+							<input type="text" ng-model="atrBuscar.NOMBRE" placeholder="Nombre" class="form-control input-sm">
+							<div class="simpleDemo" style="max-height: 200px; overflow : auto; border: 1px solid #ccc;">
+								<ul dnd-list="objAtributo.lista">
+							 	    <li ng-repeat="item in objAtributo.lista | filter:atrBuscar"
+							 	    	dnd-draggable="item"
+								        dnd-effect-allowed="move"
+								        dnd-selected="objAtributo.seleccionado = item"
+								        dnd-allowed-types="['principal']"
+								        dnd-type="'atributos'"
+								        ng-class="{'selected': objAtributo.seleccionado === item}"
+								    >
+								        {{item.NOMBRE}} <span class="referenciaClase">({{tablas[item.COD_TABLA].NOMBRE}})</span>
+								        <div class="tipoAtributo" title="{{item.ATR_TIPO}}">({{tipoClase[item.ATR_TIPO]}})</div>
+								    </li>
+								</ul>
+							</div>
+							<a class="btn btn-primary btn-sm" ng-click="objAtributo.abrirListado()"><i class="glyphicon glyphicon-plus"></i></a>
+						</accordion-group>
+					</accordion>
+				</div>
+			</td>
+			<td width="80%" style="border: 1px solid #ccc; padding: 5px;" valign="top" class="simpleDemoB">
+				<div ng-include="'tareagestionar_titulo.html'"></div>
+				<div ng-include="'tareagestionar_acordeon.html'" ng-show="config.tipoVista=='H'"></div>
+				<div ng-include="'tareagestionar_tab.html'" ng-show="config.tipoVista=='V'"></div>
+				<div ng-include="'tareagestionar_botonera.html'"></div>
+			</td>
+		</tr>
+	</table>
+	<alert ng-show="mensajeError.length>0">{{mensajeError}}</alert>
+	<div class="separadorBtn" ng-show="config.esEdicion">
+		<a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="config.esEdicion">GUARDAR</span><span ng-show="!config.esEdicion">REGISTRAR</span></a>
+		<a class="btn btn-info btn-sm" ng-click="$parent.instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR</a>
+	</div>
+</div>
+<script type="text/ng-template" id="popover_seccion.html">
+	<table style="border-collapse: separate; border-spacing: 5px;">
+		<tr>
+			<td colspan="6">
+				<span ng-show="seccion.ID_PADRE.length>0">{{seccion.nombre}}</span>
+				<input ng-hide="seccion.ID_PADRE.length>0" type="text" placeholder="Nombre" class="form-control input-sm" style="width:100%" ng-model="seccion.nombre">
+			</td>
+		</tr>
+		<tr>
+			<td><a class="btn btn-danger btn-sm" ng-click="seccionEliminar()" ng-disabled="seccion.ID_PADRE.length>0" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="seccionBajar()" tooltip="Mover a la Izquierda"><i class="glyphicon glyphicon-arrow-left"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="seccionSubir()" tooltip="Mover a la Derecha"><i class="glyphicon glyphicon-arrow-right"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="seccionCopiar()" ng-disabled="seccion.ID_PADRE.length>0" tooltip="Copiar"><i class="glyphicon glyphicon-tags"></i></a></td>
+			<td><i class="glyphicon glyphicon-info-sign" style="color: brown;" title="DEFINIR COMO PLANTILLA"></i></td>
+			<td><input ng-hide="seccion.ID_PADRE.length>0" type="checkbox" ng-model="seccion.EDITOR_PLANTILLA" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+		</tr>
+	</table>
+</script>
+<script type="text/ng-template" id="popover_subSeccion.html">
+	<table style="border-collapse: separate; border-spacing: 5px;">
+		<tr>
+			<td colspan="4"> <input type="text" placeholder="{{subSeccion.nombre}}" class="form-control input-sm" style="width:100%" ng-model="subSeccion.nombre"></td>
+		</tr>
+		<tr>
+			<td><a class="btn btn-danger btn-sm" ng-click="subSeccionEliminar()" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="subSeccionSubir()" tooltip="Subir"><i class="glyphicon glyphicon-arrow-up"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="subSeccionBajar()" tooltip="Bajar"><i class="glyphicon glyphicon-arrow-down"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="subSeccionCopiar()" tooltip="Copiar"><i class="glyphicon glyphicon-tags"></i></a></td>
+		</tr>
+	</table>
+</script>
+<script type="text/ng-template" id="popover_atributo.html">
+	<table style="border-collapse: separate; border-spacing: 5px;">
+		<tr>
+			<td colspan="4"><select class="form-control input-sm" ng-model="atributo.EDITOR_TIPO_CAMPO" ng-options="campo.id as campo.nombre for campo in tipoCampo[tipoClase[atributo.ATR_TIPO]]"></select></td>
+		</tr>
+		<tr>
+			<td><a class="btn btn-danger btn-sm" ng-click="objAtributo.eliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="objAtributo.bajar($index)" tooltip="Mover a la Izquierda"><i class="glyphicon glyphicon-arrow-left"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="objAtributo.subir($index)" tooltip="Mover a la Derecha"><i class="glyphicon glyphicon-arrow-right"></i></a></td>
+			<td><input ng-show="atributo.EDITOR_TIPO_CAMPO == 'C' || atributo.EDITOR_TIPO_CAMPO == 'A' || atributo.EDITOR_TIPO_CAMPO == 'E' || atributo.EDITOR_TIPO_CAMPO == 'E'" type="checkbox" ng-model="atributo.EDITOR_OBLIGATORIO" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"> Obligatorio</td>
+		</tr>
+	</table>
+</script>

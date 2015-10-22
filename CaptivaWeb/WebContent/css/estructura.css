@@ -1,0 +1,420 @@
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.fondoTop {
+	background: rgba(226,226,226,1);
+	background: -moz-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(226,226,226,1)), color-stop(50%, rgba(219,219,219,1)), color-stop(51%, rgba(209,209,209,1)), color-stop(100%, rgba(254,254,254,1)));
+	background: -webkit-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+	background: -o-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+	background: -ms-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+	background: linear-gradient(to bottom, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe', GradientType=0 );
+}
+
+.LOGEO_TOP {
+	height: 50px;
+	padding-top: 8px;
+	text-align: center;
+	-webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.175);
+	box-shadow: 0 3px 3px rgba(0,0,0,0.175);
+}
+
+.PIE_PAGINA {
+	width: 100%;
+	position: fixed;
+	bottom: 0px;
+	color: #FFF;
+	font-size: 9px;
+	background-image: url(../imagenes/PIE_PAGINA.png);
+	text-align: center;
+	height: 30px;
+	line-height: 40px;
+	z-index: 1;
+}
+
+/* LONGITUDES */
+
+.W_100 { width: 100%; }
+.W_99 { width: 99%; }
+.W_80 { width: 80%; }
+.W_50 { width: 50%; }
+.W_15 { width: 15%; }
+
+.W_150p { width: 150px; }
+.W_130p { width: 130px; }
+.W_100p { width: 100px; }
+.W_70p { width: 70px; }
+.W_50p { width: 50px; }
+.W_30p { width: 30px; }
+
+.BC_AZUL_0 {	background : #CCEBF5; }
+.BC_VERDE_0 {	background : #D4E0DA; }
+.BC_ROJO_0 {	background : #FAEBE6; }
+.BC_MORADO_0 {	background : #F5EDF5; }
+.BC_CIAN_0 {	background : #E6FCFC; }
+
+.BC_AZUL_1 {	background : #0099CC; }
+.BC_VERDE_1 {	background : #6E9783; }
+.BC_ROJO_1 {	background : #CC3300; }
+.BC_MORADO_1 {	background : #A382A3; }
+.BC_CIAN_1 {	background : #00CFCF; }
+
+.frm_requerido {
+    color: red;
+}
+
+.frm_plantillaFondo {
+	background-color: #FCFCE8;
+}
+
+.FLDSET_1 {
+	margin-right: 15px;
+}
+
+.FLDSET_1 ul {
+	margin: 0px;
+}
+
+.FLDSET_1 ul .Li1 {
+	margin-left: -20px;
+	padding-bottom: 5px;
+}
+
+.FLDSET_1 ul .Li2 {
+	margin-left: -20px;
+}
+
+.cls_mapeo_porc {
+	position: relative;
+}
+
+.cls_mapeo_Texto {
+	position: absolute;
+    left: 50%;
+    top: 4px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #fff;
+}
+
+/* top */
+
+
+.navbar-inner {
+  -webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.175);
+  box-shadow: 0 3px 3px rgba(0,0,0,0.175);
+}
+
+.nav {
+  cursor: pointer;
+}
+.navbar .collapse {
+  border-top: 1px solid #e7e7e7;
+  margin-left: -15px;
+  margin-right: -15px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+@media (max-width: 767px) {
+
+    .visible-xs.collapse.in {
+        display: block!important;
+    }
+    .visible-xs.collapse {
+        display: none!important;
+    }
+
+}
+
+.seccion_alertas {
+	position: fixed;
+	bottom: 30px;
+	left: 5px;
+	width: 30%
+}
+
+.alert {
+  padding: 10px;
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-dismissable .close {
+  position: relative;
+  top: -2px;
+  right: 0px;
+  color: inherit;
+}
+
+.atributoLongitudCPresicion {
+	width : 100px;
+}
+
+.botonesRapidosGenerar {
+	position: fixed;
+	bottom: 2px;
+	right: 2px;
+}
+
+.ejemplo {
+	font-size: 10px;
+	font-style: italic;
+	color: #D6D6D6;
+}
+
+/* FORMATO GENERADOR DE TAREAS */
+.filaTitulo {
+	display: inline-block;
+    width: 100%;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	border-bottom: 2px solid #ddd;
+	font-weight: bold;
+	background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(192,221,247,0.2) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(192,221,247,0.2))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(192,221,247,0.2) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(192,221,247,0.2) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(192,221,247,0.2) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(192,221,247,0.2) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#33c0ddf7',GradientType=0 ); /* IE6-9 */
+}
+
+.frm_fila {
+    border-bottom: 1px solid #ddd;
+}
+
+.frm_celda {
+    display: inline-block;
+    font-size: 12px;
+	vertical-align: top;
+}
+
+.frm_celdaF {
+    width: 100%;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.frm_etiqueta {
+	vertical-align: inherit;
+	width: 250px;
+	display: inline-block;
+	padding: 2px;
+	font-weight: bold;
+}
+
+.frm_campo {
+	display:inline-block;
+	padding: 2px;
+	font-weight:lighter;
+}
+
+.frm_cel_1a, .frm_cel_1b, .frm_cel_2a, .frm_cel_2b {
+    /* border-bottom: 1px solid #ddd; */
+}
+
+.frm_cel_1a {
+    background-color: transparent;
+    min-height: 38px;
+}
+
+.frm_cel_2a {
+    background-color: #f9f9f9;
+    min-height: 38px;
+}
+
+.frm_cel_2a {
+    background-color: #f9f9f9;
+    min-height: 38px;
+}
+
+.frm_cel_2b {
+    background-color: #f9f9f9;
+    min-height: 38px;
+}
+
+.separadorBtn {
+	padding: 5px 0px 5px 0px;
+}
+
+/** SLIDE */
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+.simpleDemo ul[dnd-list],
+.simpleDemo ul[dnd-list] > li {
+	position: relative;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.simpleDemo ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.simpleDemo ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.simpleDemo ul[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+.simpleDemo ul[dnd-list] li {
+    background-color: #fff;
+    /*border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    margin-bottom: -1px;*/
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #ddd;
+    display: block;
+    padding: 10px 15px;
+    
+}
+
+/**
+ * Show selected elements in green
+ */
+.simpleDemo ul[dnd-list] li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+/** SLIDE */
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+.simpleDemoB ul[dnd-list],
+.simpleDemoB ul[dnd-list] > li {
+	position: relative;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.simpleDemoB ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.simpleDemoB ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.simpleDemoB ul[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+ 
+.simpleDemoB ul[dnd-list] li.AnchoExtendido {
+	height: 70px;
+}
+.simpleDemoB ul[dnd-list] li.ModoEditorDual {
+	width: 50%;
+}
+.simpleDemoB ul[dnd-list] li.ModoEditorTotal {
+	width: 100%;
+}
+
+.simpleDemoB ul[dnd-list] li.ModoVisualDual {
+	width: 50%;
+}
+.simpleDemoB ul[dnd-list] li.ModoVisualTotal {
+	width: 100%;
+}
+ 
+.simpleDemoB ul[dnd-list] li.ModoEditor {
+    /*background-color: #fff;*/
+    border: 1px solid #ddd;
+    display: block;
+    margin-bottom: -1px;
+    padding: 10px 15px;
+    float: left;
+}
+
+.simpleDemoB ul[dnd-list] li.ModoVisual {
+   /* background-color: #fff;*/
+    border-bottom: 1px solid #ddd;
+    display: block;
+    float: left;
+}
+
+/**
+ * Show selected elements in green
+ */
+.simpleDemoB ul[dnd-list] li.selected {
+    background-color: #EFF8EC;
+   /* color: #3c763d;*/
+}
+
+.referenciaClase {
+    font-style: italic;
+    color: darkgray;
+}	
+
+.tipoAtributo {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: brown;
+    font-weight: bold;
+    font-size: 10px;
+    font-style: italic;
+}

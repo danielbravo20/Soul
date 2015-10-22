@@ -1,0 +1,209 @@
+<script type="text/javascript" src="../webControlador/atributo.js"></script>
+<div ng-controller="atributo" style="padding-top: 5px;">
+	<div class="row">
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+			  <li><b>ATRIBUTOS DE LA CLASE "{{clasePadre.NOMBRE | uppercase}}"</b></li>
+			</ol>
+		</div>
+	</div>
+	<div class="container-fluid show-grid" ng-show="vista === 'lista'">
+		<div class="panel panel-default">
+		  <div class="panel-heading">Listado de Atributos - <a class="btn btn-info btn-sm" ng-click="$parent.instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR CLASES</a></div>
+		  <table class="table">
+			<thead>
+			  <tr>
+				<th><input type="text" ng-model="buscar.COD_ATRIBUTO" placeholder="Código" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.NOMBRE" placeholder="Nombre" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.TIPO" placeholder="Tipo" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.WEB_NOMBRE" placeholder="Web Nombre" class="form-control input-sm"></th>
+				<th>DO</th>
+				<th><input type="text" ng-model="buscar.DO_NOMBRE" placeholder="DO Nombre" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.DO_TIPO" placeholder="DO Tipo" class="form-control input-sm"></th>
+				<th width="120px">Opción</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="item in data.ATRIBUTO | orderBy: 'COD_ATRIBUTO' | filter:buscar" ng-show="pag.get($index) == pag.actual">
+				<td>{{item.COD_ATRIBUTO}}</td>
+				<td>{{item.NOMBRE}}</td>
+				<td>{{item.TIPO}}</td>
+				<td>{{item.WEB_NOMBRE}}</td>
+				<td>{{getDO(item.DO_COD_OBJ_BPM)}}</td>
+				<td>{{item.DO_NOMBRE}}</td>
+				<td>{{item.DO_TIPO}}</td>
+				<td>
+					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.COD_ATRIBUTO)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.COD_ATRIBUTO)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+				</td>
+			  </tr>
+			  <tr>
+				<td colspan="8"><a class="btn btn-primary btn-sm" ng-click="nuevo()" tooltip="Nuevo"><i class="glyphicon glyphicon-plus"></i></a></td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+		<pagination total-items="pag.total" ng-model="pag.actual" max-size="pag.max" class="pagination-sm" boundary-links="true" items-per-page="pag.itemxPagina" style="margin: 0px 0;"></pagination>
+	</div>
+	<div class="container-fluid show-grid" ng-show="vista === 'mantener'">
+		<table>
+		  <tr>
+			<td><b>Registro detallado :</b></td>
+			<td><input type="checkbox" ng-model="cargado.esDetallado" class="form-control input-sm" style="width:30px"></td>
+		  </tr>
+		</table>
+		<div class="panel panel-default">
+		  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
+		  <form name="FRM_ATRIBUTO" novalidate>
+		  <table class="table" style="margin-bottom: 0px;">
+			<tbody>
+			  <tr>
+				<th>Codigo (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="number" ng-model="cargado.ATR_COD_ATRIBUTO" name="ATR_COD_ATRIBUTO" ng-disabled="esEdicion" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Inf Nombre :</th>
+				<td><input type="text" ng-model="cargado.ATR_INF_NOMBRE" class="form-control input-sm" ng-change="formatearNombres()"></td>
+			  </tr>
+			  <tr>
+				<th>Nombre (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.ATR_NOMBRE" name="ATR_NOMBRE" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Tipo (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'>
+					<input type="text" autocomplete="off" name="ATR_TIPO" class="form-control input-sm"
+						data-typeahead-editable="false" 
+						data-ng-model="cargado.ATR_TIPO" 
+						data-typeahead="tipoDato for tipoDato in tipoDatos | filter:$viewValue | limitTo:8"
+					required>
+				</td>
+			  </tr>
+			  <tr>
+				<th>Es Lista (*) :</th>
+				<td><input type="checkbox" ng-model="cargado.ATR_FLG_LISTA" name="ATR_FLG_LISTA" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
+			  </tr>
+			  <tr>
+				<th>Web Nombre :</th>
+				<td><input type="text" ng-model="cargado.ATR_WEB_NOMBRE" class="form-control input-sm"></td>
+			  </tr>
+			  <tr ng-show="cargado.esDetallado">
+				<th>Web Formato :</th>
+				<td><input type="text" ng-model="cargado.ATR_WEB_FORMATO" class="form-control input-sm"></td>
+			  </tr>
+			  <tr ng-show="cargado.esDetallado">
+				<th>Inf Descripcion :</th>
+				<td><input type="text" ng-model="cargado.ATR_INF_DESCRIPCION" class="form-control input-sm"></td>
+			  </tr>
+			  <tr ng-show="cargado.esDetallado">
+				<th>Inf Autor :</th>
+				<td><input type="text" ng-model="cargado.ATR_INF_AUTOR" class="form-control input-sm"></td>
+			  </tr>
+			  <tr ng-show="cargado.esDetallado">
+				<th>Web Mensaje Validación :</th>
+				<td><input type="text" ng-model="cargado.ATR_WEB_MEN_VALIDACION" class="form-control input-sm"></td>
+			  </tr>
+			  <tr ng-show="cargado.esDetallado">
+				<th>Web Formulario Validación :</th>
+				<td><input type="text" ng-model="cargado.ATR_WEB_FOR_VALIDACION" class="form-control input-sm"></td>
+			  </tr>
+			  <tr class="info">
+				<th>Tiene Data Object :</th>
+				<td><input type="checkbox" ng-model="cargado.FLG_dataObject" ng-disabled="cargado.FLG_dataObjectDesabilitado" style="width:30px" class="form-control input-sm"></td>
+			  </tr>
+			  <tr class="info" ng-show="cargado.FLG_dataObject">
+				<th>Código DO (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'>
+					<select class="form-control input-sm"
+						ng-model="cargado.ADO_COD_OBJ_BPM"
+						ng-options="obj.COD_OBJ_BPM as obj.NOMBRE for obj in data.OBJ_BPM | orderBy: 'NOMBRE'"
+						name="ADO_COD_OBJ_BPM"
+					ng-required="cargado.FLG_dataObject"></select>
+				</td>
+			  </tr>
+			  <tr class="info" ng-show="cargado.FLG_dataObject">
+				<th>Nombre (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.ADO_NOMBRE" name="ADO_NOMBRE" class="form-control input-sm" ng-required="cargado.FLG_dataObject"></td>
+			  </tr>
+			  <tr class="info" ng-show="cargado.FLG_dataObject">
+				<th>Tipo :</th>
+				<td><input type="text" ng-model="cargado.ADO_TIPO" class="form-control input-sm"></td>
+			  </tr>
+			  <tr class="info" ng-show="cargado.FLG_dataObject && cargado.esDetallado">
+				<th>Objeto Relacionado :</th>
+				<td><input type="number" ng-model="cargado.ADO_OBJ_RELACIONADO" class="form-control input-sm"></td>
+			  </tr>
+			  <tr class="warning">
+				<th>Tiene SQL :</th>
+				<td><input type="checkbox" ng-model="cargado.FLG_sql" ng-disabled="cargado.FLG_sqlDesabilitado" style="width:30px" class="form-control input-sm"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql">
+				<th>Código de Tabla (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'>
+					<select class="form-control input-sm"
+						ng-model="cargado.ADB_COD_TABLA"
+						ng-options="obj.COD_TABLA as obj.NOMBRE for obj in data.TABLA | orderBy: 'NOMBRE'"
+						name="ADB_COD_TABLA"
+					ng-required="cargado.FLG_sql"></select>
+				</td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql">
+				<th>Campo (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.ADB_CAMPO" name="ADB_CAMPO" class="form-control input-sm" ng-required="cargado.FLG_sql"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql">
+				<th>Tipo (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.ADB_TIPO" name="ADB_TIPO" class="form-control input-sm" ng-required="cargado.FLG_sql"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql">
+				<th>Longitud :</th>
+				<td><input type="number" ng-model="cargado.ADB_LONGITUD" class="form-control input-sm"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql">
+				<th>Precision :</th>
+				<td><input type="number" ng-model="cargado.ADB_PRECISION" class="form-control input-sm"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql">
+				<th>Llave Primaria (*) :</th>
+				<td><input type="checkbox" ng-model="cargado.ADB_PK" name="ADB_PK" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql">
+				<th>Obligatorio (*) :</th>
+				<td><input type="checkbox" ng-model="cargado.ADB_OBLIGATORIO" name="ADB_OBLIGATORIO" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql && cargado.esDetallado">
+				<th>FK Tabla :</th>
+				<td><input type="number" ng-model="cargado.ADB_FK_TABLA" class="form-control input-sm"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql && cargado.esDetallado">
+				<th>FK Es uno a muchos :</th>
+				<td><input type="checkbox" ng-model="cargado.ADB_FK_UNO_MUCHO" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql && cargado.esDetallado">
+				<th>Foranea Busqueda por Nombre :</th>
+				<td><input type="text" ng-model="cargado.ADB_FN_BUS_NOMBRE" class="form-control input-sm"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql && cargado.esDetallado">
+				<th>Foranea Busqueda Catálogo :</th>
+				<td><input type="text" ng-model="cargado.ADB_FN_BUS_CATALOGO" class="form-control input-sm"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql && cargado.esDetallado">
+				<th>Valor por Defecto :</th>
+				<td><input type="text" ng-model="cargado.ADB_VAL_DEFECTO" class="form-control input-sm"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql && cargado.esDetallado">
+				<th>FK Campo :</th>
+				<td><input type="number" ng-model="cargado.ADB_FK_CAMPO" class="form-control input-sm"></td>
+			  </tr>
+			  <tr>
+				<td colspan="2">
+					<a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">GUARDAR</span><span ng-show="!esEdicion">REGISTRAR</span></a>
+					<a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR</a>
+				</td>
+			  </tr>
+			</tbody>
+		  </table>
+		  </form>
+		</div>
+	</div>
+</div>
