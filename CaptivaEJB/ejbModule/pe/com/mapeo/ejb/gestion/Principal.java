@@ -18,20 +18,20 @@ public class Principal extends GestionBase implements PrincipalLocal {
 		
 		Map<String,Object> listados = new HashMap<String,Object>();
 		
-		List<Map<String, Object>> listaProyectosxEquipo = (List<Map<String, Object>>) jpo.tabla("EQUIPO","EQU").seleccionar("COD_PROYECTO");
+		List<Map<String, Object>> listaProyectosxEquipo = (List<Map<String, Object>>) jpo.tabla("EQUIPO","EQU").seleccionar("cod_proyecto");
 		
 		if(listaProyectosxEquipo.size()>0){
 			
 			StringBuilder wheresIn = new StringBuilder();
 			for(int i=0;i<listaProyectosxEquipo.size();i++){
 				Map<String, Object> objProyecto = listaProyectosxEquipo.get(i);
-				wheresIn.append("'"+objProyecto.get("COD_PROYECTO")+"',");
+				wheresIn.append("'"+objProyecto.get("cod_proyecto")+"',");
 			}
 			String whereIn = wheresIn.toString().substring(0,wheresIn.toString().length()-1);
 			
-			listados.put("PROYECTOS", jpo.tabla("PROYECTO").donde("COD_PROYECTO IN ("+whereIn+")").seleccionar("*"));
-			listados.put("USUARIOS_PROYECTOS", jpo.tabla("EQUIPO").donde("COD_PROYECTO IN ("+whereIn+")").seleccionar("*"));
-			listados.put("VERSIONES", jpo.tabla("VERSION").donde("COD_PROYECTO IN ("+whereIn+")").seleccionar("*"));
+			listados.put("PROYECTOS", jpo.tabla("PROYECTO").donde("cod_proyecto IN ("+whereIn+")").seleccionar("*"));
+			//listados.put("USUARIOS_PROYECTOS", jpo.tabla("EQUIPO").donde("COD_PROYECTO IN ("+whereIn+")").seleccionar("*"));
+			//listados.put("VERSIONES", jpo.tabla("VERSION").donde("COD_PROYECTO IN ("+whereIn+")").seleccionar("*"));
 			
 		}
 		
@@ -60,7 +60,7 @@ public class Principal extends GestionBase implements PrincipalLocal {
 		listados.put("CLASE", jpo.tabla("CLASE","LIB").seleccionar("*"));
 		listados.put("PROCESO", jpo.tabla("PROCESO","LIB").seleccionar("*"));
 		listados.put("TABLA", jpo.tabla("TABLA","LIB").seleccionar("*"));
-		listados.put("OBJ_BPM", jpo.tabla("OBJ_BPM","LIB").seleccionar("*"));
+		//listados.put("OBJ_BPM", jpo.tabla("OBJ_BPM","LIB").seleccionar("*"));
 		listados.put("CONSULTA", jpo.tabla("CONSULTA","LIB").seleccionar("*"));
 		listados.put("MANTENIMIENTO", jpo.tabla("MANTENIMIENTO","LIB").seleccionar("*"));
 		// COD_PROYECTO y COD_VERSION
@@ -68,8 +68,8 @@ public class Principal extends GestionBase implements PrincipalLocal {
 		listados.put("EQUIPO", jpo.tabla("EQUIPO","LIC").obtener("*"));
 		
 		// SIN CONDICIONES
-		listados.put("MAE_UNI_NEGOCIO", jpo.tabla("MAE_UNI_NEGOCIO").seleccionar("*"));
-		listados.put("MAE_PRODUCTO", jpo.tabla("MAE_PRODUCTO").seleccionar("*"));
+		//listados.put("MAE_UNI_NEGOCIO", jpo.tabla("MAE_UNI_NEGOCIO").seleccionar("*"));
+		//listados.put("MAE_PRODUCTO", jpo.tabla("MAE_PRODUCTO").seleccionar("*"));
 		
 		return listados;
 	

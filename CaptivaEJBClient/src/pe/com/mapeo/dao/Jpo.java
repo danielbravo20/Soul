@@ -16,7 +16,7 @@ public class Jpo {
 	private String jdbcClassName = "org.sqlite.JDBC";
 	private  String url = "jdbc:sqlite:\\\\OHUERTASP\\Compartido\\Mapeov4.db";
 	*/
-	private String tipo = "DB2";
+	private String tipo = "POSTGRESQL";
 	private String jdbcClassName = "org.postgresql.Driver";
 	private String url = "jdbc:postgresql://localhost:5432/Captiva";
 	private String user = "postgres";
@@ -41,9 +41,16 @@ public class Jpo {
 	    	if(tipo.equals("DB2")){
 	    		c = DriverManager.getConnection(url, user, password);
 	    	}
+	    	if(tipo.equals("POSTGRESQL")){
+	    		c = DriverManager.getConnection(url, user, password);
+	    	}
 	    	System.out.println("Conectado a 'Mapeov4' correctamente en : "+url);
 
-	    	c.setAutoCommit(autoCommit);
+	    	if(tipo.equals("POSTGRESQL")){
+	    		c.setAutoCommit(false);
+	    	} else {
+	    		c.setAutoCommit(autoCommit);
+	    	}
 		} catch ( Exception e ) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println("ERROR AL CONECTARSE A LA BASE DE DATOS :");

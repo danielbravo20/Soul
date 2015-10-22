@@ -68,16 +68,14 @@ public class Consulta extends GestionBase implements ConsultaLocal {
 			);
 			elementos.put("CONSULTA_ATRIBUTO", 
 				jpo.tablas(
-						new String[] {	"CONSULTA_ATRIBUTO" ,  "ATRIBUTO", "ATRIBUTO_DO", "ATRIBUTO_SQL"},
-						new String[] {	"CAT"				,  "ATR"	 , "ATD"		, "ASQ"			}
+						new String[] {	"CONSULTA_ATRIBUTO" ,  "ATRIBUTO", "ATRIBUTO_SQL"},
+						new String[] {	"CAT"				,  "ATR"	 , "ASQ"		 }
 				).dondeUnir(
 						new String[] { "CAT", "ATR"},
 						new String[] { "COD_ATRIBUTO"}
 				).dondeUnirIzquierda(
-						"ATD", "ATR", new String[] { "COD_ATRIBUTO"}
-				).dondeUnirIzquierda(
 						"ASQ", "ATR", new String[] { "COD_ATRIBUTO"}
-				).seleccionar("CAT.*,ATR.*,ATD.*,ASQ.*,ATR.NOMBRE AS ATR_NOMBRE,ATR.TIPO AS ATR_TIPO,ATD.NOMBRE AS ATD_NOMBRE,ATD.TIPO AS ATD_TIPO,ASQ.TIPO AS ASQ_TIPO")
+				).seleccionar("CAT.*,ATR.*,ASQ.*,ATR.NOMBRE AS ATR_NOMBRE,ATR.TIPO AS ATR_TIPO,ASQ.TIPO AS ASQ_TIPO")
 			);
 		return elementos;
 	}

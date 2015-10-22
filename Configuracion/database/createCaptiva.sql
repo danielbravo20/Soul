@@ -8,6 +8,8 @@ Database: PostgreSQL 9.4
 
 -- Create schemas section -------------------------------------------------
 
+DROP SCHEMA soul CASCADE;
+
 CREATE SCHEMA soul AUTHORIZATION postgres
 ;
 
@@ -500,6 +502,22 @@ CREATE TABLE soul.usuario(
 -- Add keys for table soul.usuario
 
 ALTER TABLE soul.usuario ADD CONSTRAINT pk_cod_usuario PRIMARY KEY (cod_usuario)
+;
+
+-- Table soul.usuario
+
+CREATE TABLE soul.equipo(
+ cod_proyecto Integer NOT NULL,
+ cod_usuario Character varying(50) NOT NULL,
+ es_responsable Character(1) NOT NULL,
+ carpeta_destino_workspace Character varying(255) NOT NULL DEFAULT '',
+ carpeta_destino_parcial Character varying(250) NOT NULL DEFAULT ''
+)
+;
+
+-- Add keys for table soul.equipo
+
+ALTER TABLE soul.equipo ADD CONSTRAINT pk_equipo PRIMARY KEY (cod_proyecto,cod_usuario)
 ;
 
 -- Create relationships section ------------------------------------------------- 

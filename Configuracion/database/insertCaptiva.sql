@@ -2116,3 +2116,9 @@ INSERT INTO soul.TAREA_ATR_RECHAZAR(COD_PROCESO, COD_TAREA, COD_ATRIBUTO, JAV_VA
 INSERT INTO soul.TAREA_ATR_RECHAZAR(COD_PROCESO, COD_TAREA, COD_ATRIBUTO, JAV_VAL_OMISION, WEB_FLG_VALIDACION) VALUES (2, 207, 4, '"REC"', null);
 INSERT INTO soul.TAREA_ATR_RECHAZAR(COD_PROCESO, COD_TAREA, COD_ATRIBUTO, JAV_VAL_OMISION, WEB_FLG_VALIDACION) VALUES (4, 402, 4, '"REC"', null);
 
+INSERT INTO soul.USUARIO(cod_usuario, clave, nombre, perfil, descripcion) VALUES ('david', '060bc402578dd3007cb78582c46796a7', 'David', 'LID_TEC', 'David');
+INSERT INTO soul.USUARIO(cod_usuario, clave, nombre, perfil, descripcion) VALUES ('daniel', '060bc402578dd3007cb78582c46796a7', 'Daniel', 'PRO_MAN', 'Daniel');
+ 
+INSERT INTO soul.EQUIPO(cod_proyecto, cod_usuario, es_responsable, carpeta_destino_workspace, carpeta_destino_parcial) VALUES (1, 'david', '1', 'D:\oscar\Compartido\generadoData', 'D:\oscar\Compartido\generadoData');
+INSERT INTO soul.EQUIPO(cod_proyecto, cod_usuario, es_responsable, carpeta_destino_workspace, carpeta_destino_parcial) VALUES (1, 'Daniel', '1', 'D:\oscar\Compartido\generadoData', 'D:\oscar\Compartido\generadoData');
+

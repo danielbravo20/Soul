@@ -6,22 +6,21 @@
 		  <table class="table">
 			<thead>
 			  <tr>
-				<th><input type="text" ng-model="buscar.COD_CLASE" placeholder="Código" class="form-control input-sm"></th>
-				<th><input type="text" ng-model="buscar.NOMBRE" placeholder="Nombre" class="form-control input-sm"></th>
-				<th><input type="text" ng-model="buscar.PAQUETE" placeholder="Paquete" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.cod_clase" placeholder="Código" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.nombre" placeholder="Nombre" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.paquete" placeholder="Paquete" class="form-control input-sm"></th>
 				<th>Opción</th>
 			  </tr>
 			</thead>
 			<tbody>
-			  <tr ng-repeat="item in data.CLASE | orderBy: 'COD_CLASE' | filter:buscar" ng-show="pag.get($index) == pag.actual">
-				<td>{{item.COD_CLASE}}</td>
-				<td>{{item.NOMBRE}}</td>
-				<td>{{item.PAQUETE}}</td>
+			  <tr ng-repeat="item in data.CLASE | orderBy: 'cod_clase' | filter:buscar" ng-show="pag.get($index) == pag.actual">
+				<td>{{item.cod_clase}}</td>
+				<td>{{item.nombre}}</td>
+				<td>{{item.paquete}}</td>
 				<td>
-					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.COD_CLASE)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
-					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.COD_CLASE)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
-					<a class="btn btn-info btn-sm" ng-click="gestionarAtributos(item.COD_CLASE)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></a>
-					<a class="btn btn-warning btn-sm" ng-click="clonar(item.COD_CLASE)" tooltip="Clonar"><i class="glyphicon glyphicon-transfer"></i></a>
+					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.cod_clase)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.cod_clase)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+					<a class="btn btn-info btn-sm" ng-click="gestionarAtributos(item.cod_clase)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></a>
 				</td>
 			  </tr>
 			  <tr>
@@ -40,27 +39,27 @@
 			<tbody>
 			  <tr>
 				<th>Codigo (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CLA_COD_CLASE" name="CLA_COD_CLASE" ng-disabled="esEdicion" class="form-control input-sm" required></td>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CLA_cod_clase" name="CLA_cod_clase" ng-disabled="esEdicion" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
 				<th>Nombre (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CLA_NOMBRE" name="CLA_NOMBRE" class="form-control input-sm" required></td>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CLA_nombre" name="CLA_nombre" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
 				<th>Paquete (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CLA_PAQUETE" name="CLA_PAQUETE" class="form-control input-sm" required></td>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CLA_paquete" name="CLA_paquete" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
 				<th>Autor :</th>
-				<td><input type="text" ng-model="cargado.CLA_INF_AUTOR" class="form-control input-sm"></td>
+				<td><input type="text" ng-model="cargado.CLA_inf_autor" class="form-control input-sm"></td>
 			  </tr>
 			  <tr>
 				<th>Descripción :</th>
-				<td><input type="text" ng-model="cargado.CLA_INF_DESCRIPCION" class="form-control input-sm"></td>
+				<td><input type="text" ng-model="cargado.CLA_inf_descripcion" class="form-control input-sm"></td>
 			  </tr>
 			  <tr>
 				<th>Nivel :</th>
-				<td><input type="number" ng-model="cargado.CLA_NIVEL" class="form-control input-sm"></td>
+				<td><input type="number" ng-model="cargado.CLA_nivel" class="form-control input-sm"></td>
 			  </tr>
 			  <tr>
 				<td colspan="2">

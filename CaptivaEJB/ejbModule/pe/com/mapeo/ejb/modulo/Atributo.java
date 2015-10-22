@@ -15,11 +15,8 @@ import pe.com.mapeo.ejb.controller.GestionBase;
 public class Atributo extends GestionBase implements AtributoLocal {
 
 	public Object registrar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		jpo.autoCommit(false);
+		//jpo.autoCommit(false);
 			jpo.tabla("ATRIBUTO","ATR").registrar();
-			if(request.getParameter("FLG_dataObject") != null && request.getParameter("FLG_dataObject").equals("true")){
-				jpo.tabla("ATRIBUTO_DO","ADO").registrar();
-			}
 			if(request.getParameter("FLG_sql") != null && request.getParameter("FLG_sql").equals("true")){
 				jpo.tabla("ATRIBUTO_SQL","ADB").registrar();
 			}
@@ -30,30 +27,17 @@ public class Atributo extends GestionBase implements AtributoLocal {
 	public Object editarCargar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		Map<String,Object> elementos = new HashMap<String,Object>();
 			elementos.put("ATRIBUTO", jpo.tabla("ATRIBUTO","ATR").obtener("*"));
-			elementos.put("ATRIBUTO_DO", jpo.tabla("ATRIBUTO_DO","ADO").obtener("*"));
 			elementos.put("ATRIBUTO_SQL", jpo.tabla("ATRIBUTO_SQL","ADB").obtener("*"));
 		return elementos;
 	}
 	
 	public Object editar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		
-		String flg_dataObject = request.getParameter("FLG_dataObject");
-		String flg_dataObjectEsEdicion = request.getParameter("FLG_dataObjectEsEdicion");
 		String flg_sql = request.getParameter("FLG_sql");
 		String flg_sqlEsEdicion = request.getParameter("FLG_sqlEsEdicion");
 		
-		jpo.autoCommit(false);
+		//jpo.autoCommit(false);
 			jpo.tabla("ATRIBUTO","ATR").editar();
-			Tabla atributoDO = jpo.tabla("ATRIBUTO_DO","ADO");
-			if(flg_dataObject != null && flg_dataObject.equals("true")){
-				if(flg_dataObjectEsEdicion != null && flg_dataObjectEsEdicion.equals("true")){
-					atributoDO.editar();
-				} else {
-					atributoDO.registrar();
-				}
-			} else {
-				atributoDO.eliminar();
-			}
 			Tabla atributoSQL = jpo.tabla("ATRIBUTO_SQL","ADB");
 			if(flg_sql != null && flg_sql.equals("true")){
 				if(flg_sqlEsEdicion != null && flg_sqlEsEdicion.equals("true")){
@@ -69,8 +53,7 @@ public class Atributo extends GestionBase implements AtributoLocal {
 	}
 	
 	public Object eliminar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		jpo.autoCommit(false);
-			jpo.tabla("ATRIBUTO_DO","ADO").eliminar();
+		//jpo.autoCommit(false);
 			jpo.tabla("ATRIBUTO_SQL","ADB").eliminar();
 			jpo.tabla("ATRIBUTO","ATR").eliminar();
 		jpo.commitear();
@@ -78,12 +61,7 @@ public class Atributo extends GestionBase implements AtributoLocal {
 	}
 
 	public Object listar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		return jpo.tablas(
-				new String[] { "ATRIBUTO"	, "ATRIBUTO_DO"},
-				new String[] { "ATR"		, "ATD"		   }
-		).dondeUnirIzquierda(
-				"ATD",new String[] { "COD_ATRIBUTO"}
-		).seleccionar("ATR.*,ATD.NOMBRE AS DO_NOMBRE,ATD.TIPO AS DO_TIPO,ATD.COD_OBJ_BPM AS DO_COD_OBJ_BPM");
+		return jpo.tabla("ATRIBUTO","ATR").seleccionar("*");
 	}
 	
 	public Object listaAtributoxPK(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {

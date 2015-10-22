@@ -103,22 +103,22 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 		
 		$scope.cargarProyecto = function(){
 			var dataReq = { paquete: "gestion", clase: "Principal", metodo: "listarProyectos"};
-			ajax.get(dataReq,{EQU_W_COD_USUARIO : $scope.data.USUARIO.COD_USUARIO},function(respuesta){
+			ajax.get(dataReq,{EQU_W_COD_USUARIO : $scope.data.USUARIO.cod_usuario},function(respuesta){
 			
 				var proyectoId = [];
 				for(var i in respuesta.PROYECTOS){
-					proyectoId[respuesta.PROYECTOS[i].COD_PROYECTO] = i;
+					proyectoId[respuesta.PROYECTOS[i].cod_proyecto] = i;
 					respuesta.PROYECTOS[i].equipo = [];
 					respuesta.PROYECTOS[i].versiones = [];
 				}
 				for(var i in respuesta.USUARIOxProyectos){
-					if(respuesta.USUARIOxProyectos[i].esResponsable && respuesta.USUARIOxProyectos[i].COD_USUARIO == $scope.data.USUARIO.COD_USUARIO){
+					if(respuesta.USUARIOxProyectos[i].esResponsable && respuesta.USUARIOxProyectos[i].cod_usuario == $scope.data.USUARIO.cod_usuario){
 						$scope.data.USUARIO.esResponsable = true;
 					}
-					respuesta.PROYECTOS[proyectoId[respuesta.USUARIOxProyectos[i].COD_PROYECTO]].equipo.push(respuesta.USUARIOxProyectos[i]);
+					respuesta.PROYECTOS[proyectoId[respuesta.USUARIOxProyectos[i].cod_proyecto]].equipo.push(respuesta.USUARIOxProyectos[i]);
 				}
 				for(var i in respuesta.Versiones){
-					respuesta.PROYECTOS[proyectoId[respuesta.Versiones[i].COD_PROYECTO]].versiones.push(respuesta.Versiones[i]);
+					respuesta.PROYECTOS[proyectoId[respuesta.Versiones[i].cod_proyecto]].versiones.push(respuesta.Versiones[i]);
 				}
 				angular.extend($scope.data, respuesta);
 				
@@ -152,11 +152,11 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 			
 			var dataReq = { paquete: "gestion", clase: "Principal", metodo: "listarRegistros"};
 			ajax.get(dataReq,{
-				LIB_W_COD_PROYECTO 	: $scope.data.PROYECTO.COD_PROYECTO,
-				LIS_W_COD_PROYECTO 	: $scope.data.PROYECTO.COD_PROYECTO,
+				LIB_W_COD_PROYECTO 	: $scope.data.PROYECTO.cod_proyecto,
+				LIS_W_COD_PROYECTO 	: $scope.data.PROYECTO.cod_proyecto,
 				LIS_W_COD_VERSION 	: "1",
-				LIC_W_COD_PROYECTO 	: $scope.data.PROYECTO.COD_PROYECTO,
-				LIC_W_COD_USUARIO 	: $scope.data.USUARIO.COD_USUARIO
+				LIC_W_COD_PROYECTO 	: $scope.data.PROYECTO.cod_proyecto,
+				LIC_W_COD_USUARIO 	: $scope.data.USUARIO.cod_usuario
 			},function(respuesta){
 				angular.extend($scope.data, respuesta);
 				$scope.getControladorScope("proyectocargado").instanciar();

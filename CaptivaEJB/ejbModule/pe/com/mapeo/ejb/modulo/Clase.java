@@ -5,13 +5,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import pe.com.mapeo.dao.Jpo;
+import pe.com.mapeo.dao.Tabla;
 import pe.com.mapeo.ejb.controller.GestionBase;
 
 @Stateless
 public class Clase extends GestionBase implements ClaseLocal {
 
 	public Object registrar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		return jpo.tabla("CLASE","CLA").registrar();
+		jpo.tabla("CLASE","CLA").registrar();
+		jpo.commitear();
+		return true;
 	}
 	
 	public Object buscarClase(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
@@ -23,7 +26,9 @@ public class Clase extends GestionBase implements ClaseLocal {
 	}
 	
 	public Object editar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		return jpo.tabla("CLASE","CLA").editar();
+		jpo.tabla("CLASE","CLA").editar();
+		jpo.commitear();
+		return true; 
 	}
 	
 	public Object listar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
@@ -32,16 +37,12 @@ public class Clase extends GestionBase implements ClaseLocal {
 	
 	public Object eliminar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		if(((Boolean) jpo.tabla("ATRIBUTO","ATR").eliminar())){
-			return jpo.tabla("CLASE","CLA").eliminar();
+			jpo.tabla("CLASE","CLA").eliminar();
+			jpo.commitear();
+			return true; 
 		}else {
 			return false;
 		}
-	}
-	
-	public Object clonar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		
-		return jpo.tabla("CLASE","CLA").seleccionar("*");
-		
 	}
 	
 }

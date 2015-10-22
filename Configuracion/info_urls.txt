@@ -1,38 +1,44 @@
 
+----------------------------------------------------------------------------------------------------------------------------
+---------------------------                     Acciones a nivel de captiva                      ---------------------------
+
+--Acceder
+http://localhost:8080/CaptivaWeb/mapeov2/web/mapeo.html?usuario=david&proyecto=1&submodulo=clase
+
 
 ----------------------------------------------------------------------------------------------------------------------------
 ---------------------------                     Acciones a nivel de proceso                      ---------------------------
 
 --Crear instancia
-http://localhost:8080/Soul/portal/emisionCartaFianzaV1?accion=crear&tipoFianza=LIC&monedaFianza=USD&montoFianza=5000
+http://localhost:8080/CartaFianzaWeb/portal/emisionCartaFianzaV1?accion=crear&tipoFianza=LIC&monedaFianza=USD&montoFianza=5000
 
 --resumen
-http://localhost:8080/Soul/portal/emisionCartaFianzaV1?accion=resumen&codigoProceso=10001
+http://localhost:8080/CartaFianzaWeb/portal/emisionCartaFianzaV1?accion=resumen&codigoProceso=10001
 
 --detalle
-http://localhost:8080/Soul/portal/emisionCartaFianzaV1?accion=detalle&codigoProceso=10001
+http://localhost:8080/CartaFianzaWeb/portal/emisionCartaFianzaV1?accion=detalle&codigoProceso=10001
 
 
 ----------------------------------------------------------------------------------------------------------------------------
 ---------------------------                       Acciones a nivel tarea                         ---------------------------
 
 --Obtener tareas disponibles
-http://localhost:8080/Soul/portal/tareaController?accion=disponibles
+http://localhost:8080/CartaFianzaWeb/portal/tareaController?accion=disponibles
 
 --Obtener tarea reclamadas
-http://localhost:8080/Soul/portal/tareaController?accion=reclamadas
+http://localhost:8080/CartaFianzaWeb/portal/tareaController?accion=reclamadas
 
 --Reclamar tarea
-http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=reclamar&tkiid=3
+http://localhost:8080/CartaFianzaWeb/portal/emision/completarSolicitudV1?accion=reclamar&tkiid=3
 
 --Liberar tarea
-http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=liberar&tkiid=3
+http://localhost:8080/CartaFianzaWeb/portal/emision/completarSolicitudV1?accion=liberar&tkiid=3
 
 --Trabajar tarea
-http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=trabajar&tkiid=3
+http://localhost:8080/CartaFianzaWeb/portal/emision/completarSolicitudV1?accion=trabajar&tkiid=3
 
 --Completar tarea
-http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=completar&tkiid=1&tipoFianza=GUR&monedaFianza=PEN&montoFianza=500000
+http://localhost:8080/CartaFianzaWeb/portal/emision/completarSolicitudV1?accion=completar&tkiid=1&tipoFianza=GUR&monedaFianza=PEN&montoFianza=500000
 
 --Transferir tarea
-http://localhost:8080/Soul/portal/emision/completarSolicitudV1?accion=transferir&tkiid=3&nuevoDueno=edwin
+http://localhost:8080/CartaFianzaWeb/portal/emision/completarSolicitudV1?accion=transferir&tkiid=3&nuevoDueno=edwin
