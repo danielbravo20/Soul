@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 21/10/2015 10:31:13 PM by Hibernate Tools 4.3.1
+// Generated 22/10/2015 09:43:27 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,14 +20,8 @@ public class Proyecto implements java.io.Serializable {
 
 	private int codProyecto;
 	private String nombre;
-	private String javProLibreria;
-	private String javProEjb;
-	private String javProCliEjb;
-	private String javProWeb;
-	private String javPaquete;
-	private String javPaqControlador;
-	private String javPreControlador;
-	private String javProEjbExt;
+	private String proyecto;
+	private String paquete;
 	private Set<Catalogo> catalogos = new HashSet<Catalogo>(0);
 	private Set<Mantenimiento> mantenimientos = new HashSet<Mantenimiento>(0);
 	private Set<Proceso> procesos = new HashSet<Proceso>(0);
@@ -42,39 +36,24 @@ public class Proyecto implements java.io.Serializable {
 	public Proyecto() {
 	}
 
-	public Proyecto(int codProyecto, String nombre, String javProLibreria,
-			String javProEjb, String javProCliEjb, String javProWeb,
-			String javPaquete, String javPaqControlador,
-			String javPreControlador) {
+	public Proyecto(int codProyecto, String nombre, String proyecto,
+			String paquete) {
 		this.codProyecto = codProyecto;
 		this.nombre = nombre;
-		this.javProLibreria = javProLibreria;
-		this.javProEjb = javProEjb;
-		this.javProCliEjb = javProCliEjb;
-		this.javProWeb = javProWeb;
-		this.javPaquete = javPaquete;
-		this.javPaqControlador = javPaqControlador;
-		this.javPreControlador = javPreControlador;
+		this.proyecto = proyecto;
+		this.paquete = paquete;
 	}
 
-	public Proyecto(int codProyecto, String nombre, String javProLibreria,
-			String javProEjb, String javProCliEjb, String javProWeb,
-			String javPaquete, String javPaqControlador,
-			String javPreControlador, String javProEjbExt,
-			Set<Catalogo> catalogos, Set<Mantenimiento> mantenimientos,
-			Set<Proceso> procesos, Set<Configuracion> configuracions,
-			Set<Esquema> esquemas, Set<Datasource> datasources, Set<Rol> rols,
+	public Proyecto(int codProyecto, String nombre, String proyecto,
+			String paquete, Set<Catalogo> catalogos,
+			Set<Mantenimiento> mantenimientos, Set<Proceso> procesos,
+			Set<Configuracion> configuracions, Set<Esquema> esquemas,
+			Set<Datasource> datasources, Set<Rol> rols,
 			Set<Consulta> consultas, Set<Tabla> tablas, Set<Clase> clases) {
 		this.codProyecto = codProyecto;
 		this.nombre = nombre;
-		this.javProLibreria = javProLibreria;
-		this.javProEjb = javProEjb;
-		this.javProCliEjb = javProCliEjb;
-		this.javProWeb = javProWeb;
-		this.javPaquete = javPaquete;
-		this.javPaqControlador = javPaqControlador;
-		this.javPreControlador = javPreControlador;
-		this.javProEjbExt = javProEjbExt;
+		this.proyecto = proyecto;
+		this.paquete = paquete;
 		this.catalogos = catalogos;
 		this.mantenimientos = mantenimientos;
 		this.procesos = procesos;
@@ -106,76 +85,22 @@ public class Proyecto implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	@Column(name = "jav_pro_libreria", nullable = false)
-	public String getJavProLibreria() {
-		return this.javProLibreria;
+	@Column(name = "proyecto", nullable = false)
+	public String getProyecto() {
+		return this.proyecto;
 	}
 
-	public void setJavProLibreria(String javProLibreria) {
-		this.javProLibreria = javProLibreria;
+	public void setProyecto(String proyecto) {
+		this.proyecto = proyecto;
 	}
 
-	@Column(name = "jav_pro_ejb", nullable = false)
-	public String getJavProEjb() {
-		return this.javProEjb;
+	@Column(name = "paquete", nullable = false)
+	public String getPaquete() {
+		return this.paquete;
 	}
 
-	public void setJavProEjb(String javProEjb) {
-		this.javProEjb = javProEjb;
-	}
-
-	@Column(name = "jav_pro_cli_ejb", nullable = false)
-	public String getJavProCliEjb() {
-		return this.javProCliEjb;
-	}
-
-	public void setJavProCliEjb(String javProCliEjb) {
-		this.javProCliEjb = javProCliEjb;
-	}
-
-	@Column(name = "jav_pro_web", nullable = false)
-	public String getJavProWeb() {
-		return this.javProWeb;
-	}
-
-	public void setJavProWeb(String javProWeb) {
-		this.javProWeb = javProWeb;
-	}
-
-	@Column(name = "jav_paquete", nullable = false)
-	public String getJavPaquete() {
-		return this.javPaquete;
-	}
-
-	public void setJavPaquete(String javPaquete) {
-		this.javPaquete = javPaquete;
-	}
-
-	@Column(name = "jav_paq_controlador", nullable = false)
-	public String getJavPaqControlador() {
-		return this.javPaqControlador;
-	}
-
-	public void setJavPaqControlador(String javPaqControlador) {
-		this.javPaqControlador = javPaqControlador;
-	}
-
-	@Column(name = "jav_pre_controlador", nullable = false, length = 50)
-	public String getJavPreControlador() {
-		return this.javPreControlador;
-	}
-
-	public void setJavPreControlador(String javPreControlador) {
-		this.javPreControlador = javPreControlador;
-	}
-
-	@Column(name = "jav_pro_ejb_ext")
-	public String getJavProEjbExt() {
-		return this.javProEjbExt;
-	}
-
-	public void setJavProEjbExt(String javProEjbExt) {
-		this.javProEjbExt = javProEjbExt;
+	public void setPaquete(String paquete) {
+		this.paquete = paquete;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")

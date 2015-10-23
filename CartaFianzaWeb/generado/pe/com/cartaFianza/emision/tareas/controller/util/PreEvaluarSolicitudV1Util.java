@@ -69,9 +69,9 @@ public abstract class PreEvaluarSolicitudV1Util implements TareaUtil{
 	@Override
 	public Object poblarCompletar(HttpServletRequest request, HttpServletResponse response) {
 		Solicitud solicitud = new Solicitud();
-		solicitud.setTipoFianza(request.getParameter("tipoFianza"));
-		solicitud.setMonedaFianza(request.getParameter("monedaFianza"));
-		solicitud.setMontoFianza(new BigDecimal(request.getParameter("montoFianza")));
+		solicitud.setCodigoTipoFianza(request.getParameter("tipoFianza"));
+		solicitud.setCodigoMoneda(request.getParameter("monedaFianza"));
+		solicitud.setMonto(new BigDecimal(request.getParameter("montoFianza")));
 		return solicitud;
 	}
 

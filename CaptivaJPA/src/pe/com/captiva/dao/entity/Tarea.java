@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 21/10/2015 10:31:13 PM by Hibernate Tools 4.3.1
+// Generated 22/10/2015 09:43:27 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +24,7 @@ import javax.persistence.Version;
 public class Tarea implements java.io.Serializable {
 
 	private TareaId id;
-	private String versionTarea;
+	private String version;
 	private Consulta consultaByCodConTrabajar;
 	private Consulta consultaByCodConCompletar;
 	private Proceso proceso;
@@ -151,14 +151,13 @@ public class Tarea implements java.io.Serializable {
 		this.id = id;
 	}
 
-	
 	@Column(name = "version", nullable = false, length = 10)
-	public String getVersionTarea() {
-		return this.versionTarea;
+	public String getVersion() {
+		return this.version;
 	}
 
-	public void setVersionTarea(String versionTarea) {
-		this.versionTarea = versionTarea;
+	public void setVersion(String version) {
+		this.version = version;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

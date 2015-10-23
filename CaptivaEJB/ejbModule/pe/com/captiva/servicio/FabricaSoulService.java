@@ -6,10 +6,11 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import pe.com.captiva.bean.ConfiguracionBean;
+import pe.com.captiva.bean.EquipoBean;
 import pe.com.captiva.bean.ProyectoBean;
-import pe.com.captiva.dao.ConfiguracionDaoLocal;
+import pe.com.captiva.dao.EquipoDaoLocal;
 import pe.com.captiva.dao.ProyectoDaoLocal;
+import pe.com.captiva.servicio.util.FabricaBean;
 
 /**
  * Session Bean implementation class FabricaSoulService
@@ -22,18 +23,23 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 	private ProyectoDaoLocal proyectoDaoLocal;
 	
 	@EJB
-	private ConfiguracionDaoLocal configuracionDaoLocal;
+	private EquipoDaoLocal equipoDaoLocal;
 	
 	@Override
 	public void crearProyecto(String usuario, Integer codigoProyecto) throws Exception {
-		ConfiguracionBean configuracionBean = configuracionDaoLocal.obtenerConfiguracion(usuario, codigoProyecto) ;
+		EquipoBean equipoBean = equipoDaoLocal.obtenerEquipoBean(usuario, codigoProyecto);
 		ProyectoBean proyectoBean = proyectoDaoLocal.obtenerProyecto(codigoProyecto);
 		
-		if(validacionConfiguracion(configuracionBean)){
-			System.out.println("--->>> "+configuracionBean.getRutaWorkSpace());
-			System.out.println("--->>> "+configuracionBean.getRutaSQL());
+		if(validacionConfiguracion(equipoBean, proyectoBean)){
+			System.out.println("--->>> "+equipoBean.getDirectorioWorkspace());
+			System.out.println("--->>> "+equipoBean.getDirectorioParcial());
 			System.out.println("---> "+proyectoBean.getNombre());
-			System.out.println("---> "+proyectoBean.getJavPaquete());
+			System.out.println("---> "+proyectoBean.getProyecto());
+			System.out.println("---> "+proyectoBean.getPaquete());
+			System.out.println("..."+proyectoBean.getClases());
+			
+			proyectoBean.setEquipoBean(equipoBean);
+			new FabricaBean().construir(proyectoBean); 
 		}
 	}
 	
@@ -42,21 +48,32 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 	 * @return
 	 * @throws Exception
 	 * 
-	 * Se valida que la configuración del usuario sea valida, rutaWorkspace y ruta SQL
+	 * Se valida que la configuración del usuario:
+	 * 	- existe el directorio del workspace
+	 *  - existe el directorio temporal/parcial
+	 *  - existe el proyecto EAR
+	 *  - existe el proyecto Web
+	 *  - existe el proyecto Service
+	 *  - existe el proyecto ServiceLib 
 	 */
-	private boolean validacionConfiguracion(ConfiguracionBean configuracionBean) throws Exception{
-		File directorioWorkspace 	= new File(configuracionBean.getRutaWorkSpace());
-		File directorioSQL 			= new File(configuracionBean.getRutaSQL());
+	private boolean validacionConfiguracion(EquipoBean equipoBean, ProyectoBean proyectoBean) throws Exception{
 		
-		if(directorioWorkspace.exists()==false || directorioWorkspace.isDirectory()==false){
-			throw new Exception("La ruta "+configuracionBean.getRutaWorkSpace()+", no existe o no es un directorio...");
-		}
-		
-		if(directorioSQL.exists()==false || directorioSQL.isDirectory()==false){
-			throw new Exception("La ruta "+configuracionBean.getRutaSQL()+", no existe o no es un directorio...");
-		}
+		validaDirectorio(equipoBean.getDirectorioWorkspace());
+		validaDirectorio(equipoBean.getDirectorioParcial());
+		validaDirectorio(equipoBean.getDirectorioWorkspace()+File.separator+proyectoBean.getProyecto()+ProyectoBean.SUFIJO_PROYECTO_EAR);
+		validaDirectorio(equipoBean.getDirectorioWorkspace()+File.separator+proyectoBean.getProyecto()+ProyectoBean.SUFIJO_PROYECTO_SERVICE);
+		validaDirectorio(equipoBean.getDirectorioWorkspace()+File.separator+proyectoBean.getProyecto()+ProyectoBean.SUFIJO_PROYECTO_SERVICELIB);
+		validaDirectorio(equipoBean.getDirectorioWorkspace()+File.separator+proyectoBean.getProyecto()+ProyectoBean.SUFIJO_PROYECTO_WEB);
 		
 		return true;
+	}
+	
+	private void validaDirectorio(String directorio) throws Exception{
+		File file = new File(directorio);
+		
+		if(file.exists()==false || file.isDirectory()==false){
+			throw new Exception("La ruta "+directorio+", no existe o no es un directorio...");
+		}
 	}
 
 }

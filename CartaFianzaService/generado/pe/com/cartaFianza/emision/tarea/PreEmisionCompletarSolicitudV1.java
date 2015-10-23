@@ -14,9 +14,9 @@ public abstract class PreEmisionCompletarSolicitudV1 extends BaseTareaServicioIm
 	@Override
 	public Object trabajar(Tarea tarea) throws Exception {
 		Solicitud solicitud = new Solicitud();
-		solicitud.setTipoFianza("LIC");
-		solicitud.setMonedaFianza("USD");
-		solicitud.setMontoFianza(new BigDecimal(10000));
+		solicitud.setCodigoTipoFianza("LIC");
+		solicitud.setCodigoMoneda("USD");
+		solicitud.setMonto(new BigDecimal(10000));
 		Cliente cliente = new Cliente();
 		cliente.setTipoDocumento("RUC");
 		cliente.setNumeroDocumento("10012251001");

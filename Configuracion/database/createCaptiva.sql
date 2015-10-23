@@ -333,14 +333,8 @@ ALTER TABLE soul.proceso_inicio ADD CONSTRAINT pro_ini_atributo_pk PRIMARY KEY (
 CREATE TABLE soul.proyecto(
  cod_proyecto Integer NOT NULL,
  nombre Character varying(120) NOT NULL,
- jav_pro_libreria Character varying(255) NOT NULL,
- jav_pro_ejb Character varying(255) NOT NULL,
- jav_pro_cli_ejb Character varying(255) NOT NULL,
- jav_pro_web Character varying(255) NOT NULL,
- jav_paquete Character varying(255) NOT NULL,
- jav_paq_controlador Character varying(255) NOT NULL,
- jav_pre_controlador Character varying(50) NOT NULL,
- jav_pro_ejb_ext Character varying(255)
+ proyecto Character varying(255) NOT NULL,
+ paquete Character varying(255) NOT NULL
 )
 ;
 

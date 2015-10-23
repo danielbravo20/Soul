@@ -38,9 +38,9 @@ public abstract class PreEmisionCartaFianzaV1 extends BaseProcesoController{
 		
 		Solicitud solicitud = new Solicitud();
 		solicitud.setCodigo(new Long(10001));
-		solicitud.setMonedaFianza("USD");
-		solicitud.setMontoFianza(new BigDecimal(100000));
-		solicitud.setTipoFianza("LIC");
+		solicitud.setCodigoMoneda("USD");
+		solicitud.setMonto(new BigDecimal(100000));
+		solicitud.setCodigoTipoFianza("LIC");
 		
 		Respuesta respuesta = new Respuesta();
 		respuesta.setResultado(true);
@@ -58,9 +58,10 @@ public abstract class PreEmisionCartaFianzaV1 extends BaseProcesoController{
 		
 		Solicitud solicitud = new Solicitud();
 		solicitud.setCodigo(new Long(10001));
-		solicitud.setMonedaFianza("USD");
-		solicitud.setMontoFianza(new BigDecimal(100000));
-		solicitud.setTipoFianza("LIC");
+		solicitud.setCodigoMoneda("USD");
+		solicitud.setMonto(new BigDecimal(100000));
+		solicitud.setCodigoTipoFianza("LIC");
+		
 		solicitud.setCliente(cliente);
 		
 		Respuesta respuesta = new Respuesta();

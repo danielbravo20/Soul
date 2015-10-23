@@ -1,4 +1,4 @@
-INSERT INTO soul.PROYECTO(COD_PROYECTO, NOMBRE, JAV_PRO_LIBRERIA, JAV_PRO_EJB, JAV_PRO_CLI_EJB, JAV_PRO_WEB, JAV_PAQUETE, JAV_PAQ_CONTROLADOR, JAV_PRE_CONTROLADOR, JAV_PRO_EJB_EXT) VALUES (1, 'Workflow de Carta Fianza', 'CartaFianzaLib', 'CartaFianzaEJB', 'CartaFianzaEJBClient', 'CartaFianza', 'pe.com.financiero.bpm.cf', 'pe.com.financiero.bpm.cf.controller', 'CF', 'CartaFianzaEJBExt');
+INSERT INTO soul.PROYECTO VALUES (1, 'Workflow de Carta Fianza', 'CartaFianza', 'pe.com.cartaFianza');
 
 
 INSERT INTO soul.CONSULTA(COD_CONSULTA, SQL_ALE_STO_PROCEDURE, JAV_PAQUETE, JAV_INTERFACE, COD_PROYECTO, NOMBRE) VALUES (1, 'RES_CF_EMISION', 'pe.com.financiero.bpm.cf.dao', 'ResumenEmisionBEDao', 1, 'EMISION - RESUMEN');
@@ -2117,8 +2117,8 @@ INSERT INTO soul.TAREA_ATR_RECHAZAR(COD_PROCESO, COD_TAREA, COD_ATRIBUTO, JAV_VA
 INSERT INTO soul.TAREA_ATR_RECHAZAR(COD_PROCESO, COD_TAREA, COD_ATRIBUTO, JAV_VAL_OMISION, WEB_FLG_VALIDACION) VALUES (4, 402, 4, '"REC"', null);
 
 INSERT INTO soul.USUARIO(cod_usuario, clave, nombre, perfil, descripcion) VALUES ('david', '060bc402578dd3007cb78582c46796a7', 'David', 'LID_TEC', 'David');
-INSERT INTO soul.USUARIO(cod_usuario, clave, nombre, perfil, descripcion) VALUES ('daniel', '060bc402578dd3007cb78582c46796a7', 'Daniel', 'PRO_MAN', 'Daniel');
+INSERT INTO soul.USUARIO(cod_usuario, clave, nombre, perfil, descripcion) VALUES ('daniel', 'clave1', 'Daniel', 'PRO_MAN', 'Daniel');
  
 INSERT INTO soul.EQUIPO(cod_proyecto, cod_usuario, es_responsable, carpeta_destino_workspace, carpeta_destino_parcial) VALUES (1, 'david', '1', 'D:\oscar\Compartido\generadoData', 'D:\oscar\Compartido\generadoData');
-INSERT INTO soul.EQUIPO(cod_proyecto, cod_usuario, es_responsable, carpeta_destino_workspace, carpeta_destino_parcial) VALUES (1, 'Daniel', '1', 'D:\oscar\Compartido\generadoData', 'D:\oscar\Compartido\generadoData');
+INSERT INTO soul.EQUIPO(cod_proyecto, cod_usuario, es_responsable, carpeta_destino_workspace, carpeta_destino_parcial) VALUES (1, 'daniel', '1', 'E:\JBOSS\git\', 'E:\CF_Temporal\');
 
