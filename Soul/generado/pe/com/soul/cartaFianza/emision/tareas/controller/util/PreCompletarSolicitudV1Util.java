@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pe.com.soul.cartaFianza.bean.Solicitud;
+import pe.com.cartaFianza.bean.Solicitud;
 import pe.com.soul.core.modelo.MensajeValidacion;
 import pe.com.soul.core.web.util.TareaUtil;
 
@@ -66,9 +66,9 @@ public abstract class PreCompletarSolicitudV1Util implements TareaUtil{
 	@Override
 	public Object poblarCompletar(HttpServletRequest request, HttpServletResponse response) {
 		Solicitud solicitud = new Solicitud();
-		solicitud.setTipoFianza(request.getParameter("tipoFianza"));
-		solicitud.setMonedaFianza(request.getParameter("monedaFianza"));
-		solicitud.setMontoFianza(new BigDecimal(request.getParameter("montoFianza")));
+		//solicitud.setTipoFianza(request.getParameter("tipoFianza"));
+		//solicitud.setMonedaFianza(request.getParameter("monedaFianza"));
+		//solicitud.setMontoFianza(new BigDecimal(request.getParameter("montoFianza")));
 		return solicitud;
 	}
 

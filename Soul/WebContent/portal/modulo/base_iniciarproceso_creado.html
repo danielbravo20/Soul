@@ -1,18 +1,13 @@
-<div class="panel panel-default">
-  <div class="panel-heading">Filtrar Tareas</div>
-  <table class="table">
-	<tbody>
-	  <tr>
-		<td>
-			Solicitud Creada Correctamente
-		</td>
-	  </tr>
-	  <tr>
-		<td>
-			<a class="btn btn-info btn-sm" ng-click="filtrar()"><i class="glyphicon glyphicon-filter"></i> Ver Tareas</a>
-			<a class="btn btn-info btn-sm" ng-click="limpiar()"><i class="glyphicon glyphicon-repeat"></i> Trabajar Solicitud</a>
-		</td>
-	  </tr>
-	</tbody>
-  </table>
-</div>
+	<div class="modal-header">
+		<h3 class="modal-title">Nueva Solicitud</h3>
+	</div>
+	<div class="modal-body">
+		<p><i class="glyphicon glyphicon-check"></i> Solicitud Creada corréctamente</p>
+		<p ng-hide="haBuscado" ng-show="esDueno">Seleccione <code><i class="glyphicon glyphicon-play"></i> TRABAJAR</code> para iniciar la primera tarea.</p>
+		<p ng-show="haBuscado">La primera tarea no esta disponible aun, seleccione <code><i class="glyphicon glyphicon-refresh"></i> REINTENTAR</code> para validar que puede trabajarlo.</p>
+	</div>
+	<div class="modal-footer">
+		<a ng-hide="haBuscado" ng-show="esDueno" class="btn btn-primary" ng-click="Trabajar()"><i class="glyphicon glyphicon-play"></i> TRABAJAR</a>
+		<a ng-show="haBuscado" class="btn btn-primary" ng-click="Trabajar()"><i class="glyphicon glyphicon-refresh"></i> REINTENTAR</a>
+		<a class="btn btn-success" ng-click="VerTareas()"><i class="glyphicon glyphicon-list"></i> VER TAREAS</a>
+	</div>

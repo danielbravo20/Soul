@@ -2,7 +2,7 @@ package pe.com.soul.cartaFianza.emision.tareas.controller;
 
 import javax.ejb.EJB;
 
-import pe.com.soul.cartaFianza.emision.tarea.EmisionEvaluarSolicitudV1Local;
+import pe.com.cartaFianza.emision.tarea.EmisionEvaluarSolicitudV1Local;
 import pe.com.soul.cartaFianza.emision.tareas.controller.util.EvaluarSolicitudV1Util;
 import pe.com.soul.core.servicio.BaseTareaServicio;
 import pe.com.soul.core.web.controller.BaseTareaController;

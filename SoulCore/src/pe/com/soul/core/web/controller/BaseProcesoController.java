@@ -22,7 +22,7 @@ public abstract class BaseProcesoController extends BaseController{
 	protected void operacion(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		request.setCharacterEncoding("UTF-8");
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 		
 		String accion = request.getParameter("accion");
 		String codigoProceso = request.getParameter("codigoProceso");

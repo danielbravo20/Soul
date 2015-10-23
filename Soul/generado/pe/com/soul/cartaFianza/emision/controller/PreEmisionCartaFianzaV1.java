@@ -6,9 +6,9 @@ import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pe.com.soul.cartaFianza.bean.Cliente;
-import pe.com.soul.cartaFianza.bean.Solicitud;
-import pe.com.soul.cartaFianza.emision.EmisionCartaFianzaServiceLocal;
+import pe.com.cartaFianza.bean.Cliente;
+import pe.com.cartaFianza.emision.EmisionCartaFianzaServiceLocal;
+import pe.com.cartaFianza.bean.Solicitud;
 import pe.com.soul.cartaFianza.emision.controller.util.EmisionCartaFianzaV1Util;
 import pe.com.soul.core.modelo.Usuario;
 import pe.com.soul.core.servicio.BaseProcesoServicio;
@@ -38,9 +38,9 @@ public abstract class PreEmisionCartaFianzaV1 extends BaseProcesoController{
 		
 		Solicitud solicitud = new Solicitud();
 		solicitud.setCodigo(new Long(10001));
-		solicitud.setMonedaFianza("USD");
-		solicitud.setMontoFianza(new BigDecimal(100000));
-		solicitud.setTipoFianza("LIC");
+		//solicitud.setMonedaFianza("USD");
+		//solicitud.setMontoFianza(new BigDecimal(100000));
+		//solicitud.setTipoFianza("LIC");
 		
 		Respuesta respuesta = new Respuesta();
 		respuesta.setResultado(true);
@@ -58,10 +58,10 @@ public abstract class PreEmisionCartaFianzaV1 extends BaseProcesoController{
 		
 		Solicitud solicitud = new Solicitud();
 		solicitud.setCodigo(new Long(10001));
-		solicitud.setMonedaFianza("USD");
-		solicitud.setMontoFianza(new BigDecimal(100000));
-		solicitud.setTipoFianza("LIC");
-		solicitud.setCliente(cliente);
+		//solicitud.setMonedaFianza("USD");
+		//solicitud.setMontoFianza(new BigDecimal(100000));
+		//solicitud.setTipoFianza("LIC");
+		//solicitud.setCliente(cliente);
 		
 		Respuesta respuesta = new Respuesta();
 		respuesta.setResultado(true);

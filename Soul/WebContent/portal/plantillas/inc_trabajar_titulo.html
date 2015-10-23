@@ -1,0 +1,16 @@
+<div style="overflow: hidden;">
+	<div class="row">
+		<div class="col-md-8">
+			<ol class="breadcrumb">
+			  <li>{{data.TAREA_CARGADA.proceso.nombre}}</li>
+			  <li class="active text-uppercase"><a><strong>{{data.TAREA_CARGADA.nombre | uppercase}}<strong></a></li>
+			</ol>
+		</div>
+		<div class="col-md-4">
+			<ol class="breadcrumb">
+				<li>Código : {{data.TAREA_CARGADA.codigoTarea}}</li>
+				<li>Fecha de Solicitud : {{baseTrabajar.fechaInicio | date:'dd/MM/yyyy'}}</li>
+			</ol>
+		</div>
+	</div>
+</div>
