@@ -16,7 +16,7 @@ import pe.com.soul.core.dao.entities.UsuarioEntity;
 import pe.com.soul.core.modelo.Modulo;
 import pe.com.soul.core.modelo.ProcesoPlantilla;
 import pe.com.soul.core.modelo.Rol;
-import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.modelo.UsuarioPortal;
 import pe.com.soul.core.seguridad.dao.UsuarioDaoLocal;
 
 /**
@@ -33,12 +33,12 @@ public class UsuarioDao extends BaseDao<UsuarioEntity> implements UsuarioDaoLoca
     	super(UsuarioEntity.class);
     }
     
-    public Usuario obtenerUsuario(String usuarioId){
+    public UsuarioPortal obtenerUsuario(String usuarioId){
     	
     	String consulta = "select u from UsuarioEntity u where u.usuario =:parametro";
     	
     	UsuarioEntity usuarioEntity = buscarRegistro(consulta, "parametro", usuarioId);
-    	Usuario usuario = new Usuario();
+    	UsuarioPortal usuario = new UsuarioPortal();
     	usuario.setUsuario(usuarioEntity.getUsuario());
     	usuario.setEstado(usuarioEntity.getEstado());
     	usuario.setCorreo(usuarioEntity.getCorreo());
@@ -94,14 +94,14 @@ public class UsuarioDao extends BaseDao<UsuarioEntity> implements UsuarioDaoLoca
     }
 
 	@Override
-	public Usuario actualizar(Usuario usuario) {
+	public UsuarioPortal actualizar(UsuarioPortal usuario) {
 		UsuarioEntity usuarioEntity = new UsuarioEntity();
 		actualizarEntity(usuarioEntity);
 		return usuario;
 	}
 
 	@Override
-	public void guardar(Usuario usuario) {
+	public void guardar(UsuarioPortal usuario) {
 		UsuarioEntity usuarioEntity = new UsuarioEntity();
 		
 		try {
@@ -113,7 +113,7 @@ public class UsuarioDao extends BaseDao<UsuarioEntity> implements UsuarioDaoLoca
 	}
 	
 	@SuppressWarnings({"unchecked", "rawtypes" })
-    public List<Usuario> obtenerTodo() {
+    public List<UsuarioPortal> obtenerTodo() {
     	CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
     	cq.select(cq.from(UsuarioEntity.class));
     	return em.createQuery(cq).getResultList();

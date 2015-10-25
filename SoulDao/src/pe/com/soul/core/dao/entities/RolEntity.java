@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 07/10/2015 10:05:11 AM by Hibernate Tools 4.3.1
+// Generated 25/10/2015 05:15:08 AM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Table(name = "rol", schema = "seguridad")
 public class RolEntity implements java.io.Serializable {
 
-	private long codigoRol;
+	private String codigoRol;
 	private String nombreRol;
 	private Set<TareaPlantillaEntity> tareaPlantillas = new HashSet<TareaPlantillaEntity>(0);
 	private Set<ModuloEntity> modulos = new HashSet<ModuloEntity>(0);
@@ -37,12 +37,12 @@ public class RolEntity implements java.io.Serializable {
 	public RolEntity() {
 	}
 
-	public RolEntity(long codigoRol, String nombreRol) {
+	public RolEntity(String codigoRol, String nombreRol) {
 		this.codigoRol = codigoRol;
 		this.nombreRol = nombreRol;
 	}
 
-	public RolEntity(long codigoRol, String nombreRol,
+	public RolEntity(String codigoRol, String nombreRol,
 			Set<TareaPlantillaEntity> tareaPlantillas, Set<ModuloEntity> modulos,
 			Set<UsuarioEntity> usuarios, Set<ProcesoPlantillaEntity> procesoPlantillas,
 			Set<TareaPlantillaEntity> tareaPlantillas_1,
@@ -60,12 +60,12 @@ public class RolEntity implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "codigo_rol", unique = true, nullable = false)
-	public long getCodigoRol() {
+	@Column(name = "codigo_rol", unique = true, nullable = false, length = 120)
+	public String getCodigoRol() {
 		return this.codigoRol;
 	}
 
-	public void setCodigoRol(long codigoRol) {
+	public void setCodigoRol(String codigoRol) {
 		this.codigoRol = codigoRol;
 	}
 

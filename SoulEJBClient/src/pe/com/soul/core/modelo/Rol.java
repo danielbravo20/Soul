@@ -4,13 +4,13 @@ public class Rol extends BaseBean{
 
 	private static final long serialVersionUID = 1L;
 	
-	private long codRol;
+	private String codRol;
 	private String nombre;
 	
-	public long getCodRol() {
+	public String getCodRol() {
 		return codRol;
 	}
-	public void setCodRol(long codRol) {
+	public void setCodRol(String codRol) {
 		this.codRol = codRol;
 	}
 	public String getNombre() {

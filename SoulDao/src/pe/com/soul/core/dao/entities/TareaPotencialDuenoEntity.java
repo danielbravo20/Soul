@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 07/10/2015 10:05:11 AM by Hibernate Tools 4.3.1
+// Generated 25/10/2015 05:15:08 AM by Hibernate Tools 4.3.1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -16,12 +16,12 @@ import javax.persistence.Table;
 @Table(name = "tarea_potencial_dueno", schema = "proceso")
 public class TareaPotencialDuenoEntity implements java.io.Serializable {
 
-	private TareaPotencialDuenoId id;
+	private TareaPotencialDuenoIdEntity id;
 
 	public TareaPotencialDuenoEntity() {
 	}
 
-	public TareaPotencialDuenoEntity(TareaPotencialDuenoId id) {
+	public TareaPotencialDuenoEntity(TareaPotencialDuenoIdEntity id) {
 		this.id = id;
 	}
 
@@ -49,11 +49,11 @@ public class TareaPotencialDuenoEntity implements java.io.Serializable {
 			@AttributeOverride(name = "fechaTerminoProceso", column = @Column(name = "fecha_termino_proceso", length = 29)),
 			@AttributeOverride(name = "usuarioCreacionProceso", column = @Column(name = "usuario_creacion_proceso", length = 40)),
 			@AttributeOverride(name = "duenoPotencial", column = @Column(name = "dueno_potencial", length = 40)) })
-	public TareaPotencialDuenoId getId() {
+	public TareaPotencialDuenoIdEntity getId() {
 		return this.id;
 	}
 
-	public void setId(TareaPotencialDuenoId id) {
+	public void setId(TareaPotencialDuenoIdEntity id) {
 		this.id = id;
 	}
 

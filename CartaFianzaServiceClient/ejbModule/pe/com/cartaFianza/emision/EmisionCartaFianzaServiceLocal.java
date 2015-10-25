@@ -2,10 +2,10 @@ package pe.com.cartaFianza.emision;
 
 import javax.ejb.Local;
 
-import pe.com.soul.core.servicio.BaseProcesoServicio;
+import pe.com.soul.core.servicio.BaseProcesoServicioLocal;
 
 @Local
-public interface EmisionCartaFianzaServiceLocal extends BaseProcesoServicio{
+public interface EmisionCartaFianzaServiceLocal extends BaseProcesoServicioLocal{
 
 	
 	

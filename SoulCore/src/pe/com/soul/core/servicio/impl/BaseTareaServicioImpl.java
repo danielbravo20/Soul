@@ -5,9 +5,9 @@ import javax.ejb.EJB;
 import pe.com.soul.core.modelo.Tarea;
 import pe.com.soul.core.modelo.TareaPlantilla;
 import pe.com.soul.core.service.portal.TareaServiceLocal;
-import pe.com.soul.core.servicio.BaseTareaServicio;
+import pe.com.soul.core.servicio.BaseTareaServicioLocal;
 
-public abstract class BaseTareaServicioImpl implements BaseTareaServicio {
+public abstract class BaseTareaServicioImpl implements BaseTareaServicioLocal {
 
 	@EJB
 	TareaServiceLocal tareaServiceLocal;

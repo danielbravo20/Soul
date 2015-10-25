@@ -1,9 +1,3 @@
-/*
-Created: 07/10/2015
-Modified: 07/10/2015
-Model: RE PostgreSQL 9.4
-Database: PostgreSQL 9.4
-*/
 DROP SCHEMA proceso CASCADE;
 DROP SCHEMA seguridad CASCADE;
 
@@ -37,7 +31,7 @@ CREATE SEQUENCE proceso.seq_codigo_tarea
 
 CREATE TABLE proceso.administrador_proceso(
  codigo_proceso_plantilla Bigint NOT NULL,
- codigo_rol Bigint NOT NULL
+ codigo_rol Character varying(120) NOT NULL
 )
 ;
 
@@ -50,7 +44,7 @@ ALTER TABLE proceso.administrador_proceso ADD CONSTRAINT administrador_proceso_p
 
 CREATE TABLE proceso.administrador_tarea(
  codigo_tarea_plantilla Bigint NOT NULL,
- codigo_rol Bigint NOT NULL
+ codigo_rol Character varying(120) NOT NULL
 )
 ;
 
@@ -63,7 +57,7 @@ ALTER TABLE proceso.administrador_tarea ADD CONSTRAINT administrador_tarea_pk PR
 
 CREATE TABLE proceso.editor_tarea(
  codigo_tarea_plantilla Bigint NOT NULL,
- codigo_rol Bigint NOT NULL
+ codigo_rol Character varying(120) NOT NULL
 )
 ;
 
@@ -76,7 +70,7 @@ ALTER TABLE proceso.editor_tarea ADD CONSTRAINT editor_tarea_pk PRIMARY KEY (cod
 
 CREATE TABLE proceso.potencial_dueno(
  codigo_tarea_plantilla Bigint NOT NULL,
- codigo_rol Bigint NOT NULL
+ codigo_rol Character varying(120) NOT NULL
 )
 ;
 
@@ -89,7 +83,7 @@ ALTER TABLE proceso.potencial_dueno ADD CONSTRAINT potencial_dueno_pk PRIMARY KE
 
 CREATE TABLE proceso.potencial_iniciador(
  codigo_proceso_plantilla Bigint NOT NULL,
- rol_codigo_rol Bigint NOT NULL
+ rol_codigo_rol Character varying(120) NOT NULL
 )
 ;
 
@@ -198,7 +192,7 @@ ALTER TABLE seguridad.modulo ADD CONSTRAINT modulo_pk PRIMARY KEY (codigo_modulo
 -- Table seguridad.modulo_rol
 
 CREATE TABLE seguridad.modulo_rol(
- codigo_rol Bigint NOT NULL,
+ codigo_rol Character varying(120) NOT NULL,
  codigo_modulo Integer NOT NULL
 )
 ;
@@ -211,7 +205,7 @@ ALTER TABLE seguridad.modulo_rol ADD CONSTRAINT modulo_rol_pk PRIMARY KEY (codig
 -- Table seguridad.rol
 
 CREATE TABLE seguridad.rol(
- codigo_rol Bigint NOT NULL,
+ codigo_rol Character varying(120) NOT NULL,
  nombre_rol Character varying(120) NOT NULL
 )
 ;
@@ -241,7 +235,7 @@ ALTER TABLE seguridad.usuario ADD CONSTRAINT usuario_pk PRIMARY KEY (usuario)
 
 CREATE TABLE seguridad.usuario_rol(
  usuario Character varying(40) NOT NULL,
- codigo_rol Bigint NOT NULL
+ codigo_rol Character varying(120) NOT NULL
 )
 ;
 
@@ -283,6 +277,7 @@ SELECT ta.codigo_tarea,
   WHERE (((((ta.codigo_tarea_plantilla = pd.codigo_tarea_plantilla) AND (ta.codigo_proceso = pr.codigo_proceso)) AND (pd.codigo_rol = ur.codigo_rol)) AND (ta.estado_tarea <> 3)) AND (pr.estado_proceso = 1))
   ORDER BY ta.fecha_creacion_tarea
 ;
+
 
 -- Create relationships section ------------------------------------------------- 
 

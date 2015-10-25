@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 22/10/2015 09:43:27 PM by Hibernate Tools 4.3.1
+// Generated 25/10/2015 06:37:17 AM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -35,8 +37,9 @@ public class Proceso implements java.io.Serializable {
 	private String javAleProceso;
 	private String javDatasource;
 	private String javDocSequence;
-	private Set<Tarea> tareas = new HashSet<Tarea>(0);
 	private Set<ProcesoInicio> procesoInicios = new HashSet<ProcesoInicio>(0);
+	private Set<Rol> rols = new HashSet<Rol>(0);
+	private Set<Tarea> tareas = new HashSet<Tarea>(0);
 
 	public Proceso() {
 	}
@@ -65,8 +68,8 @@ public class Proceso implements java.io.Serializable {
 			String infNombre, String codUniNegocio, String codProducto,
 			String infSufijo, String bpmPlantilla, int bpmActInicio,
 			String javPaquete, String javClase, String javAleProceso,
-			String javDatasource, String javDocSequence, Set<Tarea> tareas,
-			Set<ProcesoInicio> procesoInicios) {
+			String javDatasource, String javDocSequence,
+			Set<ProcesoInicio> procesoInicios, Set<Rol> rols, Set<Tarea> tareas) {
 		this.codProceso = codProceso;
 		this.consultaByCodConResumen = consultaByCodConResumen;
 		this.consultaByCodConDetalle = consultaByCodConDetalle;
@@ -82,8 +85,9 @@ public class Proceso implements java.io.Serializable {
 		this.javAleProceso = javAleProceso;
 		this.javDatasource = javDatasource;
 		this.javDocSequence = javDocSequence;
-		this.tareas = tareas;
 		this.procesoInicios = procesoInicios;
+		this.rols = rols;
+		this.tareas = tareas;
 	}
 
 	@Id
@@ -226,21 +230,31 @@ public class Proceso implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
-	public Set<Tarea> getTareas() {
-		return this.tareas;
-	}
-
-	public void setTareas(Set<Tarea> tareas) {
-		this.tareas = tareas;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
 	public Set<ProcesoInicio> getProcesoInicios() {
 		return this.procesoInicios;
 	}
 
 	public void setProcesoInicios(Set<ProcesoInicio> procesoInicios) {
 		this.procesoInicios = procesoInicios;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "proceso_rol_potencial", schema = "soul", joinColumns = { @JoinColumn(name = "cod_proceso", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "cod_rol", nullable = false, updatable = false) })
+	public Set<Rol> getRols() {
+		return this.rols;
+	}
+
+	public void setRols(Set<Rol> rols) {
+		this.rols = rols;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
+	public Set<Tarea> getTareas() {
+		return this.tareas;
+	}
+
+	public void setTareas(Set<Tarea> tareas) {
+		this.tareas = tareas;
 	}
 
 }

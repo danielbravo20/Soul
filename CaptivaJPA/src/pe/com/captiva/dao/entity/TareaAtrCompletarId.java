@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 22/10/2015 09:43:27 PM by Hibernate Tools 4.3.1
+// Generated 25/10/2015 06:37:17 AM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,26 +11,15 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class TareaAtrCompletarId implements java.io.Serializable {
 
-	private int codProceso;
 	private int codTarea;
 	private int codAtributo;
 
 	public TareaAtrCompletarId() {
 	}
 
-	public TareaAtrCompletarId(int codProceso, int codTarea, int codAtributo) {
-		this.codProceso = codProceso;
+	public TareaAtrCompletarId(int codTarea, int codAtributo) {
 		this.codTarea = codTarea;
 		this.codAtributo = codAtributo;
-	}
-
-	@Column(name = "cod_proceso", nullable = false)
-	public int getCodProceso() {
-		return this.codProceso;
-	}
-
-	public void setCodProceso(int codProceso) {
-		this.codProceso = codProceso;
 	}
 
 	@Column(name = "cod_tarea", nullable = false)
@@ -60,15 +49,13 @@ public class TareaAtrCompletarId implements java.io.Serializable {
 			return false;
 		TareaAtrCompletarId castOther = (TareaAtrCompletarId) other;
 
-		return (this.getCodProceso() == castOther.getCodProceso())
-				&& (this.getCodTarea() == castOther.getCodTarea())
+		return (this.getCodTarea() == castOther.getCodTarea())
 				&& (this.getCodAtributo() == castOther.getCodAtributo());
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result + this.getCodProceso();
 		result = 37 * result + this.getCodTarea();
 		result = 37 * result + this.getCodAtributo();
 		return result;

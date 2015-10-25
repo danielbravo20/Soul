@@ -6,38 +6,22 @@ public class ContratoMarco implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
-	private String descripcion;
-	private boolean estado;
 	private String ruta;
+	private String usuarioCreacion;
 	private java.sql.Date fechaVencimiento;
 	private String nombreArchivoContratoMarco;
-	private String tipoDocumento;
-	private String usuarioModificacion;
+	private String numeroDocumento;
+	private String descripcion;
 	private String nombreCliente;
 	private boolean flagContratoMarco;
-	private String nombreArchivoPagare;
-	private java.sql.Timestamp fechaModificacion;
-	private boolean flagPagare;
+	private boolean estado;
 	private String numero;
-	private String numeroDocumento;
-	private String usuarioCreacion;
+	private String usuarioModificacion;
+	private java.sql.Timestamp fechaModificacion;
+	private String tipoDocumento;
+	private boolean flagPagare;
 	private java.sql.Timestamp fechaCreacion;
-
-	public String getDescripcion(){
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public boolean isEstado(){
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
+	private String nombreArchivoPagare;
 
 	public String getRuta(){
 		return ruta;
@@ -45,6 +29,14 @@ public class ContratoMarco implements Serializable{
 
 	public void setRuta(String ruta) {
 		this.ruta = ruta;
+	}
+
+	public String getUsuarioCreacion(){
+		return usuarioCreacion;
+	}
+
+	public void setUsuarioCreacion(String usuarioCreacion) {
+		this.usuarioCreacion = usuarioCreacion;
 	}
 
 	public java.sql.Date getFechaVencimiento(){
@@ -63,20 +55,20 @@ public class ContratoMarco implements Serializable{
 		this.nombreArchivoContratoMarco = nombreArchivoContratoMarco;
 	}
 
-	public String getTipoDocumento(){
-		return tipoDocumento;
+	public String getNumeroDocumento(){
+		return numeroDocumento;
 	}
 
-	public void setTipoDocumento(String tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
+	public void setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = numeroDocumento;
 	}
 
-	public String getUsuarioModificacion(){
-		return usuarioModificacion;
+	public String getDescripcion(){
+		return descripcion;
 	}
 
-	public void setUsuarioModificacion(String usuarioModificacion) {
-		this.usuarioModificacion = usuarioModificacion;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public String getNombreCliente(){
@@ -95,28 +87,12 @@ public class ContratoMarco implements Serializable{
 		this.flagContratoMarco = flagContratoMarco;
 	}
 
-	public String getNombreArchivoPagare(){
-		return nombreArchivoPagare;
+	public boolean isEstado(){
+		return estado;
 	}
 
-	public void setNombreArchivoPagare(String nombreArchivoPagare) {
-		this.nombreArchivoPagare = nombreArchivoPagare;
-	}
-
-	public java.sql.Timestamp getFechaModificacion(){
-		return fechaModificacion;
-	}
-
-	public void setFechaModificacion(java.sql.Timestamp fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
-
-	public boolean isFlagPagare(){
-		return flagPagare;
-	}
-
-	public void setFlagPagare(boolean flagPagare) {
-		this.flagPagare = flagPagare;
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 
 	public String getNumero(){
@@ -127,20 +103,36 @@ public class ContratoMarco implements Serializable{
 		this.numero = numero;
 	}
 
-	public String getNumeroDocumento(){
-		return numeroDocumento;
+	public String getUsuarioModificacion(){
+		return usuarioModificacion;
 	}
 
-	public void setNumeroDocumento(String numeroDocumento) {
-		this.numeroDocumento = numeroDocumento;
+	public void setUsuarioModificacion(String usuarioModificacion) {
+		this.usuarioModificacion = usuarioModificacion;
 	}
 
-	public String getUsuarioCreacion(){
-		return usuarioCreacion;
+	public java.sql.Timestamp getFechaModificacion(){
+		return fechaModificacion;
 	}
 
-	public void setUsuarioCreacion(String usuarioCreacion) {
-		this.usuarioCreacion = usuarioCreacion;
+	public void setFechaModificacion(java.sql.Timestamp fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public String getTipoDocumento(){
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	public boolean isFlagPagare(){
+		return flagPagare;
+	}
+
+	public void setFlagPagare(boolean flagPagare) {
+		this.flagPagare = flagPagare;
 	}
 
 	public java.sql.Timestamp getFechaCreacion(){
@@ -149,6 +141,14 @@ public class ContratoMarco implements Serializable{
 
 	public void setFechaCreacion(java.sql.Timestamp fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getNombreArchivoPagare(){
+		return nombreArchivoPagare;
+	}
+
+	public void setNombreArchivoPagare(String nombreArchivoPagare) {
+		this.nombreArchivoPagare = nombreArchivoPagare;
 	}
 
 }

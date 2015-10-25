@@ -8,13 +8,13 @@ import javax.ejb.SessionContext;
 
 import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.TareaPlantilla;
-import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.modelo.UsuarioPortal;
 import pe.com.soul.core.service.portal.ProcesoServiceLocal;
-import pe.com.soul.core.servicio.BaseProcesoServicio;
+import pe.com.soul.core.servicio.BaseProcesoServicioLocal;
 import pe.com.soul.core.servicio.impl.BaseProcesoServicioImpl;
 
 @DeclareRoles("Administrador")
-public abstract class PreEmisionCartaFianzaService extends BaseProcesoServicioImpl implements BaseProcesoServicio{
+public abstract class PreEmisionCartaFianzaService extends BaseProcesoServicioImpl implements BaseProcesoServicioLocal{
 
 	public static final long   PROCESO_CODIGO_PLANTILLA_PROCESO = 1;
 	public static final String PROCESO_NOMBRE 					= "EMISION DE CARTA FIANZA"; 
@@ -27,7 +27,7 @@ public abstract class PreEmisionCartaFianzaService extends BaseProcesoServicioIm
 	@Resource
     private SessionContext sessionContext;
 
-	public Proceso crearInstancia(Usuario usuario) throws Exception {
+	public Proceso crearInstancia(UsuarioPortal usuario) throws Exception {
 		System.out.println("-->>> "+sessionContext.isCallerInRole("Administrador"));
 		System.out.println(sessionContext.getCallerPrincipal());
 		Proceso proceso = new Proceso();

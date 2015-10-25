@@ -10,8 +10,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import pe.com.soul.core.modelo.MensajeValidacion;
-import pe.com.soul.core.modelo.Usuario;
-import pe.com.soul.core.servicio.BaseTareaServicio;
+import pe.com.soul.core.modelo.UsuarioPortal;
+import pe.com.soul.core.servicio.BaseTareaServicioLocal;
 import pe.com.soul.core.web.bean.Respuesta;
 import pe.com.soul.core.web.util.TareaUtil;
 
@@ -32,7 +32,7 @@ public abstract class BaseTareaController extends BaseController{
 		
 		if(accion != null && session!=null && tkiid!=null){
 			
-			Usuario usuario = obtenerUsuario(request, session);
+			UsuarioPortal usuario = obtenerUsuario(request, session);
 			if("reclamar".equals(accion)){
 				respuesta = accionReclamar(request, response, usuario, tkiid);
 			}else if("liberar".equals(accion)){
@@ -57,10 +57,10 @@ public abstract class BaseTareaController extends BaseController{
 		printWriter.print(gson.toJson(respuesta));
 	}
 	
-	public Respuesta accionReclamar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
+	public Respuesta accionReclamar(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		try{
-			respuesta.setRespuesta(getBaseTareaService().accionReclamar(new Long(tkiid)));
+			respuesta.setRespuesta(getBaseTareaServicioLocal().accionReclamar(new Long(tkiid)));
 			respuesta.setResultado(true);
 		}catch(Exception e){
 			respuesta.setResultado(false);
@@ -69,10 +69,10 @@ public abstract class BaseTareaController extends BaseController{
 		return respuesta;
 	}
 	
-	public Respuesta accionLiberar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
+	public Respuesta accionLiberar(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		try{
-			respuesta.setRespuesta(getBaseTareaService().accionLiberar(new Long(tkiid)));
+			respuesta.setRespuesta(getBaseTareaServicioLocal().accionLiberar(new Long(tkiid)));
 			respuesta.setResultado(true);
 		}catch(Exception e){
 			respuesta.setResultado(false);
@@ -81,10 +81,10 @@ public abstract class BaseTareaController extends BaseController{
 		return respuesta;
 	}
 	
-	public Respuesta accionTrabajar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
+	public Respuesta accionTrabajar(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		try{
-			respuesta.setRespuesta(getBaseTareaService().accionTrabajar(new Long(tkiid)));
+			respuesta.setRespuesta(getBaseTareaServicioLocal().accionTrabajar(new Long(tkiid)));
 			respuesta.setResultado(true);
 		}catch(Exception e){
 			respuesta.setResultado(false);
@@ -93,12 +93,12 @@ public abstract class BaseTareaController extends BaseController{
 		return respuesta;
 	}
 	
-	public Respuesta accionCompletar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
+	public Respuesta accionCompletar(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		MensajeValidacion mensajeValidacion = getTareaUtil().validacionCompletar(request, response);
 		if(mensajeValidacion.isConforme()){
 			Object objeto = getTareaUtil().poblarCompletar(request, response);
-			respuesta.setRespuesta(getBaseTareaService().accionCompletar(new Long(tkiid), objeto));
+			respuesta.setRespuesta(getBaseTareaServicioLocal().accionCompletar(new Long(tkiid), objeto));
 			respuesta.setResultado(true);
 		}else{
 			respuesta.setResultado(false);
@@ -107,12 +107,12 @@ public abstract class BaseTareaController extends BaseController{
 		return respuesta;
 	}
 	
-	public Respuesta accionCancelar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
+	public Respuesta accionCancelar(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		MensajeValidacion mensajeValidacion = getTareaUtil().validacionCancelar(request, response);
 		if(mensajeValidacion.isConforme()){
 			Object objeto = getTareaUtil().poblarCancelar(request, response);
-			respuesta.setRespuesta(getBaseTareaService().accionCancelar(new Long(tkiid), objeto));
+			respuesta.setRespuesta(getBaseTareaServicioLocal().accionCancelar(new Long(tkiid), objeto));
 			respuesta.setResultado(true);
 		}else{
 			respuesta.setResultado(false);
@@ -121,12 +121,12 @@ public abstract class BaseTareaController extends BaseController{
 		return respuesta;
 	}
 	
-	public Respuesta accionRechazar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
+	public Respuesta accionRechazar(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		MensajeValidacion mensajeValidacion = getTareaUtil().validacionRechazar(request, response);
 		if(mensajeValidacion.isConforme()){
 			Object objeto = getTareaUtil().poblarRechazar(request, response);
-			respuesta.setRespuesta(getBaseTareaService().accionRechazar(new Long(tkiid), objeto));
+			respuesta.setRespuesta(getBaseTareaServicioLocal().accionRechazar(new Long(tkiid), objeto));
 			respuesta.setResultado(true);
 		}else{
 			respuesta.setResultado(false);
@@ -135,12 +135,12 @@ public abstract class BaseTareaController extends BaseController{
 		return respuesta;
 	}
 	
-	public Respuesta accionObservar(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
+	public Respuesta accionObservar(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		MensajeValidacion mensajeValidacion = getTareaUtil().validacionObservar(request, response);
 		if(mensajeValidacion.isConforme()){
 			Object objeto = getTareaUtil().poblarObservar(request, response);
-			respuesta.setRespuesta(getBaseTareaService().accionObservar(new Long(tkiid), objeto));
+			respuesta.setRespuesta(getBaseTareaServicioLocal().accionObservar(new Long(tkiid), objeto));
 			respuesta.setResultado(true);
 		}else{
 			respuesta.setResultado(false);
@@ -149,10 +149,10 @@ public abstract class BaseTareaController extends BaseController{
 		return respuesta;
 	}
 	
-	public Respuesta accionTransferir(HttpServletRequest request, HttpServletResponse response, Usuario usuario, String tkiid) throws Exception {
+	public Respuesta accionTransferir(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario, String tkiid) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		try{
-			respuesta.setRespuesta(getBaseTareaService().accionTransferir(new Long(tkiid), request.getParameter("nuevoDueno")));
+			respuesta.setRespuesta(getBaseTareaServicioLocal().accionTransferir(new Long(tkiid), request.getParameter("nuevoDueno")));
 			respuesta.setResultado(true);
 		}catch(Exception e){
 			respuesta.setResultado(false);
@@ -163,6 +163,6 @@ public abstract class BaseTareaController extends BaseController{
 	
 	public abstract TareaUtil getTareaUtil();
 	
-	public abstract BaseTareaServicio getBaseTareaService();
+	public abstract BaseTareaServicioLocal getBaseTareaServicioLocal();
 	
 }

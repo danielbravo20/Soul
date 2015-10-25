@@ -10,10 +10,16 @@ import javax.ejb.Stateless;
 
 import pe.com.captiva.bean.AtributoBean;
 import pe.com.captiva.bean.ClaseBean;
+import pe.com.captiva.bean.ProcesoBean;
 import pe.com.captiva.bean.ProyectoBean;
+import pe.com.captiva.bean.RolBean;
+import pe.com.captiva.bean.TareaBean;
 import pe.com.captiva.dao.entity.Atributo;
 import pe.com.captiva.dao.entity.Clase;
+import pe.com.captiva.dao.entity.Proceso;
 import pe.com.captiva.dao.entity.Proyecto;
+import pe.com.captiva.dao.entity.Rol;
+import pe.com.captiva.dao.entity.Tarea;
 
 /**
  * Session Bean implementation class ClaseDao
@@ -53,8 +59,45 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 		    	proyectoBean.setClases(clases);
 	    	}
 	    	
+	    	Set<Proceso> procesoSet = proyecto.getProcesos();
+	    	if (procesoSet!=null) {
+				List<ProcesoBean> procesos = new ArrayList<ProcesoBean>();
+				Iterator<Proceso> procesoIterator = procesoSet.iterator();
+				while (procesoIterator.hasNext()) {
+					procesos.add(parseProcesoBean((Proceso)procesoIterator.next()));
+				}
+				proyectoBean.setProcesos(procesos);
+			}
+	    	
     	}
     	return proyectoBean;
+    }
+    
+    private ProcesoBean parseProcesoBean(Proceso proceso){
+    	ProcesoBean procesoBean = null;
+    	if(proceso!=null){
+    		procesoBean = new ProcesoBean();
+    		procesoBean.setCodigo(proceso.getCodProceso());
+    		procesoBean.setNombre(proceso.getInfNombre());
+    		procesoBean.setClase(proceso.getJavClase());
+    		
+    		Set<Rol> rolSet = proceso.getRols();
+    		Iterator<Rol> rolIterator = rolSet.iterator();
+    		List<RolBean> rolesPotencial = new ArrayList<RolBean>();
+    		while (rolIterator.hasNext()) {
+				rolesPotencial.add(parseRolBean((Rol) rolIterator.next()));
+			}
+    		procesoBean.setRolPotencial(rolesPotencial);
+    		
+    		Set<Tarea> tareaSet = proceso.getTareas();
+    		Iterator<Tarea> tareaIterator = tareaSet.iterator();
+    		List<TareaBean> tareasBeans = new ArrayList<TareaBean>();
+    		while (tareaIterator.hasNext()) {
+				tareasBeans.add(parseTareaBean((Tarea) tareaIterator.next()));
+			}
+    		procesoBean.setTareas(tareasBeans);
+    	}
+    	return procesoBean;
     }
     
     private ClaseBean parseClaseBean(Clase clase){
@@ -92,5 +135,43 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     	}
     	return atributoBean;
     }
+    
+    private TareaBean parseTareaBean(Tarea tarea){
+    	TareaBean tareaBean = null;
+    	if(tarea!=null){
+    		tareaBean = new TareaBean();
+    		tareaBean.setCodigo(tarea.getCodTarea());
+    		tareaBean.setNombre(tarea.getNombre());
+    		tareaBean.setVersion(tarea.getVersionTarea());
+    		tareaBean.setClase(tarea.getJavClase());
+    		
+    		Set<Rol> rolPotencialSet = tarea.getRols();
+    		Iterator<Rol> rolPotencialIterator = rolPotencialSet.iterator();
+    		List<RolBean> rolesPotencial = new ArrayList<RolBean>();
+    		while (rolPotencialIterator.hasNext()) {
+				rolesPotencial.add(parseRolBean((Rol) rolPotencialIterator.next()));
+			}
+    		tareaBean.setRolesPotencial(rolesPotencial);
+    		
+    		Set<Rol> rolAdministradorSet = tarea.getRols();
+    		Iterator<Rol> rolAdministradorIterator = rolAdministradorSet.iterator();
+    		List<RolBean> rolesAdministrador = new ArrayList<RolBean>();
+    		while (rolAdministradorIterator.hasNext()) {
+				rolesAdministrador.add(parseRolBean((Rol) rolAdministradorIterator.next()));
+			}
+    		tareaBean.setRolesAdministrador(rolesAdministrador);
+    		
+    	}
+    	return tareaBean;
+    }
 
+    private RolBean parseRolBean(Rol rol){
+    	RolBean rolBean = null;
+    	if(rol!=null){
+    		rolBean = new RolBean();
+    		rolBean.setRol(rol.getCodRol());
+    		rolBean.setNombre(rol.getDescripcion());
+    	}
+    	return rolBean;
+    }
 }

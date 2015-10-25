@@ -6,25 +6,17 @@ public class Garantia implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
-	private Long codigoIbs;
 	private String descripcionTipoCobertura;
-	private java.math.BigDecimal porcentajeCobertura;
-	private String moneda;
-	private String nombreCliente;
-	private Long codigoSolicitud;
-	private java.math.BigDecimal importe;
-	private String tipoGarantia;
-	private String tipoCobertura;
-	private Long numeroGarantia;
 	private String descripcionTipoGarantia;
-
-	public Long getCodigoIbs(){
-		return codigoIbs;
-	}
-
-	public void setCodigoIbs(Long codigoIbs) {
-		this.codigoIbs = codigoIbs;
-	}
+	private String tipoCobertura;
+	private java.math.BigDecimal porcentajeCobertura;
+	private String tipoGarantia;
+	private Long numeroGarantia;
+	private Long codigoSolicitud;
+	private String moneda;
+	private Long codigoIbs;
+	private java.math.BigDecimal importe;
+	private String nombreCliente;
 
 	public String getDescripcionTipoCobertura(){
 		return descripcionTipoCobertura;
@@ -34,52 +26,12 @@ public class Garantia implements Serializable{
 		this.descripcionTipoCobertura = descripcionTipoCobertura;
 	}
 
-	public java.math.BigDecimal getPorcentajeCobertura(){
-		return porcentajeCobertura;
+	public String getDescripcionTipoGarantia(){
+		return descripcionTipoGarantia;
 	}
 
-	public void setPorcentajeCobertura(java.math.BigDecimal porcentajeCobertura) {
-		this.porcentajeCobertura = porcentajeCobertura;
-	}
-
-	public String getMoneda(){
-		return moneda;
-	}
-
-	public void setMoneda(String moneda) {
-		this.moneda = moneda;
-	}
-
-	public String getNombreCliente(){
-		return nombreCliente;
-	}
-
-	public void setNombreCliente(String nombreCliente) {
-		this.nombreCliente = nombreCliente;
-	}
-
-	public Long getCodigoSolicitud(){
-		return codigoSolicitud;
-	}
-
-	public void setCodigoSolicitud(Long codigoSolicitud) {
-		this.codigoSolicitud = codigoSolicitud;
-	}
-
-	public java.math.BigDecimal getImporte(){
-		return importe;
-	}
-
-	public void setImporte(java.math.BigDecimal importe) {
-		this.importe = importe;
-	}
-
-	public String getTipoGarantia(){
-		return tipoGarantia;
-	}
-
-	public void setTipoGarantia(String tipoGarantia) {
-		this.tipoGarantia = tipoGarantia;
+	public void setDescripcionTipoGarantia(String descripcionTipoGarantia) {
+		this.descripcionTipoGarantia = descripcionTipoGarantia;
 	}
 
 	public String getTipoCobertura(){
@@ -90,6 +42,22 @@ public class Garantia implements Serializable{
 		this.tipoCobertura = tipoCobertura;
 	}
 
+	public java.math.BigDecimal getPorcentajeCobertura(){
+		return porcentajeCobertura;
+	}
+
+	public void setPorcentajeCobertura(java.math.BigDecimal porcentajeCobertura) {
+		this.porcentajeCobertura = porcentajeCobertura;
+	}
+
+	public String getTipoGarantia(){
+		return tipoGarantia;
+	}
+
+	public void setTipoGarantia(String tipoGarantia) {
+		this.tipoGarantia = tipoGarantia;
+	}
+
 	public Long getNumeroGarantia(){
 		return numeroGarantia;
 	}
@@ -98,12 +66,44 @@ public class Garantia implements Serializable{
 		this.numeroGarantia = numeroGarantia;
 	}
 
-	public String getDescripcionTipoGarantia(){
-		return descripcionTipoGarantia;
+	public Long getCodigoSolicitud(){
+		return codigoSolicitud;
 	}
 
-	public void setDescripcionTipoGarantia(String descripcionTipoGarantia) {
-		this.descripcionTipoGarantia = descripcionTipoGarantia;
+	public void setCodigoSolicitud(Long codigoSolicitud) {
+		this.codigoSolicitud = codigoSolicitud;
+	}
+
+	public String getMoneda(){
+		return moneda;
+	}
+
+	public void setMoneda(String moneda) {
+		this.moneda = moneda;
+	}
+
+	public Long getCodigoIbs(){
+		return codigoIbs;
+	}
+
+	public void setCodigoIbs(Long codigoIbs) {
+		this.codigoIbs = codigoIbs;
+	}
+
+	public java.math.BigDecimal getImporte(){
+		return importe;
+	}
+
+	public void setImporte(java.math.BigDecimal importe) {
+		this.importe = importe;
+	}
+
+	public String getNombreCliente(){
+		return nombreCliente;
+	}
+
+	public void setNombreCliente(String nombreCliente) {
+		this.nombreCliente = nombreCliente;
 	}
 
 }

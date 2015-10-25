@@ -12,7 +12,7 @@ import pe.com.soul.core.dao.entities.TareaEntity;
 import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Tarea;
 import pe.com.soul.core.modelo.TareaPlantilla;
-import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.modelo.UsuarioPortal;
 
 /**
  * Session Bean implementation class TareaDao
@@ -75,7 +75,7 @@ public class TareaDao extends BaseDao<TareaEntity> implements TareaDaoLocal {
 	}
 
 	@Override
-	public List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception {
+	public List<Tarea> obtenerReclamadas(UsuarioPortal usuario) throws Exception {
 		
 		String consulta = "select t from TareaEntity t where t.estadoTarea=2 and t.duenoTarea =:parametro ";
     	
@@ -93,7 +93,7 @@ public class TareaDao extends BaseDao<TareaEntity> implements TareaDaoLocal {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Tarea> obtenerDisponibles(Usuario usuario) throws Exception {
+	public List<Tarea> obtenerDisponibles(UsuarioPortal usuario) throws Exception {
 		
 		String consulta = "select new pe.com.soul.core.modelo.Tarea(t.id.codigoTarea, t.id.codigoProceso, t.id.codigoTareaPlantilla, t.id.estadoTarea, t.id.nombreTarea, t.id.aleasTarea, t.id.versionTarea, t.id.prioridadTarea, t.id.fechaCreacionTarea, t.id.fechaReclamoTarea, t.id.fechaTerminoTarea, t.id.fechaUltimaModificacionTarea, t.id.duenoTarea, t.id.codigoProcesoPlantilla, t.id.estadoProceso, t.id.nombreProceso, t.id.aleasProceso, t.id.versionProceso, t.id.fechaCreacionProceso, t.id.fechaTerminoProceso, t.id.usuarioCreacionProceso) from pe.com.soul.core.dao.entities.TareaPotencialDuenoEntity t where t.id.duenoPotencial =:parametro ";
 		

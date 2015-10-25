@@ -6,21 +6,13 @@ public class ListaVerificacion implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
-	private String nombre;
 	private java.sql.Timestamp fechaCreacion;
 	private Long codigoSolicitud;
-	private String descripcion;
-	private boolean verificado;
-	private String usuarioCreacion;
 	private Integer codigoVerificacion;
-
-	public String getNombre(){
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+	private String usuarioCreacion;
+	private boolean verificado;
+	private String descripcion;
+	private String nombre;
 
 	public java.sql.Timestamp getFechaCreacion(){
 		return fechaCreacion;
@@ -38,20 +30,12 @@ public class ListaVerificacion implements Serializable{
 		this.codigoSolicitud = codigoSolicitud;
 	}
 
-	public String getDescripcion(){
-		return descripcion;
+	public Integer getCodigoVerificacion(){
+		return codigoVerificacion;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public boolean isVerificado(){
-		return verificado;
-	}
-
-	public void setVerificado(boolean verificado) {
-		this.verificado = verificado;
+	public void setCodigoVerificacion(Integer codigoVerificacion) {
+		this.codigoVerificacion = codigoVerificacion;
 	}
 
 	public String getUsuarioCreacion(){
@@ -62,12 +46,28 @@ public class ListaVerificacion implements Serializable{
 		this.usuarioCreacion = usuarioCreacion;
 	}
 
-	public Integer getCodigoVerificacion(){
-		return codigoVerificacion;
+	public boolean isVerificado(){
+		return verificado;
 	}
 
-	public void setCodigoVerificacion(Integer codigoVerificacion) {
-		this.codigoVerificacion = codigoVerificacion;
+	public void setVerificado(boolean verificado) {
+		this.verificado = verificado;
+	}
+
+	public String getDescripcion(){
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getNombre(){
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 }

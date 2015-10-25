@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.modelo.UsuarioPortal;
 import pe.com.soul.core.seguridad.service.SeguridadServiceLocal;
 import pe.com.soul.core.web.bean.Respuesta;
 
@@ -55,11 +55,11 @@ public abstract class BaseController extends HttpServlet {
 		}
 	}
 	
-	protected Usuario obtenerUsuario(HttpServletRequest request, HttpSession session) throws Exception{
-		Usuario usuario = (Usuario)session.getAttribute(Usuario.SESSION_USUARIO_WEB_SOUL);
+	protected UsuarioPortal obtenerUsuario(HttpServletRequest request, HttpSession session) throws Exception{
+		UsuarioPortal usuario = (UsuarioPortal)session.getAttribute(UsuarioPortal.SESSION_USUARIO_WEB_SOUL);
 		if(usuario==null){
 			usuario = seguridadServiceLocal.registrarUsuario(request.getUserPrincipal().getName(), session.getId(), request.getRemoteHost(), request.getRemoteAddr());
-			session.setAttribute(Usuario.SESSION_USUARIO_WEB_SOUL, usuario);
+			session.setAttribute(UsuarioPortal.SESSION_USUARIO_WEB_SOUL, usuario);
 		}
 		return usuario;
 	}

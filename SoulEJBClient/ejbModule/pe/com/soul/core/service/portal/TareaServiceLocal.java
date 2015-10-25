@@ -7,7 +7,7 @@ import javax.ejb.Local;
 import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Tarea;
 import pe.com.soul.core.modelo.TareaPlantilla;
-import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.modelo.UsuarioPortal;
 
 @Local
 public interface TareaServiceLocal {
@@ -23,7 +23,7 @@ public interface TareaServiceLocal {
 	Tarea finalizar(long tkiid) throws Exception;
 	
 	List<Tarea> consultarTarea(long codigoProceso) throws Exception;
-	List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception;
-	List<Tarea> obtenerDisponibles(Usuario usuario) throws Exception;
+	List<Tarea> obtenerReclamadas(UsuarioPortal usuario) throws Exception;
+	List<Tarea> obtenerDisponibles(UsuarioPortal usuario) throws Exception;
 	
 }

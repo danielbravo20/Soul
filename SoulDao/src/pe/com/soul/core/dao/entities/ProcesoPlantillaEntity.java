@@ -1,6 +1,6 @@
 package pe.com.soul.core.dao.entities;
 
-// Generated 07/10/2015 10:05:11 AM by Hibernate Tools 4.3.1
+// Generated 25/10/2015 05:15:08 AM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;

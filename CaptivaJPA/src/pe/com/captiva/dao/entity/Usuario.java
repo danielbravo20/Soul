@@ -1,10 +1,14 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 22/10/2015 09:43:27 PM by Hibernate Tools 4.3.1
+// Generated 25/10/2015 06:37:17 AM by Hibernate Tools 4.3.1
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,6 +23,7 @@ public class Usuario implements java.io.Serializable {
 	private String nombre;
 	private String perfil;
 	private String descripcion;
+	private Set<Equipo> equipos = new HashSet<Equipo>(0);
 
 	public Usuario() {
 	}
@@ -31,12 +36,13 @@ public class Usuario implements java.io.Serializable {
 	}
 
 	public Usuario(String codUsuario, String clave, String nombre,
-			String perfil, String descripcion) {
+			String perfil, String descripcion, Set<Equipo> equipos) {
 		this.codUsuario = codUsuario;
 		this.clave = clave;
 		this.nombre = nombre;
 		this.perfil = perfil;
 		this.descripcion = descripcion;
+		this.equipos = equipos;
 	}
 
 	@Id
@@ -83,6 +89,15 @@ public class Usuario implements java.io.Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+	public Set<Equipo> getEquipos() {
+		return this.equipos;
+	}
+
+	public void setEquipos(Set<Equipo> equipos) {
+		this.equipos = equipos;
 	}
 
 }

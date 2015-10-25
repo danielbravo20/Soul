@@ -10,7 +10,22 @@ import pe.com.captiva.bean.EquipoBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.dao.EquipoDaoLocal;
 import pe.com.captiva.dao.ProyectoDaoLocal;
-import pe.com.captiva.servicio.util.FabricaBean;
+import pe.com.captiva.servicio.util.general.GeneralClaseBean;
+import pe.com.captiva.servicio.util.general.GeneralSQLInsertSoul;
+import pe.com.captiva.servicio.util.proceso.ProcesoClaseControlador;
+import pe.com.captiva.servicio.util.proceso.ProcesoClaseInterfaceServicio;
+import pe.com.captiva.servicio.util.proceso.ProcesoClasePreControlador;
+import pe.com.captiva.servicio.util.proceso.ProcesoClasePreServicio;
+import pe.com.captiva.servicio.util.proceso.ProcesoClasePreUtil;
+import pe.com.captiva.servicio.util.proceso.ProcesoClaseServicio;
+import pe.com.captiva.servicio.util.proceso.ProcesoClaseUtil;
+import pe.com.captiva.servicio.util.tarea.TareaClaseControlador;
+import pe.com.captiva.servicio.util.tarea.TareaClaseInterfaceServicio;
+import pe.com.captiva.servicio.util.tarea.TareaClasePreControlador;
+import pe.com.captiva.servicio.util.tarea.TareaClasePreServicio;
+import pe.com.captiva.servicio.util.tarea.TareaClasePreUtil;
+import pe.com.captiva.servicio.util.tarea.TareaClaseServicio;
+import pe.com.captiva.servicio.util.tarea.TareaClaseUtil;
 
 /**
  * Session Bean implementation class FabricaSoulService
@@ -39,7 +54,25 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 			System.out.println("..."+proyectoBean.getClases());
 			
 			proyectoBean.setEquipoBean(equipoBean);
-			new FabricaBean().construir(proyectoBean); 
+			new GeneralClaseBean().construir(proyectoBean);
+			new GeneralSQLInsertSoul().construir(proyectoBean);
+			
+			new ProcesoClasePreUtil().construir(proyectoBean);
+			new ProcesoClaseUtil().construir(proyectoBean);
+			new ProcesoClaseInterfaceServicio().construir(proyectoBean);
+			new ProcesoClasePreControlador().construir(proyectoBean);
+			new ProcesoClaseControlador().construir(proyectoBean);
+			new ProcesoClasePreServicio().construir(proyectoBean);
+			new ProcesoClaseServicio().construir(proyectoBean);
+			
+			new TareaClasePreUtil().construir(proyectoBean);
+			new TareaClaseUtil().construir(proyectoBean);
+			new TareaClaseInterfaceServicio().construir(proyectoBean);
+			new TareaClasePreControlador().construir(proyectoBean);
+			new TareaClaseControlador().construir(proyectoBean);
+			new TareaClasePreServicio().construir(proyectoBean);
+			new TareaClaseServicio().construir(proyectoBean);
+			
 		}
 	}
 	

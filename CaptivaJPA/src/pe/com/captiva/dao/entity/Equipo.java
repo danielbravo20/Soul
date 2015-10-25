@@ -1,12 +1,15 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 22/10/2015 09:43:27 PM by Hibernate Tools 4.3.1
+// Generated 25/10/2015 06:37:17 AM by Hibernate Tools 4.3.1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,6 +20,8 @@ import javax.persistence.Table;
 public class Equipo implements java.io.Serializable {
 
 	private EquipoId id;
+	private Proyecto proyecto;
+	private Usuario usuario;
 	private char esResponsable;
 	private String carpetaDestinoWorkspace;
 	private String carpetaDestinoParcial;
@@ -24,9 +29,12 @@ public class Equipo implements java.io.Serializable {
 	public Equipo() {
 	}
 
-	public Equipo(EquipoId id, char esResponsable,
-			String carpetaDestinoWorkspace, String carpetaDestinoParcial) {
+	public Equipo(EquipoId id, Proyecto proyecto, Usuario usuario,
+			char esResponsable, String carpetaDestinoWorkspace,
+			String carpetaDestinoParcial) {
 		this.id = id;
+		this.proyecto = proyecto;
+		this.usuario = usuario;
 		this.esResponsable = esResponsable;
 		this.carpetaDestinoWorkspace = carpetaDestinoWorkspace;
 		this.carpetaDestinoParcial = carpetaDestinoParcial;
@@ -42,6 +50,26 @@ public class Equipo implements java.io.Serializable {
 
 	public void setId(EquipoId id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_proyecto", nullable = false, insertable = false, updatable = false)
+	public Proyecto getProyecto() {
+		return this.proyecto;
+	}
+
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_usuario", nullable = false, insertable = false, updatable = false)
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Column(name = "es_responsable", nullable = false, length = 1)

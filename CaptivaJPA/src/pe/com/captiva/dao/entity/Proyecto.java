@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 22/10/2015 09:43:27 PM by Hibernate Tools 4.3.1
+// Generated 25/10/2015 06:37:17 AM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,10 +23,9 @@ public class Proyecto implements java.io.Serializable {
 	private String proyecto;
 	private String paquete;
 	private Set<Catalogo> catalogos = new HashSet<Catalogo>(0);
+	private Set<Equipo> equipos = new HashSet<Equipo>(0);
 	private Set<Mantenimiento> mantenimientos = new HashSet<Mantenimiento>(0);
 	private Set<Proceso> procesos = new HashSet<Proceso>(0);
-	private Set<Configuracion> configuracions = new HashSet<Configuracion>(0);
-	private Set<Esquema> esquemas = new HashSet<Esquema>(0);
 	private Set<Datasource> datasources = new HashSet<Datasource>(0);
 	private Set<Rol> rols = new HashSet<Rol>(0);
 	private Set<Consulta> consultas = new HashSet<Consulta>(0);
@@ -45,9 +44,8 @@ public class Proyecto implements java.io.Serializable {
 	}
 
 	public Proyecto(int codProyecto, String nombre, String proyecto,
-			String paquete, Set<Catalogo> catalogos,
+			String paquete, Set<Catalogo> catalogos, Set<Equipo> equipos,
 			Set<Mantenimiento> mantenimientos, Set<Proceso> procesos,
-			Set<Configuracion> configuracions, Set<Esquema> esquemas,
 			Set<Datasource> datasources, Set<Rol> rols,
 			Set<Consulta> consultas, Set<Tabla> tablas, Set<Clase> clases) {
 		this.codProyecto = codProyecto;
@@ -55,10 +53,9 @@ public class Proyecto implements java.io.Serializable {
 		this.proyecto = proyecto;
 		this.paquete = paquete;
 		this.catalogos = catalogos;
+		this.equipos = equipos;
 		this.mantenimientos = mantenimientos;
 		this.procesos = procesos;
-		this.configuracions = configuracions;
-		this.esquemas = esquemas;
 		this.datasources = datasources;
 		this.rols = rols;
 		this.consultas = consultas;
@@ -113,6 +110,15 @@ public class Proyecto implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")
+	public Set<Equipo> getEquipos() {
+		return this.equipos;
+	}
+
+	public void setEquipos(Set<Equipo> equipos) {
+		this.equipos = equipos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")
 	public Set<Mantenimiento> getMantenimientos() {
 		return this.mantenimientos;
 	}
@@ -128,24 +134,6 @@ public class Proyecto implements java.io.Serializable {
 
 	public void setProcesos(Set<Proceso> procesos) {
 		this.procesos = procesos;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")
-	public Set<Configuracion> getConfiguracions() {
-		return this.configuracions;
-	}
-
-	public void setConfiguracions(Set<Configuracion> configuracions) {
-		this.configuracions = configuracions;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")
-	public Set<Esquema> getEsquemas() {
-		return this.esquemas;
-	}
-
-	public void setEsquemas(Set<Esquema> esquemas) {
-		this.esquemas = esquemas;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")

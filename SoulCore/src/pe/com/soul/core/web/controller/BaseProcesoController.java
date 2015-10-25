@@ -10,8 +10,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import pe.com.soul.core.modelo.MensajeValidacion;
-import pe.com.soul.core.modelo.Usuario;
-import pe.com.soul.core.servicio.BaseProcesoServicio;
+import pe.com.soul.core.modelo.UsuarioPortal;
+import pe.com.soul.core.servicio.BaseProcesoServicioLocal;
 import pe.com.soul.core.web.bean.Respuesta;
 import pe.com.soul.core.web.util.ProcesoUtil;
 
@@ -32,7 +32,7 @@ public abstract class BaseProcesoController extends BaseController{
 		
 		if(accion != null && session!=null){
 			
-			Usuario usuario = obtenerUsuario(request, session);
+			UsuarioPortal usuario = obtenerUsuario(request, session);
 			if("crear".equals(accion)){
 				respuesta = accionCrear(request, response, usuario);
 			}else if(codigoProceso!=null){
@@ -50,13 +50,13 @@ public abstract class BaseProcesoController extends BaseController{
 		printWriter.print(gson.toJson(respuesta));
 	}
 	
-	public Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception {
+	public Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario) throws Exception {
 		Respuesta respuesta = new Respuesta();
 		MensajeValidacion mensajeValidacion =  getProcesoUtil().validacionCampos(request, response);
 		
 		if(mensajeValidacion.isConforme()){
 			respuesta.setResultado(true);
-			respuesta.setRespuesta(getBaseProcesoService().accionCrearInstancia(usuario));
+			respuesta.setRespuesta(getBaseProcesoServicioLocal().accionCrearInstancia(usuario));
 		}else{
 			respuesta.setResultado(false);
 			respuesta.setRespuesta(mensajeValidacion);
@@ -67,10 +67,10 @@ public abstract class BaseProcesoController extends BaseController{
 	
 	public abstract ProcesoUtil getProcesoUtil();
 	
-	public abstract BaseProcesoServicio getBaseProcesoService();
+	public abstract BaseProcesoServicioLocal getBaseProcesoServicioLocal();
 	
-	protected abstract Respuesta accionResumen(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
+	protected abstract Respuesta accionResumen(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario) throws Exception;
 	
-	protected abstract Respuesta accionDetalle(HttpServletRequest request, HttpServletResponse response, Usuario usuario) throws Exception;
+	protected abstract Respuesta accionDetalle(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario) throws Exception;
 	
 }

@@ -4,7 +4,7 @@ import javax.ejb.EJB;
 
 import pe.com.cartaFianza.emision.tarea.EmisionEvaluarSolicitudV1Local;
 import pe.com.cartaFianza.emision.tareas.controller.util.EvaluarSolicitudV1Util;
-import pe.com.soul.core.servicio.BaseTareaServicio;
+import pe.com.soul.core.servicio.BaseTareaServicioLocal;
 import pe.com.soul.core.web.controller.BaseTareaController;
 import pe.com.soul.core.web.util.TareaUtil;
 
@@ -23,7 +23,7 @@ public abstract class PreEvaluarSolicitudV1 extends BaseTareaController{
 	}
 
 	@Override
-	public BaseTareaServicio getBaseTareaService() {
+	public BaseTareaServicioLocal getBaseTareaServicioLocal() {
 		return emisionEvaluarSolicitudV1Local;
 	}
 }

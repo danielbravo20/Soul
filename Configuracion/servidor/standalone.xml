@@ -310,7 +310,7 @@
                         <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
                             <module-option name="dsJndiName" value="java:jboss/soulDS"/>
                             <module-option name="principalsQuery" value="select CLAVE AS passwd from SEGURIDAD.USUARIO where USUARIO = ?"/>
-                            <module-option name="rolesQuery" value="SELECT R.NOMBRE_ROL AS userRoles, 'Roles' FROM SEGURIDAD.USUARIO_ROL UR, SEGURIDAD.ROL R, SEGURIDAD.USUARIO U WHERE UR.USUARIO = U.USUARIO AND UR.CODIGO_ROL = R.CODIGO_ROL AND U.USUARIO = ?"/>
+                            <module-option name="rolesQuery" value="SELECT UR.CODIGO_ROL AS userRoles, 'Roles' FROM SEGURIDAD.USUARIO_ROL UR, SEGURIDAD.USUARIO U WHERE UR.USUARIO = U.USUARIO AND U.USUARIO = ?"/>
                             <module-option name="password-stacking" value="useFirstPass"/>
                             <module-option name="hashAlgorithm" value="MD5"/>
                             <module-option name="hashEncoding" value="hex"/>

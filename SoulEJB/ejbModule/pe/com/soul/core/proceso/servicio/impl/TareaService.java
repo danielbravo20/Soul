@@ -13,7 +13,7 @@ import pe.com.soul.core.dao.TareaDaoLocal;
 import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Tarea;
 import pe.com.soul.core.modelo.TareaPlantilla;
-import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.modelo.UsuarioPortal;
 import pe.com.soul.core.service.portal.ProcesoServiceLocal;
 import pe.com.soul.core.service.portal.TareaServiceLocal;
 
@@ -61,12 +61,12 @@ public class TareaService implements TareaServiceLocal {
 	}
     
 	@Override
-	public List<Tarea> obtenerReclamadas(Usuario usuario) throws Exception {
+	public List<Tarea> obtenerReclamadas(UsuarioPortal usuario) throws Exception {
 		return tareaDaoLocal.obtenerReclamadas(usuario);
 	}
 
 	@Override
-	public List<Tarea> obtenerDisponibles(Usuario usuario) throws Exception {
+	public List<Tarea> obtenerDisponibles(UsuarioPortal usuario) throws Exception {
 		return tareaDaoLocal.obtenerDisponibles(usuario);
 	}
 	

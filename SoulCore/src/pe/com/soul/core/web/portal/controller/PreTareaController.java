@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.modelo.UsuarioPortal;
 import pe.com.soul.core.service.portal.TareaServiceLocal;
 import pe.com.soul.core.web.bean.Respuesta;
 import pe.com.soul.core.web.controller.BaseController;
@@ -38,7 +38,7 @@ public class PreTareaController extends BaseController {
 		
 		if(accion != null && session!=null){
 			
-			Usuario usuario = obtenerUsuario(request, session);
+			UsuarioPortal usuario = obtenerUsuario(request, session);
 			
 			if("reclamadas".equals(accion)){
 				respuesta.setRespuesta(tareaServiceLocal.obtenerReclamadas(usuario));

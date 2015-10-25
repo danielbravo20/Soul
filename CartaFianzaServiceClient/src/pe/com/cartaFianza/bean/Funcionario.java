@@ -6,19 +6,27 @@ public class Funcionario implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
+	private String usuarioFuncionario;
 	private String nombreAsistente;
+	private String usuarioAsistente;
 	private boolean estado;
 	private String usuarioGerente;
-	private java.sql.Timestamp fechaCreacion;
-	private String codigoTipoBanca;
-	private String usuarioCreacion;
-	private String usuarioFuncionario;
-	private String nombreFuncionario;
-	private java.sql.Timestamp fechaModificacion;
-	private String usuarioAsistente;
-	private String codigoIBS;
 	private String usuarioModificacion;
+	private String codigoIBS;
 	private String nombreGerente;
+	private String usuarioCreacion;
+	private String codigoTipoBanca;
+	private java.sql.Timestamp fechaModificacion;
+	private String nombreFuncionario;
+	private java.sql.Timestamp fechaCreacion;
+
+	public String getUsuarioFuncionario(){
+		return usuarioFuncionario;
+	}
+
+	public void setUsuarioFuncionario(String usuarioFuncionario) {
+		this.usuarioFuncionario = usuarioFuncionario;
+	}
 
 	public String getNombreAsistente(){
 		return nombreAsistente;
@@ -26,6 +34,14 @@ public class Funcionario implements Serializable{
 
 	public void setNombreAsistente(String nombreAsistente) {
 		this.nombreAsistente = nombreAsistente;
+	}
+
+	public String getUsuarioAsistente(){
+		return usuarioAsistente;
+	}
+
+	public void setUsuarioAsistente(String usuarioAsistente) {
+		this.usuarioAsistente = usuarioAsistente;
 	}
 
 	public boolean isEstado(){
@@ -44,60 +60,12 @@ public class Funcionario implements Serializable{
 		this.usuarioGerente = usuarioGerente;
 	}
 
-	public java.sql.Timestamp getFechaCreacion(){
-		return fechaCreacion;
+	public String getUsuarioModificacion(){
+		return usuarioModificacion;
 	}
 
-	public void setFechaCreacion(java.sql.Timestamp fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
-	public String getCodigoTipoBanca(){
-		return codigoTipoBanca;
-	}
-
-	public void setCodigoTipoBanca(String codigoTipoBanca) {
-		this.codigoTipoBanca = codigoTipoBanca;
-	}
-
-	public String getUsuarioCreacion(){
-		return usuarioCreacion;
-	}
-
-	public void setUsuarioCreacion(String usuarioCreacion) {
-		this.usuarioCreacion = usuarioCreacion;
-	}
-
-	public String getUsuarioFuncionario(){
-		return usuarioFuncionario;
-	}
-
-	public void setUsuarioFuncionario(String usuarioFuncionario) {
-		this.usuarioFuncionario = usuarioFuncionario;
-	}
-
-	public String getNombreFuncionario(){
-		return nombreFuncionario;
-	}
-
-	public void setNombreFuncionario(String nombreFuncionario) {
-		this.nombreFuncionario = nombreFuncionario;
-	}
-
-	public java.sql.Timestamp getFechaModificacion(){
-		return fechaModificacion;
-	}
-
-	public void setFechaModificacion(java.sql.Timestamp fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
-
-	public String getUsuarioAsistente(){
-		return usuarioAsistente;
-	}
-
-	public void setUsuarioAsistente(String usuarioAsistente) {
-		this.usuarioAsistente = usuarioAsistente;
+	public void setUsuarioModificacion(String usuarioModificacion) {
+		this.usuarioModificacion = usuarioModificacion;
 	}
 
 	public String getCodigoIBS(){
@@ -108,20 +76,52 @@ public class Funcionario implements Serializable{
 		this.codigoIBS = codigoIBS;
 	}
 
-	public String getUsuarioModificacion(){
-		return usuarioModificacion;
-	}
-
-	public void setUsuarioModificacion(String usuarioModificacion) {
-		this.usuarioModificacion = usuarioModificacion;
-	}
-
 	public String getNombreGerente(){
 		return nombreGerente;
 	}
 
 	public void setNombreGerente(String nombreGerente) {
 		this.nombreGerente = nombreGerente;
+	}
+
+	public String getUsuarioCreacion(){
+		return usuarioCreacion;
+	}
+
+	public void setUsuarioCreacion(String usuarioCreacion) {
+		this.usuarioCreacion = usuarioCreacion;
+	}
+
+	public String getCodigoTipoBanca(){
+		return codigoTipoBanca;
+	}
+
+	public void setCodigoTipoBanca(String codigoTipoBanca) {
+		this.codigoTipoBanca = codigoTipoBanca;
+	}
+
+	public java.sql.Timestamp getFechaModificacion(){
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(java.sql.Timestamp fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public String getNombreFuncionario(){
+		return nombreFuncionario;
+	}
+
+	public void setNombreFuncionario(String nombreFuncionario) {
+		this.nombreFuncionario = nombreFuncionario;
+	}
+
+	public java.sql.Timestamp getFechaCreacion(){
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(java.sql.Timestamp fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 
 }

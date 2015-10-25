@@ -10,7 +10,7 @@ http://localhost:8080/CaptivaWeb/mapeov2/web/mapeo.html?usuario=david&proyecto=1
 ---------------------------                     Acciones a nivel de proceso                      ---------------------------
 
 --Crear instancia
-http://localhost:8080/CartaFianzaWeb/portal/emisionCartaFianzaV1?accion=crear&tipoFianza=LIC&monedaFianza=USD&montoFianza=5000
+http://localhost:8080/CartaFianzaWeb/portal/emisioncartafianzav1?accion=crear&tipoFianza=LIC&monedaFianza=USD&montoFianza=5000
 
 --resumen
 http://localhost:8080/CartaFianzaWeb/portal/emisionCartaFianzaV1?accion=resumen&codigoProceso=10001

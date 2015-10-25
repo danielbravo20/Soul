@@ -6,10 +6,10 @@ import pe.com.cartaFianza.bean.Cliente;
 import pe.com.cartaFianza.bean.Solicitud;
 import pe.com.soul.core.modelo.Tarea;
 import pe.com.soul.core.modelo.TareaPlantilla;
-import pe.com.soul.core.servicio.BaseTareaServicio;
+import pe.com.soul.core.servicio.BaseTareaServicioLocal;
 import pe.com.soul.core.servicio.impl.BaseTareaServicioImpl;
 
-public abstract class PreEmisionEvaluarSolicitudV1 extends BaseTareaServicioImpl implements BaseTareaServicio{
+public abstract class PreEmisionEvaluarSolicitudV1 extends BaseTareaServicioImpl implements BaseTareaServicioLocal{
 	
 	@Override
 	public Object trabajar(Tarea tarea) throws Exception {

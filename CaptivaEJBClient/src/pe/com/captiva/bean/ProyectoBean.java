@@ -10,6 +10,7 @@ public class ProyectoBean extends BaseBean{
 	public static final String SUFIJO_PROYECTO_WEB 			= "Web";
 	public static final String SUFIJO_PROYECTO_SERVICE 		= "Service";
 	public static final String SUFIJO_PROYECTO_SERVICELIB 	= "ServiceClient";
+	public static final String SUFIJO_SQL 	= "SQL";
 	
 	private int codProyecto;
 	private String nombre;
@@ -18,6 +19,12 @@ public class ProyectoBean extends BaseBean{
 	private EquipoBean equipoBean;
 	
 	private List<ClaseBean> clases;
+	private List<TablaBean> tablas;
+	private List<ConsultaBean> consultas;
+	private List<ProcesoBean> procesos;
+	private List<TareaBean> tareas;
+	private List<ProductoBean> productos;
+	private List<CatalogoBean> catalogos;
 	
 	public int getCodProyecto() {
 		return codProyecto;
@@ -54,6 +61,43 @@ public class ProyectoBean extends BaseBean{
 	}
 	public void setEquipoBean(EquipoBean equipoBean) {
 		this.equipoBean = equipoBean;
+	}
+	public List<TablaBean> getTablas() {
+		return tablas;
+	}
+	public void setTablas(List<TablaBean> tablas) {
+		this.tablas = tablas;
+	}
+	public List<ConsultaBean> getConsultas() {
+		return consultas;
+	}
+	public void setConsultas(List<ConsultaBean> consultas) {
+		this.consultas = consultas;
+	}
+	public List<ProcesoBean> getProcesos() {
+		return procesos;
+	}
+	public void setProcesos(List<ProcesoBean> procesos) {
+		this.procesos = procesos;
+	}
+	public List<TareaBean> getTareas() {
+		return tareas;
+	}
+	public void setTareas(List<TareaBean> tareas) {
+		this.tareas = tareas;
+	}
+	
+	public List<ProductoBean> getProductos() {
+		return productos;
+	}
+	public void setProductos(List<ProductoBean> productos) {
+		this.productos = productos;
+	}
+	public List<CatalogoBean> getCatalogos() {
+		return catalogos;
+	}
+	public void setCatalogos(List<CatalogoBean> catalogos) {
+		this.catalogos = catalogos;
 	}
 			
 }

@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 22/10/2015 09:43:27 PM by Hibernate Tools 4.3.1
+// Generated 25/10/2015 06:37:17 AM by Hibernate Tools 4.3.1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -9,7 +9,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,6 +22,7 @@ public class TareaAtrCancelar implements java.io.Serializable {
 	private TareaAtrCancelarId id;
 	private Atributo atributo;
 	private Tarea tarea;
+	private int codProceso;
 	private String javValOmision;
 	private Character webFlgValidacion;
 
@@ -30,24 +30,26 @@ public class TareaAtrCancelar implements java.io.Serializable {
 	}
 
 	public TareaAtrCancelar(TareaAtrCancelarId id, Atributo atributo,
-			Tarea tarea) {
+			Tarea tarea, int codProceso) {
 		this.id = id;
 		this.atributo = atributo;
 		this.tarea = tarea;
+		this.codProceso = codProceso;
 	}
 
 	public TareaAtrCancelar(TareaAtrCancelarId id, Atributo atributo,
-			Tarea tarea, String javValOmision, Character webFlgValidacion) {
+			Tarea tarea, int codProceso, String javValOmision,
+			Character webFlgValidacion) {
 		this.id = id;
 		this.atributo = atributo;
 		this.tarea = tarea;
+		this.codProceso = codProceso;
 		this.javValOmision = javValOmision;
 		this.webFlgValidacion = webFlgValidacion;
 	}
 
 	@EmbeddedId
 	@AttributeOverrides({
-			@AttributeOverride(name = "codProceso", column = @Column(name = "cod_proceso", nullable = false)),
 			@AttributeOverride(name = "codTarea", column = @Column(name = "cod_tarea", nullable = false)),
 			@AttributeOverride(name = "codAtributo", column = @Column(name = "cod_atributo", nullable = false)) })
 	public TareaAtrCancelarId getId() {
@@ -69,15 +71,22 @@ public class TareaAtrCancelar implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "cod_tarea", referencedColumnName = "cod_proceso", nullable = false, insertable = false, updatable = false),
-			@JoinColumn(name = "cod_proceso", referencedColumnName = "cod_tarea", nullable = false, insertable = false, updatable = false) })
+	@JoinColumn(name = "cod_tarea", nullable = false, insertable = false, updatable = false)
 	public Tarea getTarea() {
 		return this.tarea;
 	}
 
 	public void setTarea(Tarea tarea) {
 		this.tarea = tarea;
+	}
+
+	@Column(name = "cod_proceso", nullable = false)
+	public int getCodProceso() {
+		return this.codProceso;
+	}
+
+	public void setCodProceso(int codProceso) {
+		this.codProceso = codProceso;
 	}
 
 	@Column(name = "jav_val_omision", length = 250)

@@ -6,25 +6,25 @@ public class Linea implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
-	private String codigoLinea;
+	private String codigoCategoria;
 	private String moneda;
 	private java.math.BigDecimal montoDisponibleIBS;
-	private String codigoCategoria;
 	private java.sql.Date fechaVencimiento;
-	private String descripcionEstado;
-	private java.math.BigDecimal montoTramite;
-	private String codigoEstado;
-	private java.math.BigDecimal montoDisponible;
-	private java.math.BigDecimal montoAprobado;
-	private Long codigoSolicitud;
 	private String descripcionCategoria;
+	private java.math.BigDecimal montoDisponible;
+	private String codigoEstado;
+	private String descripcionEstado;
+	private String codigoLinea;
+	private Long codigoSolicitud;
+	private java.math.BigDecimal montoTramite;
+	private java.math.BigDecimal montoAprobado;
 
-	public String getCodigoLinea(){
-		return codigoLinea;
+	public String getCodigoCategoria(){
+		return codigoCategoria;
 	}
 
-	public void setCodigoLinea(String codigoLinea) {
-		this.codigoLinea = codigoLinea;
+	public void setCodigoCategoria(String codigoCategoria) {
+		this.codigoCategoria = codigoCategoria;
 	}
 
 	public String getMoneda(){
@@ -43,14 +43,6 @@ public class Linea implements Serializable{
 		this.montoDisponibleIBS = montoDisponibleIBS;
 	}
 
-	public String getCodigoCategoria(){
-		return codigoCategoria;
-	}
-
-	public void setCodigoCategoria(String codigoCategoria) {
-		this.codigoCategoria = codigoCategoria;
-	}
-
 	public java.sql.Date getFechaVencimiento(){
 		return fechaVencimiento;
 	}
@@ -59,28 +51,12 @@ public class Linea implements Serializable{
 		this.fechaVencimiento = fechaVencimiento;
 	}
 
-	public String getDescripcionEstado(){
-		return descripcionEstado;
+	public String getDescripcionCategoria(){
+		return descripcionCategoria;
 	}
 
-	public void setDescripcionEstado(String descripcionEstado) {
-		this.descripcionEstado = descripcionEstado;
-	}
-
-	public java.math.BigDecimal getMontoTramite(){
-		return montoTramite;
-	}
-
-	public void setMontoTramite(java.math.BigDecimal montoTramite) {
-		this.montoTramite = montoTramite;
-	}
-
-	public String getCodigoEstado(){
-		return codigoEstado;
-	}
-
-	public void setCodigoEstado(String codigoEstado) {
-		this.codigoEstado = codigoEstado;
+	public void setDescripcionCategoria(String descripcionCategoria) {
+		this.descripcionCategoria = descripcionCategoria;
 	}
 
 	public java.math.BigDecimal getMontoDisponible(){
@@ -91,12 +67,28 @@ public class Linea implements Serializable{
 		this.montoDisponible = montoDisponible;
 	}
 
-	public java.math.BigDecimal getMontoAprobado(){
-		return montoAprobado;
+	public String getCodigoEstado(){
+		return codigoEstado;
 	}
 
-	public void setMontoAprobado(java.math.BigDecimal montoAprobado) {
-		this.montoAprobado = montoAprobado;
+	public void setCodigoEstado(String codigoEstado) {
+		this.codigoEstado = codigoEstado;
+	}
+
+	public String getDescripcionEstado(){
+		return descripcionEstado;
+	}
+
+	public void setDescripcionEstado(String descripcionEstado) {
+		this.descripcionEstado = descripcionEstado;
+	}
+
+	public String getCodigoLinea(){
+		return codigoLinea;
+	}
+
+	public void setCodigoLinea(String codigoLinea) {
+		this.codigoLinea = codigoLinea;
 	}
 
 	public Long getCodigoSolicitud(){
@@ -107,12 +99,20 @@ public class Linea implements Serializable{
 		this.codigoSolicitud = codigoSolicitud;
 	}
 
-	public String getDescripcionCategoria(){
-		return descripcionCategoria;
+	public java.math.BigDecimal getMontoTramite(){
+		return montoTramite;
 	}
 
-	public void setDescripcionCategoria(String descripcionCategoria) {
-		this.descripcionCategoria = descripcionCategoria;
+	public void setMontoTramite(java.math.BigDecimal montoTramite) {
+		this.montoTramite = montoTramite;
+	}
+
+	public java.math.BigDecimal getMontoAprobado(){
+		return montoAprobado;
+	}
+
+	public void setMontoAprobado(java.math.BigDecimal montoAprobado) {
+		this.montoAprobado = montoAprobado;
 	}
 
 }

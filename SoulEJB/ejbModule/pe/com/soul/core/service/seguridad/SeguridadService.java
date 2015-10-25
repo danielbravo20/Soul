@@ -8,7 +8,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import pe.com.soul.core.modelo.Usuario;
+import pe.com.soul.core.modelo.UsuarioPortal;
 import pe.com.soul.core.seguridad.dao.UsuarioDaoLocal;
 import pe.com.soul.core.seguridad.service.SeguridadServiceLocal;
 
@@ -22,16 +22,16 @@ public class SeguridadService implements SeguridadServiceLocal {
 	@EJB
 	UsuarioDaoLocal usuarioDaoLocal;
 	
-	private static Map<String, Usuario> sesionIds 		= new HashMap<String, Usuario>();
+	private static Map<String, UsuarioPortal> sesionIds 		= new HashMap<String, UsuarioPortal>();
 	private static Map<String, String> sesionUsuario 	= new HashMap<String, String>();
 	
-	public List<Usuario> obtenerUsuarios() throws Exception {
+	public List<UsuarioPortal> obtenerUsuarios() throws Exception {
 		return usuarioDaoLocal.obtenerTodo();
 	}
 
-	public Usuario registrarUsuario(String usuarioId, String sesionId, String hostRemoto, String ipRemoto) throws Exception {
+	public UsuarioPortal registrarUsuario(String usuarioId, String sesionId, String hostRemoto, String ipRemoto) throws Exception {
 		
-		Usuario usuario = null;
+		UsuarioPortal usuario = null;
 		
 		if(sesionIds.containsKey(sesionId)){
 			throw new Exception("La sesion ingresada ya existe, no puede ser registrada...");

@@ -7,17 +7,17 @@ public class Liquidacion implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String numeroCuenta;
+	private java.math.BigDecimal importeCuenta;
 	private java.math.BigDecimal tasaCXL;
 	private java.math.BigDecimal importeCXL;
-	private String tipoCuenta;
-	private String crearCXL;
-	private long plazoCXL;
-	private Long codigoSolicitud;
-	private String descripcionTipoCuenta;
-	private String numeroCXL;
-	private boolean sobregiro;
-	private java.math.BigDecimal importeCuenta;
 	private String codigoMoneda;
+	private long plazoCXL;
+	private String crearCXL;
+	private String tipoCuenta;
+	private boolean sobregiro;
+	private String numeroCXL;
+	private String descripcionTipoCuenta;
+	private Long codigoSolicitud;
 
 	public String getNumeroCuenta(){
 		return numeroCuenta;
@@ -25,6 +25,14 @@ public class Liquidacion implements Serializable{
 
 	public void setNumeroCuenta(String numeroCuenta) {
 		this.numeroCuenta = numeroCuenta;
+	}
+
+	public java.math.BigDecimal getImporteCuenta(){
+		return importeCuenta;
+	}
+
+	public void setImporteCuenta(java.math.BigDecimal importeCuenta) {
+		this.importeCuenta = importeCuenta;
 	}
 
 	public java.math.BigDecimal getTasaCXL(){
@@ -43,20 +51,12 @@ public class Liquidacion implements Serializable{
 		this.importeCXL = importeCXL;
 	}
 
-	public String getTipoCuenta(){
-		return tipoCuenta;
+	public String getCodigoMoneda(){
+		return codigoMoneda;
 	}
 
-	public void setTipoCuenta(String tipoCuenta) {
-		this.tipoCuenta = tipoCuenta;
-	}
-
-	public String getCrearCXL(){
-		return crearCXL;
-	}
-
-	public void setCrearCXL(String crearCXL) {
-		this.crearCXL = crearCXL;
+	public void setCodigoMoneda(String codigoMoneda) {
+		this.codigoMoneda = codigoMoneda;
 	}
 
 	public long getPlazoCXL(){
@@ -67,28 +67,20 @@ public class Liquidacion implements Serializable{
 		this.plazoCXL = plazoCXL;
 	}
 
-	public Long getCodigoSolicitud(){
-		return codigoSolicitud;
+	public String getCrearCXL(){
+		return crearCXL;
 	}
 
-	public void setCodigoSolicitud(Long codigoSolicitud) {
-		this.codigoSolicitud = codigoSolicitud;
+	public void setCrearCXL(String crearCXL) {
+		this.crearCXL = crearCXL;
 	}
 
-	public String getDescripcionTipoCuenta(){
-		return descripcionTipoCuenta;
+	public String getTipoCuenta(){
+		return tipoCuenta;
 	}
 
-	public void setDescripcionTipoCuenta(String descripcionTipoCuenta) {
-		this.descripcionTipoCuenta = descripcionTipoCuenta;
-	}
-
-	public String getNumeroCXL(){
-		return numeroCXL;
-	}
-
-	public void setNumeroCXL(String numeroCXL) {
-		this.numeroCXL = numeroCXL;
+	public void setTipoCuenta(String tipoCuenta) {
+		this.tipoCuenta = tipoCuenta;
 	}
 
 	public boolean isSobregiro(){
@@ -99,20 +91,28 @@ public class Liquidacion implements Serializable{
 		this.sobregiro = sobregiro;
 	}
 
-	public java.math.BigDecimal getImporteCuenta(){
-		return importeCuenta;
+	public String getNumeroCXL(){
+		return numeroCXL;
 	}
 
-	public void setImporteCuenta(java.math.BigDecimal importeCuenta) {
-		this.importeCuenta = importeCuenta;
+	public void setNumeroCXL(String numeroCXL) {
+		this.numeroCXL = numeroCXL;
 	}
 
-	public String getCodigoMoneda(){
-		return codigoMoneda;
+	public String getDescripcionTipoCuenta(){
+		return descripcionTipoCuenta;
 	}
 
-	public void setCodigoMoneda(String codigoMoneda) {
-		this.codigoMoneda = codigoMoneda;
+	public void setDescripcionTipoCuenta(String descripcionTipoCuenta) {
+		this.descripcionTipoCuenta = descripcionTipoCuenta;
+	}
+
+	public Long getCodigoSolicitud(){
+		return codigoSolicitud;
+	}
+
+	public void setCodigoSolicitud(Long codigoSolicitud) {
+		this.codigoSolicitud = codigoSolicitud;
 	}
 
 }
