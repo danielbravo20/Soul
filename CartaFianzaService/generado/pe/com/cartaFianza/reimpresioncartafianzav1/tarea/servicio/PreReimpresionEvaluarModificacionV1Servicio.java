@@ -20,10 +20,10 @@ public abstract class PreReimpresionEvaluarModificacionV1Servicio extends BaseTa
 	@Override
 	public TareaPlantilla proximaTareaCompletar(Tarea tarea) throws Exception {
 		TareaPlantilla tareaPlantilla = new TareaPlantilla();
-		tareaPlantilla.setCodigoTareaPlantilla(2);
-		tareaPlantilla.setAleas("evaluarSolicitudV1");
+		tareaPlantilla.setCodigoTareaPlantilla(702);
+		tareaPlantilla.setAleas("ReimpresionEvaluarModificacionV1");
 		tareaPlantilla.setEstado(1);
-		tareaPlantilla.setNombre("Evaluar Solicitud");
+		tareaPlantilla.setNombre("EVALUAR MODIFICACION");
 		tareaPlantilla.setOrden(2);
 		tareaPlantilla.setPrioridad(1);
 		tareaPlantilla.setVersion("v1.0.0");

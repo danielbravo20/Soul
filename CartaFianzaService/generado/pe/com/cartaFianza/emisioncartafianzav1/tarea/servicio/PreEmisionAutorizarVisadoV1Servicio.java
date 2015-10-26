@@ -20,10 +20,10 @@ public abstract class PreEmisionAutorizarVisadoV1Servicio extends BaseTareaServi
 	@Override
 	public TareaPlantilla proximaTareaCompletar(Tarea tarea) throws Exception {
 		TareaPlantilla tareaPlantilla = new TareaPlantilla();
-		tareaPlantilla.setCodigoTareaPlantilla(2);
-		tareaPlantilla.setAleas("evaluarSolicitudV1");
+		tareaPlantilla.setCodigoTareaPlantilla(5);
+		tareaPlantilla.setAleas("EmisionVisarSolicitudV1");
 		tareaPlantilla.setEstado(1);
-		tareaPlantilla.setNombre("Evaluar Solicitud");
+		tareaPlantilla.setNombre("VISAR SOLICITUD");
 		tareaPlantilla.setOrden(2);
 		tareaPlantilla.setPrioridad(1);
 		tareaPlantilla.setVersion("v1.0.0");

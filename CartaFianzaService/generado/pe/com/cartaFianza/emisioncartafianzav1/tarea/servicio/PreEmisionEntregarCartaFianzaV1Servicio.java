@@ -20,10 +20,10 @@ public abstract class PreEmisionEntregarCartaFianzaV1Servicio extends BaseTareaS
 	@Override
 	public TareaPlantilla proximaTareaCompletar(Tarea tarea) throws Exception {
 		TareaPlantilla tareaPlantilla = new TareaPlantilla();
-		tareaPlantilla.setCodigoTareaPlantilla(2);
-		tareaPlantilla.setAleas("evaluarSolicitudV1");
+		tareaPlantilla.setCodigoTareaPlantilla(9);
+		tareaPlantilla.setAleas("EmisionAutorizarReimpresionV1");
 		tareaPlantilla.setEstado(1);
-		tareaPlantilla.setNombre("Evaluar Solicitud");
+		tareaPlantilla.setNombre("AUTORIZAR REIMPRESION");
 		tareaPlantilla.setOrden(2);
 		tareaPlantilla.setPrioridad(1);
 		tareaPlantilla.setVersion("v1.0.0");

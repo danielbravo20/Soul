@@ -92,7 +92,7 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 
 		buffer.append("\t@Override\r\n");
 		buffer.append("\tpublic String definirProximoDueno(Proceso proceso) throws Exception {\r\n");
-		buffer.append("\t\treturn sessionContext.getCallerPrincipal().getName();\r\n");
+		buffer.append("\t\treturn null;\r\n");
 		buffer.append("\t}\r\n\r\n");
 			
 		buffer.append("}");

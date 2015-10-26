@@ -37,9 +37,9 @@ public abstract class PreEjecucionCartaFianzaV1Servicio extends BaseProcesoServi
 
 	public TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{
 		TareaPlantilla plantilla = new TareaPlantilla();
-		plantilla.setCodigoTareaPlantilla(604);
-		plantilla.setNombre("CONFIRMAR ENTREGA");
-		plantilla.setAleas("EjecucionConfirmarEntregaV1");
+		plantilla.setCodigoTareaPlantilla(603);
+		plantilla.setNombre("IMPRIMIR CHEQUE");
+		plantilla.setAleas("EjecucionImprimirChequeV1");
 		plantilla.setEstado(1);
 		plantilla.setOrden(1);
 		plantilla.setPrioridad(1);

@@ -62,15 +62,20 @@ public class TareaClasePreServicio extends MultipleBaseConstructor{
 			
 		buffer.append("\t@Override\r\n");
 		buffer.append("\tpublic TareaPlantilla proximaTareaCompletar(Tarea tarea) throws Exception {\r\n");
-		buffer.append("\t\tTareaPlantilla tareaPlantilla = new TareaPlantilla();\r\n");
-		buffer.append("\t\ttareaPlantilla.setCodigoTareaPlantilla(2);\r\n");
-		buffer.append("\t\ttareaPlantilla.setAleas(\"evaluarSolicitudV1\");\r\n");
-		buffer.append("\t\ttareaPlantilla.setEstado(1);\r\n");
-		buffer.append("\t\ttareaPlantilla.setNombre(\"Evaluar Solicitud\");\r\n");
-		buffer.append("\t\ttareaPlantilla.setOrden(2);\r\n");
-		buffer.append("\t\ttareaPlantilla.setPrioridad(1);\r\n");
-		buffer.append("\t\ttareaPlantilla.setVersion(\"v1.0.0\");\r\n");
-		buffer.append("\t\treturn tareaPlantilla;\r\n");
+		if(tareaBean.getTareaSiguiente()!=null){
+			TareaBean siguiente = tareaBean.getTareaSiguiente();
+			buffer.append("\t\tTareaPlantilla tareaPlantilla = new TareaPlantilla();\r\n");
+			buffer.append("\t\ttareaPlantilla.setCodigoTareaPlantilla("+siguiente.getCodigo()+");\r\n");
+			buffer.append("\t\ttareaPlantilla.setAleas(\""+siguiente.getClase()+"\");\r\n");
+			buffer.append("\t\ttareaPlantilla.setEstado(1);\r\n");
+			buffer.append("\t\ttareaPlantilla.setNombre(\""+siguiente.getNombre()+"\");\r\n");
+			buffer.append("\t\ttareaPlantilla.setOrden(2);\r\n");
+			buffer.append("\t\ttareaPlantilla.setPrioridad(1);\r\n");
+			buffer.append("\t\ttareaPlantilla.setVersion(\"v1.0.0\");\r\n");
+			buffer.append("\t\treturn tareaPlantilla;\r\n");
+		}else{
+			buffer.append("\t\treturn null;\r\n");
+		}
 		buffer.append("\t}\r\n\r\n");
 
 		buffer.append("\t@Override\r\n");
@@ -95,7 +100,20 @@ public class TareaClasePreServicio extends MultipleBaseConstructor{
 
 		buffer.append("\t@Override\r\n");
 		buffer.append("\tpublic TareaPlantilla proximaTareaObservar(Tarea tarea) throws Exception {\r\n");
-		buffer.append("\t\treturn null;\r\n");
+		if(tareaBean.getTareaObservado()!=null){
+			TareaBean observado = tareaBean.getTareaObservado();
+			buffer.append("\t\tTareaPlantilla tareaPlantilla = new TareaPlantilla();\r\n");
+			buffer.append("\t\ttareaPlantilla.setCodigoTareaPlantilla("+observado.getCodigo()+");\r\n");
+			buffer.append("\t\ttareaPlantilla.setAleas(\""+observado.getClase()+"\");\r\n");
+			buffer.append("\t\ttareaPlantilla.setEstado(1);\r\n");
+			buffer.append("\t\ttareaPlantilla.setNombre(\""+observado.getNombre()+"\");\r\n");
+			buffer.append("\t\ttareaPlantilla.setOrden(2);\r\n");
+			buffer.append("\t\ttareaPlantilla.setPrioridad(1);\r\n");
+			buffer.append("\t\ttareaPlantilla.setVersion(\"v1.0.0\");\r\n");
+			buffer.append("\t\treturn tareaPlantilla;\r\n");
+		}else{
+			buffer.append("\t\treturn null;\r\n");
+		}
 		buffer.append("\t}\r\n\r\n");
 
 		buffer.append("\t@Override\r\n");

@@ -60,6 +60,9 @@ public class TareaBean {
 	private List<RolBean> rolesPotencial;
 	private List<RolBean> rolesAdministrador;
 	
+	private TareaBean tareaSiguiente;
+	private TareaBean tareaObservado;
+	
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -390,6 +393,18 @@ public class TareaBean {
 	}
 	public void setRolesAdministrador(List<RolBean> rolesAdministrador) {
 		this.rolesAdministrador = rolesAdministrador;
+	}
+	public TareaBean getTareaSiguiente() {
+		return tareaSiguiente;
+	}
+	public void setTareaSiguiente(TareaBean tareaSiguiente) {
+		this.tareaSiguiente = tareaSiguiente;
+	}
+	public TareaBean getTareaObservado() {
+		return tareaObservado;
+	}
+	public void setTareaObservado(TareaBean tareaObservado) {
+		this.tareaObservado = tareaObservado;
 	}
 	
 	

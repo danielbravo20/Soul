@@ -397,7 +397,9 @@ CREATE TABLE soul.tarea(
  web_flg_arc_adjuntos Character(1) DEFAULT '0'::bpchar NOT NULL,
  web_flg_arc_adicionales Character(1) DEFAULT '0'::bpchar NOT NULL,
  web_nom_configuracion Character varying(120),
- tipo_vista Character(1)
+ tipo_vista Character(1),
+ cod_tarea_siguiente Integer,
+ cod_tarea_observado Integer
 )
 ;
 
@@ -596,6 +598,10 @@ ALTER TABLE soul.tarea ADD CONSTRAINT tarea_consulta_fk FOREIGN KEY (cod_con_tra
 
 ALTER TABLE soul.tarea ADD CONSTRAINT tarea_consulta_fk1 FOREIGN KEY (cod_con_completar) REFERENCES soul.consulta (cod_consulta) ON DELETE RESTRICT ON UPDATE NO ACTION
 ;
+
+ALTER TABLE soul.tarea ADD CONSTRAINT tarea_siguiente_fk FOREIGN KEY (cod_tarea_siguiente) REFERENCES soul.tarea (cod_tarea) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+ALTER TABLE soul.tarea ADD CONSTRAINT tarea_observado_fk FOREIGN KEY (cod_tarea_observado) REFERENCES soul.tarea (cod_tarea) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 ALTER TABLE soul.tarea_atr_cancelar ADD CONSTRAINT tar_atr_cancelar_atributo_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE NO ACTION
 ;

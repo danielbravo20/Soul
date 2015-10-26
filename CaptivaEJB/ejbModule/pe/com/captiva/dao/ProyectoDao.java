@@ -160,11 +160,24 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 				rolesAdministrador.add(parseRolBean((Rol) rolAdministradorIterator.next()));
 			}
     		tareaBean.setRolesAdministrador(rolesAdministrador);
-    		
+    		tareaBean.setTareaSiguiente(parseTareaBeanSimple(tarea.getTareaByCodTareaSiguiente()));
+    		tareaBean.setTareaObservado(parseTareaBeanSimple(tarea.getTareaByCodTareaObservado()));
     	}
     	return tareaBean;
     }
-
+    
+    private TareaBean parseTareaBeanSimple(Tarea tarea){
+    	TareaBean tareaBean = null;
+    	if(tarea!=null){
+    		tareaBean = new TareaBean();
+    		tareaBean.setCodigo(tarea.getCodTarea());
+    		tareaBean.setNombre(tarea.getNombre());
+    		tareaBean.setVersion(tarea.getVersionTarea());
+    		tareaBean.setClase(tarea.getJavClase());
+    	}
+    	return tareaBean;
+    }
+ 
     private RolBean parseRolBean(Rol rol){
     	RolBean rolBean = null;
     	if(rol!=null){

@@ -12,8 +12,8 @@ import pe.com.soul.core.modelo.UsuarioPortal;
 public class CambioEstadoCartaFianzaV1Servicio extends PreCambioEstadoCartaFianzaV1Servicio implements CambioEstadoCartaFianzaV1ServicioLocal {
 
 	@RolesAllowed("Administrador")
-	public Proceso crearInstancia(UsuarioPortal usuarioPortal) throws Exception {
-		return super.crearInstancia(usuarioPortal);
+	public Proceso accionCrearInstancia(UsuarioPortal usuarioPortal) throws Exception {
+		return super.accionCrearInstancia(usuarioPortal);
 	}
 
 }

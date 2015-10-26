@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 25/10/2015 06:37:17 AM by Hibernate Tools 4.3.1
+// Generated 25/10/2015 10:35:30 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +26,8 @@ public class Tarea implements java.io.Serializable {
 	private Consulta consultaByCodConTrabajar;
 	private Consulta consultaByCodConCompletar;
 	private Proceso proceso;
+	private Tarea tareaByCodTareaObservado;
+	private Tarea tareaByCodTareaSiguiente;
 	private String nombre;
 	private String versionTarea;
 	private String sqlAleas;
@@ -53,6 +55,8 @@ public class Tarea implements java.io.Serializable {
 	private Set<TareaAtrCancelar> tareaAtrCancelars = new HashSet<TareaAtrCancelar>(
 			0);
 	private Set<Rol> rols = new HashSet<Rol>(0);
+	private Set<Tarea> tareasForCodTareaObservado = new HashSet<Tarea>(0);
+	private Set<Tarea> tareasForCodTareaSiguiente = new HashSet<Tarea>(0);
 	private Set<TareaAtrRechazar> tareaAtrRechazars = new HashSet<TareaAtrRechazar>(
 			0);
 	private Set<TareaAtrObservar> tareaAtrObservars = new HashSet<TareaAtrObservar>(
@@ -97,23 +101,28 @@ public class Tarea implements java.io.Serializable {
 	}
 
 	public Tarea(int codTarea, Consulta consultaByCodConTrabajar,
-			Consulta consultaByCodConCompletar, Proceso proceso, String nombre,
-			String versionTarea, String sqlAleas, String sqlDatasource,
-			String bpmNombre, String javPaquete, String javClase,
-			char webAccCompletar, char webAccGrabar, char webAccCancelar,
-			char webAccRechazar, char webAccObservar, char webAccSalir,
-			char webAccSubsanar, String webParHisComentario,
+			Consulta consultaByCodConCompletar, Proceso proceso,
+			Tarea tareaByCodTareaObservado, Tarea tareaByCodTareaSiguiente,
+			String nombre, String versionTarea, String sqlAleas,
+			String sqlDatasource, String bpmNombre, String javPaquete,
+			String javClase, char webAccCompletar, char webAccGrabar,
+			char webAccCancelar, char webAccRechazar, char webAccObservar,
+			char webAccSalir, char webAccSubsanar, String webParHisComentario,
 			String webParHisAccion, int webTieRojo, int webTieAmarillo,
 			char webFlgArcAdjuntos, char webFlgArcAdicionales,
 			String webNomConfiguracion, Character tipoVista,
 			Set<TareaAtrCompletar> tareaAtrCompletars,
 			Set<TareaAtrCancelar> tareaAtrCancelars, Set<Rol> rols,
+			Set<Tarea> tareasForCodTareaObservado,
+			Set<Tarea> tareasForCodTareaSiguiente,
 			Set<TareaAtrRechazar> tareaAtrRechazars,
 			Set<TareaAtrObservar> tareaAtrObservars, Set<Rol> rols_1) {
 		this.codTarea = codTarea;
 		this.consultaByCodConTrabajar = consultaByCodConTrabajar;
 		this.consultaByCodConCompletar = consultaByCodConCompletar;
 		this.proceso = proceso;
+		this.tareaByCodTareaObservado = tareaByCodTareaObservado;
+		this.tareaByCodTareaSiguiente = tareaByCodTareaSiguiente;
 		this.nombre = nombre;
 		this.versionTarea = versionTarea;
 		this.sqlAleas = sqlAleas;
@@ -139,6 +148,8 @@ public class Tarea implements java.io.Serializable {
 		this.tareaAtrCompletars = tareaAtrCompletars;
 		this.tareaAtrCancelars = tareaAtrCancelars;
 		this.rols = rols;
+		this.tareasForCodTareaObservado = tareasForCodTareaObservado;
+		this.tareasForCodTareaSiguiente = tareasForCodTareaSiguiente;
 		this.tareaAtrRechazars = tareaAtrRechazars;
 		this.tareaAtrObservars = tareaAtrObservars;
 		this.rols_1 = rols_1;
@@ -182,6 +193,26 @@ public class Tarea implements java.io.Serializable {
 
 	public void setProceso(Proceso proceso) {
 		this.proceso = proceso;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_tarea_observado")
+	public Tarea getTareaByCodTareaObservado() {
+		return this.tareaByCodTareaObservado;
+	}
+
+	public void setTareaByCodTareaObservado(Tarea tareaByCodTareaObservado) {
+		this.tareaByCodTareaObservado = tareaByCodTareaObservado;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_tarea_siguiente")
+	public Tarea getTareaByCodTareaSiguiente() {
+		return this.tareaByCodTareaSiguiente;
+	}
+
+	public void setTareaByCodTareaSiguiente(Tarea tareaByCodTareaSiguiente) {
+		this.tareaByCodTareaSiguiente = tareaByCodTareaSiguiente;
 	}
 
 	@Column(name = "nombre", nullable = false, length = 120)
@@ -408,6 +439,26 @@ public class Tarea implements java.io.Serializable {
 
 	public void setRols(Set<Rol> rols) {
 		this.rols = rols;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tareaByCodTareaObservado")
+	public Set<Tarea> getTareasForCodTareaObservado() {
+		return this.tareasForCodTareaObservado;
+	}
+
+	public void setTareasForCodTareaObservado(
+			Set<Tarea> tareasForCodTareaObservado) {
+		this.tareasForCodTareaObservado = tareasForCodTareaObservado;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tareaByCodTareaSiguiente")
+	public Set<Tarea> getTareasForCodTareaSiguiente() {
+		return this.tareasForCodTareaSiguiente;
+	}
+
+	public void setTareasForCodTareaSiguiente(
+			Set<Tarea> tareasForCodTareaSiguiente) {
+		this.tareasForCodTareaSiguiente = tareasForCodTareaSiguiente;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tarea")

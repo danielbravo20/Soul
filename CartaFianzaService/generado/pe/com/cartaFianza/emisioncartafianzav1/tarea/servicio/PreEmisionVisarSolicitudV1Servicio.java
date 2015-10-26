@@ -20,10 +20,10 @@ public abstract class PreEmisionVisarSolicitudV1Servicio extends BaseTareaServic
 	@Override
 	public TareaPlantilla proximaTareaCompletar(Tarea tarea) throws Exception {
 		TareaPlantilla tareaPlantilla = new TareaPlantilla();
-		tareaPlantilla.setCodigoTareaPlantilla(2);
-		tareaPlantilla.setAleas("evaluarSolicitudV1");
+		tareaPlantilla.setCodigoTareaPlantilla(6);
+		tareaPlantilla.setAleas("EmisionAutorizarOperacionV1");
 		tareaPlantilla.setEstado(1);
-		tareaPlantilla.setNombre("Evaluar Solicitud");
+		tareaPlantilla.setNombre("AUTORIZAR OPERACION");
 		tareaPlantilla.setOrden(2);
 		tareaPlantilla.setPrioridad(1);
 		tareaPlantilla.setVersion("v1.0.0");
@@ -52,7 +52,15 @@ public abstract class PreEmisionVisarSolicitudV1Servicio extends BaseTareaServic
 
 	@Override
 	public TareaPlantilla proximaTareaObservar(Tarea tarea) throws Exception {
-		return null;
+		TareaPlantilla tareaPlantilla = new TareaPlantilla();
+		tareaPlantilla.setCodigoTareaPlantilla(5);
+		tareaPlantilla.setAleas("EmisionVisarSolicitudV1");
+		tareaPlantilla.setEstado(1);
+		tareaPlantilla.setNombre("VISAR SOLICITUD");
+		tareaPlantilla.setOrden(2);
+		tareaPlantilla.setPrioridad(1);
+		tareaPlantilla.setVersion("v1.0.0");
+		return tareaPlantilla;
 	}
 
 	@Override
