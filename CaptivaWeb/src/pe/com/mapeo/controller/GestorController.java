@@ -19,13 +19,13 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class gestorController
  */
-public class gestorController extends HttpServlet {
+public class GestorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Context context;   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public gestorController() {
+    public GestorController() {
         super();
         // TODO Auto-generated constructor stub
     }

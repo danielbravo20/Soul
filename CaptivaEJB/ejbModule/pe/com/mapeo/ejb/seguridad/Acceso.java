@@ -12,7 +12,7 @@ import pe.com.mapeo.util.MapeoUtil;
 @Stateless
 public class Acceso extends GestionBase implements AccesoLocal {
 	
-	public final static String rutaPrincipal = "mapeov2/web/mapeo.html";
+	public final static String rutaPrincipal = "mapeo/index.html";
 
     public Object acceder(Jpo jpo,HttpServletRequest request,HttpServletResponse response) throws Exception{
     	

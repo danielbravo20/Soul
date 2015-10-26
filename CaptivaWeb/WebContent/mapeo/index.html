@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=11;IE=10;IE=9" >
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>MAPEO</title>
+    <link href="../js/librerias/ui-bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="../css/estructura.css" rel="stylesheet" type="text/css" />
+	<link rel="apple-touch-icon" sizes="57x57" href="../imagenes/icono/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="../imagenes/icono/apple-touch-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="../imagenes/icono/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../imagenes/icono/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="../imagenes/icono/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="../imagenes/icono/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="../imagenes/icono/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="../imagenes/icono/apple-touch-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../imagenes/icono/apple-touch-icon-180x180.png" />
+	<link rel="icon" type="image/png" href="../imagenes/icono/favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="../imagenes/icono/favicon-194x194.png" sizes="194x194" />
+	<link rel="icon" type="image/png" href="../imagenes/icono/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/png" href="../imagenes/icono/android-chrome-192x192.png" sizes="192x192" />
+	<link rel="icon" type="image/png" href="../imagenes/icono/favicon-16x16.png" sizes="16x16" />
+	<link rel="manifest" href="../imagenes/icono/manifest.json" />
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../imagenes/icono/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+    <script type="text/javascript" src="../js/funcionesJavascript.js"></script>
+	<script type="text/javascript" src="../js/librerias/jquery-2.1.3.js"></script>
+	<script type="text/javascript" src="../js/librerias/angular.js"></script>
+	<script type="text/javascript" src="../js/librerias/drag-drop/angular-drag-and-drop-lists.js"></script>
+	<script type="text/javascript"  src="../js/librerias/angular-locale_es-es.js"></script>
+    <script type="text/javascript" src="../js/librerias/ui-bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+	<script type="text/javascript" src="../js/librerias/core/core-v3.js"></script>
+    <script type="text/javascript" src="controlador/index.js"></script>
+    <script type="text/javascript" src="../js/index-reglas.js"></script>
+</head>
+<body>
+<div ng-app="mapeo" ng-controller="principal">
+	<div ng-include="'menu.html'"></div>
+	<div style="height: 30px"></div>
+	<div class="container-fluid" ng-include="'proyectogestionar.html'" ng-show="modulo === 'proyectogestionar'"></div>
+	<div class="container-fluid" ng-include="'proyectocargado.html'" ng-show="modulo === 'proyectocargado'"></div>
+	<div class="container-fluid" ng-include="'usuariogestionar.html'" ng-show="modulo === 'usuariogestionar' && data.USUARIO.PERFIL=='PRO_MAN'"></div>
+	<div class="container-fluid" ng-include="'usuarioperfil.html'" ng-show="modulo === 'usuarioperfil'"></div>
+	<div class="seccion_alertas">
+		<alert ng-repeat="alerta in alertas" type="{{alerta.tipo}}" close="cerrarAlerta($index)">{{alerta.mensaje}}</alert>
+	</div>
+	<div class="botonesRapidosGenerar">
+		<div class="panel">
+			<a class="btn btn-success btn-xs" ng-click="abrirGenerador()" tooltip="Generar"><i class="glyphicon glyphicon-play"></i></a>
+			<a class="btn btn-danger btn-xs" ng-click="generar()" tooltip="Generado Rápido"><i class="glyphicon glyphicon-play"></i><i class="glyphicon glyphicon-play"></i></a>
+		</div>
+	</div>
+</div>
+<div ng-include="'../plantilla/inc_piepagina.html'"></div>
+</body>
+</html>

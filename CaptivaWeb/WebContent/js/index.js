@@ -1,11 +1,16 @@
-var acceder = angular.module('acceder', ['ui.bootstrap']);
+var acceder = angular.module('acceder', ['core','ui.bootstrap']);
 
-	acceder.controller('logeo', function ($scope, $http) {
+	acceder.controller('logeo', function ($scope, $http, ajax) {
+		
+		// SCOPE
+		$scope.data = {};
+		
+		ajax.cargarConfiguracion(function(respuesta){
+			$scope.data.config = respuesta.config;
+			document.title = respuesta.config.proyecto + " v"+respuesta.config.version;
+		});
 		
 		$scope.frm = {
-			paquete : "seguridad",
-			clase : "Acceso",
-			metodo : "acceder",
 			USU_W_COD_USUARIO : "",
 			USU_W_CLAVE : ""
 		};
@@ -29,7 +34,8 @@ var acceder = angular.module('acceder', ['ui.bootstrap']);
 		
 		$scope.conectar = function(){
 			if($scope.validarAcceso){
-				Core.jpo($http,$scope.frm,function(respuesta){
+				var dataReq = { paquete: "seguridad", clase: "Acceso", metodo: "acceder"};
+				ajax.get(dataReq,$scope.frm,function(respuesta){
 					if(respuesta){
 						setTimeout(function(){location.href = respuesta; },1200);
 					} else {

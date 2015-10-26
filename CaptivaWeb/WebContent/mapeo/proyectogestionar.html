@@ -1,0 +1,93 @@
+<script type="text/javascript" src="controlador/proyectogestionar.js"></script>
+<div ng-controller="proyectogestionar">
+	<div class="page-header"><h1>Proyectos</h1></div>
+	<div class="panel panel-default" ng-show="vista === 'lista'">
+	  <div class="panel-heading">Cartera de Proyectos</div>
+	  <table class="table">
+		<thead>
+		  <tr>
+			<th>Código</th>
+			<th>Proyecto</th>
+			<th>Paquete</th>
+			<th>Opciones</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr ng-repeat="proyecto in data.PROYECTOS">
+			<td>{{proyecto.cod_proyecto}}</td>
+			<td>{{proyecto.nombre}}</td>
+			<td>{{proyecto.paquete}}</td>
+			<td>
+				<a class="btn btn-success btn-sm" ng-click="trabajar($index)" tooltip="Trabajar"><i class="glyphicon glyphicon-play"></i></a>
+				<a class="btn btn-primary btn-sm" ng-click="editar($index)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+			</td>
+		  </tr>
+		  <tr ng-show="data.USUARIO.perfil=='PRO_MAN'">
+			<td colspan="4"><a class="btn btn-primary btn-sm" ng-click="nuevoCargar($index)" href="#"><i class="glyphicon glyphicon-plus"></i></a></td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+	<div class="panel panel-default" ng-show="vista === 'mantener'">
+	  <div class="panel-heading">Nuevo Proyecto</div>
+	  <table class="table">
+		<tbody>
+		  <tr>
+			<th width="40%">Código de Proyecto (*) :</th>
+			<td width="60%"><input type="text" ng-model="cargado.PRO_codigoProyecto" class="form-control input-sm" ng-disabled="esEdicion"></td>
+		  </tr>
+		  <tr>
+			<th>Nombre (*) :</th>
+			<td><input type="text" ng-model="cargado.PRO_nombre" class="form-control input-sm"></td>
+		  </tr>
+		  <tr>
+			<th>Descripción (*) :</th>
+			<td><input type="text" ng-model="cargado.PRO_descripcion" class="form-control input-sm"></td>
+		  </tr>
+		  <tr>
+			<th>Paquete (*) :</th>
+			<td>
+				<input type="text" autocomplete="off" class="form-control input-sm"
+					data-typeahead-editable="false" 
+					data-ng-model="cargado.PRO_paquete" 
+					data-typeahead="paquete for paquete in paquetes | filter:$viewValue | limitTo:8">
+			</td>
+		  </tr>
+		  <tr>
+			<td colspan="2">
+				<div class="panel panel-default">
+				  <div class="panel-heading">Equipo</div>
+					<table class="table">
+						<thead>
+						  <tr>
+							<th>Usuario</th>
+							<th>Nombre</th>
+							<th>Rol</th>
+							<th>Asignar como Equipo</th>
+							<th>Asignar Responsable</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr ng-repeat="usuario in USUARIOS">
+							<td>{{usuario.cod_usuario}}</td>
+							<td>{{usuario.nombre}}</td>
+							<td>{{getPerfil(usuario.perfil)}}</td>
+							<td><input type="checkbox" ng-model="usuario.esDelEquipo"></td>
+							<td><input type="radio" ng-show="usuario.perfil=='PRO_MAN' && usuario.esDelEquipo" ng-model="cargado.UsuarioResponsable" value="{{usuario.cod_usuario}}"></td>
+						  </tr>
+						</tbody>
+					</table>
+				</div>
+			</td>
+		  </tr>
+		  <tr>
+			<td colspan="2">
+				<a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">Guardar</span><span ng-show="!esEdicion">Registrar</span></a>
+				<a class="btn btn-primary btn-sm" ng-click="eliminar()" ng-show="esEdicion"><i class="glyphicon glyphicon-trash"></i> Eliminar Proyecto</a>
+				<a class="btn btn-primary btn-sm" ng-click="instanciar()" href="#"><i class="glyphicon glyphicon-chevron-left"></i> Listar</a>
+			</td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+</div>

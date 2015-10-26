@@ -1,0 +1,132 @@
+<script type="text/javascript" src="controlador/consulta.js"></script>
+<div ng-controller="consulta" style="padding-top: 5px;">
+	<div class="container-fluid show-grid" ng-show="vista === 'lista'">
+		<div class="panel panel-default">
+		  <div class="panel-heading">Listado de Consultas</div>
+		  <table class="table">
+			<thead>
+			  <tr>
+				<th><input type="text" ng-model="buscar.COD_CONSULTA" placeholder="Código" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.NOMBRE" placeholder="Nombre" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.SQL_ALE_STO_PROCEDURE" placeholder="Nombre SP" class="form-control input-sm"></th>
+				<th>Opción</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="item in data.CONSULTA | orderBy: 'COD_CONSULTA' | filter:buscar" ng-show="pag.get($index) == pag.actual">
+				<td>{{item.COD_CONSULTA}}</td>
+				<td>{{item.NOMBRE}}</td>
+				<td>{{item.SQL_ALE_STO_PROCEDURE}}</td>
+				<td>
+					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.COD_CONSULTA)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.COD_CONSULTA)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+				</td>
+			  </tr>
+			  <tr>
+				<td colspan="4">
+					<a class="btn btn-primary btn-sm" ng-click="nuevo()" tooltip="Nuevo"><i class="glyphicon glyphicon-plus"></i></a>
+				</td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+		<pagination total-items="pag.total" ng-model="pag.actual" max-size="pag.max" class="pagination-sm" boundary-links="true" items-per-page="pag.itemxPagina" style="margin: 0px 0;"></pagination>
+	</div>
+	<div class="container-fluid show-grid" ng-show="vista === 'mantener'">
+		<div class="panel panel-default">
+		  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
+		  <form name="FRM_CONSULTA" novalidate>
+		  <table class="table" style="margin-bottom: 0px;">
+			<tbody>
+			  <tr>
+				<th>Codigo (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CON_COD_CONSULTA" name="CON_COD_CONSULTA" ng-disabled="esEdicion" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Nombre (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CON_NOMBRE" name="CON_NOMBRE" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Nombre SP (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CON_SQL_ALE_STO_PROCEDURE" name="CON_SQL_ALE_STO_PROCEDURE" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Java Paquete (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CON_JAV_PAQUETE" name="CON_JAV_PAQUETE" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Java Interface (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CON_JAV_INTERFACE" name="CON_JAV_INTERFACE" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Tablas :</th>
+				<td>
+				  <table class="table">
+					<thead>
+					  <tr>
+						<th>&nbsp;</th>
+						<th>Tabla (*) :</th>
+						<th>Es primaria</th>
+						<th>Es uno a muchos</th>
+						<th>Opciones</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr ng-repeat="consultaTabla in consultaTablas">
+						<td>{{$index+1}}</td>
+						<td><select class="form-control input-sm" ng-model="consultaTabla.COD_TABLA" ng-options="item.COD_TABLA as item.NOMBRE for item in data.TABLA | orderBy: 'NOMBRE'" ng-change="cargarSeleccionadas()"></select></td>
+						<td><input type="radio" ng-model="$parent.consultaTablaEsFK" name="consultaTablaEsFK" value="{{$index}}" class="form-control input-sm" style="width:30px"></td>
+						<td><input type="checkbox" ng-model="consultaTabla.FLG_UNO_MUCHOS" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+						<td width="220px">
+							<a class="btn btn-primary btn-sm" ng-click="tablaEliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a>&nbsp;&nbsp;
+						</td>
+					  </tr>
+					  <tr>
+						<td colspan="5"><a class="btn btn-primary btn-sm" ng-click="tablaAgregar()"><i class="glyphicon glyphicon-plus"></i></a></td>
+					  </tr>
+					</tbody>
+				  </table>
+				</td>
+			  </tr>
+			  <tr>
+				<th>Atributos :</th>
+				<td>
+				  <table class="table">
+					<thead>
+					  <tr>
+						<th>&nbsp;</th>
+						<th>Tabla</th>
+						<th>Atributo</th>
+						<th>Es condición</th>
+						<th>Opciones</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr ng-repeat="consultaAtributo in consultaAtributos">
+						<td>{{$index+1}}</td>
+						<td><select class="form-control input-sm" ng-model="consultaAtributo.COD_TABLA" ng-options="item.COD_TABLA as item.NOMBRE for item in tablasSeleccionadas | orderBy: 'NOMBRE'" ng-change="cargarAtributos($index)"></select></td>
+						<td><select class="form-control input-sm" ng-model="consultaAtributo.COD_ATRIBUTO" ng-options="item.COD_ATRIBUTO as item.NOMBRE for item in listaAtributos[consultaAtributo.COD_TABLA] | orderBy: 'NOMBRE'"></select></td>
+						<td><input type="checkbox" ng-model="consultaAtributo.FLG_CONDICION" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+						<td width="220px">
+							<a class="btn btn-primary btn-sm" ng-click="atributoEliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a>&nbsp;&nbsp;
+						</td>
+					  </tr>
+					  <tr>
+						<td colspan="5"><a class="btn btn-primary btn-sm" ng-click="atributoAgregar()"><i class="glyphicon glyphicon-plus"></i></a></td>
+					  </tr>
+					</tbody>
+				  </table>
+				</td>
+			  </tr>
+			  <tr>
+				<td colspan="2">
+					<a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">GUARDAR</span><span ng-show="!esEdicion">REGISTRAR</span></a>
+					<a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR</a>
+				</td>
+			  </tr>
+			</tbody>
+		  </table>
+		  </form>
+		</div>
+	</div>
+</div>

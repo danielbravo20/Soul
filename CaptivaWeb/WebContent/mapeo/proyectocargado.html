@@ -1,0 +1,17 @@
+<script type="text/javascript" src="controlador/proyectocargado.js"></script>
+<div style="height: 30px"></div>
+<div ng-controller="proyectocargado">
+	<div class="row">
+		<div class="col-md-8">
+			<ol class="breadcrumb">
+			  <li><b>{{data.PROYECTO.NOMBRE | uppercase}}</b></li>
+			</ol>
+		</div>
+		<div class="col-md-4">
+			<ol class="breadcrumb">
+			  <li><a class="btn btn-info btn-sm" ng-click="cerrarProyecto()"><i class="glyphicon glyphicon-remove-circle"></i> CERRAR PROYECTO</a></li>
+			</ol>
+		</div>
+	</div>
+	<div ng-include="'plantilla/inc_listapestana_tab.html'"></div>
+</div>

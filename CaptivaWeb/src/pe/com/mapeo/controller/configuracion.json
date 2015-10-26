@@ -1,0 +1,20 @@
+{
+    "config": {
+        "proyecto": "Mapeo",
+        "version": "5.0",
+        "perfiles": [
+            {
+                "id": "PRO_MAN",
+                "valor": "GESTOR DE PROYECTOS"
+            },
+            {
+                "id": "LID_TEC",
+                "valor": "LIDER TÉCNICO"
+            },
+            {
+                "id": "ANA_PRO",
+                "valor": "ANALISTA PROGRAMADOR"
+            }
+        ]
+    }
+}

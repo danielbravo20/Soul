@@ -1,0 +1,88 @@
+<header class="navbar navbar-default navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" ng-click="isCollapsed = !isCollapsed">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand visible-xs" href="MapeoV2.html" style="padding-top: 6px;"><img src="../imagenes/logo.png"></a>
+			</div>
+			<nav class="hidden-xs">
+				<ul class="nav navbar-nav">
+					<a href="mapeo.html" role="button" class="navbar-brand" style="padding-top: 6px;"><img src="../imagenes/logo.png" width="182" height="38"></a>
+					<li class="dropdown" dropdown="" ng-hide="data.PROYECTO.esCargado">
+						<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+							<i class="glyphicon glyphicon-book"></i> Opciones <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="" ng-click="modulo = 'modulosProyecto'"><i class="glyphicon glyphicon-briefcase"></i> Proyectos</a></li>
+							<li ng-show="data.Usuario.perfil=='PRO_MAN'"><a href="" ng-click="modulo = 'usuario'"><i class="glyphicon glyphicon-user"></i> Usuarios</a></li>
+						</ul>
+					</li>
+					<li class="dropdown" dropdown="" ng-show="data.PROYECTO.esCargado">
+						<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+							<i class="glyphicon glyphicon-book"></i> {{data.PROYECTO.nombre}} <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="" ng-click="modulo = 'trabajarProyecto'; subModulo = 'modulosProyecto'"><i class="glyphicon glyphicon-inbox"></i> Trabajar Proyecto</a></li>
+							<li><a href="" ng-click="modulo = 'trabajarProyecto'; subModulo = 'esquema'"><i class="glyphicon glyphicon-align-justify"></i> Esquema de BDs</a></li>
+							<li><a href="" ng-click="modulo = 'trabajarProyecto'; subModulo = 'dataSource'"><i class="glyphicon glyphicon-tasks"></i> DataSources</a></li>
+							<li><a href="" ng-click="modulo = 'trabajarProyecto'; subModulo = 'rol'"><i class="glyphicon glyphicon-tag"></i> Roles</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav pull-right">
+					<li>
+						<div style="top: 16px; right:5px; position: relative;"><b>Bienvenido :</b></div>
+					</li>
+					<li class="dropdown" dropdown="">
+						<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+							<i class="glyphicon glyphicon-user"></i> {{data.USUARIO.nombre}} <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="" ng-click="modulo = 'perfilUsuario'"><i class="glyphicon glyphicon-pencil"></i> Ver Perfil</a></li>
+							<li><a href="../index.jsp"><i class="glyphicon glyphicon-off"></i> Desconectar</a></li>
+						</ul>
+					</li>
+				  </ul>
+			</nav>
+			<nav class="visible-xs collapse" collapse="!isCollapsed" style="height: 0px;">
+				<ul class="nav navbar-nav">
+					<li>
+						<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+							<i class="glyphicon glyphicon-book"></i> Opciones <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu" ng-hide="data.PROYECTO.esCargado">
+							<li><a href="" ng-click="modulo = 'proyecto'"><i class="glyphicon glyphicon-briefcase"></i> Proyectos</a></li>
+							<li ng-show="data.Usuario.perfil=='PRO_MAN'"><a href="" ng-click="modulo = 'usuario'"><i class="glyphicon glyphicon-user"></i> Usuarios</a></li>
+							<li ng-show="data.Usuario.perfil=='PRO_MAN'"><a href="" ng-click="modulo = 'unidadNegocio'"><i class="glyphicon glyphicon-hdd"></i> Unidades de Negocio</a></li>
+						</ul>
+					</li>
+					<li class="dropdown" dropdown="" ng-show="data.PROYECTO.esCargado">
+						<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+							<i class="glyphicon glyphicon-book"></i> {{data.PROYECTO.nombre}} <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="" ng-click="modulo = 'trabajarProyecto'; subModulo = 'modulosProyecto'"><i class="glyphicon glyphicon-inbox"></i> Trabajar Proyecto</a></li>
+							<li><a href="" ng-click="modulo = 'trabajarProyecto'; subModulo = 'esquema'"><i class="glyphicon glyphicon-align-justify"></i> Esquema de BDs</a></li>
+							<li><a href="" ng-click="modulo = 'trabajarProyecto'; subModulo = 'dataSource'"><i class="glyphicon glyphicon-tasks"></i> DataSources</a></li>
+							<li><a href="" ng-click="modulo = 'trabajarProyecto'; subModulo = 'rol'"><i class="glyphicon glyphicon-tag"></i> Roles</a></li>
+						</ul>
+					</li>
+					<li>
+						<a role="button" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+							<i class="glyphicon glyphicon-user"></i> {{data.USUARIO.nombre}} <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="" ng-click="modulo = 'perfilUsuario'"><i class="glyphicon glyphicon-pencil"></i> Ver Perfil</a></li>
+							<li><a href="../index.html"><i class="glyphicon glyphicon-off"></i> Desconectar</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>

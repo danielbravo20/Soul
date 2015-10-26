@@ -4,6 +4,30 @@ var core = angular.module('core', []);
 
 	core.factory("ajax", function($http, hostname) {
 		return {
+			cargarConfiguracion : function(callback){
+				$http({
+					url		: hostname+"ConfigController", 
+					method	: "GET"
+				}).success(function(response) {
+					if(callback){
+						callback(response);
+					}
+				});
+			},
+			getUrl : function(url,data,callback){
+				if(typeof(callback)=="undefined"){
+					callback = data;
+				}
+				$http({
+					url		: url, 
+					method	: "GET",
+					params	: angular.extend({}, data)
+				}).success(function(response) {
+					if(callback){
+						callback(response.objeto);
+					}
+				});
+			},
 			get : function(data,dataAdd,callback){
 				var dataAddt = {};
 				if(dataAdd && typeof(dataAdd) == "object"){
@@ -13,7 +37,7 @@ var core = angular.module('core', []);
 					callback = dataAdd;
 				}
 				$http({
-					url		: hostname+"gestorController", 
+					url		: hostname+"GestorController", 
 					method	: "GET",
 					params	: angular.extend({}, data, dataAddt)
 				}).success(function(response) {

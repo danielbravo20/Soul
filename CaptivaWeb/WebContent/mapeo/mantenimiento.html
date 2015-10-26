@@ -1,0 +1,154 @@
+<script type="text/javascript" src="controlador/mantenimiento.js"></script>
+<div ng-controller="mantenimiento" style="padding-top: 5px;">
+	<div class="container-fluid show-grid" ng-show="vista === 'lista'">
+		<div class="panel panel-default">
+		  <div class="panel-heading">Listado de Mantenimientos</div>
+		  <table class="table">
+			<thead>
+			  <tr>
+				<th><input type="text" ng-model="buscar.COD_MANTENIMIENTO" placeholder="Código" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.NOMBRE" placeholder="Nombre" class="form-control input-sm"></th>
+				<th>Roles</th>
+				<th><input type="text" ng-model="buscar.COD_ESQUEMA" placeholder="Esquema" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.COD_DATASOURCE" placeholder="DataSource" class="form-control input-sm"></th>
+				<th>Opción</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="item in data.MANTENIMIENTO | orderBy: 'COD_MANTENIMIENTO' | filter:buscar" ng-show="pag.get($index) == pag.actual">
+				<td>{{item.COD_MANTENIMIENTO}}</td>
+				<td>{{item.NOMBRE}}</td>
+				<td><span ng-repeat="rol in item.ROLES">
+					{{rol}}<br>
+				</span></td>
+				<td>{{item.COD_ESQUEMA}}</td>
+				<td>{{item.COD_DATASOURCE}}</td>
+				<td>
+					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.COD_MANTENIMIENTO)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.COD_MANTENIMIENTO)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+				</td>
+			  </tr>
+			  <tr>
+				<td colspan="6"><a class="btn btn-primary btn-sm" ng-click="nuevo()"><i class="glyphicon glyphicon-plus"></i></a></td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+		<pagination total-items="pag.total" ng-model="pag.actual" max-size="pag.max" class="pagination-sm" boundary-links="true" items-per-page="pag.itemxPagina" style="margin: 0px 0;"></pagination>
+	</div>
+	<div class="container-fluid show-grid" ng-show="vista === 'mantener'">
+		<form name="FRM_MANTENIMIENTO" novalidate>
+		<div class="container-fluid show-grid">
+			<div class="panel panel-default">
+			  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
+			  <table class="table">
+				<tbody>
+				  <tr>
+					<th>Mantenimiento de (*) :</th>
+					<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.MAN_NOMBRE" name="MAN_NOMBRE" class="form-control input-sm" ng-change="formatearCodigo()" required></td>
+				  </tr>
+				  <tr>
+					<th>Código de Mantenimiento (*) :</th>
+					<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.MAN_COD_MANTENIMIENTO" name="MAN_COD_MANTENIMIENTO" ng-disabled="esEdicion" class="form-control input-sm" required></td>
+				  </tr>
+				  <tr>
+					<th>Descripción :</th>
+					<td><textarea class="form-control input-sm" ng-model="cargado.MAN_DESCRIPCION"></textarea></td>
+				  </tr>
+				  <tr>
+					<th>Esquema BDs (*) :</th>
+					<td class="form-group" show-errors='{showSuccess: true}'><select class="form-control input-sm" ng-model="cargado.MAN_COD_ESQUEMA" name="COD_ESQUEMA" ng-options="obj.COD_ESQUEMA as obj.DESCRIPCION for obj in data.ESQUEMA" required></select></td>
+				  </tr>
+				  <tr>
+					<th>DataSource BDs (*) :</th>
+					<td class="form-group" show-errors='{showSuccess: true}'><select class="form-control input-sm" ng-model="cargado.MAN_COD_DATASOURCE" name="COD_DATASOURCE" ng-options="obj.COD_DATASOURCE as obj.DESCRIPCION for obj in data.DATASOURCE" required></select></td>
+				  </tr>
+				  <tr>
+					<th>Roles Asociados (*) :</th>
+					<td class="form-group"><select class="form-control input-sm" ng-model="cargado.MRO_COD_ROLES" ng-options="obj.COD_ROL as obj.DESCRIPCION for obj in data.ROL" multiple ng-multiple="true"></select></td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+		</div>
+		<div class="container-fluid show-grid">
+			<div class="panel panel-default">
+			  <div class="panel-heading">Atributos de '{{cargado.MAN_NOMBRE}}'</div>
+			  <table class="table">
+				<thead>
+				  <tr>
+					<th>&nbsp;</th>
+					<th>Nombre de Atributo (*)</th>
+					<th>Descripción (*)</th>
+					<th>Tipo de Dato (*)</th>
+					<th>Longitud Máxima (*)</th>
+					<th>Llave Primaria (*)</th>
+					<th>Obligatorio</th>
+					<th>Listado</th>
+					<th>Busqueda</th>
+					<th>Opciones</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr ng-repeat="item in atributos">
+				  	<ng-form name="userFieldForm">
+					<td>{{$index+1}}</td>
+					<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="item.NOMBRE" name="NOMBRE" class="form-control input-sm" required></td>
+					<td><input type="text" ng-model="item.DESCRIPCION" class="form-control"></td>
+					<td class="form-group" show-errors='{showSuccess: true}'><select class="form-control input-sm" ng-model="item.TIPO_DATO" name="TIPO_DATO" ng-options="obj.id as obj.valor for obj in tipoDatos" required></select></td>
+					<td width="180px">
+						<div ng-hide="item.TIPO_DATO == 'long' || item.TIPO_DATO == 'Date' || item.TIPO_DATO == 'int' || item.TIPO_DATO == 'Timestamp'" class="form-inline">
+							<span class="form-group" show-errors='{showSuccess: true}'><input type="number" class="form-control input-sm"
+								style="width: 100px"
+								ng-model="item.LONGITUD" 
+								name="LONGITUD" 
+								tooltip="Longitud"
+								ng-required = "item.TIPO_DATO == 'String' || item.TIPO_DATO == 'boolean'"></span>
+							<span class="form-group" show-errors='{showSuccess: true}'><input type="number" class="form-control input-sm" style="width:50px"
+								ng-show="item.TIPO_DATO == 'BigDecimal' || item.TIPO_DATO == 'double'"
+								ng-model="item.PRECISION" 
+								name="PRECISION" 
+								ng-style="estiloPrecision"
+								tooltip="Precision"
+								ng-required = "item.TIPO_DATO == 'BigDecimal' || item.TIPO_DATO == 'double'"></span>
+						</div>
+					</td>
+					<td><input type="checkbox" ng-model="item.ES_LLAVE_PRIMARIA" ng-true-value="'1'" ng-false-value="'0'" ng-click="atributoValidarLLave($index)" class="form-control input-sm"></td>
+					<td><input type="checkbox" ng-model="item.ES_OBLIGATORIO" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm"></td>
+					<td><input type="checkbox" ng-model="item.ES_LISTADO" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm"></td>
+					<td><input type="checkbox" ng-model="item.ES_BUSQUEDA" ng-true-value="'1'" ng-false-value="'0'" ng-click="atributoValidarBusqueda($index)" class="form-control input-sm"></td>
+					<td width="220px">
+						<a class="btn btn-danger btn-sm" ng-click="atributoEliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a>&nbsp;&nbsp;
+						<a class="btn btn-info btn-sm" ng-click="atributoSubir($index)" tooltip="Subir"><i class="glyphicon glyphicon-arrow-up"></i></a>&nbsp;&nbsp;
+						<a class="btn btn-info btn-sm" ng-click="atributoBajar($index)" tooltip="Bajar"><i class="glyphicon glyphicon-arrow-down"></i></a>&nbsp;&nbsp;
+						<a class="btn btn-info btn-sm" ng-click="atributoCopiar($index)" tooltip="Copiar"><i class="glyphicon glyphicon-tags"></i></a>
+					</td>
+					</ng-form>
+				  </tr>
+				  <tr>
+					<td colspan="9"><a class="btn btn-primary btn-sm" ng-click="atributoAgregar()"><i class="glyphicon glyphicon-plus"></i></a></td>
+				  </tr>
+				  <tr>
+					<td colspan="9"><i class="glyphicon glyphicon-info-sign"></i> * Todos los Mantenimientos se crearán con los campos de auditoría: "USUARIO_CREACION", "FECHA_CREACION", "USUARIO_ACTUALIZACION", "FECHA_ACTUALIZACION"</td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+		</div>
+		</form>
+		<div class="container-fluid show-grid">
+			<div class="panel panel-default">
+			  <table class="table">
+				<tbody>
+				  <tr>
+					<td colspan="2">
+						<a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">GUARDAR</span><span ng-show="!esEdicion">REGISTRAR</span></a>
+						<a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR</a>
+					</td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+		</div>
+	</div>
+</div>

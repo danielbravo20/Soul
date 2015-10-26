@@ -1,0 +1,70 @@
+<div class="page-header"><h1>Usuarios</h1></div>
+<div class="row">
+	<div class="col-md-6 show-grid">
+		<div class="panel panel-default">
+		  <div class="panel-heading">Listado de Usuarios</div>
+		  <table class="table">
+			<thead>
+			  <tr>
+				<th>Usuario</th>
+				<th>Nombre</th>
+				<th>Rol</th>
+				<th>Opción</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="usuario in data.Usuarios">
+				<td>{{usuario.codigoUsuario}}</td>
+				<td>{{usuario.nombre}}</td>
+				<td>{{getComboxId('Perfil',usuario.perfil)}}</td>
+				<td>
+					<a class="btn btn-primary" ng-click="eliminarUsuario($index)" href="#"><i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;
+					<a class="btn btn-primary" ng-click="cargarEditarUsuario($index)" href="#"><i class="glyphicon glyphicon-pencil"></i></a>
+				</td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default">
+		  <div class="panel-heading"><span ng-show="usuarioEsEdicion">Editar</span><span ng-show="!usuarioEsEdicion">Registrar</span></div>
+		  <table class="table">
+			<tbody>
+			  <tr>
+				<th>Código de Usuario (*) :</th>
+				<td><input type="text" ng-model="usuarioCargado.USU_codigoUsuario" class="form-control"></td>
+			  </tr>
+			  <tr ng-show="usuarioEsEdicion">
+				<th>Contraseña Anterior (*) :</th>
+				<td><input type="password" ng-model="usuarioCargado.claveAnterior" class="form-control"></td>
+			  </tr>
+			  <tr>
+				<th>Contraseña (*) :</th>
+				<td><input type="password" ng-model="usuarioCargado.USU_clave" class="form-control"></td>
+			  </tr>
+			  <tr>
+				<th>Repetir Contraseña (*) :</th>
+				<td><input type="password" ng-model="usuarioCargado.repetirClave" class="form-control"></td>
+			  </tr>
+			  <tr>
+				<th>Nombres (*) :</th>
+				<td><input type="text" ng-model="usuarioCargado.USU_nombre" class="form-control"></td>
+			  </tr>
+			  <tr>
+				<th>Perfil (*) :</th>
+				<td><select class="form-control" ng-model="usuarioCargado.USU_perfil" ng-options="perfil.id as perfil.valor for perfil in combo.Perfil"></select></td>
+			  </tr>
+			  <tr>
+				<th>Descripción (*) :</th>
+				<td><textarea class="form-control" ng-model="usuarioCargado.USU_descripcion"></textarea></td>
+			  </tr>
+			  <tr>
+				<td><button type="button" class="btn btn-primary" ng-click="guardarUsuario()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="usuarioEsEdicion">Guardar</span><span ng-show="!usuarioEsEdicion">Registrar</span></button></td>
+				<td><button type="button" class="btn btn-primary" ng-click="limpiarUsuario()" ng-show="usuarioEsEdicion"><i class="glyphicon glyphicon-plus"></i> Nuevo</button></td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,16 @@
+<div class="row">
+	<div class="col-md-8">
+		<ol class="breadcrumb">
+		  <li>{{titulo.unidadNegocio}}</li>
+		  <li>{{titulo.producto}}</li>
+		  <li>{{titulo.proceso}}</li>
+		  <li class="active text-uppercase"><a><strong>{{titulo.tarea}}<strong></a></li>
+		</ol>
+	</div>
+	<div class="col-md-4">
+		<ol class="breadcrumb">
+		  <li>Código : {{titulo.codigo}}</li>
+		  <li>Fecha de Solicitud : {{titulo.fecha | date:'dd/MM/yyyy'}}</li>
+		</ol>
+	</div>
+</div>
