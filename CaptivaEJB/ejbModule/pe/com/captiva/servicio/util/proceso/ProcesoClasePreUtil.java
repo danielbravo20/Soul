@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import pe.com.captiva.bean.AtributoProceso;
 import pe.com.captiva.bean.ProcesoBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.servicio.util.Componente;
@@ -49,6 +50,17 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 		buffer.append("\t@Override\r\n");
 		buffer.append("\tpublic MensajeValidacion validacionCampos(HttpServletRequest request, HttpServletResponse response) {\r\n");
 		buffer.append("\t\tMensajeValidacion mensajeValidacion = new MensajeValidacion();\r\n");
+		
+		//TODO incluir la validacion de los campos
+		List<AtributoProceso> atributos = procesoBean.getAtributosEntrada();
+		for (int i = 0; i < atributos.size(); i++) {
+			AtributoProceso atributoProceso = atributos.get(i);
+			if(atributoProceso.isWebFlgValidacion()){
+				///
+			}
+		}
+		
+		
 		buffer.append("\t\tmensajeValidacion.setConforme(true);\r\n");
 		buffer.append("\t\treturn mensajeValidacion;\r\n");
 		buffer.append("\t}\r\n\r\n");

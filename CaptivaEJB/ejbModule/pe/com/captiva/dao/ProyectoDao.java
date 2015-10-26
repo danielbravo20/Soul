@@ -9,6 +9,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import pe.com.captiva.bean.AtributoBean;
+import pe.com.captiva.bean.AtributoProceso;
 import pe.com.captiva.bean.ClaseBean;
 import pe.com.captiva.bean.ProcesoBean;
 import pe.com.captiva.bean.ProyectoBean;
@@ -17,6 +18,7 @@ import pe.com.captiva.bean.TareaBean;
 import pe.com.captiva.dao.entity.Atributo;
 import pe.com.captiva.dao.entity.Clase;
 import pe.com.captiva.dao.entity.Proceso;
+import pe.com.captiva.dao.entity.ProcesoInicio;
 import pe.com.captiva.dao.entity.Proyecto;
 import pe.com.captiva.dao.entity.Rol;
 import pe.com.captiva.dao.entity.Tarea;
@@ -96,8 +98,27 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 				tareasBeans.add(parseTareaBean((Tarea) tareaIterator.next()));
 			}
     		procesoBean.setTareas(tareasBeans);
+    		
+    		Set<ProcesoInicio> procesoInicioSet = proceso.getProcesoInicios();
+    		Iterator<ProcesoInicio> procesoInicioIterator = procesoInicioSet.iterator();
+    		List<AtributoProceso> atributoProcesoBeans = new ArrayList<AtributoProceso>();
+    		while (procesoInicioIterator.hasNext()) {
+    			atributoProcesoBeans.add(parseAtributoProcesoBean((ProcesoInicio) procesoInicioIterator.next()));
+				
+			}
+    		procesoBean.setAtributosEntrada(atributoProcesoBeans);
     	}
     	return procesoBean;
+    }
+    
+    private AtributoProceso parseAtributoProcesoBean(ProcesoInicio procesoInicio){
+    	AtributoProceso atributoProceso = null;
+		if(procesoInicio!=null){
+			atributoProceso = new AtributoProceso();
+			//atributoProceso.setWebFlgValidacion(procesoInicio.getWebFlgValidacion());
+			//atributoProceso.setNombre(procesoInicio.getAtributo().getAtributoSqls());
+		}
+		return atributoProceso;
     }
     
     private ClaseBean parseClaseBean(Clase clase){
