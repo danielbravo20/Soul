@@ -27,16 +27,20 @@ portal.registerCtrl('base_iniciarproceso', function($scope, $modal, hostname, aj
 				url 			: hostname+"/portal/"+$scope.data.PROCESO_CARGADO.aleas,
 				data 			: angular.extend({},{accion : "crear"},$scope.baseIPConfig.data),
 				getRespuesta 	: function(respuesta){
-					if(respuesta.codigoProceso && respuesta.codigoProcesoPlantilla){
+					if(respuesta.codigoProceso){
 						$scope.resetear();
 						$scope.abrirModalCreado(respuesta);
 					}
+					/*if(respuesta.codigoTarea && respuesta.proceso && respuesta.proceso.codigoProceso){
+						$scope.resetear();
+						$scope.abrirModalCreado(respuesta);
+					}*/
 				}
 			});
 		}
 	}
 	
-	$scope.abrirModalCreado = function(objRespuesta){
+	$scope.abrirModalCreado = function(objProceso){
 		var modalInstance = $modal.open({
 			animation: true,
 			templateUrl: 'modulo/base_iniciarproceso_creado.html',
@@ -44,17 +48,18 @@ portal.registerCtrl('base_iniciarproceso', function($scope, $modal, hostname, aj
 			resolve: {
 				config : function(){
 					return {
-						codigoProceso : objRespuesta.codigoProceso,
-						trabajar : function(objTarea){
-							$scope.cerrarProcesoInicio();
+						esDueno : (objTarea.dueno == $scope.data.usuario)?true:false,
+						trabajar : function(){
 							$scope.trabajar(objTarea);
 						}
 					};
 				}
 			}
 		});
-		modalInstance.result.then(function () {
-			$scope.cerrarProcesoInicio();
+		modalInstance.result.then(function (tipo) {
+			if(tipo=="verTareas"){
+				$scope.cerrarProcesoInicio();
+			}
 	    }, function () {
 	    	$scope.cerrarProcesoInicio();
 	    });
@@ -76,34 +81,15 @@ portal.registerCtrl('Modal_base_iniciarproceso_creado', function ($scope, $modal
 
 	$scope.haBuscado = false;
 	$scope.contador = 0;
+	$scope.esDueno = config.esDueno;
 	
 	$scope.Trabajar = function(){
-		ajax.get({
-			url : "tarea",
-			data : {accion:"consultar", codigoProceso : config.codigoProceso},
-			getRespuesta : function(objTarea){
-				if(Tarea.codigoTarea){
-					config.trabajar(objTarea);
-					$modalInstance.close();
-				} else {
-					if($scope.contador>=2){
-						$scope.haBuscado = true;
-						$scope.contador = 0;
-						cargador.ocultar();
-					} else {
-						$timeout(function(){
-							$scope.contador++;
-							$scope.Trabajar();
-						}, 2*1000);
-					}
-				}
-			},
-			mostrarCargadorInicial : true
-		});
+		config.trabajar();
+		$modalInstance.close("Trabajar");
 	};
 	
 	$scope.VerTareas = function(){
-		$modalInstance.close();
+		$modalInstance.close("verTareas");
 	};
 	
 });

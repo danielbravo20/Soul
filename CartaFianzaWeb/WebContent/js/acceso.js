@@ -5,7 +5,7 @@
 		$scope.mensaje = "";
 		
 		$scope.anho = new Date().getFullYear();
-		
+		/*
 		$scope.open = function(){
 			cargador.ocultar();
 			var modalInstance = $modal.open({
@@ -42,7 +42,7 @@
 				logeo_acceder("false");
 			}
 		};
-		
+		*/
 	});
 	
 	acceder.controller('ModalInstanceCtrl', function ($scope, $modalInstance, cargador) {
@@ -71,7 +71,7 @@ if(typeof console === "undefined") {
 	}
 
 var logeo_acceder = function(borraSession){
-	 debugger;
+	
 	var ruta = 'portal/postAutenticacion.html?txt_log_acceder='+borraSession+'&rnd='+Math.random();
 	
 	if($("#nroIframe").size()!=0){
@@ -137,7 +137,7 @@ var logeo_acceder = function(borraSession){
 };
 
 $(document).ready(function(){
-	
+	/*
 	$("#usuario").keypress(function(event){ // Filtrar x buscar
 		if (event.keyCode == 10 || event.keyCode == 13){
 			if($.trim($(this).val())==""){
@@ -177,6 +177,6 @@ $(document).ready(function(){
 		centrar();
 	});
 	
-	centrar();
+	centrar();*/
 	
 });

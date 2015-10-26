@@ -20,11 +20,11 @@ portal.registerCtrl('procesos', function($scope, $modal, ajax) {
 					lista[i].fechaCreacionResumen = "2 Días";
 					
 					if(lista[i].tieneFoto){
-						lista[i].urlFoto = "/CartaFianzaWeb/imagenes/fotos/"+lista[i].codigoUsuarioDueno+".png";
+						lista[i].urlFoto = "/Soul/imagenes/fotos/"+lista[i].codigoUsuarioDueno+".png";
 					} else if(!lista[i].tieneFoto && lista[i].sexo=='M'){
-						lista[i].urlFoto = "/CartaFianzaWeb/imagenes/icono_varon.png";
+						lista[i].urlFoto = "/Soul/imagenes/icono_varon.png";
 					} else if(!lista[i].tieneFoto && lista[i].sexo=='F'){
-						lista[i].urlFoto = "/CartaFianzaWeb/imagenes/icono_mujer.png";
+						lista[i].urlFoto = "/Soul/imagenes/icono_mujer.png";
 					}
 				}
 				

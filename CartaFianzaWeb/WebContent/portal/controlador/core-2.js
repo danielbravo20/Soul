@@ -5,7 +5,7 @@ var core = angular.module('core', ['coreComun','ngFileUpload']);
 	core.factory("texto",function(){
 		return {
 			url : {
-				desconectar : "/portal/preDesconexion.jsp"
+				desconectar : "/cerrarSesionController"
 			},
 			conf : {
 				codAtriUNPre : 6,
