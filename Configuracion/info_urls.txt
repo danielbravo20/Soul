@@ -42,3 +42,8 @@ http://localhost:8080/CartaFianzaWeb/portal/emision/completarSolicitudV1?accion=
 
 --Transferir tarea
 http://localhost:8080/CartaFianzaWeb/portal/emision/completarSolicitudV1?accion=transferir&tkiid=3&nuevoDueno=edwin
+
+
+-- Inicia la creacion del codigo
+http://localhost:8080/CaptivaWeb/generarController?codigoProyecto=1&usuario=edwin
+
