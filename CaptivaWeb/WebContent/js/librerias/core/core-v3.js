@@ -52,7 +52,7 @@ var core = angular.module('core', []);
 			},
 			jpo : function(data,callback){
 				$http({
-					url		: hostname+"gestorController", 
+					url		: hostname+"GestorController", 
 					method	: "GET",
 					params	: data
 				}).success(function(response) {

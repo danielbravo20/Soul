@@ -54,9 +54,9 @@ public class Principal extends GestionBase implements PrincipalLocal {
 		
 		// COD_PROYECTO
 		listados.put("ROL", jpo.tabla("ROL","LIB").seleccionar("*"));
-		listados.put("ESQUEMA", jpo.tabla("ESQUEMA","LIB").seleccionar("*"));
+		//listados.put("ESQUEMA", jpo.tabla("ESQUEMA","LIB").seleccionar("*"));
 		listados.put("DATASOURCE", jpo.tabla("DATASOURCE","LIB").seleccionar("*"));
-		listados.put("CONFIGURACION", jpo.tabla("CONFIGURACION","LIB").obtener("*"));
+		//listados.put("CONFIGURACION", jpo.tabla("CONFIGURACION","LIB").obtener("*"));
 		listados.put("CLASE", jpo.tabla("CLASE","LIB").seleccionar("*"));
 		listados.put("PROCESO", jpo.tabla("PROCESO","LIB").seleccionar("*"));
 		listados.put("TABLA", jpo.tabla("TABLA","LIB").seleccionar("*"));
