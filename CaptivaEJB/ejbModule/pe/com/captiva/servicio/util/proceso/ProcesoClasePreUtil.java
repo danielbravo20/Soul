@@ -59,27 +59,19 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 			if(atributoProceso.isWebFlgValidacion()){
 				String metodoValidacion = "";
 				if ("string".equals(atributoProceso.getTipo().toLowerCase())){
-					metodoValidacion = "cadenaValida";
+					metodoValidacion = "cadenaNoValidaRequestParameter";
 				}
 				else if ("long".equals(atributoProceso.getTipo().toLowerCase())){
-					//metodoValidacion = "longValida";
-					metodoValidacion = "cadenaValida";
-				}
-				else if ("long".equals(atributoProceso.getTipo().toLowerCase())){
-					//metodoValidacion = "longValida";
-					metodoValidacion = "cadenaValida";
+					metodoValidacion = "longNoValidoRequestParameter";
 				}
 				else if ("java.sql.date".equals(atributoProceso.getTipo().toLowerCase())){
-					//metodoValidacion = "dateValida";
-					metodoValidacion = "cadenaValida";
+					metodoValidacion = "dateNoValidoRequestParameter";
 				}
 				else if ("java.math.bigdecimal".equals(atributoProceso.getTipo().toLowerCase())){
-					//metodoValidacion = "decimalValido";
-					metodoValidacion = "cadenaValida";
+					metodoValidacion = "decimalNoValidoRequestParameter";
 				}
 				else if ("java.sql.timestamp".equals(atributoProceso.getTipo().toLowerCase())){
-					//metodoValidacion = "timestampValido";
-					metodoValidacion = "cadenaValida";
+					metodoValidacion = "timestampNoValidoRequestParameter";
 				}
 				if (metodoValidacion.length()>0){
 					buffer.append(tab+"if ("+metodoValidacion+"(request.getParameter(\""+atributoProceso.getWebNombre()+"\"))){\n");
@@ -95,8 +87,24 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 		buffer.append("\t\treturn mensajeValidacion;\r\n");
 		buffer.append("\t}\r\n\r\n");
 		
-		buffer.append("\t"+"private boolean cadenaValida(String cadena){\n");
+		buffer.append("\t"+"private boolean cadenaNoValidaRequestParameter(String cadena){\n");
 		buffer.append("\t\t"+"return (cadena == null || \"\".equals(cadena));\n");
+		buffer.append("\t}\r\n\r\n");
+		
+		buffer.append("\t"+"private boolean longNoValidoRequestParameter(String cadena){\n");
+		buffer.append("\t\t"+"return (cadena == null || Long.value(cadena).intValue() == 0 );\n");
+		buffer.append("\t}\r\n\r\n");
+		
+		buffer.append("\t"+"private boolean dateNoValidoRequestParameter(String cadena){\n");
+		buffer.append("\t\t"+"return (cadena == null);\n");
+		buffer.append("\t}\r\n\r\n");
+		
+		buffer.append("\t"+"private boolean decimalNoValidoRequestParameter(String cadena){\n");
+		buffer.append("\t\t"+"return (cadena == null);\n");
+		buffer.append("\t}\r\n\r\n");
+		
+		buffer.append("\t"+"private boolean timestampNoValidoRequestParameter(String cadena){\n");
+		buffer.append("\t\t"+"return (cadena == null);\n");
 		buffer.append("\t}\r\n\r\n");
 		
 		buffer.append("\t@Override\r\n");
