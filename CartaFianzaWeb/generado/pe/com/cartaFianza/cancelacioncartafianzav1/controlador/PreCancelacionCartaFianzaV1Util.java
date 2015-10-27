@@ -7,6 +7,8 @@ import pe.com.soul.core.modelo.MensajeValidacion;
 import pe.com.soul.core.web.util.ValidacionUtil;
 import pe.com.soul.core.web.util.ProcesoUtil;
 
+import pe.com.cartaFianza.bean.*;
+
 public class PreCancelacionCartaFianzaV1Util implements ProcesoUtil{
 
 	@Override
@@ -24,6 +26,12 @@ public class PreCancelacionCartaFianzaV1Util implements ProcesoUtil{
 			return mensajeValidacion;
 		}
 
+		if (ValidacionUtil.decimalNoValidoRequestParameter(request.getParameter("solicitud.tipoCambioSBS"))){
+			mensajeValidacion.setConforme(false);
+			mensajeValidacion.setMensaje("tipoCambioSBS es invalido");
+			return mensajeValidacion;
+		}
+
 		if (ValidacionUtil.cadenaNoValidaRequestParameter(request.getParameter("solicitud.cliente.numeroDocumento"))){
 			mensajeValidacion.setConforme(false);
 			mensajeValidacion.setMensaje("numeroDocumento es invalido");
@@ -33,12 +41,6 @@ public class PreCancelacionCartaFianzaV1Util implements ProcesoUtil{
 		if (ValidacionUtil.cadenaNoValidaRequestParameter(request.getParameter("solicitud.cliente.tipoDocumento"))){
 			mensajeValidacion.setConforme(false);
 			mensajeValidacion.setMensaje("tipoDocumento es invalido");
-			return mensajeValidacion;
-		}
-
-		if (ValidacionUtil.decimalNoValidoRequestParameter(request.getParameter("solicitud.tipoCambioSBS"))){
-			mensajeValidacion.setConforme(false);
-			mensajeValidacion.setMensaje("tipoCambioSBS es invalido");
 			return mensajeValidacion;
 		}
 
@@ -54,6 +56,53 @@ public class PreCancelacionCartaFianzaV1Util implements ProcesoUtil{
 
 	@Override
 	public Object poblarObjetos(HttpServletRequest request, HttpServletResponse response) {
-		return null;
+		Solicitud solicitud = new Solicitud();
+		solicitud.setAleasProceso("BECFCA");
+		solicitud.setFechaRegistro(new java.sql.Timestamp(new java.util.Date().getTime()));
+		solicitud.setCodigoAgenciaOrigen(request.getParameter("solicitud.codigoAgenciaOrigen"));
+		solicitud.setUsuarioRegistro(request.getUserPrincipal().getName());
+		solicitud.setFechaModificacion(new java.sql.Timestamp(new java.util.Date().getTime()));
+		solicitud.setPiid(request.getParameter("piid"));
+		if(request.getParameter("solicitud.tipoCambioSBS")!=null && request.getParameter("solicitud.tipoCambioSBS").trim().length()>0){
+			solicitud.setTipoCambioSBS(new java.math.BigDecimal(request.getParameter("solicitud.tipoCambioSBS").trim()));
+		}
+		solicitud.setEstado("ING");
+		solicitud.setFlagErrorServicioFirmas(false);
+		solicitud.setTipoSolicitud("CAN");
+		if(request.getParameter("solicitud.numeroCartaFianza")!=null && request.getParameter("solicitud.numeroCartaFianza").trim().length()>0){
+			solicitud.setNumeroCartaFianza(Long.parseLong(request.getParameter("solicitud.numeroCartaFianza")));
+		}
+		if(request.getParameter("solicitud.codigo")!=null && request.getParameter("solicitud.codigo").trim().length()>0){
+			solicitud.setCodigo(Long.parseLong(request.getParameter("solicitud.codigo")));
+		}
+		solicitud.setUsuarioModificacion(request.getUserPrincipal().getName());
+		solicitud.setPlazoVigencia(15);
+		Linea linea = new Linea();
+		if(request.getParameter("null")!=null && request.getParameter("null").trim().length()>0){
+			linea.setCodigoSolicitud(Long.parseLong(request.getParameter("null")));
+		}
+		solicitud.setLinea(linea);
+		Cliente cliente = new Cliente();
+		cliente.setRazonSocial(request.getParameter("solicitud.cliente.razonSocial"));
+		if(request.getParameter("solicitud.cliente.codigoSolicitud")!=null && request.getParameter("solicitud.cliente.codigoSolicitud").trim().length()>0){
+			cliente.setCodigoSolicitud(Long.parseLong(request.getParameter("solicitud.cliente.codigoSolicitud")));
+		}
+		cliente.setNumeroDocumento(request.getParameter("solicitud.cliente.numeroDocumento"));
+		cliente.setTipoDocumento(request.getParameter("solicitud.cliente.tipoDocumento"));
+		if(request.getParameter("solicitud.cliente.codigoIBS")!=null && request.getParameter("solicitud.cliente.codigoIBS").trim().length()>0){
+			cliente.setCodigoIBS(Integer.parseInt(request.getParameter("solicitud.cliente.codigoIBS")));
+		}
+		solicitud.setCliente(cliente);
+		Cuenta cuenta = new Cuenta();
+		if(request.getParameter("null")!=null && request.getParameter("null").trim().length()>0){
+			cuenta.setCodigoSolicitud(Long.parseLong(request.getParameter("null")));
+		}
+		solicitud.setCuenta(cuenta);
+		CartaFianza cartafianza = new CartaFianza();
+		if(request.getParameter("null")!=null && request.getParameter("null").trim().length()>0){
+			cartafianza.setCodigoSolicitud(Long.parseLong(request.getParameter("null")));
+		}
+		solicitud.setCartaFianza(cartafianza);
+		return solicitud;
 	}
 }

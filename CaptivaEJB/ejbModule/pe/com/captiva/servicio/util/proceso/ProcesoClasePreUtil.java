@@ -2,13 +2,19 @@ package pe.com.captiva.servicio.util.proceso;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import pe.com.captiva.bean.AtributoProceso;
+import pe.com.captiva.bean.ClaseBean;
 import pe.com.captiva.bean.ProcesoBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.servicio.util.Componente;
 import pe.com.captiva.servicio.util.MultipleBaseConstructor;
+import pe.com.captiva.servicio.util.GeneradorUtil;
 
 public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 
@@ -45,6 +51,8 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 		buffer.append("import pe.com.soul.core.modelo.MensajeValidacion;\r\n");
 		buffer.append("import pe.com.soul.core.web.util.ValidacionUtil;\r\n");
 		buffer.append("import pe.com.soul.core.web.util.ProcesoUtil;\r\n\r\n");
+		
+		buffer.append("import "+proyectoBean.getPaquete()+ClaseBean.SUFIJO_PAQUETE+".*;\r\n\r\n");
 		
 		buffer.append("public class Pre"+procesoBean.getClase()+"Util implements ProcesoUtil{\r\n\r\n");
 
@@ -90,7 +98,58 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 		
 		buffer.append("\t@Override\r\n");
 		buffer.append("\tpublic Object poblarObjetos(HttpServletRequest request, HttpServletResponse response) {\r\n");
-		buffer.append("\t\treturn null;\r\n");
+		ClaseBean clasePadre = proyectoBean.getClasePadre();
+		if(clasePadre!=null){
+			String nombreClase = clasePadre.getNombre();
+			String nombreObjeto = nombreClase.toLowerCase();
+			
+			List<AtributoProceso> atributosProceso = procesoBean.getAtributosEntrada();
+			
+			//agrupo las clases por su clase
+			Map<Integer, List<AtributoProceso>> atributosXClaseMap = new HashMap<Integer, List<AtributoProceso>>();
+			Map<Integer, ClaseBean> claseMap = new HashMap<Integer, ClaseBean>();
+			for (AtributoProceso atributoProceso : atributosProceso) {
+				if(atributosXClaseMap.containsKey(atributoProceso.getClase().getCodigoClase())){
+					atributosXClaseMap.get(atributoProceso.getClase().getCodigoClase()).add(atributoProceso);
+				}else{
+					List<AtributoProceso> atributosNuevaClase = new ArrayList<AtributoProceso>();
+					atributosNuevaClase.add(atributoProceso);
+					atributosXClaseMap.put(atributoProceso.getClase().getCodigoClase(), atributosNuevaClase);
+					claseMap.put(atributoProceso.getClase().getCodigoClase(), atributoProceso.getClase());
+				}
+			}
+			
+			buffer.append("\t\t"+nombreClase+" "+nombreObjeto+" = new "+nombreClase+"();\r\n");
+
+			//se empieza a escribir por la clase padre
+			if(atributosXClaseMap.containsKey(clasePadre.getCodigoClase())){
+				List<AtributoProceso> atributosClasePadre = atributosXClaseMap.get(clasePadre.getCodigoClase());
+				for (AtributoProceso atributoProceso : atributosClasePadre) {
+					buffer.append(GeneradorUtil.escribirAsignacionCampo(nombreObjeto, atributoProceso));
+				}
+			}
+			
+			Set<Integer> codigoClaseSet = atributosXClaseMap.keySet();
+			Iterator<Integer> codigoClaseIterator = codigoClaseSet.iterator();
+			while (codigoClaseIterator.hasNext()) {
+				Integer codigoClase = (Integer) codigoClaseIterator.next();
+				if(codigoClase!=clasePadre.getCodigoClase()){
+					ClaseBean claseHija = claseMap.get(codigoClase);
+					String nombreClaseHija = claseHija.getNombre();
+					String objetoClaseHija = nombreClaseHija.toLowerCase();
+					buffer.append("\t\t"+nombreClaseHija+" "+nombreClaseHija.toLowerCase()+" = new "+nombreClaseHija+"();\r\n");
+					List<AtributoProceso> atributosClaseHija = atributosXClaseMap.get(codigoClase);
+					for (AtributoProceso atributoProceso : atributosClaseHija) {
+						buffer.append(GeneradorUtil.escribirAsignacionCampo(objetoClaseHija, atributoProceso));
+					}
+					buffer.append("\t\t"+nombreObjeto+".set"+nombreClaseHija+"("+nombreClaseHija.toLowerCase()+");\r\n");
+				}
+			}
+			
+			buffer.append("\t\treturn "+nombreClase.toLowerCase()+";\r\n");
+		}else{
+			buffer.append("\t\treturn null;\r\n");
+		}
 		buffer.append("\t}\r\n");
 		buffer.append("}");
 		

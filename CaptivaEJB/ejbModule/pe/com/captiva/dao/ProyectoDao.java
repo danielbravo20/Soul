@@ -56,7 +56,11 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 	    		List<ClaseBean> clases = new ArrayList<ClaseBean>();
 		    	Iterator<Clase> claseIterator = claseSet.iterator();
 		    	while (claseIterator.hasNext()) {
-					clases.add(parseClaseBean((Clase) claseIterator.next()));
+		    		ClaseBean claseBean = parseClaseBean((Clase) claseIterator.next());
+					clases.add(claseBean);
+					if(claseBean.getNivel()!=null && claseBean.getNivel()==1){
+						proyectoBean.setClasePadre(claseBean);
+					}
 				}
 		    	proyectoBean.setClases(clases);
 	    	}
@@ -118,8 +122,21 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 			atributoProceso.setNombre(procesoInicio.getAtributo().getNombre());
 			atributoProceso.setTipo(procesoInicio.getAtributo().getTipo());
 			atributoProceso.setWebNombre(procesoInicio.getAtributo().getWebNombre());
+			atributoProceso.setWebValorOmision(procesoInicio.getWebValOmision());
+			atributoProceso.setClase(parseClaseBeanSimple(procesoInicio.getAtributo().getClase()));
 		}
 		return atributoProceso;
+    }
+    
+    private ClaseBean parseClaseBeanSimple(Clase clase){
+    	ClaseBean claseBean = null;
+    	if(clase!=null){
+    		claseBean = new ClaseBean();
+    		claseBean.setCodigoClase(clase.getCodClase());
+    		claseBean.setNombre(clase.getNombre());
+    		claseBean.setNivel(clase.getNivel());
+    	}
+    	return claseBean;
     }
     
     private ClaseBean parseClaseBean(Clase clase){

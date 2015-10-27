@@ -19,6 +19,7 @@ public class AtributoProceso extends AtributoBean{
 	private String bpmTipo;
 	private String bpmNombre;
 	private CampoSQLProcesoBean campoSQLProceso;
+	private ClaseBean clase;
 	
 	public int getCodigoProyecto() {
 		return codigoProyecto;
@@ -144,4 +145,11 @@ public class AtributoProceso extends AtributoBean{
 		}
 		return false;
 	}
+	public ClaseBean getClase() {
+		return clase;
+	}
+	public void setClase(ClaseBean clase) {
+		this.clase = clase;
+	}
+	
 }

@@ -25,6 +25,7 @@ public class ProyectoBean extends BaseBean{
 	private List<TareaBean> tareas;
 	private List<ProductoBean> productos;
 	private List<CatalogoBean> catalogos;
+	private ClaseBean clasePadre;
 	
 	public int getCodProyecto() {
 		return codProyecto;
@@ -98,6 +99,12 @@ public class ProyectoBean extends BaseBean{
 	}
 	public void setCatalogos(List<CatalogoBean> catalogos) {
 		this.catalogos = catalogos;
+	}
+	public ClaseBean getClasePadre() {
+		return clasePadre;
+	}
+	public void setClasePadre(ClaseBean clasePadre) {
+		this.clasePadre = clasePadre;
 	}
 			
 }
