@@ -72,7 +72,8 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 			new TareaClaseControlador().construir(proyectoBean);
 			new TareaClasePreServicio().construir(proyectoBean);
 			new TareaClaseServicio().construir(proyectoBean);
-			
+		
+			System.out.println("---> Termino");
 		}
 	}
 	

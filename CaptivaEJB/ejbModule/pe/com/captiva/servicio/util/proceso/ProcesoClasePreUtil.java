@@ -55,14 +55,48 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 		List<AtributoProceso> atributos = procesoBean.getAtributosEntrada();
 		for (int i = 0; i < atributos.size(); i++) {
 			AtributoProceso atributoProceso = atributos.get(i);
+			String tab = "\t\t";
 			if(atributoProceso.isWebFlgValidacion()){
-				///
+				String metodoValidacion = "";
+				if ("string".equals(atributoProceso.getTipo().toLowerCase())){
+					metodoValidacion = "cadenaValida";
+				}
+				else if ("long".equals(atributoProceso.getTipo().toLowerCase())){
+					//metodoValidacion = "longValida";
+					metodoValidacion = "cadenaValida";
+				}
+				else if ("long".equals(atributoProceso.getTipo().toLowerCase())){
+					//metodoValidacion = "longValida";
+					metodoValidacion = "cadenaValida";
+				}
+				else if ("java.sql.date".equals(atributoProceso.getTipo().toLowerCase())){
+					//metodoValidacion = "dateValida";
+					metodoValidacion = "cadenaValida";
+				}
+				else if ("java.math.bigdecimal".equals(atributoProceso.getTipo().toLowerCase())){
+					//metodoValidacion = "decimalValido";
+					metodoValidacion = "cadenaValida";
+				}
+				else if ("java.sql.timestamp".equals(atributoProceso.getTipo().toLowerCase())){
+					//metodoValidacion = "timestampValido";
+					metodoValidacion = "cadenaValida";
+				}
+				if (metodoValidacion.length()>0){
+					buffer.append(tab+"if ("+metodoValidacion+"(request.getParameter(\""+atributoProceso.getWebNombre()+"\"))){\n");
+					buffer.append(tab+"\tmensajeValidacion.setConforme(false);\n");
+					buffer.append(tab+"\tmensajeValidacion.setMensaje(\""+atributoProceso.getNombre()+" es invalido"+"\");\n");
+					buffer.append(tab+"\treturn mensajeValidacion;\n");
+					buffer.append(tab+"}\n\n");
+				}
 			}
 		}
 		
-		
 		buffer.append("\t\tmensajeValidacion.setConforme(true);\r\n");
 		buffer.append("\t\treturn mensajeValidacion;\r\n");
+		buffer.append("\t}\r\n\r\n");
+		
+		buffer.append("\t"+"private boolean cadenaValida(String cadena){\n");
+		buffer.append("\t\t"+"return (cadena == null || \"\".equals(cadena));\n");
 		buffer.append("\t}\r\n\r\n");
 		
 		buffer.append("\t@Override\r\n");

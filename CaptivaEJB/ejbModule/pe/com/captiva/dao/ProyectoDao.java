@@ -104,7 +104,6 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		List<AtributoProceso> atributoProcesoBeans = new ArrayList<AtributoProceso>();
     		while (procesoInicioIterator.hasNext()) {
     			atributoProcesoBeans.add(parseAtributoProcesoBean((ProcesoInicio) procesoInicioIterator.next()));
-				
 			}
     		procesoBean.setAtributosEntrada(atributoProcesoBeans);
     	}
@@ -115,8 +114,10 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     	AtributoProceso atributoProceso = null;
 		if(procesoInicio!=null){
 			atributoProceso = new AtributoProceso();
-			//atributoProceso.setWebFlgValidacion(procesoInicio.getWebFlgValidacion());
-			//atributoProceso.setNombre(procesoInicio.getAtributo().getAtributoSqls());
+			atributoProceso.setWebFlgValidacion('1'==procesoInicio.getWebFlgValidacion());
+			atributoProceso.setNombre(procesoInicio.getAtributo().getNombre());
+			atributoProceso.setTipo(procesoInicio.getAtributo().getTipo());
+			atributoProceso.setWebNombre(procesoInicio.getAtributo().getWebNombre());
 		}
 		return atributoProceso;
     }
