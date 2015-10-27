@@ -238,6 +238,10 @@ public class Tabla {
 	
 	public void setDataWhere(String campo,String valor){
 		Object tipoWheres = dataTipo.get(Tipo_Where);
+		if(tipoWheres==null){
+			dataTipo.put(Tipo_Where, new LinkedHashMap<String,Object>());
+			tipoWheres = dataTipo.get(Tipo_Where);
+		}
 		if(tipoWheres!=null){
 			Map<String,String> wheres = (Map<String, String>) tipoWheres;
 			wheres.put(campo, valor);

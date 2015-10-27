@@ -41,7 +41,7 @@
 	<div style="height: 30px"></div>
 	<div class="container-fluid" ng-include="'proyectogestionar.html'" ng-show="modulo === 'proyectogestionar'"></div>
 	<div class="container-fluid" ng-include="'proyectocargado.html'" ng-show="modulo === 'proyectocargado'"></div>
-	<div class="container-fluid" ng-include="'usuariogestionar.html'" ng-show="modulo === 'usuariogestionar' && data.USUARIO.PERFIL=='PRO_MAN'"></div>
+	<div class="container-fluid" ng-include="'usuariogestionar.html'" ng-show="modulo === 'usuariogestionar'"></div>
 	<div class="container-fluid" ng-include="'usuarioperfil.html'" ng-show="modulo === 'usuarioperfil'"></div>
 	<div class="seccion_alertas">
 		<alert ng-repeat="alerta in alertas" type="{{alerta.tipo}}" close="cerrarAlerta($index)">{{alerta.mensaje}}</alert>
@@ -52,7 +52,7 @@
 			<a class="btn btn-danger btn-xs" ng-click="generar()" tooltip="Generado Rápido"><i class="glyphicon glyphicon-play"></i><i class="glyphicon glyphicon-play"></i></a>
 		</div>
 	</div>
+	<div ng-include="'../plantilla/inc_piepagina.html'"></div>
 </div>
-<div ng-include="'../plantilla/inc_piepagina.html'"></div>
 </body>
 </html>

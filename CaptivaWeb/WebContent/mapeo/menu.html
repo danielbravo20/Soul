@@ -18,8 +18,8 @@
 							<i class="glyphicon glyphicon-book"></i> Opciones <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="" ng-click="modulo = 'modulosProyecto'"><i class="glyphicon glyphicon-briefcase"></i> Proyectos</a></li>
-							<li ng-show="data.Usuario.perfil=='PRO_MAN'"><a href="" ng-click="modulo = 'usuario'"><i class="glyphicon glyphicon-user"></i> Usuarios</a></li>
+							<li><a href="" ng-click="cargarModulo('proyectogestionar')"><i class="glyphicon glyphicon-briefcase"></i> Proyectos</a></li>
+							<li ng-show="data.USUARIO.perfil=='PRO_MAN'"><a href="" ng-click="cargarModulo('usuariogestionar')"><i class="glyphicon glyphicon-user"></i> Usuarios</a></li>
 						</ul>
 					</li>
 					<li class="dropdown" dropdown="" ng-show="data.PROYECTO.esCargado">
@@ -43,8 +43,8 @@
 							<i class="glyphicon glyphicon-user"></i> {{data.USUARIO.nombre}} <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="" ng-click="modulo = 'perfilUsuario'"><i class="glyphicon glyphicon-pencil"></i> Ver Perfil</a></li>
-							<li><a href="../index.jsp"><i class="glyphicon glyphicon-off"></i> Desconectar</a></li>
+							<li><a href="" ng-click="cargarModulo('usuarioperfil')"><i class="glyphicon glyphicon-pencil"></i> Ver Perfil</a></li>
+							<li><a href="../index.html"><i class="glyphicon glyphicon-off"></i> Desconectar</a></li>
 						</ul>
 					</li>
 				  </ul>
@@ -56,9 +56,8 @@
 							<i class="glyphicon glyphicon-book"></i> Opciones <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu" ng-hide="data.PROYECTO.esCargado">
-							<li><a href="" ng-click="modulo = 'proyecto'"><i class="glyphicon glyphicon-briefcase"></i> Proyectos</a></li>
-							<li ng-show="data.Usuario.perfil=='PRO_MAN'"><a href="" ng-click="modulo = 'usuario'"><i class="glyphicon glyphicon-user"></i> Usuarios</a></li>
-							<li ng-show="data.Usuario.perfil=='PRO_MAN'"><a href="" ng-click="modulo = 'unidadNegocio'"><i class="glyphicon glyphicon-hdd"></i> Unidades de Negocio</a></li>
+							<li><a href="" ng-click="cargarModulo('proyectogestionar')"><i class="glyphicon glyphicon-briefcase"></i> Proyectos</a></li>
+							<li ng-show="data.USUARIO.perfil=='PRO_MAN'"><a href="" ng-click="cargarModulo('usuariogestionar')"><i class="glyphicon glyphicon-user"></i> Usuarios</a></li>
 						</ul>
 					</li>
 					<li class="dropdown" dropdown="" ng-show="data.PROYECTO.esCargado">
@@ -77,7 +76,7 @@
 							<i class="glyphicon glyphicon-user"></i> {{data.USUARIO.nombre}} <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="" ng-click="modulo = 'perfilUsuario'"><i class="glyphicon glyphicon-pencil"></i> Ver Perfil</a></li>
+							<li><a href="" ng-click="cargarModulo('usuarioperfil')"><i class="glyphicon glyphicon-pencil"></i> Ver Perfil</a></li>
 							<li><a href="../index.html"><i class="glyphicon glyphicon-off"></i> Desconectar</a></li>
 						</ul>
 					</li>

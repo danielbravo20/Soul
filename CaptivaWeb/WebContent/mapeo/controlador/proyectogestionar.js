@@ -8,21 +8,15 @@
 			$scope.cargarProyecto();
 		}
 		
-		$scope.codigoSecuencial = 1;
 		$scope.paquetes = [];
 		var miPaquete = {};
 		for(var i =0;i< $scope.data.PROYECTOS.length; i++){
-			if($scope.data.PROYECTOS[i].cod_proyecto > $scope.codigoSecuencial){
-				$scope.codigoSecuencial = $scope.data.PROYECTOS[i].cod_proyecto;
-			}
 			if(!miPaquete[$scope.data.PROYECTOS[i].paquete]){
 				miPaquete[$scope.data.PROYECTOS[i].paquete] = $scope.data.PROYECTOS[i].paquete;
 				$scope.paquetes.push($scope.data.PROYECTOS[i].paquete);
 			}
 		}
-		$scope.codigoSecuencial++;
 		
-		$scope.cargado.PRO_cod_proyecto = $scope.codigoSecuencial;
 		$scope.USUARIOS = angular.copy($scope.data.USUARIOS);
 
 	};
@@ -57,6 +51,7 @@
 	$scope.nuevoCargar = function(index){
 		$scope.instanciar();
 		$scope.vista = 'mantener';
+		$scope.cargado.PRO_cod_proyecto = util.getUltimoCodigo($scope.data.PROYECTOS,"cod_proyecto");
 	};
 	
 	var validar = function(){
@@ -132,10 +127,6 @@
 				$scope.instanciar(true);
 			});
 		}
-	};
-	
-	$scope.getPerfil = function(perfil){
-		return util.getObjeto($scope.data.config.perfiles,{id : perfil}).valor;
 	};
 	
 });

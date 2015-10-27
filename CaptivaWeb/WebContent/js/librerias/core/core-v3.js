@@ -70,6 +70,16 @@ var core = angular.module('core', []);
 	
 	core.factory("util", function($http, hostname) {
 		return {
+			getUltimoCodigo : function(objeto,nombreCodigo){
+				var contador = 0;
+				for(var i = 0; i<objeto.length; i++){
+					var nro = Number(objeto[i][nombreCodigo]);
+					if(nro>contador){
+						contador = nro;
+					}
+				}
+				return contador+1;
+			},
 			formatoMayus : function(texto){
 				return texto.substring(0,1).toUpperCase()+texto.substring(1,texto.length).toLowerCase(); 
 			},

@@ -2,16 +2,39 @@
 
 var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 
-	mapeo.controller("principal", function($scope, $timeout, $modal, ajax) {
+	mapeo.controller("principal", function($scope, $timeout, $modal, ajax, util) {
 		
 		// SCOPE
 		
 		$scope.data = {};
-		$scope.modulo = 'proyectogestionar'; // proyectogestionar - proyectocargado  - usuariogestionar - usuarioperfil
+		
+		$scope.modulo = ''; // proyectogestionar - proyectocargado  - usuariogestionar - usuarioperfil
 		$scope.subModulo = ''; // trabajarProyecto : { modulosProyecto 0 , generarProyecto 1, esquema 2, dataSource 3, rol};
 		
+		$scope.$watch('modulo', function(newValue, oldValue) {
+			if(newValue != oldValue){
+				var scope = $scope.getControladorScope(newValue);
+				if(scope != null){
+					scope.instanciar();
+				}
+			}
+		});
+		
 		$scope.getControladorScope = function(controlador){
-			return angular.element(document.querySelector('[ng-controller='+controlador+']')).scope();
+			var obj = angular.element(document.querySelector('[ng-controller='+controlador+']'));
+			if(obj.length>0){
+				return obj.scope();
+			} else {
+				return null;
+			}
+		};
+		
+		$scope.cargarModulo = function(modulo){
+			$scope.modulo = modulo;
+		};
+		
+		$scope.getPerfil = function(perfil){
+			return util.getObjeto($scope.data.config.perfiles,{id : perfil}).valor;
 		};
 		
 		$scope.cargarTrabajarProyecto = function(objetoProyecto){
@@ -35,7 +58,7 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 				LIC_W_COD_USUARIO 	: $scope.data.USUARIO.cod_usuario
 			},function(respuesta){
 				angular.extend($scope.data, respuesta);
-				$scope.getControladorScope("proyectocargado").instanciar();
+				//$scope.getControladorScope("proyectocargado").instanciar();
 			});
 			
 		};
@@ -60,7 +83,8 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 				if(getParametro.proyecto){
 					$scope.cargarTrabajarProyecto(respuesta.PROYECTOS[proyectoId[getParametro.proyecto]]);
 				} else {
-					$scope.getControladorScope("proyectogestionar").instanciar();
+					$scope.modulo = 'proyectogestionar';
+					//$scope.getControladorScope("proyectogestionar").instanciar();
 				}
 				
 			});
@@ -78,6 +102,19 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 			$scope.alertas.splice(index, 1);
 		};
 		
+		// UTIL
+		
+		$scope.getUltimoCodigo = function(objeto,nombreCodigo){
+			var contador = 0;
+			for(var i = 0; i<$scope.data[objeto].length; i++){
+				var nro = Number($scope.data[objeto][i][nombreCodigo]);
+				if(nro>contador){
+					contador = nro;
+				}
+			}
+			return contador+1;
+		};
+		
 		// Variables
 		
 		var cargarUsuario = function(usuario,callback){
@@ -89,9 +126,10 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 		};
 						
 		var instanciar = function(){
+
 			ajax.cargarConfiguracion(function(respuesta){
 				document.title = respuesta.config.proyecto + " v"+respuesta.config.version;
-				$scope.data.config = respuesta.config;
+				$scope.data.config = respuesta.config;				
 				if(getParametro.usuario){
 					cargarUsuario(getParametro.usuario,$scope.cargarProyecto);
 				} else {

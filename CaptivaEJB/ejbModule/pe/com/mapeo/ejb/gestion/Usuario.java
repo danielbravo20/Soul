@@ -30,36 +30,38 @@ public class Usuario extends GestionBase implements UsuarioLocal {
 	}
 	
 	public Object consultarClave(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		Tabla usuario = jpo.tabla("USUARIO","USU").donde("");
+		Tabla usuario = jpo.tabla("USUARIO","USU");
 		String claveAnterior = request.getParameter("claveAnterior");
 		if(claveAnterior!=null && claveAnterior.length()>0){
-			usuario.setDataWhere("CLAVE", MapeoUtil.getMD5(request.getParameter("claveAnterior")));
+			usuario.setDataWhere("clave", MapeoUtil.getMD5(request.getParameter("claveAnterior")));
 		}
 		return usuario.obtener("*");
 	}
 	
 	public Object editar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		jpo.autoCommit(false);
-		Tabla usuario = jpo.tabla("USUARIO","USU").donde("");
+		//jpo.autoCommit(false);
+		Tabla usuario = jpo.tabla("USUARIO","USU");
 			String claveAnterior = request.getParameter("claveAnterior");
 			if(claveAnterior!=null && claveAnterior.length()>0){
-				usuario.setDataWhere("CLAVE", MapeoUtil.getMD5(request.getParameter("claveAnterior")));
-				usuario.setData("CLAVE", MapeoUtil.getMD5(usuario.getData("CLAVE")));
+				usuario.setDataWhere("clave", MapeoUtil.getMD5(request.getParameter("claveAnterior")));
+				usuario.setData("clave", MapeoUtil.getMD5(usuario.getData("clave")));
 			} else {
-				usuario.removeData("CLAVE");
+				usuario.removeData("clave");
 			}
 			if(usuario.obtener("*")!=null){
 				usuario.editar();
 			}
 		jpo.commitear();
-		usuario.removeDataWhere("CLAVE");
-		return jpo.tabla("USUARIO","USU").obtener("*");
+		return true;
 	}
 	
 	public Object registrar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		//jpo.autoCommit(false);
 		Tabla usuario = jpo.tabla("USUARIO","USU");
-			usuario.setData("CLAVE", MapeoUtil.getMD5(usuario.getData("CLAVE")));
-		return usuario.registrar();
+			usuario.setData("clave", MapeoUtil.getMD5(usuario.getData("clave")));
+		usuario.registrar();
+		jpo.commitear();
+		return true;
 	}
 	
 }
