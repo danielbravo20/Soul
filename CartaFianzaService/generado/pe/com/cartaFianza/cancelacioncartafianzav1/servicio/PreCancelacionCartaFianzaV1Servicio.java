@@ -37,9 +37,9 @@ public abstract class PreCancelacionCartaFianzaV1Servicio extends BaseProcesoSer
 
 	public TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{
 		TareaPlantilla plantilla = new TareaPlantilla();
-		plantilla.setCodigoTareaPlantilla(503);
-		plantilla.setNombre("SUBSANAR OBSERVACIONES AUTORIZACION");
-		plantilla.setAleas("CancelacionSubsanarObservacionesAutorizacionV1");
+		plantilla.setCodigoTareaPlantilla(502);
+		plantilla.setNombre("AUTORIZAR OPERACION");
+		plantilla.setAleas("CancelacionAutorizarOperacionV1");
 		plantilla.setEstado(1);
 		plantilla.setOrden(1);
 		plantilla.setPrioridad(1);

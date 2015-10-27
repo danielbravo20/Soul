@@ -5,22 +5,27 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import pe.com.captiva.bean.AtributoBean;
 import pe.com.captiva.bean.AtributoProceso;
+import pe.com.captiva.bean.CampoSQLBean;
 import pe.com.captiva.bean.ClaseBean;
 import pe.com.captiva.bean.ProcesoBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.bean.RolBean;
+import pe.com.captiva.bean.TablaBean;
 import pe.com.captiva.bean.TareaBean;
 import pe.com.captiva.dao.entity.Atributo;
+import pe.com.captiva.dao.entity.AtributoSql;
 import pe.com.captiva.dao.entity.Clase;
 import pe.com.captiva.dao.entity.Proceso;
 import pe.com.captiva.dao.entity.ProcesoInicio;
 import pe.com.captiva.dao.entity.Proyecto;
 import pe.com.captiva.dao.entity.Rol;
+import pe.com.captiva.dao.entity.Tabla;
 import pe.com.captiva.dao.entity.Tarea;
 
 /**
@@ -30,9 +35,9 @@ import pe.com.captiva.dao.entity.Tarea;
 @LocalBean
 public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 
-    /**
-     * Default constructor. 
-     */
+	@EJB
+	private AtributoSQLDaoLocal atributoSQLDaoLocal;
+	
     public ProyectoDao() {
         super(Proyecto.class);
     }
@@ -75,6 +80,16 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 				proyectoBean.setProcesos(procesos);
 			}
 	    	
+	    	Set<Tabla> tablaSet = proyecto.getTablas();
+	    	if(tablaSet!=null){
+	    		List<TablaBean> tablas = new ArrayList<TablaBean>();
+	    		Iterator<Tabla> tablaIterator = tablaSet.iterator();
+	    		while (tablaIterator.hasNext()) {
+	    			tablas.add(parseTablaBean((Tabla) tablaIterator.next()));
+					
+				}
+	    		proyectoBean.setTablas(tablas);
+	    	}
     	}
     	return proyectoBean;
     }
@@ -225,5 +240,66 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		rolBean.setNombre(rol.getDescripcion());
     	}
     	return rolBean;
+    }
+    
+    private TablaBean parseTablaBean(Tabla tabla){
+    	TablaBean tablaBean = null;
+    	if(tabla!=null){
+    		tablaBean = new TablaBean();
+    		tablaBean.setEsquema(tabla.getEsquema());
+    		tablaBean.setNombre(tabla.getNombre());
+    		tablaBean.setCodigo(tabla.getCodTabla());
+    		
+    		List<CampoSQLBean> camposSQL = new ArrayList<CampoSQLBean>();
+    		List<CampoSQLBean> camposPK = new ArrayList<CampoSQLBean>();
+    		List<CampoSQLBean> camposFK = new ArrayList<CampoSQLBean>();
+    		
+    		Set<AtributoSql> atributoSQLset = tabla.getAtributoSqls();
+    		Iterator<AtributoSql> atributoSQLiterator = atributoSQLset.iterator();
+    		
+    		while (atributoSQLiterator!=null && atributoSQLiterator.hasNext()) {
+				AtributoSql atributoSql = (AtributoSql) atributoSQLiterator.next();
+				CampoSQLBean campoSQLBean = parseCampoSQLBean(atributoSql);
+				camposSQL.add(campoSQLBean);
+				if(campoSQLBean.isFlgPK()){
+					camposPK.add(campoSQLBean);
+				}
+				if(campoSQLBean.isFlgTieneFK()){
+					camposFK.add(campoSQLBean);
+				}
+			}
+    		
+    		tablaBean.setCamposSQL(camposSQL);
+    		tablaBean.setCamposPK(camposPK);
+    		tablaBean.setCamposFK(camposFK);
+    	}
+    	return tablaBean;
+    }
+    
+    private CampoSQLBean parseCampoSQLBean(AtributoSql atributoSql){
+    	CampoSQLBean campoSQLBean = null;
+    	if(atributoSql!=null){
+    		campoSQLBean = new CampoSQLBean();
+    		
+    		campoSQLBean.setNombre(atributoSql.getCampo()); 
+    		campoSQLBean.setTipo(atributoSql.getTipo());
+    		campoSQLBean.setFuncionBusqueda(atributoSql.getFnBusNombre());
+    		campoSQLBean.setFuncionBusquedaCatalogo(atributoSql.getFnBusCatalogo());
+    		campoSQLBean.setLongitud(atributoSql.getLongitud()!=null?atributoSql.getLongitud():0);
+    		campoSQLBean.setPrecision(atributoSql.getPrecision()!=null?atributoSql.getPrecision():0);
+    		campoSQLBean.setFlgObligatorio(atributoSql.getObligatorio()=='1'?true:false);
+    		campoSQLBean.setFlgPK(atributoSql.getPk()=='1'?true:false);
+    		
+    		if(atributoSql.getFkUnoMucho() != null){
+    			campoSQLBean.setFkUnoMuchos(atributoSql.getFkUnoMucho()=='1'?true:false);
+    		}
+    		campoSQLBean.setValorDefecto(atributoSql.getValDefecto());
+    		if(atributoSql.getFkTabla()!=null && atributoSql.getFkCampo()!=null && atributoSql.getFkCampo()>0){
+    			System.out.println("### "+atributoSql.getFkTabla()+" - "+atributoSql.getFkCampo());
+    			campoSQLBean.setFk(atributoSQLDaoLocal.obtenerCampoSQLBean(atributoSql.getFkTabla(), atributoSql.getFkCampo()));
+    			System.out.println("--> FK: "+campoSQLBean.getFk());
+    		}
+    	}
+    	return campoSQLBean;
     }
 }

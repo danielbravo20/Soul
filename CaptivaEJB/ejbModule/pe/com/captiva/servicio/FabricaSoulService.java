@@ -12,6 +12,7 @@ import pe.com.captiva.dao.EquipoDaoLocal;
 import pe.com.captiva.dao.ProyectoDaoLocal;
 import pe.com.captiva.servicio.util.general.GeneralClaseBean;
 import pe.com.captiva.servicio.util.general.GeneralSQLInsertSoul;
+import pe.com.captiva.servicio.util.general.GeneralSQLCreateSoul;
 import pe.com.captiva.servicio.util.proceso.ProcesoClaseControlador;
 import pe.com.captiva.servicio.util.proceso.ProcesoClaseInterfaceServicio;
 import pe.com.captiva.servicio.util.proceso.ProcesoClasePreControlador;
@@ -56,6 +57,7 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 			proyectoBean.setEquipoBean(equipoBean);
 			new GeneralClaseBean().construir(proyectoBean);
 			new GeneralSQLInsertSoul().construir(proyectoBean);
+			new GeneralSQLCreateSoul().construir(proyectoBean);
 			
 			new ProcesoClasePreUtil().construir(proyectoBean);
 			new ProcesoClaseUtil().construir(proyectoBean);
