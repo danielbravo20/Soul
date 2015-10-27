@@ -49,7 +49,7 @@ public abstract class PreCancelacionCartaFianzaV1Servicio extends BaseProcesoSer
 
 	@Override
 	public String definirProximoDueno(Proceso proceso) throws Exception {
-		return sessionContext.getCallerPrincipal().getName();
+		return null;
 	}
 
 }

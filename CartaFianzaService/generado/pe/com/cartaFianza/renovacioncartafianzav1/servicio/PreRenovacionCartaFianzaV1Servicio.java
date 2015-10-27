@@ -37,9 +37,9 @@ public abstract class PreRenovacionCartaFianzaV1Servicio extends BaseProcesoServ
 
 	public TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{
 		TareaPlantilla plantilla = new TareaPlantilla();
-		plantilla.setCodigoTareaPlantilla(309);
-		plantilla.setNombre("SUBSANAR OBSERVACIONES AUTORIZACION");
-		plantilla.setAleas("RenovacionSubsanarAutorizacionV1");
+		plantilla.setCodigoTareaPlantilla(305);
+		plantilla.setNombre("AUTORIZAR VISADO");
+		plantilla.setAleas("RenovacionAutorizarVisadoV1");
 		plantilla.setEstado(1);
 		plantilla.setOrden(1);
 		plantilla.setPrioridad(1);
@@ -49,7 +49,7 @@ public abstract class PreRenovacionCartaFianzaV1Servicio extends BaseProcesoServ
 
 	@Override
 	public String definirProximoDueno(Proceso proceso) throws Exception {
-		return sessionContext.getCallerPrincipal().getName();
+		return null;
 	}
 
 }

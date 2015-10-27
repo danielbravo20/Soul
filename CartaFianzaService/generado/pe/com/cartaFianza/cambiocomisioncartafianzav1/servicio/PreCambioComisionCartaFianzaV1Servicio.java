@@ -37,9 +37,9 @@ public abstract class PreCambioComisionCartaFianzaV1Servicio extends BaseProceso
 
 	public TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{
 		TareaPlantilla plantilla = new TareaPlantilla();
-		plantilla.setCodigoTareaPlantilla(802);
-		plantilla.setNombre("APROBAR MODIFICACIÓN");
-		plantilla.setAleas("CambioComisionAprobarModificacionV1");
+		plantilla.setCodigoTareaPlantilla(801);
+		plantilla.setNombre("MODIFICAR COMISIÓN");
+		plantilla.setAleas("CambioComisionModificarComisionV1");
 		plantilla.setEstado(1);
 		plantilla.setOrden(1);
 		plantilla.setPrioridad(1);
@@ -49,7 +49,7 @@ public abstract class PreCambioComisionCartaFianzaV1Servicio extends BaseProceso
 
 	@Override
 	public String definirProximoDueno(Proceso proceso) throws Exception {
-		return sessionContext.getCallerPrincipal().getName();
+		return null;
 	}
 
 }

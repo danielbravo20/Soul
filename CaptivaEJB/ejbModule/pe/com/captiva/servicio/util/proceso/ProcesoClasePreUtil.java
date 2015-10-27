@@ -43,8 +43,9 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 		buffer.append("import javax.servlet.http.HttpServletResponse;\r\n\r\n");
 
 		buffer.append("import pe.com.soul.core.modelo.MensajeValidacion;\r\n");
+		buffer.append("import pe.com.soul.core.web.util.ValidacionUtil;\r\n");
 		buffer.append("import pe.com.soul.core.web.util.ProcesoUtil;\r\n\r\n");
-
+		
 		buffer.append("public class Pre"+procesoBean.getClase()+"Util implements ProcesoUtil{\r\n\r\n");
 
 		buffer.append("\t@Override\r\n");
@@ -59,19 +60,19 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 			if(atributoProceso.isWebFlgValidacion()){
 				String metodoValidacion = "";
 				if ("string".equals(atributoProceso.getTipo().toLowerCase())){
-					metodoValidacion = "cadenaNoValidaRequestParameter";
+					metodoValidacion = "ValidacionUtil.cadenaNoValidaRequestParameter";
 				}
 				else if ("long".equals(atributoProceso.getTipo().toLowerCase())){
-					metodoValidacion = "longNoValidoRequestParameter";
+					metodoValidacion = "ValidacionUtil.longNoValidoRequestParameter";
 				}
 				else if ("java.sql.date".equals(atributoProceso.getTipo().toLowerCase())){
-					metodoValidacion = "dateNoValidoRequestParameter";
+					metodoValidacion = "ValidacionUtil.dateNoValidoRequestParameter";
 				}
 				else if ("java.math.bigdecimal".equals(atributoProceso.getTipo().toLowerCase())){
-					metodoValidacion = "decimalNoValidoRequestParameter";
+					metodoValidacion = "ValidacionUtil.decimalNoValidoRequestParameter";
 				}
 				else if ("java.sql.timestamp".equals(atributoProceso.getTipo().toLowerCase())){
-					metodoValidacion = "timestampNoValidoRequestParameter";
+					metodoValidacion = "ValidacionUtil.timestampNoValidoRequestParameter";
 				}
 				if (metodoValidacion.length()>0){
 					buffer.append(tab+"if ("+metodoValidacion+"(request.getParameter(\""+atributoProceso.getWebNombre()+"\"))){\n");
@@ -85,26 +86,6 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 		
 		buffer.append("\t\tmensajeValidacion.setConforme(true);\r\n");
 		buffer.append("\t\treturn mensajeValidacion;\r\n");
-		buffer.append("\t}\r\n\r\n");
-		
-		buffer.append("\t"+"private boolean cadenaNoValidaRequestParameter(String cadena){\n");
-		buffer.append("\t\t"+"return (cadena == null || \"\".equals(cadena));\n");
-		buffer.append("\t}\r\n\r\n");
-		
-		buffer.append("\t"+"private boolean longNoValidoRequestParameter(String cadena){\n");
-		buffer.append("\t\t"+"return (cadena == null || Long.value(cadena).intValue() == 0 );\n");
-		buffer.append("\t}\r\n\r\n");
-		
-		buffer.append("\t"+"private boolean dateNoValidoRequestParameter(String cadena){\n");
-		buffer.append("\t\t"+"return (cadena == null);\n");
-		buffer.append("\t}\r\n\r\n");
-		
-		buffer.append("\t"+"private boolean decimalNoValidoRequestParameter(String cadena){\n");
-		buffer.append("\t\t"+"return (cadena == null);\n");
-		buffer.append("\t}\r\n\r\n");
-		
-		buffer.append("\t"+"private boolean timestampNoValidoRequestParameter(String cadena){\n");
-		buffer.append("\t\t"+"return (cadena == null);\n");
 		buffer.append("\t}\r\n\r\n");
 		
 		buffer.append("\t@Override\r\n");
