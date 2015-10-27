@@ -40,17 +40,7 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 			
 		};
 		
-		// Variables
-		
-		var cargarUsuario = function(usuario,callback){
-			var dataReq = { paquete: "gestion", clase: "Usuario", metodo: "cargarUsuario"};
-			ajax.get(dataReq,{USU_W_COD_USUARIO : usuario},function(respuesta){
-				$scope.data.USUARIO = respuesta;
-				if(callback){ callback();}
-			});
-		};
-		
-		var cargarProyecto = function(){
+		$scope.cargarProyecto = function(){
 			var dataReq = { paquete: "gestion", clase: "Principal", metodo: "listarProyectos"};
 			ajax.get(dataReq,{EQU_W_COD_USUARIO : $scope.data.USUARIO.cod_usuario},function(respuesta){
 			
@@ -58,16 +48,12 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 				for(var i in respuesta.PROYECTOS){
 					proyectoId[respuesta.PROYECTOS[i].cod_proyecto] = i;
 					respuesta.PROYECTOS[i].equipo = [];
-					respuesta.PROYECTOS[i].versiones = [];
 				}
-				for(var i in respuesta.USUARIOxProyectos){
-					if(respuesta.USUARIOxProyectos[i].esResponsable && respuesta.USUARIOxProyectos[i].cod_usuario == $scope.data.USUARIO.cod_usuario){
-						$scope.data.USUARIO.esResponsable = true;
+				for(var i in respuesta.USUARIOS_PROYECTOS){
+					if(respuesta.USUARIOS_PROYECTOS[i].esResponsable && respuesta.USUARIOS_PROYECTOS[i].cod_usuario == $scope.data.USUARIO.cod_usuario){
+						$scope.data.USUARIO.es_responsable = true;
 					}
-					respuesta.PROYECTOS[proyectoId[respuesta.USUARIOxProyectos[i].cod_proyecto]].equipo.push(respuesta.USUARIOxProyectos[i]);
-				}
-				for(var i in respuesta.Versiones){
-					respuesta.PROYECTOS[proyectoId[respuesta.Versiones[i].cod_proyecto]].versiones.push(respuesta.Versiones[i]);
+					respuesta.PROYECTOS[proyectoId[respuesta.USUARIOS_PROYECTOS[i].cod_proyecto]].equipo.push(respuesta.USUARIOS_PROYECTOS[i]);
 				}
 				angular.extend($scope.data, respuesta);
 				
@@ -79,15 +65,37 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 				
 			});
 		};
-				
+		
+		$scope.alertas = [];
+		$scope.agregarAlerta = function(tipo,mensaje){
+			$scope.alertas.push({tipo: tipo,mensaje: mensaje});
+			var pos = $scope.alertas.length-1;
+			$timeout(function(){
+				$scope.alertas.splice(pos,1);
+			},3000);
+		};
+		$scope.cerrarAlerta = function(index) {
+			$scope.alertas.splice(index, 1);
+		};
+		
+		// Variables
+		
+		var cargarUsuario = function(usuario,callback){
+			var dataReq = { paquete: "gestion", clase: "Usuario", metodo: "cargarUsuario"};
+			ajax.get(dataReq,{USU_W_COD_USUARIO : usuario},function(respuesta){
+				$scope.data.USUARIO = respuesta;
+				if(callback){ callback();}
+			});
+		};
+						
 		var instanciar = function(){
 			ajax.cargarConfiguracion(function(respuesta){
 				document.title = respuesta.config.proyecto + " v"+respuesta.config.version;
 				$scope.data.config = respuesta.config;
 				if(getParametro.usuario){
-					cargarUsuario(getParametro.usuario,cargarProyecto);
+					cargarUsuario(getParametro.usuario,$scope.cargarProyecto);
 				} else {
-					cargarProyecto();
+					$scope.cargarProyecto();
 				};
 			});
 		};

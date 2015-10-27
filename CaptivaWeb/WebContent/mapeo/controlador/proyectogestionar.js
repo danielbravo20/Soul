@@ -1,7 +1,7 @@
-﻿mapeo.registerCtrl('proyectogestionar', function($scope, util) {
+﻿mapeo.registerCtrl('proyectogestionar', function($scope, ajax, util) {
 	
 	$scope.instanciar = function(listar){
-		$scope.cargado = { paquete : "modulo", modulo : "Proyecto"};
+		$scope.cargado = { paquete : "modulo", clase : "Proyecto"};
 		$scope.vista = 'lista';
 		$scope.esEdicion = false;
 		if(listar){
@@ -22,7 +22,7 @@
 		}
 		$scope.codigoSecuencial++;
 		
-		$scope.cargado.PRO_codigoProyecto = $scope.codigoSecuencial;
+		$scope.cargado.PRO_cod_proyecto = $scope.codigoSecuencial;
 		$scope.USUARIOS = angular.copy($scope.data.USUARIOS);
 
 	};
@@ -32,24 +32,22 @@
 	};
 	
 	$scope.editarCargar = function(index){
-		$scope.cargado.PRO_COD_PROYECTO 	= $scope.data.PROYECTOS[index].COD_PROYECTO;		// VAL-------
+		$scope.cargado.PRO_cod_proyecto 	= $scope.data.PROYECTOS[index].cod_proyecto;		// VAL-------
 		$scope.cargado.PRO_nombre 			= $scope.data.PROYECTOS[index].nombre;				// VAL-------
-		$scope.cargado.PRO_descripcion 		= $scope.data.PROYECTOS[index].descripcion;			// VAL-------
-		$scope.cargado.PRO_estado 			= $scope.data.PROYECTOS[index].estado;				// VAL-------
-		$scope.cargado.PRO_fechaCreacion 	= $scope.data.PROYECTOS[index].fechaCreacion;		// VAL-------
-		$scope.cargado.PRO_fechaFinalizacion= $scope.data.PROYECTOS[index].fechaFinalizacion;	// VAL-------
-		$scope.cargado.versiones 			= $scope.data.PROYECTOS[index].versiones;
+		$scope.cargado.PRO_proyecto 		= $scope.data.PROYECTOS[index].proyecto;			// VAL-------
+		$scope.cargado.PRO_paquete 			= $scope.data.PROYECTOS[index].paquete;				// VAL-------
+
 		var usuarioId = [];
-		for(var i in $scope.USUARIOs){
-			usuarioId[$scope.USUARIOs[i].COD_USUARIO] = i;
+		for(var i = 0;i<$scope.USUARIOS.length;i++){
+			usuarioId[$scope.USUARIOS[i].cod_usuario] = i;
 		}
-		for(var i in $scope.data.PROYECTOS[index].equipo){
+		for(var i = 0;i<$scope.data.PROYECTOS[index].equipo.length;i++){
 			var equipo = $scope.data.PROYECTOS[index].equipo[i];
-			$scope.USUARIOs[usuarioId[equipo.COD_USUARIO]].esDelEquipo = true;
-			$scope.USUARIOs[usuarioId[equipo.COD_USUARIO]].CARPETA_DESTINO_WORKSPACE = equipo.CARPETA_DESTINO_WORKSPACE;
-			$scope.USUARIOs[usuarioId[equipo.COD_USUARIO]].CARPETA_DESTINO_PARCIAL = equipo.CARPETA_DESTINO_PARCIAL;
-			if(equipo.esResponsable){
-				$scope.cargado.USUARIOResponsable = equipo.COD_USUARIO;
+			$scope.USUARIOS[usuarioId[equipo.cod_usuario]].esDelEquipo = true;
+			$scope.USUARIOS[usuarioId[equipo.cod_usuario]].carpeta_destino_workspace = equipo.carpeta_destino_workspace;
+			$scope.USUARIOS[usuarioId[equipo.cod_usuario]].carpeta_destino_parcial = equipo.carpeta_destino_parcial;
+			if(equipo.es_responsable=="1"){
+				$scope.cargado.UsuarioResponsable = equipo.cod_usuario;
 			}
 		}
 		$scope.esEdicion = true;
@@ -61,48 +59,75 @@
 		$scope.vista = 'mantener';
 	};
 	
-	$scope.guardar = function(){
-		var cont = 1;
+	var validar = function(){
+		$scope.$broadcast('show-errors-check-validity');
+		if ($scope.FRM_PROYECTOGESTIONAR.$invalid) { return false; }
+		
+		var cEquipo = 0;
 		for(var i in $scope.USUARIOS){
-			var user = $scope.USUARIOs[i];
-			if(user.esDelEquipo){
-				$scope.cargado["EQU_M_"+cont+"_cod_proyecto"] = $scope.cargado.PRO_COD_PROYECTO;
-				$scope.cargado["EQU_M_"+cont+"_cod_usuario"] = user.cod_usuario;
-				$scope.cargado["EQU_M_"+cont+"_es_Responsable"] = ($scope.cargado.UsuarioResponsable==user.cod_usuario)?1:0;
-				if($scope.esEdicion){
-					$scope.cargado["EQU_M_"+cont+"_carpeta_destino_workspace"] = user.carpeta_destino_workspace;
-					$scope.cargado["EQU_M_"+cont+"_carpeta_destino_parcial"] = user.carpeta_destino_parcial;
-				}
-				cont++;
+			var user = $scope.USUARIOS[i];
+			if($scope.USUARIOS[i].esDelEquipo){
+				cEquipo++;
 			}
 		}
-		if($scope.esEdicion){
-			$scope.cargado.metodo = "editar";
-			$scope.cargado.PRO_W_COD_PROYECTO = $scope.cargado.PRO_COD_PROYECTO;	// WHERE-------
-			$scope.cargado.EQU_W_COD_PROYECTO = $scope.cargado.PRO_COD_PROYECTO;	// WHERE-------
-			ajax.jpo($scope.cargado,function(respuesta){
-				delete $scope.cargado.PRO_W_COD_PROYECTO;									// WHERE-------
-				delete $scope.cargado.EQU_W_COD_PROYECTO;									// WHERE-------
-				$scope.agregarAlerta("success","Esquema editado corréctamente");
-				$scope.instanciar(true);
-			});
-		} else {
-			$scope.cargado.metodo = "registrar";
-			$scope.cargado.VER_COD_VERSION	= 1;
-			$scope.cargado.VER_COD_PROYECTO 	= $scope.cargado.PRO_COD_PROYECTO;
-			ajax.jpo($scope.cargado,function(respuesta){
-				$scope.agregarAlerta("success","Proyecto creado corréctamente");
-				$scope.instanciar(true);
-			});
+		
+		if(cEquipo == 0){
+			$scope.agregarAlerta("danger","Asigne por lo menos 1 usuario al proyecto");
+			return false;
 		}
+		
+		
+		if(typeof($scope.cargado.UsuarioResponsable)=="undefined"){
+			$scope.agregarAlerta("danger","Asigne un responsable");
+			return false;
+		}
+		
+		return true;
+		
+	};
+	
+	$scope.guardar = function(){
+
+		if(validar()){
+			var cont = 1;
+			for(var i in $scope.USUARIOS){
+				var user = $scope.USUARIOS[i];
+				if(user.esDelEquipo){
+					$scope.cargado["EQU_M_"+cont+"_cod_proyecto"] = $scope.cargado.PRO_cod_proyecto;
+					$scope.cargado["EQU_M_"+cont+"_cod_usuario"] = user.cod_usuario;
+					$scope.cargado["EQU_M_"+cont+"_es_Responsable"] = ($scope.cargado.UsuarioResponsable==user.cod_usuario)?1:0;
+					$scope.cargado["EQU_M_"+cont+"_carpeta_destino_workspace"] = (user.carpeta_destino_workspace)?user.carpeta_destino_workspace:"";
+					$scope.cargado["EQU_M_"+cont+"_carpeta_destino_parcial"] = (user.carpeta_destino_parcial)?user.carpeta_destino_parcial:"";
+					cont++;
+				}
+			}
+			if($scope.esEdicion){
+				$scope.cargado.metodo = "editar";
+				$scope.cargado.PRO_W_cod_proyecto = $scope.cargado.PRO_cod_proyecto;	// WHERE-------
+				$scope.cargado.EQU_W_cod_proyecto = $scope.cargado.PRO_cod_proyecto;	// WHERE-------
+				ajax.jpo($scope.cargado,function(respuesta){
+					delete $scope.cargado.PRO_W_cod_proyecto;							// WHERE-------
+					delete $scope.cargado.EQU_W_cod_proyecto;							// WHERE-------
+					$scope.agregarAlerta("success","Proyecto editado corréctamente");
+					$scope.instanciar(true);
+				});
+			} else {
+				$scope.cargado.metodo = "registrar";
+				ajax.jpo($scope.cargado,function(respuesta){
+					$scope.agregarAlerta("success","Proyecto creado corréctamente");
+					$scope.instanciar(true);
+				});
+			}
+		}
+		
 	};
 	
 	$scope.eliminar = function(index){
 		if(confirm("Confirma eliminar el seleccionado?")){
 			$scope.cargado.metodo = "eliminar";
-			$scope.cargado.PRO_W_COD_PROYECTO = $scope.cargado.PRO_COD_PROYECTO;	// WHERE-------
+			$scope.cargado.PRO_W_cod_proyecto = $scope.data.PROYECTOS[index].cod_proyecto;	// WHERE-------
 			ajax.jpo($scope.cargado,function(respuesta){
-				delete $scope.cargado.PRO_W_COD_PROYECTO;									// WHERE-------
+				delete $scope.cargado.PRO_W_cod_proyecto;									// WHERE-------
 				$scope.agregarAlerta("success","Proyecto eliminado corréctamente");
 				$scope.instanciar(true);
 			});

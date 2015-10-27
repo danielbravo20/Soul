@@ -30,8 +30,7 @@ public class Principal extends GestionBase implements PrincipalLocal {
 			String whereIn = wheresIn.toString().substring(0,wheresIn.toString().length()-1);
 			
 			listados.put("PROYECTOS", jpo.tabla("PROYECTO").donde("cod_proyecto IN ("+whereIn+")").seleccionar("*"));
-			//listados.put("USUARIOS_PROYECTOS", jpo.tabla("EQUIPO").donde("COD_PROYECTO IN ("+whereIn+")").seleccionar("*"));
-			//listados.put("VERSIONES", jpo.tabla("VERSION").donde("COD_PROYECTO IN ("+whereIn+")").seleccionar("*"));
+			listados.put("USUARIOS_PROYECTOS", jpo.tabla("EQUIPO").donde("cod_proyecto IN ("+whereIn+")").seleccionar("*"));
 			
 		}
 		

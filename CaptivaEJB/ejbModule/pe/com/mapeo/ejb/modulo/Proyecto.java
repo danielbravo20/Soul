@@ -25,21 +25,15 @@ public class Proyecto extends GestionBase implements ProyectoLocal {
 	public Object registrar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		jpo.autoCommit(false);
 		jpo.tabla("PROYECTO","PRO").registrar();
-		jpo.tabla("VersionUN","VER").registrar();
 		jpo.tabla("EQUIPO","EQU").registrarMultiple();
 		jpo.commitear();
 		return true;
 	}
 	
-	public Object registrarVersion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		return jpo.tabla("VersionUN","VER").registrar();
-	}
-	
 	public Object eliminar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		jpo.autoCommit(false);
-		jpo.tabla("PROYECTO","PRO").eliminar();
-		jpo.tabla("Version","PRO").eliminar();
 		jpo.tabla("EQUIPO","PRO").eliminar();
+		jpo.tabla("PROYECTO","PRO").eliminar();
 		/*
 		jpo.tabla("Configuracion","PRO").eliminar();
 		jpo.tabla("Rol","PRO").eliminar();

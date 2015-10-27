@@ -13,8 +13,6 @@ public interface ProyectoLocal extends GestionLocal {
 	
 	public Object registrar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
-	public Object registrarVersion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
-	
 	public Object eliminar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 	// EQUIPO
