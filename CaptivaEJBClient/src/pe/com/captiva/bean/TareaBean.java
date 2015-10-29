@@ -5,7 +5,7 @@ import java.util.List;
 public class TareaBean {
 	
 	private Integer codigo;
-	private Proyecto proyecto;
+	private ProyectoBean proyecto;
 	private ProcesoBean proceso;
 	private String paquete;
 	private String clase; 
@@ -69,10 +69,10 @@ public class TareaBean {
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
-	public Proyecto getProyecto() {
+	public ProyectoBean getProyecto() {
 		return proyecto;
 	}
-	public void setProyecto(Proyecto proyecto) {
+	public void setProyecto(ProyectoBean proyecto) {
 		this.proyecto = proyecto;
 	}
 	public ProcesoBean getProceso() {

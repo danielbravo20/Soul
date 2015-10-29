@@ -28,5 +28,8 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="CartaFianzaDao.jar" deploy-path="/lib" handle="module:/resource/CartaFianzaDao/CartaFianzaDao">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

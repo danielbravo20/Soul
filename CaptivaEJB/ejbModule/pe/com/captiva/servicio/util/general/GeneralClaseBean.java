@@ -27,6 +27,7 @@ public class GeneralClaseBean extends MultipleBaseConstructor{
 			componente.setDirectorio(proyectoBean.getEquipoBean().getDirectorioWorkspace() + File.separatorChar + proyectoBean.getProyecto() + ProyectoBean.SUFIJO_PROYECTO_SERVICELIB + File.separatorChar + "src" + File.separatorChar + ( (proyectoBean.getPaquete()+ClaseBean.SUFIJO_PAQUETE).replace('.', File.separatorChar) ));
 			componente.setArchivo(claseBean.getNombre()+".java");
 			componente.setContenido(contenido(proyectoBean, claseBean));
+			componentes.add(componente);
 		}
 		
 		return componentes;

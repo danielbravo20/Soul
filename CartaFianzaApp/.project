@@ -10,6 +10,7 @@
 		<project>SoulCore</project>
 		<project>CartaFianzaServiceClient</project>
 		<project>CartaFianzaService</project>
+		<project>CartaFianzaDao</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

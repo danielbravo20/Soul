@@ -6,31 +6,23 @@ public class Cuenta implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
-	private Long codigoSolicitud;
-	private String codigoAgencia;
-	private java.math.BigDecimal saldoRetenido;
-	private String codigoTipoCuenta;
 	private java.math.BigDecimal saldoContable;
+	private java.math.BigDecimal saldoRetenido;
+	private Long codigoSolicitud;
+	private java.math.BigDecimal saldoDisponible;
 	private String estado;
+	private String codigoTipoCuenta;
+	private String codigoAgencia;
 	private String codigoEstado;
 	private String numeroCuenta;
-	private java.math.BigDecimal saldoDisponible;
 	private String codigoMoneda;
 
-	public Long getCodigoSolicitud(){
-		return codigoSolicitud;
+	public java.math.BigDecimal getSaldoContable(){
+		return saldoContable;
 	}
 
-	public void setCodigoSolicitud(Long codigoSolicitud) {
-		this.codigoSolicitud = codigoSolicitud;
-	}
-
-	public String getCodigoAgencia(){
-		return codigoAgencia;
-	}
-
-	public void setCodigoAgencia(String codigoAgencia) {
-		this.codigoAgencia = codigoAgencia;
+	public void setSaldoContable(java.math.BigDecimal saldoContable) {
+		this.saldoContable = saldoContable;
 	}
 
 	public java.math.BigDecimal getSaldoRetenido(){
@@ -41,20 +33,20 @@ public class Cuenta implements Serializable{
 		this.saldoRetenido = saldoRetenido;
 	}
 
-	public String getCodigoTipoCuenta(){
-		return codigoTipoCuenta;
+	public Long getCodigoSolicitud(){
+		return codigoSolicitud;
 	}
 
-	public void setCodigoTipoCuenta(String codigoTipoCuenta) {
-		this.codigoTipoCuenta = codigoTipoCuenta;
+	public void setCodigoSolicitud(Long codigoSolicitud) {
+		this.codigoSolicitud = codigoSolicitud;
 	}
 
-	public java.math.BigDecimal getSaldoContable(){
-		return saldoContable;
+	public java.math.BigDecimal getSaldoDisponible(){
+		return saldoDisponible;
 	}
 
-	public void setSaldoContable(java.math.BigDecimal saldoContable) {
-		this.saldoContable = saldoContable;
+	public void setSaldoDisponible(java.math.BigDecimal saldoDisponible) {
+		this.saldoDisponible = saldoDisponible;
 	}
 
 	public String getEstado(){
@@ -63,6 +55,22 @@ public class Cuenta implements Serializable{
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getCodigoTipoCuenta(){
+		return codigoTipoCuenta;
+	}
+
+	public void setCodigoTipoCuenta(String codigoTipoCuenta) {
+		this.codigoTipoCuenta = codigoTipoCuenta;
+	}
+
+	public String getCodigoAgencia(){
+		return codigoAgencia;
+	}
+
+	public void setCodigoAgencia(String codigoAgencia) {
+		this.codigoAgencia = codigoAgencia;
 	}
 
 	public String getCodigoEstado(){
@@ -79,14 +87,6 @@ public class Cuenta implements Serializable{
 
 	public void setNumeroCuenta(String numeroCuenta) {
 		this.numeroCuenta = numeroCuenta;
-	}
-
-	public java.math.BigDecimal getSaldoDisponible(){
-		return saldoDisponible;
-	}
-
-	public void setSaldoDisponible(java.math.BigDecimal saldoDisponible) {
-		this.saldoDisponible = saldoDisponible;
 	}
 
 	public String getCodigoMoneda(){
