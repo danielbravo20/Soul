@@ -4,4 +4,13 @@
 		
 	};
 	
+	$scope.guardarCPRO = function(){
+		
+	};
+	
+	$scope.guardarCPER = function(){
+		
+	};
+	
+	
 });

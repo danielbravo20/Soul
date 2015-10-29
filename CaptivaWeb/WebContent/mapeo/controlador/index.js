@@ -34,7 +34,12 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 		};
 		
 		$scope.getPerfil = function(perfil){
-			return util.getObjeto($scope.data.config.perfiles,{id : perfil}).valor;
+			var obs = util.getObjeto($scope.data.config.perfiles,{id : perfil});
+			if(obs){
+				return obs.valor;
+			} else {
+				return "";
+			}
 		};
 		
 		$scope.cargarTrabajarProyecto = function(objetoProyecto){
@@ -53,14 +58,17 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 			ajax.get(dataReq,{
 				LIB_W_COD_PROYECTO 	: $scope.data.PROYECTO.cod_proyecto,
 				LIS_W_COD_PROYECTO 	: $scope.data.PROYECTO.cod_proyecto,
-				LIS_W_COD_VERSION 	: "1",
 				LIC_W_COD_PROYECTO 	: $scope.data.PROYECTO.cod_proyecto,
 				LIC_W_COD_USUARIO 	: $scope.data.USUARIO.cod_usuario
 			},function(respuesta){
 				angular.extend($scope.data, respuesta);
-				//$scope.getControladorScope("proyectocargado").instanciar();
 			});
 			
+		};
+		
+		$scope.cerrarTrabajarProyecto = function(){
+			$scope.data.PROYECTO = {esCargado : false};
+			$scope.modulo = "proyectogestionar";
 		};
 		
 		$scope.cargarProyecto = function(){

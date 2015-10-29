@@ -11,41 +11,17 @@
 	  </tr>
 	  <tr>
 		<th>Nombre (*) :</th>
-		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.nombre" name="PROYECTO.nombre" class="form-control input-sm" ng-disabled="!data.EQUIPO.es_responsable" ng-required="!data.EQUIPO.es_responsable"></td>
+		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.nombre" name="PROYECTO.nombre" class="form-control input-sm" ng-disabled="data.EQUIPO.es_responsable=='0'" ng-required="data.EQUIPO.es_responsable=='1'"></td>
 	  </tr>
 	  <tr>
-		<th>Proyecto Web (*) :</th>
-		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.jav_pro_web" name="PROYECTO.jav_pro_web" class="form-control input-sm" ng-disabled="!data.EQUIPO.es_responsable" ng-required="!data.EQUIPO.es_responsable"></td>
+		<th>Proyecto (*) :</th>
+		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.proyecto" name="data.PROYECTO.proyecto" class="form-control input-sm" ng-disabled="data.EQUIPO.es_responsable=='0'" ng-required="data.EQUIPO.es_responsable=='1'"></td>
 	  </tr>
 	  <tr>
-		<th>Proyecto EJB (Implementación) (*) :</th>
-		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.jav_pro_ejb" name="PROYECTO.jav_pro_ejb" class="form-control input-sm" ng-disabled="!data.EQUIPO.es_responsable" ng-required="!data.EQUIPO.es_responsable"></td>
+		<th>Paquete (*) :</th>
+		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.paquete" name="data.PROYECTO.paquete" class="form-control input-sm" ng-disabled="data.EQUIPO.es_responsable=='0'" ng-required="data.EQUIPO.es_responsable=='1'"></td>
 	  </tr>
-	  <tr>
-		<th>Proyecto EJB Externo (Implementación) (*) :</th>
-		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.jav_pro_ejb_ext" name="PROYECTO.jav_pro_ejb_ext" class="form-control input-sm" ng-disabled="!data.EQUIPO.es_responsable" ng-required="!data.EQUIPO.es_responsable"></td>
-	  </tr>
-	  <tr>
-		<th>Proyecto EJB Cliente (Interfaz) (*) :</th>
-		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.jav_pro_cli_ejb" name="PROYECTO.jav_pro_cli_ejb" class="form-control input-sm" ng-disabled="!data.EQUIPO.es_responsable" ng-required="!data.EQUIPO.es_responsable"></td>
-	  </tr>
-	  <tr>
-		<th>Proyecto Libreria (*) :</th>
-		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.jav_pro_libreria" name="PROYECTO.jav_pro_libreria" class="form-control input-sm" ng-disabled="!data.EQUIPO.es_responsable" ng-required="!data.EQUIPO.es_responsable"></td>
-	  </tr>
-	  <tr>
-		<th>Paquete Java (*) :</th>
-		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.jav_paquete" name="PROYECTO.jav_paquete" class="form-control input-sm" ng-disabled="!data.EQUIPO.es_responsable" ng-required="!data.EQUIPO.es_responsable"></td>
-	  </tr>
-	  <tr>
-		<th>Prefijo de Controlador (*) :</th>
-		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.jav_pre_controlador" name="PROYECTO.jav_pre_controlador" class="form-control input-sm" ng-disabled="!data.EQUIPO.es_responsable" ng-required="!data.EQUIPO.es_responsable"></td>
-	  </tr>
-	  <tr>
-		<th>Paquete de Controlador (*) :</th>
-		<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="data.PROYECTO.jav_paq_controlador" name="PROYECTO.jav_paq_controlador" class="form-control input-sm" ng-disabled="!data.EQUIPO.es_responsable" ng-required="!data.EQUIPO.es_responsable"></td>
-	  </tr>
-	  <tr ng-show="data.EQUIPO.es_responsable">
+	  <tr ng-show="data.EQUIPO.es_responsable=='1'">
 		<td colspan="2"><a class="btn btn-primary btn-sm" ng-click="guardarCPRO()"><i class="glyphicon glyphicon-floppy-save"></i> Guardar</a></td>
 	  </tr>
 	</tbody>

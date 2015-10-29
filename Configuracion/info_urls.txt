@@ -2,9 +2,19 @@
 ----------------------------------------------------------------------------------------------------------------------------
 ---------------------------                     Acciones a nivel de captiva                      ---------------------------
 
---Acceder
-http://localhost:8080/CaptivaWeb/mapeov2/web/mapeo.html?usuario=david&proyecto=1&submodulo=clase
+// de los 3 usuarios daniel, edwin, david la clave esta encriptaba con md5 y la clave es clave1
 
+--Acceder
+http://localhost:8080/CaptivaWeb/
+
+--Acceder con usuario
+http://localhost:8080/CaptivaWeb/mapeo/index.html?usuario=david
+
+--Acceder con usuario y a un proyecto en particular
+http://localhost:8080/CaptivaWeb/mapeo/index.html?usuario=david&proyecto=1
+
+--Acceder con usuario y a un proyecto en particular y a un modulo en particular
+http://localhost:8080/CaptivaWeb/mapeo/index.html?usuario=david&proyecto=1&submodulo=proyectodetalle
 
 ----------------------------------------------------------------------------------------------------------------------------
 ---------------------------                     Acciones a nivel de proceso                      ---------------------------
@@ -43,7 +53,5 @@ http://localhost:8080/CartaFianzaWeb/portal/emision/completarSolicitudV1?accion=
 --Transferir tarea
 http://localhost:8080/CartaFianzaWeb/portal/emision/completarSolicitudV1?accion=transferir&tkiid=3&nuevoDueno=edwin
 
-
 -- Inicia la creacion del codigo
 http://localhost:8080/CaptivaWeb/generarController?codigoProyecto=1&usuario=edwin
-
