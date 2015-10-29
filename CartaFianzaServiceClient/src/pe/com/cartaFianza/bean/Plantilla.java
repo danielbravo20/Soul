@@ -7,15 +7,15 @@ public class Plantilla implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String nombre;
-	private java.sql.Timestamp fechaCreacion;
+	private String descripcion;
 	private java.sql.Timestamp fechaActualizacion;
+	private Integer codigoPlantilla;
+	private java.sql.Timestamp fechaCreacion;
+	private boolean estado;
+	private String codigoTipoBanca;
+	private String usuarioCreacion;
 	private String archivo;
 	private String codigoTipoSolicitud;
-	private String descripcion;
-	private Integer codigoPlantilla;
-	private String codigoTipoBanca;
-	private boolean estado;
-	private String usuarioCreacion;
 	private String usuarioActualizacion;
 
 	public String getNombre(){
@@ -26,12 +26,12 @@ public class Plantilla implements Serializable{
 		this.nombre = nombre;
 	}
 
-	public java.sql.Timestamp getFechaCreacion(){
-		return fechaCreacion;
+	public String getDescripcion(){
+		return descripcion;
 	}
 
-	public void setFechaCreacion(java.sql.Timestamp fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public java.sql.Timestamp getFechaActualizacion(){
@@ -40,6 +40,46 @@ public class Plantilla implements Serializable{
 
 	public void setFechaActualizacion(java.sql.Timestamp fechaActualizacion) {
 		this.fechaActualizacion = fechaActualizacion;
+	}
+
+	public Integer getCodigoPlantilla(){
+		return codigoPlantilla;
+	}
+
+	public void setCodigoPlantilla(Integer codigoPlantilla) {
+		this.codigoPlantilla = codigoPlantilla;
+	}
+
+	public java.sql.Timestamp getFechaCreacion(){
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(java.sql.Timestamp fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public boolean isEstado(){
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+	public String getCodigoTipoBanca(){
+		return codigoTipoBanca;
+	}
+
+	public void setCodigoTipoBanca(String codigoTipoBanca) {
+		this.codigoTipoBanca = codigoTipoBanca;
+	}
+
+	public String getUsuarioCreacion(){
+		return usuarioCreacion;
+	}
+
+	public void setUsuarioCreacion(String usuarioCreacion) {
+		this.usuarioCreacion = usuarioCreacion;
 	}
 
 	public String getArchivo(){
@@ -56,46 +96,6 @@ public class Plantilla implements Serializable{
 
 	public void setCodigoTipoSolicitud(String codigoTipoSolicitud) {
 		this.codigoTipoSolicitud = codigoTipoSolicitud;
-	}
-
-	public String getDescripcion(){
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public Integer getCodigoPlantilla(){
-		return codigoPlantilla;
-	}
-
-	public void setCodigoPlantilla(Integer codigoPlantilla) {
-		this.codigoPlantilla = codigoPlantilla;
-	}
-
-	public String getCodigoTipoBanca(){
-		return codigoTipoBanca;
-	}
-
-	public void setCodigoTipoBanca(String codigoTipoBanca) {
-		this.codigoTipoBanca = codigoTipoBanca;
-	}
-
-	public boolean isEstado(){
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
-
-	public String getUsuarioCreacion(){
-		return usuarioCreacion;
-	}
-
-	public void setUsuarioCreacion(String usuarioCreacion) {
-		this.usuarioCreacion = usuarioCreacion;
 	}
 
 	public String getUsuarioActualizacion(){

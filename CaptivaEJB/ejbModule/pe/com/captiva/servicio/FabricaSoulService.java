@@ -11,6 +11,7 @@ import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.dao.EquipoDaoLocal;
 import pe.com.captiva.dao.ProyectoDaoLocal;
 import pe.com.captiva.servicio.util.general.GeneralClaseBean;
+import pe.com.captiva.servicio.util.general.GeneralClaseEntity;
 import pe.com.captiva.servicio.util.general.GeneralSQLInsertSoul;
 import pe.com.captiva.servicio.util.general.GeneralSQLCreateSoul;
 import pe.com.captiva.servicio.util.proceso.ProcesoClaseControlador;
@@ -56,6 +57,7 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 			
 			proyectoBean.setEquipoBean(equipoBean);
 			new GeneralClaseBean().construir(proyectoBean);
+			new GeneralClaseEntity().construir(proyectoBean);
 			new GeneralSQLInsertSoul().construir(proyectoBean);
 			new GeneralSQLCreateSoul().construir(proyectoBean);
 			
@@ -100,6 +102,7 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 		validaDirectorio(equipoBean.getDirectorioWorkspace()+File.separator+proyectoBean.getProyecto()+ProyectoBean.SUFIJO_PROYECTO_SERVICE);
 		validaDirectorio(equipoBean.getDirectorioWorkspace()+File.separator+proyectoBean.getProyecto()+ProyectoBean.SUFIJO_PROYECTO_SERVICELIB);
 		validaDirectorio(equipoBean.getDirectorioWorkspace()+File.separator+proyectoBean.getProyecto()+ProyectoBean.SUFIJO_PROYECTO_WEB);
+		validaDirectorio(equipoBean.getDirectorioWorkspace()+File.separator+proyectoBean.getProyecto()+ProyectoBean.SUFIJO_PROYECTO_DAO);
 		
 		return true;
 	}

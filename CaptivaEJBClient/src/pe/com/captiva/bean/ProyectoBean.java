@@ -9,6 +9,7 @@ public class ProyectoBean extends BaseBean{
 	public static final String SUFIJO_PROYECTO_EAR 			= "App";
 	public static final String SUFIJO_PROYECTO_WEB 			= "Web";
 	public static final String SUFIJO_PROYECTO_SERVICE 		= "Service";
+	public static final String SUFIJO_PROYECTO_DAO 			= "Dao";
 	public static final String SUFIJO_PROYECTO_SERVICELIB 	= "ServiceClient";
 	public static final String SUFIJO_SQL 	= "SQL";
 	

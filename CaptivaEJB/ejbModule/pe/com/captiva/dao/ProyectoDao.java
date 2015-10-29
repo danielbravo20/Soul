@@ -295,9 +295,7 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		}
     		campoSQLBean.setValorDefecto(atributoSql.getValDefecto());
     		if(atributoSql.getFkTabla()!=null && atributoSql.getFkCampo()!=null && atributoSql.getFkCampo()>0){
-    			System.out.println("### "+atributoSql.getFkTabla()+" - "+atributoSql.getFkCampo());
     			campoSQLBean.setFk(atributoSQLDaoLocal.obtenerCampoSQLBean(atributoSql.getFkTabla(), atributoSql.getFkCampo()));
-    			System.out.println("--> FK: "+campoSQLBean.getFk());
     		}
     	}
     	return campoSQLBean;

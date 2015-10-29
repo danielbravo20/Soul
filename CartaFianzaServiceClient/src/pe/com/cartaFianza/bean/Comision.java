@@ -6,38 +6,22 @@ public class Comision implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
-	private String codEvento;
-	private Long codigoSolicitud;
-	private java.math.BigDecimal minimo;
+	private String codMoneda;
 	private String descripcionTipoComision;
 	private java.math.BigDecimal importe;
-	private boolean flagExonera;
-	private String codMoneda;
-	private String tipoComision;
 	private java.math.BigDecimal maximo;
+	private boolean flagExonera;
+	private String codEvento;
+	private String tipoComision;
+	private Long codigoSolicitud;
+	private java.math.BigDecimal minimo;
 
-	public String getCodEvento(){
-		return codEvento;
+	public String getCodMoneda(){
+		return codMoneda;
 	}
 
-	public void setCodEvento(String codEvento) {
-		this.codEvento = codEvento;
-	}
-
-	public Long getCodigoSolicitud(){
-		return codigoSolicitud;
-	}
-
-	public void setCodigoSolicitud(Long codigoSolicitud) {
-		this.codigoSolicitud = codigoSolicitud;
-	}
-
-	public java.math.BigDecimal getMinimo(){
-		return minimo;
-	}
-
-	public void setMinimo(java.math.BigDecimal minimo) {
-		this.minimo = minimo;
+	public void setCodMoneda(String codMoneda) {
+		this.codMoneda = codMoneda;
 	}
 
 	public String getDescripcionTipoComision(){
@@ -56,6 +40,14 @@ public class Comision implements Serializable{
 		this.importe = importe;
 	}
 
+	public java.math.BigDecimal getMaximo(){
+		return maximo;
+	}
+
+	public void setMaximo(java.math.BigDecimal maximo) {
+		this.maximo = maximo;
+	}
+
 	public boolean isFlagExonera(){
 		return flagExonera;
 	}
@@ -64,12 +56,12 @@ public class Comision implements Serializable{
 		this.flagExonera = flagExonera;
 	}
 
-	public String getCodMoneda(){
-		return codMoneda;
+	public String getCodEvento(){
+		return codEvento;
 	}
 
-	public void setCodMoneda(String codMoneda) {
-		this.codMoneda = codMoneda;
+	public void setCodEvento(String codEvento) {
+		this.codEvento = codEvento;
 	}
 
 	public String getTipoComision(){
@@ -80,12 +72,20 @@ public class Comision implements Serializable{
 		this.tipoComision = tipoComision;
 	}
 
-	public java.math.BigDecimal getMaximo(){
-		return maximo;
+	public Long getCodigoSolicitud(){
+		return codigoSolicitud;
 	}
 
-	public void setMaximo(java.math.BigDecimal maximo) {
-		this.maximo = maximo;
+	public void setCodigoSolicitud(Long codigoSolicitud) {
+		this.codigoSolicitud = codigoSolicitud;
+	}
+
+	public java.math.BigDecimal getMinimo(){
+		return minimo;
+	}
+
+	public void setMinimo(java.math.BigDecimal minimo) {
+		this.minimo = minimo;
 	}
 
 }

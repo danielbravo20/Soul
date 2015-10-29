@@ -6,37 +6,13 @@ public class ListaVerificacion implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
-	private java.sql.Timestamp fechaCreacion;
-	private Long codigoSolicitud;
-	private Integer codigoVerificacion;
 	private String usuarioCreacion;
 	private boolean verificado;
-	private String descripcion;
+	private Integer codigoVerificacion;
+	private Long codigoSolicitud;
+	private java.sql.Timestamp fechaCreacion;
 	private String nombre;
-
-	public java.sql.Timestamp getFechaCreacion(){
-		return fechaCreacion;
-	}
-
-	public void setFechaCreacion(java.sql.Timestamp fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
-	public Long getCodigoSolicitud(){
-		return codigoSolicitud;
-	}
-
-	public void setCodigoSolicitud(Long codigoSolicitud) {
-		this.codigoSolicitud = codigoSolicitud;
-	}
-
-	public Integer getCodigoVerificacion(){
-		return codigoVerificacion;
-	}
-
-	public void setCodigoVerificacion(Integer codigoVerificacion) {
-		this.codigoVerificacion = codigoVerificacion;
-	}
+	private String descripcion;
 
 	public String getUsuarioCreacion(){
 		return usuarioCreacion;
@@ -54,12 +30,28 @@ public class ListaVerificacion implements Serializable{
 		this.verificado = verificado;
 	}
 
-	public String getDescripcion(){
-		return descripcion;
+	public Integer getCodigoVerificacion(){
+		return codigoVerificacion;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setCodigoVerificacion(Integer codigoVerificacion) {
+		this.codigoVerificacion = codigoVerificacion;
+	}
+
+	public Long getCodigoSolicitud(){
+		return codigoSolicitud;
+	}
+
+	public void setCodigoSolicitud(Long codigoSolicitud) {
+		this.codigoSolicitud = codigoSolicitud;
+	}
+
+	public java.sql.Timestamp getFechaCreacion(){
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(java.sql.Timestamp fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 
 	public String getNombre(){
@@ -68,6 +60,14 @@ public class ListaVerificacion implements Serializable{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getDescripcion(){
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 }

@@ -16,34 +16,34 @@ public class GeneradorUtil {
 				
 		if(atributo.isJavaTieneValorOmision()==false){
 			if(atributo.getTipo().equals("String")){
-				buffer.append("\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(request.getParameter("+atributo.getWebNombre()+"));\r\n");
+				buffer.append("\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(request.getParameter(\""+atributo.getWebNombre()+"\"));\r\n");
 			}else if(atributo.getTipo().equals("int") || atributo.getTipo().equals("Integer")){
-				buffer.append("\t\tif(request.getParameter("+atributo.getWebNombre()+")!=null && request.getParameter("+atributo.getWebNombre()+").trim().length()>0){\r\n");
-				buffer.append("\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(Integer.parseInt(request.getParameter("+atributo.getWebNombre()+")));\r\n");
+				buffer.append("\t\tif(request.getParameter(\""+atributo.getWebNombre()+"\")!=null && request.getParameter(\""+atributo.getWebNombre()+"\").trim().length()>0){\r\n");
+				buffer.append("\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(Integer.parseInt(request.getParameter(\""+atributo.getWebNombre()+"\")));\r\n");
 				buffer.append("\t\t}\r\n");
 			}else if(atributo.getTipo().equals("boolean")){
-				buffer.append("\t\tif(request.getParameter("+atributo.getWebNombre()+")!=null && ( request.getParameter("+atributo.getWebNombre()+").equals(1) || request.getParameter("+atributo.getWebNombre()+").equalsIgnoreCase(true))) {\r\n");
+				buffer.append("\t\tif(request.getParameter(\""+atributo.getWebNombre()+"\")!=null && ( request.getParameter(\""+atributo.getWebNombre()+"\").equals(1) || request.getParameter(\""+atributo.getWebNombre()+"\").equalsIgnoreCase(true))) {\r\n");
 				buffer.append("\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(true);}\r\n");
 				buffer.append("\t\telse{\r\n");
 				buffer.append("\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(false);\r\n");
 				buffer.append("\t\t}\r\n");
 			}else if(atributo.getTipo().equals("java.sql.Date")){
-				buffer.append("\t\tif(request.getParameter("+atributo.getWebNombre()+")!=null && request.getParameter("+atributo.getWebNombre()+").length() > 0 ){\r\n");
+				buffer.append("\t\tif(request.getParameter(\""+atributo.getWebNombre()+"\")!=null && request.getParameter(\""+atributo.getWebNombre()+"\").length() > 0 ){\r\n");
 				buffer.append("\t\t\ttry{\r\n");
 				buffer.append("\t\t\t\tjava.text.SimpleDateFormat "+atributo.getNombre().toLowerCase()+"SDF = new java.text.SimpleDateFormat(dd/MM/yyyy);\r\n");
-				buffer.append("\t\t\t\tjava.util.Date date"+nombreVariable(atributo.getNombre())+"= "+atributo.getNombre().toLowerCase()+"SDF.parse(request.getParameter("+atributo.getWebNombre()+"));\r\n");
+				buffer.append("\t\t\t\tjava.util.Date date"+nombreVariable(atributo.getNombre())+"= "+atributo.getNombre().toLowerCase()+"SDF.parse(request.getParameter(\""+atributo.getWebNombre()+"\"));\r\n");
 				buffer.append("\t\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(new java.sql.Date(date"+nombreVariable(atributo.getNombre())+ ".getTime()));\r\n");
 				buffer.append("\t\t\t}catch (java.text.ParseException pe) { \r\n");
 				buffer.append("\t\t\t\tpe.printStackTrace();\r\n");
 				buffer.append("\t\t\t}\r\n");
 				buffer.append("\t\t}\r\n");
 			}else if(atributo.getTipo().equals("java.math.BigDecimal")){
-				buffer.append("\t\tif(request.getParameter("+atributo.getWebNombre()+")!=null && request.getParameter("+atributo.getWebNombre()+").trim().length()>0){\r\n");
-				buffer.append("\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(new java.math.BigDecimal(request.getParameter("+atributo.getWebNombre()+").trim()));\r\n");
+				buffer.append("\t\tif(request.getParameter(\""+atributo.getWebNombre()+"\")!=null && request.getParameter(\""+atributo.getWebNombre()+"\").trim().length()>0){\r\n");
+				buffer.append("\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(new java.math.BigDecimal(request.getParameter(\""+atributo.getWebNombre()+"\").trim()));\r\n");
 				buffer.append("\t\t}\r\n");
 			}else if(atributo.getTipo().equalsIgnoreCase("long")){
-				buffer.append("\t\tif(request.getParameter("+atributo.getWebNombre()+")!=null && request.getParameter("+atributo.getWebNombre()+").trim().length()>0){\r\n");
-				buffer.append("\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(Long.parseLong(request.getParameter("+atributo.getWebNombre()+")));\r\n");
+				buffer.append("\t\tif(request.getParameter(\""+atributo.getWebNombre()+"\")!=null && request.getParameter(\""+atributo.getWebNombre()+"\").trim().length()>0){\r\n");
+				buffer.append("\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(Long.parseLong(request.getParameter(\""+atributo.getWebNombre()+"\")));\r\n");
 				buffer.append("\t\t}\r\n");
 			}
 		}else{
@@ -98,7 +98,7 @@ public class GeneradorUtil {
 		}
 		
 		buffer = new StringBuffer(buffer.substring(0, buffer.length()-3));
-		buffer.append(")@\r\n\r\n");
+		buffer.append(");\r\n\r\n");
 		
 		buffer.append("ALTER TABLE "+tabla.getEsquema()+"."+tabla.getNombre()+" ADD CONSTRAINT PK_BFP_"+tabla.getNombre()+" PRIMARY KEY (");
 		
@@ -113,7 +113,7 @@ public class GeneradorUtil {
 		}
 		
 		
-		buffer.append(")@\r\n\r\n");
+		buffer.append(");\r\n\r\n");
 		
 		return buffer.toString();
 		
@@ -122,7 +122,7 @@ public class GeneradorUtil {
 	public static String crearDLLFK(TablaBean tabla){
 		
 		StringBuffer buffer = new StringBuffer();
-		
+		System.out.println(":: "+tabla.getNombre()+" - "+tabla.getCamposFK().size());
 		List<CampoSQLBean> camposFK = tabla.getCamposFK();
 		if(camposFK!=null && camposFK.size()>0){
 			Map<Integer, TablaBean> tablasFK = new HashMap<Integer, TablaBean>();
@@ -154,7 +154,7 @@ public class GeneradorUtil {
 					}
 				}
 				
-				buffer.append("("+camposA.toString()+") REFERENCES "+tablaFK.getEsquema()+"."+tablaFK.getNombre()+" ("+camposB.toString()+")@\r\n\r\n");
+				buffer.append("("+camposA.toString()+") REFERENCES "+tablaFK.getEsquema()+"."+tablaFK.getNombre()+" ("+camposB.toString()+");\r\n\r\n");
 			}
 		}
 		
