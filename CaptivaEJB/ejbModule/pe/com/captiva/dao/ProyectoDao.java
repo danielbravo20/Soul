@@ -161,6 +161,7 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		claseBean.setCodigoClase(clase.getCodClase());
     		claseBean.setNombre(clase.getNombre());
     		claseBean.setNivel(clase.getNivel());
+    		claseBean.setTablaBean(parseTablaBeanSimple(clase.getTabla()));
     		
     		Set<Atributo> atributoSet = clase.getAtributos();
     		if(atributoSet!=null){
@@ -186,6 +187,8 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		}
     		atributoBean.setTipo(atributo.getTipo());
     		atributoBean.setWebNombre(atributo.getWebNombre());
+    		
+    		atributoBean.setCampoSQLBean(parseCampoSQLBean(atributo.getAtributoSql()));
     	}
     	return atributoBean;
     }
@@ -272,6 +275,17 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		tablaBean.setCamposSQL(camposSQL);
     		tablaBean.setCamposPK(camposPK);
     		tablaBean.setCamposFK(camposFK);
+    	}
+    	return tablaBean;
+    }
+    
+    private TablaBean parseTablaBeanSimple(Tabla tabla){
+    	TablaBean tablaBean = null;
+    	if(tabla!=null){
+    		tablaBean = new TablaBean();
+    		tablaBean.setEsquema(tabla.getEsquema());
+    		tablaBean.setNombre(tabla.getNombre());
+    		tablaBean.setCodigo(tabla.getCodTabla());
     	}
     	return tablaBean;
     }

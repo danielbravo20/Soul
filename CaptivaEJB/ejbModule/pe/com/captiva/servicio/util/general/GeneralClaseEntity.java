@@ -23,11 +23,13 @@ public class GeneralClaseEntity extends MultipleBaseConstructor{
 		List<ClaseBean> clases = proyectoBean.getClases();
 		for (int x = 0; x < clases.size(); x++) {
 			ClaseBean claseBean = clases.get(x);
-			Componente componente = new Componente();
-			componente.setDirectorio(proyectoBean.getEquipoBean().getDirectorioWorkspace() + File.separatorChar + proyectoBean.getProyecto() + ProyectoBean.SUFIJO_PROYECTO_DAO + File.separatorChar + "src" + File.separatorChar + ( proyectoBean.getPaquete().replace('.', File.separatorChar) ) + File.separatorChar + "dao" + File.separatorChar + "entity" );
-			componente.setArchivo(claseBean.getNombre()+"Entity.java");
-			componente.setContenido(contenido(proyectoBean, claseBean));
-			componentes.add(componente);
+			if(claseBean.isTablaBean()){
+				Componente componente = new Componente();
+				componente.setDirectorio(proyectoBean.getEquipoBean().getDirectorioWorkspace() + File.separatorChar + proyectoBean.getProyecto() + ProyectoBean.SUFIJO_PROYECTO_DAO + File.separatorChar + "src" + File.separatorChar + ( proyectoBean.getPaquete().replace('.', File.separatorChar) ) + File.separatorChar + "dao" + File.separatorChar + "entity" );
+				componente.setArchivo(claseBean.getNombre()+"Entity.java");
+				componente.setContenido(contenido(proyectoBean, claseBean));
+				componentes.add(componente);
+			}
 		}
 		
 		return componentes;
@@ -47,8 +49,19 @@ public class GeneralClaseEntity extends MultipleBaseConstructor{
 			}
 		}
 		buffer.append("import java.io.Serializable;\r\n\r\n");
+		buffer.append("import javax.persistence.Column;\r\n");
+		buffer.append("import javax.persistence.Entity;\r\n");
+		buffer.append("import javax.persistence.FetchType;\r\n");
+		buffer.append("import javax.persistence.Id;\r\n");
+		buffer.append("import javax.persistence.JoinColumn;\r\n");
+		buffer.append("import javax.persistence.ManyToOne;\r\n");
+		buffer.append("import javax.persistence.OneToMany;\r\n");
+		buffer.append("import javax.persistence.OneToOne;\r\n");
+		buffer.append("import javax.persistence.Table;\r\n\r\n");
 		
-		buffer.append("public class "+clase.getNombre()+"Entity implements Serializable{\r\n \r\n");
+		buffer.append("@Entity\r\n");
+		buffer.append("@Table(name = \""+clase.getTablaBean().getNombre()+"\", schema = \""+clase.getTablaBean().getEsquema()+"\")\r\n");
+		buffer.append("public class "+clase.getNombre()+"Entity implements Serializable{\r\n\r\n");
 		
 		buffer.append("\tprivate static final long serialVersionUID = 1L;\r\n\r\n");
 		

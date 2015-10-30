@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import pe.com.captiva.bean.CampoSQLBean;
 import pe.com.captiva.bean.TablaBean;
 import pe.com.captiva.dao.entity.AtributoSql;
-import pe.com.captiva.dao.entity.AtributoSqlId;
 import pe.com.captiva.dao.entity.Tabla;
 
 @Stateless
@@ -19,9 +18,7 @@ public class AtributoSQLDao extends BaseDao<AtributoSql> implements AtributoSQLD
 	
 	 public CampoSQLBean obtenerCampoSQLBean(Integer codigoTabla, Integer codigoAtributo){
 		 if(codigoTabla!=null && codigoAtributo!=null){
-			 AtributoSqlId atributoSqlId = new AtributoSqlId(codigoTabla, codigoAtributo);
-			 AtributoSql atributoSql = obtenerEntity(atributoSqlId);
-			 return parseCampoSQLBean(atributoSql);
+			 return parseCampoSQLBean(obtenerEntity(codigoAtributo));
 		 }else{
 			 return null;
 		 }
@@ -31,8 +28,8 @@ public class AtributoSQLDao extends BaseDao<AtributoSql> implements AtributoSQLD
 		 CampoSQLBean campoSQLBean = null;
 	    	if(atributoSql!=null){
 	    		campoSQLBean = new CampoSQLBean();
-	    		campoSQLBean.setCodigo(atributoSql.getId().getCodAtributo());
-	    		campoSQLBean.setCodigoAtributo(atributoSql.getId().getCodAtributo());
+	    		campoSQLBean.setCodigo(atributoSql.getCodAtributo());
+	    		campoSQLBean.setCodigoAtributo(atributoSql.getCodAtributo());
 	    		campoSQLBean.setNombre(atributoSql.getCampo()); 
 	    		campoSQLBean.setTipo(atributoSql.getTipo());
 	    		campoSQLBean.setFuncionBusqueda(atributoSql.getFnBusNombre());

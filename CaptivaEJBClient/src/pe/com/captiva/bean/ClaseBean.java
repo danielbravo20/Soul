@@ -12,6 +12,7 @@ public class ClaseBean extends BaseBean{
 	private String nombre;
 	private Integer nivel;
 	private List<AtributoBean> atributos;
+	private TablaBean tablaBean;
 	
 	public int getCodigoClase() {
 		return codigoClase;
@@ -37,6 +38,17 @@ public class ClaseBean extends BaseBean{
 	public void setAtributos(List<AtributoBean> atributos) {
 		this.atributos = atributos;
 	}
+	public TablaBean getTablaBean() {
+		return tablaBean;
+	}
+	public void setTablaBean(TablaBean tablaBean) {
+		this.tablaBean = tablaBean;
+	}
 	
-	
+	public boolean isTablaBean() {
+		if(getTablaBean()!=null){
+			return true;
+		}
+		return false;
+	}
 }

@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 25/10/2015 10:35:30 PM by Hibernate Tools 4.3.1
+// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,6 +30,7 @@ public class Tabla implements java.io.Serializable {
 	private Set<AtributoSql> atributoSqls = new HashSet<AtributoSql>(0);
 	private Set<ConsultaTabla> consultaTablasForCodTabla = new HashSet<ConsultaTabla>(
 			0);
+	private Set<Clase> clases = new HashSet<Clase>(0);
 
 	public Tabla() {
 	}
@@ -45,7 +46,7 @@ public class Tabla implements java.io.Serializable {
 			String nombre, Integer orden,
 			Set<ConsultaTabla> consultaTablasForCodTabPadre,
 			Set<AtributoSql> atributoSqls,
-			Set<ConsultaTabla> consultaTablasForCodTabla) {
+			Set<ConsultaTabla> consultaTablasForCodTabla, Set<Clase> clases) {
 		this.codTabla = codTabla;
 		this.proyecto = proyecto;
 		this.esquema = esquema;
@@ -54,6 +55,7 @@ public class Tabla implements java.io.Serializable {
 		this.consultaTablasForCodTabPadre = consultaTablasForCodTabPadre;
 		this.atributoSqls = atributoSqls;
 		this.consultaTablasForCodTabla = consultaTablasForCodTabla;
+		this.clases = clases;
 	}
 
 	@Id
@@ -130,6 +132,15 @@ public class Tabla implements java.io.Serializable {
 	public void setConsultaTablasForCodTabla(
 			Set<ConsultaTabla> consultaTablasForCodTabla) {
 		this.consultaTablasForCodTabla = consultaTablasForCodTabla;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tabla")
+	public Set<Clase> getClases() {
+		return this.clases;
+	}
+
+	public void setClases(Set<Clase> clases) {
+		this.clases = clases;
 	}
 
 }

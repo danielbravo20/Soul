@@ -56,7 +56,7 @@ CREATE TABLE soul.atributo_sql(
 
 -- Add keys for table soul.atributo_sql
 
-ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_sql_pk PRIMARY KEY (cod_tabla,cod_atributo)
+ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_sql_pk PRIMARY KEY (cod_atributo)
 ;
 
 -- Table soul.catalogo
@@ -94,7 +94,8 @@ CREATE TABLE soul.clase(
  cod_proyecto Integer NOT NULL,
  inf_autor Character varying(120),
  inf_descripcion Character varying(255),
- nivel Integer
+ nivel Integer,
+ cod_tabla Integer NULL
 )
 ;
 
@@ -527,16 +528,19 @@ ALTER TABLE soul.tarea_rol_administrador ADD CONSTRAINT pk_tarea_rol_administrad
 ALTER TABLE soul.atributo ADD CONSTRAINT objeto_clase_fk FOREIGN KEY (cod_clase) REFERENCES soul.clase (cod_clase) ON DELETE RESTRICT ON UPDATE NO ACTION
 ;
 
-ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_sql_objeto_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE RESTRICT ON UPDATE NO ACTION
+ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_sql_objeto_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE CASCADE
 ;
 
-ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_atr_sql_tabla_fk FOREIGN KEY (cod_tabla) REFERENCES soul.tabla (cod_tabla) ON DELETE RESTRICT ON UPDATE NO ACTION
+ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_atr_sql_tabla_fk FOREIGN KEY (cod_tabla) REFERENCES soul.tabla (cod_tabla) ON DELETE CASCADE ON UPDATE CASCADE
 ;
 
 ALTER TABLE soul.catalogo ADD CONSTRAINT relationship29 FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
 ALTER TABLE soul.clase ADD CONSTRAINT clase_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
+
+ALTER TABLE soul.clase ADD CONSTRAINT clase_tabla_fk FOREIGN KEY (cod_tabla) REFERENCES soul.tabla (cod_tabla) ON DELETE RESTRICT ON UPDATE CASCADE
 ;
 
 ALTER TABLE soul.consulta ADD CONSTRAINT consulta_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE NO ACTION

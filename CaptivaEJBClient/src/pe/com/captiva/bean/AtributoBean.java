@@ -9,6 +9,7 @@ public class AtributoBean extends BaseBean{
 	private String 	tipo;
 	private boolean	flgLista;
 	private String 	webNombre;
+	private CampoSQLBean campoSQLBean;
 	
 	public int getCodigo() {
 		return codigo;
@@ -39,6 +40,18 @@ public class AtributoBean extends BaseBean{
 	}
 	public void setWebNombre(String webNombre) {
 		this.webNombre = webNombre;
+	}
+	public CampoSQLBean getCampoSQLBean() {
+		return campoSQLBean;
+	}
+	public void setCampoSQLBean(CampoSQLBean campoSQLBean) {
+		this.campoSQLBean = campoSQLBean;
+	}
+	public boolean isCampoSQLBean(){
+		if(getCampoSQLBean()!=null){
+			return true;
+		}
+		return false;
 	}
 	
 }

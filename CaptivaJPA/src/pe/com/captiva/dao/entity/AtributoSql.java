@@ -1,15 +1,16 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 25/10/2015 10:35:30 PM by Hibernate Tools 4.3.1
+// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -19,7 +20,7 @@ import javax.persistence.Table;
 @Table(name = "atributo_sql", schema = "soul")
 public class AtributoSql implements java.io.Serializable {
 
-	private AtributoSqlId id;
+	private int codAtributo;
 	private Atributo atributo;
 	private Tabla tabla;
 	private String campo;
@@ -38,9 +39,8 @@ public class AtributoSql implements java.io.Serializable {
 	public AtributoSql() {
 	}
 
-	public AtributoSql(AtributoSqlId id, Atributo atributo, Tabla tabla,
-			String campo, String tipo, char pk, char obligatorio) {
-		this.id = id;
+	public AtributoSql(Atributo atributo, Tabla tabla, String campo,
+			String tipo, char pk, char obligatorio) {
 		this.atributo = atributo;
 		this.tabla = tabla;
 		this.campo = campo;
@@ -49,12 +49,11 @@ public class AtributoSql implements java.io.Serializable {
 		this.obligatorio = obligatorio;
 	}
 
-	public AtributoSql(AtributoSqlId id, Atributo atributo, Tabla tabla,
-			String campo, String tipo, Integer longitud, Integer precision,
-			char pk, char obligatorio, Integer fkTabla, Character fkUnoMucho,
+	public AtributoSql(Atributo atributo, Tabla tabla, String campo,
+			String tipo, Integer longitud, Integer precision, char pk,
+			char obligatorio, Integer fkTabla, Character fkUnoMucho,
 			String fnBusNombre, String fnBusCatalogo, String valDefecto,
 			Integer fkCampo) {
-		this.id = id;
 		this.atributo = atributo;
 		this.tabla = tabla;
 		this.campo = campo;
@@ -71,20 +70,18 @@ public class AtributoSql implements java.io.Serializable {
 		this.fkCampo = fkCampo;
 	}
 
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "codTabla", column = @Column(name = "cod_tabla", nullable = false)),
-			@AttributeOverride(name = "codAtributo", column = @Column(name = "cod_atributo", nullable = false)) })
-	public AtributoSqlId getId() {
-		return this.id;
+	@Id
+	@Column(name = "cod_atributo", unique = true, nullable = false)
+	public int getCodAtributo() {
+		return this.codAtributo;
 	}
 
-	public void setId(AtributoSqlId id) {
-		this.id = id;
+	public void setCodAtributo(int codAtributo) {
+		this.codAtributo = codAtributo;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cod_atributo", nullable = false, insertable = false, updatable = false)
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
 	public Atributo getAtributo() {
 		return this.atributo;
 	}
@@ -94,7 +91,7 @@ public class AtributoSql implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cod_tabla", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "cod_tabla", nullable = false)
 	public Tabla getTabla() {
 		return this.tabla;
 	}

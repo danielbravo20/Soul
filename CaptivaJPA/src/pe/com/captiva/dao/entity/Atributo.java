@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 25/10/2015 10:35:30 PM by Hibernate Tools 4.3.1
+// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -41,7 +42,7 @@ public class Atributo implements java.io.Serializable {
 			0);
 	private Set<TareaAtrRechazar> tareaAtrRechazars = new HashSet<TareaAtrRechazar>(
 			0);
-	private Set<AtributoSql> atributoSqls = new HashSet<AtributoSql>(0);
+	private AtributoSql atributoSql;
 	private Set<ConsultaAtributo> consultaAtributos = new HashSet<ConsultaAtributo>(
 			0);
 
@@ -65,8 +66,7 @@ public class Atributo implements java.io.Serializable {
 			Set<TareaAtrCompletar> tareaAtrCompletars,
 			Set<ProcesoInicio> procesoInicios,
 			Set<TareaAtrCancelar> tareaAtrCancelars,
-			Set<TareaAtrRechazar> tareaAtrRechazars,
-			Set<AtributoSql> atributoSqls,
+			Set<TareaAtrRechazar> tareaAtrRechazars, AtributoSql atributoSql,
 			Set<ConsultaAtributo> consultaAtributos) {
 		this.codAtributo = codAtributo;
 		this.clase = clase;
@@ -85,7 +85,7 @@ public class Atributo implements java.io.Serializable {
 		this.procesoInicios = procesoInicios;
 		this.tareaAtrCancelars = tareaAtrCancelars;
 		this.tareaAtrRechazars = tareaAtrRechazars;
-		this.atributoSqls = atributoSqls;
+		this.atributoSql = atributoSql;
 		this.consultaAtributos = consultaAtributos;
 	}
 
@@ -244,13 +244,13 @@ public class Atributo implements java.io.Serializable {
 		this.tareaAtrRechazars = tareaAtrRechazars;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "atributo")
-	public Set<AtributoSql> getAtributoSqls() {
-		return this.atributoSqls;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "atributo")
+	public AtributoSql getAtributoSql() {
+		return this.atributoSql;
 	}
 
-	public void setAtributoSqls(Set<AtributoSql> atributoSqls) {
-		this.atributoSqls = atributoSqls;
+	public void setAtributoSql(AtributoSql atributoSql) {
+		this.atributoSql = atributoSql;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "atributo")

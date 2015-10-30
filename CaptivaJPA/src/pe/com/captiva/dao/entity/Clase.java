@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 25/10/2015 10:35:30 PM by Hibernate Tools 4.3.1
+// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +22,7 @@ public class Clase implements java.io.Serializable {
 
 	private int codClase;
 	private Proyecto proyecto;
+	private Tabla tabla;
 	private String nombre;
 	private String paquete;
 	private String infAutor;
@@ -39,11 +40,12 @@ public class Clase implements java.io.Serializable {
 		this.paquete = paquete;
 	}
 
-	public Clase(int codClase, Proyecto proyecto, String nombre,
+	public Clase(int codClase, Proyecto proyecto, Tabla tabla, String nombre,
 			String paquete, String infAutor, String infDescripcion,
 			Integer nivel, Set<Atributo> atributos) {
 		this.codClase = codClase;
 		this.proyecto = proyecto;
+		this.tabla = tabla;
 		this.nombre = nombre;
 		this.paquete = paquete;
 		this.infAutor = infAutor;
@@ -70,6 +72,16 @@ public class Clase implements java.io.Serializable {
 
 	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_tabla")
+	public Tabla getTabla() {
+		return this.tabla;
+	}
+
+	public void setTabla(Tabla tabla) {
+		this.tabla = tabla;
 	}
 
 	@Column(name = "nombre", nullable = false, length = 120)

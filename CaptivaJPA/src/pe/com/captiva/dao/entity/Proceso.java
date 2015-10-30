@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 25/10/2015 10:35:30 PM by Hibernate Tools 4.3.1
+// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
