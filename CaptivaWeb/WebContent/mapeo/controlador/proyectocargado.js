@@ -9,7 +9,7 @@
 				nombre : "Detalle de Proyecto",
 				activo : true,
 				url : 'proyectodetalle.html'
-			},
+			}/*,
 			{
 				id : "clase",
 				nombre : "Clases",
@@ -45,7 +45,7 @@
 				nombre : "Reportes",
 				activo : false,
 				url : 'reporte.html'
-			}
+			}*/
 		]
 	};
 	

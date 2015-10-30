@@ -1,40 +1,44 @@
-<div class="page-header"><h1>Perfil de Usuario</h1></div>
-<div class="panel panel-default">
-  <div class="panel-heading">Datos</div>
-  <table class="table">
-	<tbody>
-	  <tr>
-		<th>Código de Usuario (*) :</th>
-		<td>{{data.Usuario.cod_usuario}}</td>
-	  </tr>
-	  <tr>
-		<th>Contraseña Anterior (*) :</th>
-		<td><input type="password" ng-model="peu.cargado.claveAnterior" class="form-control"></td>
-	  </tr>
-	  <tr>
-		<th>Contraseña (*) :</th>
-		<td><input type="password" ng-model="peu.cargado.USU_clave" class="form-control"></td>
-	  </tr>
-	  <tr>
-		<th>Repetir Contraseña (*) :</th>
-		<td><input type="password" ng-model="peu.cargado.repetirClave" class="form-control"></td>
-	  </tr>
-	  <tr>
-		<th>Nombres (*) :</th>
-		<td><input type="text" ng-model="peu.cargado.USU_nombre" class="form-control"></td>
-	  </tr>
-	  <tr>
-		<th>Rol (*) :</th>
-		<td>{{getComboxId('Perfil',data.Usuario.perfil)}}</td>
-	  </tr>
-	  <tr>
-		<th>Descripción (*) :</th>
-		<td><textarea ng-model="peu.cargado.USU_descripcion" class="form-control"></textarea></td>
-	  </tr>
-	  <tr>
-		<td><button type="button" class="btn btn-primary" ng-click="peu.guardar()"><i class="glyphicon glyphicon-floppy-save"></i> Guardar</button></td>
-		<td></td>
-	  </tr>
-	</tbody>
-  </table>
+<script type="text/javascript" src="controlador/usuarioperfil.js"></script>
+<div ng-controller="usuarioperfil" style="padding-top: 5px;">
+	<div class="page-header"><h1>Perfil de Usuario</h1></div>
+	<div class="panel panel-default">
+	  <div class="panel-heading">Editar</div>
+	  <form name="FRM_PERFIL">
+		  <table class="table">
+			<tbody>
+			  <tr>
+				<th>Código de Usuario (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" name="cod_usuario" ng-model="cargado.USU_cod_usuario" class="form-control input-sm" ng-disabled="true"></td>
+			  </tr>
+			  <tr>
+				<th>Contraseña Anterior (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="password" name="claveAnterior" ng-model="cargado.claveAnterior" class="form-control input-sm"></td>
+			  </tr>
+			  <tr>
+				<th>Contraseña (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="password" name="clave" ng-model="cargado.USU_clave" class="form-control input-sm"></td>
+			  </tr>
+			  <tr>
+				<th>Repetir Contraseña (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="password" name="repetirClave" ng-model="cargado.repetirClave" class="form-control input-sm"></td>
+			  </tr>
+			  <tr>
+				<th>Nombre (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" name="nombre" ng-model="cargado.USU_nombre" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Descripción (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" name="descripcion" ng-model="cargado.USU_descripcion" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Perfil (*) :</th>
+				<td>{{getPerfil(cargado.USU_perfil)}}</td>
+			  </tr>
+			  <tr>
+				<td colspan="2"><button type="button" class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> Guardar</button></td>
+			  </tr>
+			</tbody>
+		  </table>
+	</form>
+	</div>
 </div>
