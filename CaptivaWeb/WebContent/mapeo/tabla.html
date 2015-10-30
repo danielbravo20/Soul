@@ -1,0 +1,121 @@
+<script type="text/javascript" src="controlador/tabla.js"></script>
+<div ng-controller="tabla" style="padding-top: 5px;">
+	<div class="show-grid" ng-show="vista === 'lista'">
+		<div class="panel panel-default">
+		  <div class="panel-heading"><strong>Listado de Tablas</strong></div>
+		  <table class="table">
+			<thead>
+			  <tr>
+				<th><input type="text" ng-model="buscar.cod_tabla" placeholder="Código" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.nombre" placeholder="Nombre" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.esquema" placeholder="Esquema" class="form-control input-sm"></th>
+				<th>Opción</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="item in data.TABLA | orderBy: 'cod_tabla' | filter:buscar" ng-show="pag.get($index) == pag.actual">
+				<td>{{item.cod_tabla}}</td>
+				<td>{{item.nombre}}</td>
+				<td>{{item.esquema}}</td>
+				<td align="right">
+					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.cod_tabla)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.cod_tabla)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+					<a class="btn btn-info btn-sm" ng-click="listarAtributos(item.cod_tabla)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></a>
+				</td>
+			  </tr>
+			  <tr>
+				<td colspan="4"><a class="btn btn-primary btn-sm" ng-click="nuevo()" tooltip="Nuevo"><i class="glyphicon glyphicon-plus"></i></a></td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+		<pagination total-items="pag.total" ng-model="pag.actual" max-size="pag.max" class="pagination-sm" boundary-links="true" items-per-page="pag.itemxPagina" style="margin: 0px 0;"></pagination>
+	</div>
+	<div class="show-grid" ng-show="vista === 'mantener'">
+		<div class="panel panel-default">
+		  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
+		  <form name="FRM_TABLA">
+		  <table class="table">
+			<tbody>
+			  <tr>
+				<th>Codigo (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAB_cod_tabla" name="TAB_cod_tabla" ng-disabled="esEdicion" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Nombre (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAB_nombre" name="TAB_nombre" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Esquema (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'>
+					<input 
+						name="TAB_esquema"
+						type="text" 
+						autocomplete="off" 
+						class="form-control input-sm"
+						data-typeahead-editable="false" 
+						data-ng-model="cargado.TAB_esquema" 
+						data-typeahead="esquema for esquema in esquemas | filter:$viewValue | limitTo:8" required>
+				</td>
+			  </tr>
+			  <tr>
+				<th>Nivel :</th>
+				<td><input type="number" ng-model="cargado.TAB_orden" class="form-control input-sm"></td>
+			  </tr>
+			  <tr>
+				<td colspan="2">
+					<a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">GUARDAR</span><span ng-show="!esEdicion">REGISTRAR</span></a>
+					<a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR</a>
+				</td>
+			  </tr>
+			</tbody>
+		  </table>
+		  </form>
+		</div>
+	</div>
+	<div ng-show="vista === 'atributos'">
+		<div class="row">
+			<div class="col-md-10">
+				<ol class="breadcrumb">
+					<li><strong>{{nombreTabla | uppercase}}</strong></li>
+					<li>GESTIONAR ATRIBUTOS SQL</li>
+				</ol>
+			</div>
+			<div class="col-md-2">
+				<ol class="breadcrumb" style="text-align: right;">
+				  <li><a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR TABLAS</a></li>
+				</ol>
+			</div>
+		</div>
+		<div class="show-grid"">
+			<div class="panel panel-default">
+			  <div class="panel-heading"><strong>Listado de Atributos SQL</strong></div>
+			  <table class="table">
+				<thead>
+				  <tr>
+					<th><input type="text" ng-model="buscarAtributo.cod_atributo" placeholder="Código" class="form-control input-sm"></th>
+					<th><input type="text" ng-model="buscarAtributo.atr_nombre" placeholder="Nombre" class="form-control input-sm"></th>
+					<th><input type="text" ng-model="buscarAtributo.campo" placeholder="Campo" class="form-control input-sm"></th>
+					<th><input type="text" ng-model="buscarAtributo.tipo" placeholder="Tipo" class="form-control input-sm"></th>
+					<th><input type="text" ng-model="buscarAtributo.atr_web_nombre" placeholder="Web Nombre" class="form-control input-sm"></th>
+					<th width="120px">Opción</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr ng-repeat="item in data.TABLA_ATRIBUTO | orderBy: 'cod_atributo' | filter:buscarAtributo" ng-show="pagAtributo.get($index) == pagAtributo.actual">
+					<td>{{item.cod_atributo}}</td>
+					<td>{{item.atr_nombre}}</td>
+					<td>{{item.campo}}</td>
+					<td>{{item.tipo}}</td>
+					<td>{{item.atr_web_nombre}}</td>
+					<td>
+						<a class="btn btn-primary btn-sm" ng-click="cargarAtributo(item.atr_cod_clase,item.cod_atributo)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+					</td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+			<pagination total-items="pagAtributo.total" ng-model="pagAtributo.actual" max-size="pagAtributo.max" class="pagination-sm" boundary-links="true" items-per-page="pagAtributo.itemxPagina" style="margin: 0px 0;"></pagination>
+		</div>
+	</div>
+</div>

@@ -1,15 +1,21 @@
 <script type="text/javascript" src="controlador/atributo.js"></script>
 <div ng-controller="atributo" style="padding-top: 5px;">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-10">
 			<ol class="breadcrumb">
-			  <li><b>ATRIBUTOS DE LA CLASE "{{clasePadre.nombre | uppercase}}"</b></li>
+				<li><strong>{{clasePadre.nombre | uppercase}}</strong></li>
+				<li>GESTIONAR ATRIBUTOS</li>
+			</ol>
+		</div>
+		<div class="col-md-2">
+			<ol class="breadcrumb" style="text-align: right;">
+			  <li><a class="btn btn-info btn-sm" ng-click="$parent.instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR CLASES</a></li>
 			</ol>
 		</div>
 	</div>
-	<div class="container-fluid show-grid" ng-show="vista === 'lista'">
+	<div class="show-grid" ng-show="vista === 'lista'">
 		<div class="panel panel-default">
-		  <div class="panel-heading">Listado de Atributos - <a class="btn btn-info btn-sm" ng-click="$parent.instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR CLASES</a></div>
+		  <div class="panel-heading"><strong>Listado de Atributos</strong></div>
 		  <table class="table">
 			<thead>
 			  <tr>
@@ -39,13 +45,22 @@
 		</div>
 		<pagination total-items="pag.total" ng-model="pag.actual" max-size="pag.max" class="pagination-sm" boundary-links="true" items-per-page="pag.itemxPagina" style="margin: 0px 0;"></pagination>
 	</div>
+	<div class="row" ng-show="vista === 'mantener'">
+		<div class="col-md-8">
+			<ol class="breadcrumb">
+				<li><strong>{{clasePadre.nombre | uppercase}}</strong></li>
+				<li>GESTIONAR ATRIBUTOS</li>
+				<li><span ng-show="esEdicion">ATRIBUTO "{{cargado.ATR_nombre | uppercase}}"</span><span ng-show="!esEdicion">NUEVO ATRIBUTO</span></li>
+			</ol>
+		</div>
+		<div class="col-md-4">
+			<ol class="breadcrumb" style="text-align: right;">
+			  <li><a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR ATRIBUTOS</a></li>
+			  <li class="form-inline"><input type="checkbox" ng-model="cargado.esDetallado" tooltip="Mostrar campos adicionales?" class="form-control input-sm" style="width:30px"></li>
+			</ol>
+		</div>
+	</div>
 	<div class="container-fluid show-grid" ng-show="vista === 'mantener'">
-		<table>
-		  <tr>
-			<td><b>Registro detallado :</b></td>
-			<td><input type="checkbox" ng-model="cargado.esDetallado" class="form-control input-sm" style="width:30px"></td>
-		  </tr>
-		</table>
 		<div class="panel panel-default">
 		  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
 		  <form name="FRM_ATRIBUTO" novalidate>
@@ -166,7 +181,7 @@
 			  <tr>
 				<td colspan="2">
 					<a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">GUARDAR</span><span ng-show="!esEdicion">REGISTRAR</span></a>
-					<a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR</a>
+					<a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR ATRIBUTOS</a>
 				</td>
 			  </tr>
 			</tbody>

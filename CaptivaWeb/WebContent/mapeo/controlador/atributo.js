@@ -77,6 +77,11 @@
 		ajax.jpo($scope.cargado,function(respuesta){
 			$scope.data.ATRIBUTO = respuesta;
 			$scope.pag.total = respuesta.length;
+			if($scope.postCargamosAtributo){
+				$scope.editarCargar($scope.postAtributo);
+				delete $scope.postCargamosAtributo;
+				delete $scope.postAtributo;
+			}
 		});
 	};
 	

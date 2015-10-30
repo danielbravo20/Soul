@@ -6,22 +6,34 @@
 		lista : [
 			{
 				id : "proyectodetalle",
-				nombre : "Detalle de Proyecto",
+				nombre : "PROYECTO DETALLE",
 				activo : true,
 				url : 'proyectodetalle.html'
-			}/*,
+			},
+			{
+				id : "rol",
+				nombre : "ROL",
+				activo : false,
+				url : 'rol.html'
+			},
 			{
 				id : "clase",
-				nombre : "Clases",
+				nombre : "CLASE",
 				activo : false,
 				url : 'clase.html'
 			},
 			{
+				id : "tabla",
+				nombre : "TABLA",
+				activo : false,
+				url : 'tabla.html'
+			},
+			{
 				id : "proceso",
-				nombre : "Procesos",
+				nombre : "PROCESO",
 				activo : false,
 				url : 'proceso.html'
-			},
+			}/*,
 			{
 				id : "tarea",
 				nombre : "Tareas",
@@ -63,6 +75,18 @@
 	
 	$scope.cerrarProyecto = function(){
 		$scope.cerrarTrabajarProyecto();
+	};
+	
+	$scope.cargarTab = function(tipo){
+		if(typeof(tipo)=="string"){
+			for(var i = 0;i< $scope.tabs.lista.length;i++){
+				if($scope.tabs.lista[i].id==tipo){
+					$scope.tabs.lista[i].activo = true;
+				}
+			}
+		} else if(typeof(tipo)=="number"){
+			$scope.tabs.lista[tipo].activo = true;
+		}
 	};
 	
 });
