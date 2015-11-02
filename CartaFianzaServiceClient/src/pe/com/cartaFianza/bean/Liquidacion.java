@@ -6,25 +6,41 @@ public class Liquidacion implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
-	private String tipoCuenta;
-	private String descripcionTipoCuenta;
-	private java.math.BigDecimal tasaCXL;
-	private String crearCXL;
-	private long plazoCXL;
 	private Long codigoSolicitud;
 	private String numeroCuenta;
-	private boolean sobregiro;
-	private java.math.BigDecimal importeCuenta;
 	private String numeroCXL;
-	private String codigoMoneda;
+	private String descripcionTipoCuenta;
+	private String crearCXL;
+	private long plazoCXL;
+	private java.math.BigDecimal tasaCXL;
+	private java.math.BigDecimal importeCuenta;
 	private java.math.BigDecimal importeCXL;
+	private String codigoMoneda;
+	private boolean sobregiro;
+	private String tipoCuenta;
 
-	public String getTipoCuenta(){
-		return tipoCuenta;
+	public Long getCodigoSolicitud(){
+		return codigoSolicitud;
 	}
 
-	public void setTipoCuenta(String tipoCuenta) {
-		this.tipoCuenta = tipoCuenta;
+	public void setCodigoSolicitud(Long codigoSolicitud) {
+		this.codigoSolicitud = codigoSolicitud;
+	}
+
+	public String getNumeroCuenta(){
+		return numeroCuenta;
+	}
+
+	public void setNumeroCuenta(String numeroCuenta) {
+		this.numeroCuenta = numeroCuenta;
+	}
+
+	public String getNumeroCXL(){
+		return numeroCXL;
+	}
+
+	public void setNumeroCXL(String numeroCXL) {
+		this.numeroCXL = numeroCXL;
 	}
 
 	public String getDescripcionTipoCuenta(){
@@ -33,14 +49,6 @@ public class Liquidacion implements Serializable{
 
 	public void setDescripcionTipoCuenta(String descripcionTipoCuenta) {
 		this.descripcionTipoCuenta = descripcionTipoCuenta;
-	}
-
-	public java.math.BigDecimal getTasaCXL(){
-		return tasaCXL;
-	}
-
-	public void setTasaCXL(java.math.BigDecimal tasaCXL) {
-		this.tasaCXL = tasaCXL;
 	}
 
 	public String getCrearCXL(){
@@ -59,28 +67,12 @@ public class Liquidacion implements Serializable{
 		this.plazoCXL = plazoCXL;
 	}
 
-	public Long getCodigoSolicitud(){
-		return codigoSolicitud;
+	public java.math.BigDecimal getTasaCXL(){
+		return tasaCXL;
 	}
 
-	public void setCodigoSolicitud(Long codigoSolicitud) {
-		this.codigoSolicitud = codigoSolicitud;
-	}
-
-	public String getNumeroCuenta(){
-		return numeroCuenta;
-	}
-
-	public void setNumeroCuenta(String numeroCuenta) {
-		this.numeroCuenta = numeroCuenta;
-	}
-
-	public boolean isSobregiro(){
-		return sobregiro;
-	}
-
-	public void setSobregiro(boolean sobregiro) {
-		this.sobregiro = sobregiro;
+	public void setTasaCXL(java.math.BigDecimal tasaCXL) {
+		this.tasaCXL = tasaCXL;
 	}
 
 	public java.math.BigDecimal getImporteCuenta(){
@@ -91,12 +83,12 @@ public class Liquidacion implements Serializable{
 		this.importeCuenta = importeCuenta;
 	}
 
-	public String getNumeroCXL(){
-		return numeroCXL;
+	public java.math.BigDecimal getImporteCXL(){
+		return importeCXL;
 	}
 
-	public void setNumeroCXL(String numeroCXL) {
-		this.numeroCXL = numeroCXL;
+	public void setImporteCXL(java.math.BigDecimal importeCXL) {
+		this.importeCXL = importeCXL;
 	}
 
 	public String getCodigoMoneda(){
@@ -107,12 +99,20 @@ public class Liquidacion implements Serializable{
 		this.codigoMoneda = codigoMoneda;
 	}
 
-	public java.math.BigDecimal getImporteCXL(){
-		return importeCXL;
+	public boolean isSobregiro(){
+		return sobregiro;
 	}
 
-	public void setImporteCXL(java.math.BigDecimal importeCXL) {
-		this.importeCXL = importeCXL;
+	public void setSobregiro(boolean sobregiro) {
+		this.sobregiro = sobregiro;
+	}
+
+	public String getTipoCuenta(){
+		return tipoCuenta;
+	}
+
+	public void setTipoCuenta(String tipoCuenta) {
+		this.tipoCuenta = tipoCuenta;
 	}
 
 }

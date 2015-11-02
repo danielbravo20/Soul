@@ -14,27 +14,15 @@ public class PreReimpresionCartaFianzaV1Util implements ProcesoUtil{
 	@Override
 	public MensajeValidacion validacionCampos(HttpServletRequest request, HttpServletResponse response) {
 		MensajeValidacion mensajeValidacion = new MensajeValidacion();
-		if (ValidacionUtil.cadenaNoValidaRequestParameter(request.getParameter("solicitud.cliente.razonSocial"))){
+		if (ValidacionUtil.cadenaNoValidaRequestParameter(request.getParameter("solicitud.codigoAgenciaOrigen"))){
 			mensajeValidacion.setConforme(false);
-			mensajeValidacion.setMensaje("razonSocial es invalido");
+			mensajeValidacion.setMensaje("codigoAgenciaOrigen es invalido");
 			return mensajeValidacion;
 		}
 
 		if (ValidacionUtil.decimalNoValidoRequestParameter(request.getParameter("solicitud.tipoCambioSBS"))){
 			mensajeValidacion.setConforme(false);
 			mensajeValidacion.setMensaje("tipoCambioSBS es invalido");
-			return mensajeValidacion;
-		}
-
-		if (ValidacionUtil.cadenaNoValidaRequestParameter(request.getParameter("solicitud.cliente.tipoDocumento"))){
-			mensajeValidacion.setConforme(false);
-			mensajeValidacion.setMensaje("tipoDocumento es invalido");
-			return mensajeValidacion;
-		}
-
-		if (ValidacionUtil.cadenaNoValidaRequestParameter(request.getParameter("solicitud.codigoAgenciaOrigen"))){
-			mensajeValidacion.setConforme(false);
-			mensajeValidacion.setMensaje("codigoAgenciaOrigen es invalido");
 			return mensajeValidacion;
 		}
 
@@ -50,6 +38,18 @@ public class PreReimpresionCartaFianzaV1Util implements ProcesoUtil{
 			return mensajeValidacion;
 		}
 
+		if (ValidacionUtil.cadenaNoValidaRequestParameter(request.getParameter("solicitud.cliente.razonSocial"))){
+			mensajeValidacion.setConforme(false);
+			mensajeValidacion.setMensaje("razonSocial es invalido");
+			return mensajeValidacion;
+		}
+
+		if (ValidacionUtil.cadenaNoValidaRequestParameter(request.getParameter("solicitud.cliente.tipoDocumento"))){
+			mensajeValidacion.setConforme(false);
+			mensajeValidacion.setMensaje("tipoDocumento es invalido");
+			return mensajeValidacion;
+		}
+
 		mensajeValidacion.setConforme(true);
 		return mensajeValidacion;
 	}
@@ -57,41 +57,41 @@ public class PreReimpresionCartaFianzaV1Util implements ProcesoUtil{
 	@Override
 	public Object poblarObjetos(HttpServletRequest request, HttpServletResponse response) {
 		Solicitud solicitud = new Solicitud();
-		solicitud.setFechaRegistro(new java.sql.Timestamp(new java.util.Date().getTime()));
+		solicitud.setUsuarioRegistro(request.getUserPrincipal().getName());
+		solicitud.setCodigoAgenciaOrigen(request.getParameter("solicitud.codigoAgenciaOrigen"));
+		solicitud.setFechaModificacion(new java.sql.Timestamp(new java.util.Date().getTime()));
+		solicitud.setEstado("ING");
 		solicitud.setPlazoVigencia(15);
-		solicitud.setPiid(request.getParameter("piid"));
-		solicitud.setUsuarioModificacion(request.getUserPrincipal().getName());
 		if(request.getParameter("solicitud.tipoCambioSBS")!=null && request.getParameter("solicitud.tipoCambioSBS").trim().length()>0){
 			solicitud.setTipoCambioSBS(new java.math.BigDecimal(request.getParameter("solicitud.tipoCambioSBS").trim()));
 		}
-		solicitud.setAleasProceso("BECFRI");
-		solicitud.setUsuarioRegistro(request.getUserPrincipal().getName());
-		if(request.getParameter("solicitud.codigo")!=null && request.getParameter("solicitud.codigo").trim().length()>0){
-			solicitud.setCodigo(Long.parseLong(request.getParameter("solicitud.codigo")));
-		}
-		solicitud.setFechaModificacion(new java.sql.Timestamp(new java.util.Date().getTime()));
-		solicitud.setEstado("ING");
-		solicitud.setCodigoAgenciaOrigen(request.getParameter("solicitud.codigoAgenciaOrigen"));
 		if(request.getParameter("solicitud.numeroCartaFianza")!=null && request.getParameter("solicitud.numeroCartaFianza").trim().length()>0){
 			solicitud.setNumeroCartaFianza(Long.parseLong(request.getParameter("solicitud.numeroCartaFianza")));
 		}
 		solicitud.setFlagErrorServicioFirmas(false);
+		solicitud.setFechaRegistro(new java.sql.Timestamp(new java.util.Date().getTime()));
+		if(request.getParameter("solicitud.codigo")!=null && request.getParameter("solicitud.codigo").trim().length()>0){
+			solicitud.setCodigo(Long.parseLong(request.getParameter("solicitud.codigo")));
+		}
+		solicitud.setAleasProceso("BECFRI");
 		solicitud.setTipoSolicitud("REI");
+		solicitud.setUsuarioModificacion(request.getUserPrincipal().getName());
+		solicitud.setPiid(request.getParameter("piid"));
 		Linea linea = new Linea();
 		if(request.getParameter("null")!=null && request.getParameter("null").trim().length()>0){
 			linea.setCodigoSolicitud(Long.parseLong(request.getParameter("null")));
 		}
 		solicitud.setLinea(linea);
 		Cliente cliente = new Cliente();
-		cliente.setRazonSocial(request.getParameter("solicitud.cliente.razonSocial"));
-		if(request.getParameter("solicitud.cliente.codigoIBS")!=null && request.getParameter("solicitud.cliente.codigoIBS").trim().length()>0){
-			cliente.setCodigoIBS(Integer.parseInt(request.getParameter("solicitud.cliente.codigoIBS")));
-		}
-		cliente.setTipoDocumento(request.getParameter("solicitud.cliente.tipoDocumento"));
 		if(request.getParameter("solicitud.cliente.codigoSolicitud")!=null && request.getParameter("solicitud.cliente.codigoSolicitud").trim().length()>0){
 			cliente.setCodigoSolicitud(Long.parseLong(request.getParameter("solicitud.cliente.codigoSolicitud")));
 		}
 		cliente.setNumeroDocumento(request.getParameter("solicitud.cliente.numeroDocumento"));
+		if(request.getParameter("solicitud.cliente.codigoIBS")!=null && request.getParameter("solicitud.cliente.codigoIBS").trim().length()>0){
+			cliente.setCodigoIBS(Integer.parseInt(request.getParameter("solicitud.cliente.codigoIBS")));
+		}
+		cliente.setRazonSocial(request.getParameter("solicitud.cliente.razonSocial"));
+		cliente.setTipoDocumento(request.getParameter("solicitud.cliente.tipoDocumento"));
 		solicitud.setCliente(cliente);
 		Cuenta cuenta = new Cuenta();
 		if(request.getParameter("null")!=null && request.getParameter("null").trim().length()>0){

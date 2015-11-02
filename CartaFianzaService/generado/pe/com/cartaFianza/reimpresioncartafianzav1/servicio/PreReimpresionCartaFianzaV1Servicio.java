@@ -37,9 +37,9 @@ public abstract class PreReimpresionCartaFianzaV1Servicio extends BaseProcesoSer
 
 	public TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{
 		TareaPlantilla plantilla = new TareaPlantilla();
-		plantilla.setCodigoTareaPlantilla(704);
-		plantilla.setNombre("ENTREGAR CARTA FIANZA");
-		plantilla.setAleas("ReimpresionEntregarCartaFianzaV1");
+		plantilla.setCodigoTareaPlantilla(701);
+		plantilla.setNombre("MODIFICAR TEXTO");
+		plantilla.setAleas("ReimpresionModificarTextoV1");
 		plantilla.setEstado(1);
 		plantilla.setOrden(1);
 		plantilla.setPrioridad(1);

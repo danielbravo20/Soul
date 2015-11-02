@@ -20,15 +20,9 @@ public class PreEjecucionCartaFianzaV1Util implements ProcesoUtil{
 			return mensajeValidacion;
 		}
 
-		if (ValidacionUtil.cadenaNoValidaRequestParameter(request.getParameter("solicitud.cliente.tipoDocumento"))){
+		if (ValidacionUtil.decimalNoValidoRequestParameter(request.getParameter("solicitud.tipoCambioSBS"))){
 			mensajeValidacion.setConforme(false);
-			mensajeValidacion.setMensaje("tipoDocumento es invalido");
-			return mensajeValidacion;
-		}
-
-		if (ValidacionUtil.longNoValidoRequestParameter(request.getParameter("solicitud.numeroCartaFianza"))){
-			mensajeValidacion.setConforme(false);
-			mensajeValidacion.setMensaje("numeroCartaFianza es invalido");
+			mensajeValidacion.setMensaje("tipoCambioSBS es invalido");
 			return mensajeValidacion;
 		}
 
@@ -38,15 +32,21 @@ public class PreEjecucionCartaFianzaV1Util implements ProcesoUtil{
 			return mensajeValidacion;
 		}
 
-		if (ValidacionUtil.decimalNoValidoRequestParameter(request.getParameter("solicitud.tipoCambioSBS"))){
-			mensajeValidacion.setConforme(false);
-			mensajeValidacion.setMensaje("tipoCambioSBS es invalido");
-			return mensajeValidacion;
-		}
-
 		if (ValidacionUtil.cadenaNoValidaRequestParameter(request.getParameter("solicitud.codigoAgenciaOrigen"))){
 			mensajeValidacion.setConforme(false);
 			mensajeValidacion.setMensaje("codigoAgenciaOrigen es invalido");
+			return mensajeValidacion;
+		}
+
+		if (ValidacionUtil.longNoValidoRequestParameter(request.getParameter("solicitud.numeroCartaFianza"))){
+			mensajeValidacion.setConforme(false);
+			mensajeValidacion.setMensaje("numeroCartaFianza es invalido");
+			return mensajeValidacion;
+		}
+
+		if (ValidacionUtil.cadenaNoValidaRequestParameter(request.getParameter("solicitud.cliente.tipoDocumento"))){
+			mensajeValidacion.setConforme(false);
+			mensajeValidacion.setMensaje("tipoDocumento es invalido");
 			return mensajeValidacion;
 		}
 
@@ -57,26 +57,26 @@ public class PreEjecucionCartaFianzaV1Util implements ProcesoUtil{
 	@Override
 	public Object poblarObjetos(HttpServletRequest request, HttpServletResponse response) {
 		Solicitud solicitud = new Solicitud();
-		solicitud.setPlazoVigencia(15);
+		solicitud.setUsuarioRegistro(request.getUserPrincipal().getName());
+		solicitud.setUsuarioModificacion(request.getUserPrincipal().getName());
+		if(request.getParameter("solicitud.codigo")!=null && request.getParameter("solicitud.codigo").trim().length()>0){
+			solicitud.setCodigo(Long.parseLong(request.getParameter("solicitud.codigo")));
+		}
+		solicitud.setFechaModificacion(new java.sql.Timestamp(new java.util.Date().getTime()));
+		if(request.getParameter("solicitud.tipoCambioSBS")!=null && request.getParameter("solicitud.tipoCambioSBS").trim().length()>0){
+			solicitud.setTipoCambioSBS(new java.math.BigDecimal(request.getParameter("solicitud.tipoCambioSBS").trim()));
+		}
+		solicitud.setEstado("ING");
+		solicitud.setFechaRegistro(new java.sql.Timestamp(new java.util.Date().getTime()));
+		solicitud.setPiid(request.getParameter("piid"));
 		solicitud.setTipoSolicitud("EJE");
+		solicitud.setPlazoVigencia(15);
+		solicitud.setCodigoAgenciaOrigen(request.getParameter("solicitud.codigoAgenciaOrigen"));
+		solicitud.setFlagErrorServicioFirmas(false);
 		solicitud.setAleasProceso("BECFEJ");
 		if(request.getParameter("solicitud.numeroCartaFianza")!=null && request.getParameter("solicitud.numeroCartaFianza").trim().length()>0){
 			solicitud.setNumeroCartaFianza(Long.parseLong(request.getParameter("solicitud.numeroCartaFianza")));
 		}
-		if(request.getParameter("solicitud.codigo")!=null && request.getParameter("solicitud.codigo").trim().length()>0){
-			solicitud.setCodigo(Long.parseLong(request.getParameter("solicitud.codigo")));
-		}
-		solicitud.setPiid(request.getParameter("piid"));
-		if(request.getParameter("solicitud.tipoCambioSBS")!=null && request.getParameter("solicitud.tipoCambioSBS").trim().length()>0){
-			solicitud.setTipoCambioSBS(new java.math.BigDecimal(request.getParameter("solicitud.tipoCambioSBS").trim()));
-		}
-		solicitud.setCodigoAgenciaOrigen(request.getParameter("solicitud.codigoAgenciaOrigen"));
-		solicitud.setEstado("ING");
-		solicitud.setUsuarioModificacion(request.getUserPrincipal().getName());
-		solicitud.setFechaRegistro(new java.sql.Timestamp(new java.util.Date().getTime()));
-		solicitud.setUsuarioRegistro(request.getUserPrincipal().getName());
-		solicitud.setFechaModificacion(new java.sql.Timestamp(new java.util.Date().getTime()));
-		solicitud.setFlagErrorServicioFirmas(false);
 		Liquidacion liquidacion = new Liquidacion();
 		if(request.getParameter("null")!=null && request.getParameter("null").trim().length()>0){
 			liquidacion.setCodigoSolicitud(Long.parseLong(request.getParameter("null")));
@@ -89,14 +89,14 @@ public class PreEjecucionCartaFianzaV1Util implements ProcesoUtil{
 		solicitud.setLinea(linea);
 		Cliente cliente = new Cliente();
 		cliente.setNumeroDocumento(request.getParameter("solicitud.cliente.numeroDocumento"));
-		cliente.setTipoDocumento(request.getParameter("solicitud.cliente.tipoDocumento"));
+		if(request.getParameter("solicitud.cliente.codigoIBS")!=null && request.getParameter("solicitud.cliente.codigoIBS").trim().length()>0){
+			cliente.setCodigoIBS(Integer.parseInt(request.getParameter("solicitud.cliente.codigoIBS")));
+		}
 		if(request.getParameter("solicitud.cliente.codigoSolicitud")!=null && request.getParameter("solicitud.cliente.codigoSolicitud").trim().length()>0){
 			cliente.setCodigoSolicitud(Long.parseLong(request.getParameter("solicitud.cliente.codigoSolicitud")));
 		}
 		cliente.setRazonSocial(request.getParameter("solicitud.cliente.razonSocial"));
-		if(request.getParameter("solicitud.cliente.codigoIBS")!=null && request.getParameter("solicitud.cliente.codigoIBS").trim().length()>0){
-			cliente.setCodigoIBS(Integer.parseInt(request.getParameter("solicitud.cliente.codigoIBS")));
-		}
+		cliente.setTipoDocumento(request.getParameter("solicitud.cliente.tipoDocumento"));
 		solicitud.setCliente(cliente);
 		Cuenta cuenta = new Cuenta();
 		if(request.getParameter("null")!=null && request.getParameter("null").trim().length()>0){

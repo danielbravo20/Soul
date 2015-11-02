@@ -1,11 +1,23 @@
-package pe.com.cartaFianza.bean;
+package pe.com.cartaFianza.dao.entity;
 
 import java.util.List;
 
 import java.io.Serializable;
 
-public class Solicitud implements Serializable{
- 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "SOLICITUD", schema = "BFP_CARTA_FIANZA")
+public class SolicitudEntity implements Serializable{
+
 	private static final long serialVersionUID = 1L;
 
 	private String conceptoGarantia;

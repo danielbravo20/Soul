@@ -6,40 +6,24 @@ public class Garantia implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
-	private java.math.BigDecimal porcentajeCobertura;
-	private String descripcionTipoGarantia;
-	private String moneda;
-	private String nombreCliente;
-	private Long codigoIbs;
-	private Long numeroGarantia;
-	private java.math.BigDecimal importe;
 	private String tipoGarantia;
-	private Long codigoSolicitud;
+	private String nombreCliente;
+	private String moneda;
+	private java.math.BigDecimal importe;
 	private String tipoCobertura;
+	private java.math.BigDecimal porcentajeCobertura;
 	private String descripcionTipoCobertura;
+	private String descripcionTipoGarantia;
+	private Long numeroGarantia;
+	private Long codigoSolicitud;
+	private Long codigoIbs;
 
-	public java.math.BigDecimal getPorcentajeCobertura(){
-		return porcentajeCobertura;
+	public String getTipoGarantia(){
+		return tipoGarantia;
 	}
 
-	public void setPorcentajeCobertura(java.math.BigDecimal porcentajeCobertura) {
-		this.porcentajeCobertura = porcentajeCobertura;
-	}
-
-	public String getDescripcionTipoGarantia(){
-		return descripcionTipoGarantia;
-	}
-
-	public void setDescripcionTipoGarantia(String descripcionTipoGarantia) {
-		this.descripcionTipoGarantia = descripcionTipoGarantia;
-	}
-
-	public String getMoneda(){
-		return moneda;
-	}
-
-	public void setMoneda(String moneda) {
-		this.moneda = moneda;
+	public void setTipoGarantia(String tipoGarantia) {
+		this.tipoGarantia = tipoGarantia;
 	}
 
 	public String getNombreCliente(){
@@ -50,20 +34,12 @@ public class Garantia implements Serializable{
 		this.nombreCliente = nombreCliente;
 	}
 
-	public Long getCodigoIbs(){
-		return codigoIbs;
+	public String getMoneda(){
+		return moneda;
 	}
 
-	public void setCodigoIbs(Long codigoIbs) {
-		this.codigoIbs = codigoIbs;
-	}
-
-	public Long getNumeroGarantia(){
-		return numeroGarantia;
-	}
-
-	public void setNumeroGarantia(Long numeroGarantia) {
-		this.numeroGarantia = numeroGarantia;
+	public void setMoneda(String moneda) {
+		this.moneda = moneda;
 	}
 
 	public java.math.BigDecimal getImporte(){
@@ -74,12 +50,44 @@ public class Garantia implements Serializable{
 		this.importe = importe;
 	}
 
-	public String getTipoGarantia(){
-		return tipoGarantia;
+	public String getTipoCobertura(){
+		return tipoCobertura;
 	}
 
-	public void setTipoGarantia(String tipoGarantia) {
-		this.tipoGarantia = tipoGarantia;
+	public void setTipoCobertura(String tipoCobertura) {
+		this.tipoCobertura = tipoCobertura;
+	}
+
+	public java.math.BigDecimal getPorcentajeCobertura(){
+		return porcentajeCobertura;
+	}
+
+	public void setPorcentajeCobertura(java.math.BigDecimal porcentajeCobertura) {
+		this.porcentajeCobertura = porcentajeCobertura;
+	}
+
+	public String getDescripcionTipoCobertura(){
+		return descripcionTipoCobertura;
+	}
+
+	public void setDescripcionTipoCobertura(String descripcionTipoCobertura) {
+		this.descripcionTipoCobertura = descripcionTipoCobertura;
+	}
+
+	public String getDescripcionTipoGarantia(){
+		return descripcionTipoGarantia;
+	}
+
+	public void setDescripcionTipoGarantia(String descripcionTipoGarantia) {
+		this.descripcionTipoGarantia = descripcionTipoGarantia;
+	}
+
+	public Long getNumeroGarantia(){
+		return numeroGarantia;
+	}
+
+	public void setNumeroGarantia(Long numeroGarantia) {
+		this.numeroGarantia = numeroGarantia;
 	}
 
 	public Long getCodigoSolicitud(){
@@ -90,20 +98,12 @@ public class Garantia implements Serializable{
 		this.codigoSolicitud = codigoSolicitud;
 	}
 
-	public String getTipoCobertura(){
-		return tipoCobertura;
+	public Long getCodigoIbs(){
+		return codigoIbs;
 	}
 
-	public void setTipoCobertura(String tipoCobertura) {
-		this.tipoCobertura = tipoCobertura;
-	}
-
-	public String getDescripcionTipoCobertura(){
-		return descripcionTipoCobertura;
-	}
-
-	public void setDescripcionTipoCobertura(String descripcionTipoCobertura) {
-		this.descripcionTipoCobertura = descripcionTipoCobertura;
+	public void setCodigoIbs(Long codigoIbs) {
+		this.codigoIbs = codigoIbs;
 	}
 
 }
