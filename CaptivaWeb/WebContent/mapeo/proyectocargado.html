@@ -2,14 +2,14 @@
 <div style="height: 30px"></div>
 <div ng-controller="proyectocargado">
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-10">
 			<ol class="breadcrumb">
-			  <li><b>{{data.PROYECTO.nombre | uppercase}}</b></li>
+			  <li><b><h4>{{data.PROYECTO.nombre | uppercase}}</h4></b></li>
 			</ol>
 		</div>
-		<div class="col-md-4">
-			<ol class="breadcrumb">
-			  <li><a class="btn btn-info btn-sm" ng-click="cerrarProyecto()"><i class="glyphicon glyphicon-remove-circle"></i> CERRAR PROYECTO</a></li>
+		<div class="col-md-2">
+			<ol class="breadcrumb" style="text-align: right;">
+			  <li><a class="btn btn-danger btn-sm" ng-click="cerrarProyecto()"><i class="glyphicon glyphicon-remove-circle"></i> CERRAR PROYECTO</a></li>
 			</ol>
 		</div>
 	</div>

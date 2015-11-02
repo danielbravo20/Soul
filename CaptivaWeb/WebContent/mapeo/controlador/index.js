@@ -46,7 +46,6 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 			
      		$scope.data.PROYECTO = objetoProyecto;
 			$scope.data.PROYECTO.esCargado = true;
-			$scope.modulo = "proyectocargado";
 			
 			if(getParametro.submodulo){
 				$scope.subModulo = getParametro.submodulo;
@@ -62,6 +61,7 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 				LIC_W_COD_USUARIO 	: $scope.data.USUARIO.cod_usuario
 			},function(respuesta){
 				angular.extend($scope.data, respuesta);
+				$scope.modulo = "proyectocargado";
 			});
 			
 		};
