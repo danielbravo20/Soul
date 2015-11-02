@@ -75,4 +75,14 @@ public class Atributo extends GestionBase implements AtributoLocal {
 		return elementos;
 	}
 	
+	public Object listarSQL(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		return jpo.tablas(
+				new String[] {	"ATRIBUTO_SQL" ,  "ATRIBUTO"},
+				new String[] {	"ATR"		   ,  "ABT"		}
+		).dondeUnir(
+				new String[] { "ATR", "ABT"},
+				new String[] { "COD_ATRIBUTO"}
+		).seleccionar("ATR.*,ABT.cod_clase AS atr_cod_clase,ABT.NOMBRE AS ATR_NOMBRE,ABT.WEB_NOMBRE AS ATR_WEB_NOMBRE");
+	}
+	
 }

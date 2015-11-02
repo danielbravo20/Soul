@@ -11,7 +11,9 @@ import pe.com.mapeo.ejb.controller.GestionBase;
 public class Proceso extends GestionBase implements ProcesoLocal {
 
 	public Object registrar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		return jpo.tabla("PROCESO","PRO").registrar();
+		jpo.tabla("PROCESO","PRO").registrar();
+		jpo.commitear();
+		return true;
 	}
 	
 	public Object buscarProceso(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
@@ -23,7 +25,9 @@ public class Proceso extends GestionBase implements ProcesoLocal {
 	}
 	
 	public Object editar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		return jpo.tabla("PROCESO","PRO").editar();
+		jpo.tabla("PROCESO","PRO").editar();
+		jpo.commitear();
+		return true;
 	}
 	
 	public Object listar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
@@ -31,7 +35,6 @@ public class Proceso extends GestionBase implements ProcesoLocal {
 	}
 	
 	public Object eliminar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		jpo.autoCommit(false);
 			//jpo.tabla("Tarea","ATR").eliminar();
 			//jpo.tabla("Tarea","ATR").eliminar();
 			//jpo.tabla("Tarea","ATR").eliminar();

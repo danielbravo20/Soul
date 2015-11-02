@@ -7,7 +7,7 @@ import pe.com.mapeo.dao.Jpo;
 import pe.com.mapeo.ejb.controller.GestionLocal;
 
 @Local
-public interface AtributoLocal extends GestionLocal {
+public interface TablaLocal extends GestionLocal {
 	
 	public Object registrar(Jpo jpo,HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
@@ -16,13 +16,5 @@ public interface AtributoLocal extends GestionLocal {
 	Object editar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 	public Object eliminar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
-	
-	Object listar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
-	
-	public Object listaAtributoxPK(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
-	
-	public Object listarDependencias(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
-	
-	public Object listarSQL(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 }

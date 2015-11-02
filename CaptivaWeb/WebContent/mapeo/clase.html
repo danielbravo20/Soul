@@ -1,8 +1,8 @@
 <script type="text/javascript" src="controlador/clase.js"></script>
 <div ng-controller="clase" style="padding-top: 5px;">
-	<div class="container-fluid show-grid" ng-show="vista === 'lista'">
+	<div class="show-grid" ng-show="vista === 'lista'">
 		<div class="panel panel-default">
-		  <div class="panel-heading">Listado de Clases</div>
+		  <div class="panel-heading"><strong>Listado de Clases</strong></div>
 		  <table class="table">
 			<thead>
 			  <tr>
@@ -17,7 +17,7 @@
 				<td>{{item.cod_clase}}</td>
 				<td>{{item.nombre}}</td>
 				<td>{{item.paquete}}</td>
-				<td>
+				<td align="right">
 					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.cod_clase)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
 					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.cod_clase)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
 					<a class="btn btn-info btn-sm" ng-click="gestionarAtributos(item.cod_clase)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></a>
@@ -31,7 +31,7 @@
 		</div>
 		<pagination total-items="pag.total" ng-model="pag.actual" max-size="pag.max" class="pagination-sm" boundary-links="true" items-per-page="pag.itemxPagina" style="margin: 0px 0;"></pagination>
 	</div>
-	<div class="container-fluid show-grid" ng-show="vista === 'mantener'">
+	<div class="show-grid" ng-show="vista === 'mantener'">
 		<div class="panel panel-default">
 		  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
 		  <form name="FRM_CLASE">
@@ -47,7 +47,16 @@
 			  </tr>
 			  <tr>
 				<th>Paquete (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CLA_paquete" name="CLA_paquete" class="form-control input-sm" required></td>
+				<td class="form-group" show-errors='{showSuccess: true}'>
+					<input 
+						name="CLA_paquete"
+						type="text" 
+						autocomplete="off" 
+						class="form-control input-sm"
+						data-typeahead-editable="false" 
+						data-ng-model="cargado.CLA_paquete" 
+						data-typeahead="paquete for paquete in paquetes | filter:$viewValue | limitTo:8" required>
+				</td>
 			  </tr>
 			  <tr>
 				<th>Autor :</th>
