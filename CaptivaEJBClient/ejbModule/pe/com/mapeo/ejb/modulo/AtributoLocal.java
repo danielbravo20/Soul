@@ -19,6 +19,8 @@ public interface AtributoLocal extends GestionLocal {
 	
 	Object listar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
+	Object listarDetalle(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
 	public Object listaAtributoxPK(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 	public Object listarDependencias(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;

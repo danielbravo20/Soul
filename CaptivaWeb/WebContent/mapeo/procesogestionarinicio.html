@@ -1,0 +1,129 @@
+<script type="text/javascript" src="controlador/procesogestionarinicio.js"></script>
+<div ng-controller="procesogestionarinicio" style="padding-top: 5px;">
+	<div class="row">
+		<div class="col-md-8">
+			<ol class="breadcrumb">
+				<li><strong>{{data.PROCESO_CARGADO.inf_nombre | uppercase}}</strong></li>
+				<li>INICIAR SOLICITUD</li>
+			</ol>
+		</div>
+		<div class="col-md-4">
+			<ol class="breadcrumb" style="text-align: right;">
+			  <li><a class="btn btn-primary btn-sm" ng-model="config.esEdicion" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">MODO EDITOR</a></li>
+			  <li><a class="btn btn-info btn-sm" ng-click="$parent.instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR PROCESOS v4</a></li>
+			</ol>
+		</div>
+	</div>
+	<hr>
+	<div ng-include="'plantilla/inc_iniciarproceso_titulo.html'"></div>
+	<div class="panel panel-default" ng-show="config.esEdicion">
+		<div class="panel-heading"><strong>Datos Internos</strong></div>
+		<div class="form-inline" ng-show="config.esEdicion">
+			  <table class="table">
+				<thead>
+				  <tr>
+					<th>Atributo</th>
+					<th>Es PIID</th>
+					<th>Valor por Omisión</th>
+					<th>Es Autogenerado</th>
+					<th>Nom Secuencial</th>
+					<th>Opciones</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr ng-repeat="atributoItem in interno.lista">
+					<td>{{atributoItem.atr_nombre}} <em>({{atributoItem.cla_nombre}})</em></td>
+					<td><input type="checkbox" ng-model="atributoItem.bpm_flg_entrada" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+					<td><input type="text" ng-model="atributoItem.bpm_autogenerado" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.bpm_autogenerado}}"></td>
+					<td><input type="checkbox" ng-model="atributoItem.bpm_flg_autogenerado" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+					<td><input type="text" ng-model="atributoItem.bpm_secuencial" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.bpm_secuencial}}"></td>
+					<td>
+						<a class="btn btn-danger btn-sm" ng-click="interno.eliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a>
+					</td>
+				  </tr>
+				</tbody>
+			  </table>
+			<input type="text" autocomplete="off" class="form-control input-sm"
+				data-typeahead-editable="false" 
+				data-ng-model="interno.nuevoAtributo" 
+				data-typeahead="atributo as atributo.busqueda for atributo in atributo.lista | filter:{busqueda:$viewValue} | limitTo:8"
+			>
+			<a class="btn btn-primary btn-sm" ng-click="interno.agregar()" tooltip="Agregar"><i class="glyphicon glyphicon-share-alt"></i></a>
+			<a class="btn btn-primary btn-sm" ng-click="interno.nuevo()" tooltip="Agregar Nuevo Elemento"><i class="glyphicon glyphicon-plus-sign"></i></a>		
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading"><strong>Datos de Inicio</strong></div>
+		<div class="simpleDemoB">
+			<div ng-repeat="subSeccionItem in subSeccion.lista">
+				<div class="filaTitulo">
+					&nbsp;&nbsp;
+					<i class="glyphicon glyphicon-list-alt"></i> 
+					{{subSeccionItem.nombre}}
+					<i class="glyphicon glyphicon-edit seccionEditar" 
+						ng-click="subSeccion.actual = $index" 
+						popover-template="'popover_subSeccion.html'" 
+						popover-title="Editar" 
+						popover-placement="right" style="color: brown;"
+						eid="subSeccionEditar_{{$index}}"
+						ng-show="config.esEdicion"></i>
+				</div>
+				<div ng-include="'procesogestionarinicio_atributo.html'"></div>
+			</div>
+			<div ng-show="!config.esEdicion">&nbsp;</div>
+			<div class="filaTitulo" ng-show="config.esEdicion">
+				&nbsp;&nbsp;
+				<a ng-click="subSeccion.agregar()"><i class="glyphicon glyphicon-plus"></i></a>
+			</div>
+		</div>
+	</div>
+	<div ng-include="'plantilla/inc_iniciarproceso_botonera.html'" ng-show="!config.esEdicion"></div>
+	<hr>
+	<div class="well" style=" padding: 10px;  margin-bottom: 0px; " ng-show="config.esEdicion">
+		<a class="btn btn-success btn-sm" ng-click="registrarInicio()"><i class="glyphicon glyphicon-floppy-save"></i> REGISTRAR DATOS</a>
+	</div>
+</div>
+<script type="text/ng-template" id="popover_subSeccion.html">
+	<table style="border-collapse: separate; border-spacing: 5px;">
+		<tr>
+			<td colspan="4"> <input type="text" placeholder="{{subSeccionItem.nombre}}" class="form-control input-sm" style="width:100%" ng-model="subSeccionItem.nombre"></td>
+		</tr>
+		<tr>
+			<td><a class="btn btn-danger btn-sm" ng-click="subSeccion.eliminar()" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="subSeccion.subir()" tooltip="Subir"><i class="glyphicon glyphicon-arrow-up"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="subSeccion.bajar()" tooltip="Bajar"><i class="glyphicon glyphicon-arrow-down"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="subSeccion.copiar()" tooltip="Copiar"><i class="glyphicon glyphicon-tags"></i></a></td>
+		</tr>
+	</table>
+</script>
+<script type="text/ng-template" id="popover_atributo.html">
+	<table style="border-collapse: separate; border-spacing: 5px;">
+		<tr>
+			<td colspan="5"><strong>ATRIBUTO {{atributoItem.atr_nombre}}.{{atributoItem.cla_nombre}}</strong></td>
+		</tr>
+		<tr>
+			<td>Etiqueta : </td>
+			<td colspan="4"><input type="text" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.web_etiqueta}}" ng-model="atributoItem.web_etiqueta"></td>
+		</tr>
+		<tr>
+			<td>Tipo de Campo : </td>
+			<td colspan="4"><select class="form-control input-sm" ng-change="atributo.restaurarAtributo(atributoItem)" ng-model="atributoItem.web_tipo_campo" ng-options="campo.id as campo.nombre for campo in tipoCampo[tipoClase[atributoItem.web_tipo]]"></select></td>
+		</tr>
+		<tr>
+			<td>Opciones : </td>
+			<td><a class="btn btn-danger btn-sm" ng-click="atributo.eliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="atributo.bajar($index)" tooltip="Mover a la Izquierda"><i class="glyphicon glyphicon-arrow-left"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="atributo.subir($index)" tooltip="Mover a la Derecha"><i class="glyphicon glyphicon-arrow-right"></i></a></td>
+			<td><input ng-show="atributoItem.web_tipo_campo == 'C' || atributoItem.web_tipo_campo == 'A' || atributoItem.web_tipo_campo == 'E' || atributoItem.web_tipo_campo == 'E'" type="checkbox" ng-model="atributoItem.web_requerido" ng-true-value="'1'" ng-false-value="'0'" tooltip="Marcar si es un Campo Requerido" class="form-control input-sm" style="width:30px"></td>
+		</tr>
+		<tr ng-show="atributoItem.web_requerido == '1'">
+			<td>Mensaje Validación : </td>
+			<td colspan="4"><input type="text" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.web_mensaje_validacion}}" ng-model="atributoItem.web_mensaje_validacion"></td>
+		</tr>
+		<tr ng-show="atributoItem.web_tipo_campo == 'E'">
+			<td>Tipo de Lista : </td>
+			<td><input type="radio" ng-model="atributoItem.web_tipo_lista" value="C"> Catálogo</td>
+			<td colspan="3"><select ng-disabled="atributoItem.web_tipo_lista!='C'" class="form-control input-sm" ng-model="atributoItem.web_catalogo" ng-options="catalogo.cod_catalogo as catalogo.descripcion for catalogo in data.CATALOGO"></select></td>
+		</tr>
+	</table>
+</script>

@@ -1,0 +1,70 @@
+<ul dnd-list="subSeccionItem.atributo.lista">
+    <li ng-repeat="atributoItem in subSeccionItem.atributo.lista"
+        dnd-draggable="atributoItem"
+        dnd-moved="subSeccionItem.atributo.lista.splice($index, 1)"
+        dnd-allowed-types="['atributos']"
+		dnd-effect-allowed="move"
+		dnd-disable-if="!config.esEdicion"
+        dnd-selected="subSeccionItem.atributo.selected = atributo"
+        ng-class="{
+        	'selected': subSeccionItem.atributo.selected === atributo, 
+        	'AnchoExtendido': config.esEdicion != true && (($index+1)%2 == 0 && subSeccionItem.atributo.lista[$index-1].web_tipo_campo=='A' || ($index+1)%2 != 0 && subSeccionItem.atributo.lista[$index+1].web_tipo_campo=='A'), 
+        	'ModoEditor': config.esEdicion == true, 
+        	'ModoVisual': config.esEdicion != true,
+        	'ModoEditorDual': (config.esEdicion == true && (subSeccionItem.atributo.lista.length-1 != $index || (($index+1)%2==0 && subSeccionItem.atributo.lista.length-1 == $index))), 
+        	'ModoEditorTotal': (config.esEdicion == true && ($index+1)%2!=0 && subSeccionItem.atributo.lista.length-1 == $index), 
+        	'ModoVisualDual': (config.esEdicion != true && (subSeccionItem.atributo.lista.length-1 != $index || (($index+1)%2==0 && subSeccionItem.atributo.lista.length-1 == $index))), 
+        	'ModoVisualTotal': (config.esEdicion != true && ($index+1)%2!=0 && subSeccionItem.atributo.lista.length-1 == $index)
+        	}"
+    >
+        <span ng-show="config.esEdicion">
+        	<span ng-show="atributoItem.web_requerido == '1'" class="frm_requerido">(*)</span>
+        	{{atributoItem.web_etiqueta}} <em>({{atributoItem.cla_nombre}})</em>
+			<span class="referenciaClase"> (
+				<span ng-show="atributoItem.web_tipo_campo == 'L'">Solo Lectura</span>
+				<span ng-show="atributoItem.web_tipo_campo == 'C'">Caja de Texto</span>
+				<span ng-show="atributoItem.web_tipo_campo == 'H'">Checkbox</span>
+				<span ng-show="atributoItem.web_tipo_campo == 'A'">Área de Texto</span>
+				<span ng-show="atributoItem.web_tipo_campo == 'E'">Lista Desplegable</span>
+			)</span>
+			<i class="glyphicon glyphicon-edit seccionEditar" 
+				ng-click="subSeccionItem.atributo.selected = $index" 
+				popover-template="'popover_atributo.html'" 
+				popover-title="Editar Atributo" 
+				popover-placement="right" style="color: brown;"
+				eid="atributo_{{$index}}"></i>
+		</span>
+		<div style="position: absolute; top: 3px; right: 3px;" ng-show="atributoItem.inf_error.length>0 && config.esEdicion"><a class="btn btn-danger btn-sm" tooltip="{{atributoItem.inf_error}}"><i class="glyphicon glyphicon-warning-sign"></i></a></div>
+		<div class="frm_celda frm_cel_1a" ng-show="!config.esEdicion">
+			<div class="frm_etiqueta"><span ng-show="atributoItem.web_requerido == '1'" class="frm_requerido">(*)</span> {{atributoItem.web_etiqueta}} :</div>
+			<div class="frm_campo">
+				<span ng-show="atributoItem.web_tipo_campo == 'L'">{{atributoItem.web_modelo}}</span>
+				
+				<span ng-show="(tipoClase[atributoItem.web_tipo]=='I' || tipoClase[atributoItem.web_tipo]=='L' || tipoClase[atributoItem.web_tipo]=='l') && atributoItem.web_tipo_campo == 'C'"><input type="number" class="form-control input-sm" ng-model="atributoItem.web_modelo_numero"></span>
+				
+				<span ng-show="tipoClase[atributoItem.web_tipo]=='S' && atributoItem.web_tipo_campo == 'C'"><input type="text" class="form-control input-sm" ng-model="atributoItem.web_modelo"></span>
+				<span ng-show="tipoClase[atributoItem.web_tipo]=='S' && atributoItem.web_tipo_campo == 'A'">
+					<textarea ng-model="atributoItem.web_modelo" class="form-control input-sm" maxima-longitud="{{atributoItem.sql_longitud}}"></textarea>
+					<span class="textoAdicional">Caracteres escritos : <b>{{atributoItem.web_modelo.length}}</b> - Cantidad Máxima : <b>{{atributoItem.sql_longitud}}</b></span>
+				</span>
+				<span ng-show="tipoClase[atributoItem.web_tipo]=='S' && atributoItem.web_tipo_campo == 'E'"><select ng-model="atributoItem.web_modelo" class="form-control input-sm"></select></span>
+				
+				<span ng-show="tipoClase[atributoItem.web_tipo]=='b' && atributoItem.web_tipo_campo == 'H'"><input type="checkbox" ng-model="atributoItem.web_modelo"></span>
+				
+				<span ng-show="tipoClase[atributoItem.web_tipo]=='B' && atributoItem.web_tipo_campo == 'C'"><input type="text" ng-model="atributoItem.web_modelo" style="text-align: right;" class="form-control input-sm" nx-regla="decimal" nx-max-entero="atributoItem.sql_longitud" nx-max-decimal="atributoItem.sql_precision"></span>
+				
+				<span ng-show="tipoClase[atributoItem.web_tipo]=='D' && atributoItem.web_tipo_campo == 'C'"><input type="date" class="form-control input-sm" ng-model="atributoItem.web_modelo_fecha" maxlength="10" is-open="fecha.abierto[atributoItem.cla_nombre]" style="width: 150px;" datepicker-popup=""></span>
+				
+			</div>
+		</div>
+    </li>
+</ul>
+<div class="form-inline" ng-show="config.esEdicion">
+	<input type="text" autocomplete="off" class="form-control input-sm"
+		data-typeahead-editable="false" 
+		data-ng-model="subSeccionItem.nuevoAtributo" 
+		data-typeahead="atributo as atributo.busqueda for atributo in atributo.lista | filter:{busqueda:$viewValue} | limitTo:8"
+	>
+	<a class="btn btn-primary btn-sm" ng-click="atributo.agregar($index)" tooltip="Agregar"><i class="glyphicon glyphicon-share-alt"></i></a>
+	<a class="btn btn-primary btn-sm" ng-click="atributo.nuevo($index)" tooltip="Agregar Nuevo Elemento"><i class="glyphicon glyphicon-plus-sign"></i></a>		
+</div>

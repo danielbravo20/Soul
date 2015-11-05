@@ -20,6 +20,10 @@
 		} else {
 			$scope.pag.total = $scope.data.PROCESO.length;
 		}
+		if(getParametro.accion=="gestionarInicio"){
+			$scope.gestionarInicio(1);
+			delete getParametro.accion;
+		}
 	};
 	
 	$scope.nuevo = function(){
@@ -73,9 +77,10 @@
 		}
 	};
 	
-	$scope.gestionarAtributos = function(cod_proceso,inf_nombre){
-		$scope.vista = "atributos";
-		$scope.getControladorScope("procesoatributoinicio").instanciar(cod_proceso,inf_nombre);
+	$scope.gestionarInicio = function(cod_proceso){
+		$scope.data.PROCESO_CARGADO = util.getObjeto($scope.data.PROCESO,{cod_proceso : cod_proceso});
+		$scope.vista = "gestionarinicio";
+		$scope.getControladorScope("procesogestionarinicio").instanciar();
 	};
 	
 	$scope.$watch("buscar",function(oldVal,newVal){
@@ -85,7 +90,7 @@
 	});
 	
 	$scope.gestionarRoles = function(cod_proceso){
-		var miProceso = util.getObjeto($scope.data.PROCESO,{cod_tabla : cod_proceso});
+		var miProceso = util.getObjeto($scope.data.PROCESO,{cod_proceso : cod_proceso});
 		var modal = $modal.open({
 			animation: true,
 			templateUrl: 'rol_modal_entidad.html',
@@ -94,7 +99,7 @@
 				config : function(){
 					return {
 						atributo : cod_proceso,
-						titulo	 : "Roles Potenciales del Proceso '"+miProceso.inf_nombre+"'",
+						titulo	 : "ROLES DE '"+miProceso.inf_nombre+"'",
 						rol		 : $scope.data.ROL,
 						tabla	 : "proceso_rol_potencial",
 						cod_entidad	 : "cod_proceso"
@@ -107,43 +112,4 @@
 			});
 	};
 
-});
-
-mapeo.controller('modal_rol_entidad', function ($scope, $modalInstance, config) {
-
-	$scope.config = config;
-	
-	var cargarAsociacion = function(){
-		var consulta = {
-			paquete : "modulo", 
-			clase : "Rol",
-			metodo : "listarRolxEntidad",
-			tabla : config.tabla
-		};
-			consulta["ROL_W_"+config.cod_entidad] = config.atributo;
-			
-		ajax.jpo(consulta,function(respuesta){
-			var misRojes = {};
-			for(var i = 0;i< respuesta.length; i++){
-				if(typeof(misRojes[respuesta[i].cod_rol]=="undefined")){
-					misRojes[respuesta[i].cod_rol] = true;
-				}
-			}
-			
-			for(var i = 0;i< $scope.config.length; i++){
-				$scope.config[i].cod_rol
-			}
-			$scope.data.TABLA_ATRIBUTO = respuesta;
-			$scope.pagAtributo.total = respuesta.length;
-		});
-	};
-	
-	$scope.cancelar = function(){
-		$modalInstance.close();
-	};
-	
-	$scope.salir = function(){
-		$modalInstance.dismiss('cancel');
-	};
-	
 });

@@ -132,6 +132,10 @@ body {
 
 }
 
+.popover {
+    max-width: 600px;
+}
+
 .seccion_alertas {
 	position: fixed;
 	bottom: 30px;

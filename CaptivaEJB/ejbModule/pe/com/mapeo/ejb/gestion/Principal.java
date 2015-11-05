@@ -65,6 +65,7 @@ public class Principal extends GestionBase implements PrincipalLocal {
 		// COD_PROYECTO y COD_VERSION
 		// COD_PROYECTO y COD_USUARIO
 		listados.put("EQUIPO", jpo.tabla("EQUIPO","LIC").obtener("*"));
+		listados.put("CATALOGO", jpo.tabla("CATALOGO","LIB").donde(" AND cabecera = '1'").seleccionar("*"));
 		
 		// SIN CONDICIONES
 		//listados.put("MAE_UNI_NEGOCIO", jpo.tabla("MAE_UNI_NEGOCIO").seleccionar("*"));

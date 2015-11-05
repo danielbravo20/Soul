@@ -19,4 +19,6 @@ public interface RolLocal  extends GestionLocal {
 	
 	public Object listarRolxEntidad(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
+	public Object registrarRolxEntidad(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
 }

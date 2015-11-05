@@ -523,6 +523,7 @@ ALTER TABLE soul.tarea_rol_administrador ADD CONSTRAINT pk_tarea_rol_administrad
 ;
 
 
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE soul.atributo ADD CONSTRAINT objeto_clase_fk FOREIGN KEY (cod_clase) REFERENCES soul.clase (cod_clase) ON DELETE RESTRICT ON UPDATE NO ACTION

@@ -64,6 +64,18 @@ public class Atributo extends GestionBase implements AtributoLocal {
 		return jpo.tabla("ATRIBUTO","ATR").seleccionar("*");
 	}
 	
+	public Object listarDetalle(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		return jpo.tablas(
+				new String[] { "CLASE"	, "ATRIBUTO" 	, "ATRIBUTO_SQL"},
+				new String[] { "CLA"	, "ATR"			, "ASQ"		 	}
+		).dondeUnir(
+				new String[] { "ATR", "CLA"},
+				new String[] { "cod_clase"}
+		).dondeUnirIzquierda(
+				"ASQ", "ATR", new String[] { "COD_ATRIBUTO"}
+		).seleccionar("ATR.*,CLA.nombre AS cla_nombre,ASQ.longitud AS sql_longitud,ASQ.precision AS sql_precision,ASQ.obligatorio AS sql_obligatorio");
+	}
+	
 	public Object listaAtributoxPK(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		return jpo.tabla("ATRIBUTO","ATR").seleccionar("COD_ATRIBUTO,NOMBRE");
 	}

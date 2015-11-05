@@ -1,5 +1,8 @@
 package pe.com.mapeo.ejb.modulo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +44,25 @@ public class Proceso extends GestionBase implements ProcesoLocal {
 			jpo.tabla("PROCESO","PRO").eliminar();
 		jpo.commitear();
 		return true;
+	}
+	
+	public Object registrarInicio(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		pe.com.mapeo.dao.Tabla 	proceso_insuse = jpo.tabla("proceso_inicio_sub_seccion","PIS").ordenadoPor("");
+		proceso_insuse.eliminar();
+		pe.com.mapeo.dao.Tabla 	proceso_inicio = jpo.tabla("proceso_iniciob","PIN");
+		proceso_inicio.eliminar();
+		
+		proceso_inicio.registrarMultiple();
+		proceso_insuse.registrarMultiple();
+		jpo.commitear();
+		return true;
+	}
+	
+	public Object listarInicio(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		Map<String,Object> listados = new HashMap<String,Object>();
+			listados.put("SUB_SECCION", jpo.tabla("proceso_inicio_sub_seccion","PIS").ordenadoPor("cod_sub_seccion ASC").seleccionar("*"));
+			listados.put("INICIO", jpo.tabla("proceso_iniciob","PIN").ordenadoPor("cod_sub_seccion ASC, cod_proceso_inicio ASC").seleccionar("*"));
+		return listados;
 	}
 
 }

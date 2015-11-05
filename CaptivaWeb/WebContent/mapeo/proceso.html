@@ -19,6 +19,7 @@
 					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.cod_proceso)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
 					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.cod_proceso)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
 					<a class="btn btn-info btn-sm" ng-click="gestionarInicio(item.cod_proceso)" tooltip="Gestionar Inicio de Proceso"><i class="glyphicon glyphicon-play"></i></a>
+					<a class="btn btn-info btn-sm" ng-click="gestionarDetalle(item.cod_proceso)" tooltip="Gestionar Detalle de Proceso"><i class="glyphicon glyphicon-align-justify"></i></a>
 					<a class="btn btn-warning btn-sm" ng-click="gestionarRoles(item.cod_proceso)" tooltip="Gestionar Roles"><i class="glyphicon glyphicon-user"></i></a>
 				</td>
 			  </tr>
@@ -115,5 +116,5 @@
 		  </form>
 		</div>
 	</div>
-	<div ng-include="'procesoatributoinicio.html'" ng-show="vista === 'atributos'"></div>
+	<div ng-include="'procesogestionarinicio.html'" ng-show="vista === 'gestionarinicio'"></div>
 </div>

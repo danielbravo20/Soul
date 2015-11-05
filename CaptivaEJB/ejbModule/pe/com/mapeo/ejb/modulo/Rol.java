@@ -37,5 +37,13 @@ public class Rol extends GestionBase implements RolLocal {
 		return jpo.tabla(tipoAccion,"ROL").seleccionar("*");
 	}
 	
+	public Object registrarRolxEntidad(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		String tipoAccion = request.getParameter("tabla");
+		pe.com.mapeo.dao.Tabla tablaDinamica = jpo.tabla(tipoAccion,"ROL");
+			tablaDinamica.eliminar();
+			tablaDinamica.registrarMultiple();
+		jpo.commitear();
+		return true;
+	}
 	
 }
