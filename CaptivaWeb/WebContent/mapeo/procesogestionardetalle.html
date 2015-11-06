@@ -1,0 +1,132 @@
+<script type="text/javascript" src="controlador/procesogestionardetalle.js"></script>
+<div ng-controller="procesogestionardetalle" style="padding-top: 5px;">
+	<div class="row">
+		<div class="col-md-8">
+			<ol class="breadcrumb">
+				<li><strong>{{data.PROCESO_CARGADO.inf_nombre | uppercase}}</strong></li>
+				<li>DETALLE DE SOLICITUD</li>
+			</ol>
+		</div>
+		<div class="col-md-4">
+			<ol class="breadcrumb" style="text-align: right;">
+			  <li><a class="btn btn-primary btn-sm" ng-model="config.esEdicion" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">MODO EDITOR</a></li>
+			  <li><a class="btn btn-info btn-sm" ng-click="$parent.instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR PROCESOS</a></li>
+			</ol>
+		</div>
+	</div>
+	<hr>
+	<table style="width: 100%;">
+		<tr>
+			<td width="20%" style="border: 1px solid #ccc; padding: 5px;" valign="top" ng-show="config.esEdicion">
+				<div>
+					<accordion close-others="false">
+						<accordion-group is-open="true">
+							<accordion-heading>Vista</accordion-heading>
+							<div class="btn-group">
+						        <label class="btn btn-primary btn-sm" ng-model="config.tipoVista" btn-radio="'H'"> Acordeon </label>
+						        <label class="btn btn-primary btn-sm" ng-model="config.tipoVista" btn-radio="'V'"> Tabs </label>
+						    </div>
+						</accordion-group>
+					</accordion>
+					<accordion close-others="false">
+						<accordion-group is-open="true">
+							<accordion-heading>Atributos</accordion-heading>
+							<select class="form-control input-sm" ng-model="atrBuscar.cod_tabla" ng-options="tabla.cod_tabla as tabla.nombre for tabla in consulta.tablas | orderBy: 'nombre'">
+								<option></option>
+							</select>
+							<input type="text" ng-model="atrBuscar.nombre" placeholder="Nombre" class="form-control input-sm">
+							<div class="simpleDemo" style="max-height: 200px; overflow : auto; border: 1px solid #ccc;">
+								<ul dnd-list="consulta.atributos">
+							 	    <li ng-repeat="item in consulta.atributos | filter:atrBuscar"
+							 	    	dnd-draggable="item"
+								        dnd-effect-allowed="move"
+								        dnd-selected="consulta.seleccionado = item"
+								        dnd-allowed-types="['principal']"
+								        dnd-type="'atributos'"
+								        ng-class="{'selected': consulta.seleccionado === item}"
+								    >
+								        {{item.nombre}} <span class="referenciaClase">({{consulta.tablas[item.cod_tabla].nombre}})</span>
+								        <div class="tipoAtributo" title="{{item.atr_tipo}}">({{tipoClase[item.atr_tipo]}})</div>
+								    </li>
+								</ul>
+							</div>
+							<a class="btn btn-primary btn-sm" ng-click="objAtributo.abrirListado()"><i class="glyphicon glyphicon-plus"></i></a>
+						</accordion-group>
+					</accordion>
+				</div>
+			</td>
+			<td width="80%" style="border: 1px solid #ccc; padding: 5px;" valign="top" class="simpleDemoB">
+				<div ng-include="'plantilla/inc_detallesolicitud_titulo.html'"></div>
+				<div ng-include="'plantilla/inc_detallesolicitud_acordeon.html'" ng-show="config.tipoVista=='H'"></div>
+				<div ng-include="'plantilla/inc_detallesolicitud_tab.html'" ng-show="config.tipoVista=='V'"></div>
+				<div ng-include="'plantilla/inc_detallesolicitud_botonera.html'"></div>
+			</td>
+		</tr>
+	</table>
+	<hr>
+	<div class="well" style=" padding: 10px;  margin-bottom: 0px; " ng-show="config.esEdicion">
+		<a class="btn btn-success btn-sm" ng-click="registrarInicio()"><i class="glyphicon glyphicon-floppy-save"></i> REGISTRAR DATOS</a>
+	</div>
+</div>
+<script type="text/ng-template" id="popover_seccion.html">
+	<table style="border-collapse: separate; border-spacing: 5px;">
+		<tr>
+			<td colspan="6">
+				<span ng-show="seccionItem.ID_PADRE.length>0">{{seccionItem.nombre}}</span>
+				<input ng-hide="seccionItem.ID_PADRE.length>0" type="text" placeholder="Nombre" class="form-control input-sm" style="width:100%" ng-model="seccionItem.nombre">
+			</td>
+		</tr>
+		<tr>
+			<td><a class="btn btn-danger btn-sm" ng-click="seccion.eliminar()" ng-disabled="seccionItem.ID_PADRE.length>0" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="seccion.bajar()" tooltip="Mover a la Izquierda"><i class="glyphicon glyphicon-arrow-left"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="seccion.subir()" tooltip="Mover a la Derecha"><i class="glyphicon glyphicon-arrow-right"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="seccion.copiar()" ng-disabled="seccionItem.ID_PADRE.length>0" tooltip="Copiar"><i class="glyphicon glyphicon-tags"></i></a></td>
+			<td><i class="glyphicon glyphicon-info-sign" style="color: brown;" title="DEFINIR COMO PLANTILLA"></i></td>
+			<td><input ng-hide="seccionItem.ID_PADRE.length>0" type="checkbox" ng-model="seccionItem.plantilla" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+		</tr>
+	</table>
+</script>
+<script type="text/ng-template" id="popover_subSeccion.html">
+	<table style="border-collapse: separate; border-spacing: 5px;">
+		<tr>
+			<td colspan="4"> <input type="text" placeholder="{{subSeccionItem.nombre}}" class="form-control input-sm" style="width:100%" ng-model="subSeccionItem.nombre"></td>
+		</tr>
+		<tr>
+			<td><a class="btn btn-danger btn-sm" ng-click="subSeccion.eliminar()" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="subSeccion.subir()" tooltip="Subir"><i class="glyphicon glyphicon-arrow-up"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="subSeccion.bajar()" tooltip="Bajar"><i class="glyphicon glyphicon-arrow-down"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="subSeccion.copiar()" tooltip="Copiar"><i class="glyphicon glyphicon-tags"></i></a></td>
+		</tr>
+	</table>
+</script>
+<script type="text/ng-template" id="popover_atributo.html">
+	<table style="border-collapse: separate; border-spacing: 5px;">
+		<tr>
+			<td colspan="5"><strong>ATRIBUTO {{atributoItem.atr_nombre}}.{{atributoItem.cla_nombre}}</strong></td>
+		</tr>
+		<tr>
+			<td>Etiqueta : </td>
+			<td colspan="4"><input type="text" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.web_etiqueta}}" ng-model="atributoItem.web_etiqueta"></td>
+		</tr>
+		<tr>
+			<td>Tipo de Campo : </td>
+			<td colspan="4"><select class="form-control input-sm" ng-change="atributo.restaurarAtributo(atributoItem)" ng-model="atributoItem.web_tipo_campo" ng-options="campo.id as campo.nombre for campo in tipoCampo[tipoClase[atributoItem.web_tipo]]"></select></td>
+		</tr>
+		<tr>
+			<td>Opciones : </td>
+			<td><a class="btn btn-danger btn-sm" ng-click="atributo.eliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="atributo.bajar($index)" tooltip="Mover a la Izquierda"><i class="glyphicon glyphicon-arrow-left"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="atributo.subir($index)" tooltip="Mover a la Derecha"><i class="glyphicon glyphicon-arrow-right"></i></a></td>
+			<td><input ng-show="atributoItem.web_tipo_campo == 'C' || atributoItem.web_tipo_campo == 'A' || atributoItem.web_tipo_campo == 'E' || atributoItem.web_tipo_campo == 'E'" type="checkbox" ng-model="atributoItem.web_requerido" ng-true-value="'1'" ng-false-value="'0'" tooltip="Marcar si es un Campo Requerido" class="form-control input-sm" style="width:30px"></td>
+		</tr>
+		<tr ng-show="atributoItem.web_requerido == '1'">
+			<td>Mensaje Validación : </td>
+			<td colspan="4"><input type="text" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.web_mensaje_validacion}}" ng-model="atributoItem.web_mensaje_validacion"></td>
+		</tr>
+		<tr ng-show="atributoItem.web_tipo_campo == 'E'">
+			<td>Tipo de Lista : </td>
+			<td><input type="radio" ng-model="atributoItem.web_tipo_lista" value="C"> Catálogo</td>
+			<td colspan="3"><select ng-disabled="atributoItem.web_tipo_lista!='C'" class="form-control input-sm" ng-model="atributoItem.web_catalogo" ng-options="catalogo.cod_catalogo as catalogo.descripcion for catalogo in data.CATALOGO"></select></td>
+		</tr>
+	</table>
+</script>

@@ -1,0 +1,21 @@
+<accordion close-others="false">
+	<accordion-group ng-repeat="seccionItem in seccion.lista" is-open="seccionItem.activo">
+		<accordion-heading>	
+			<i class="glyphicon" ng-class="{true:'glyphicon-folder-open', false:'glyphicon-folder-close'}[seccionItem.activo]"></i>&nbsp; {{seccionItem.nombre}}
+			<span style="color:red" ng-show="seccionItem.alertas>0">&nbsp;&nbsp;&nbsp;&nbsp; {{seccionItem.alertas}} <i class="glyphicon glyphicon-bell"></i></span>
+			<i class="glyphicon glyphicon-edit seccionEditar" 
+				ng-click="seccion.actual = $index + 1" 
+				popover-template="'popover_seccion.html'" 
+				popover-title="Editar" 
+				popover-placement="right" style="color: brown;"
+				eid="seccionEditar_{{$index}}"
+				ng-show="config.esEdicion"></i>
+		</accordion-heading>
+		<div ng-include="'tareagestionar_detalle_subseccion.html'"></div>
+	</accordion-group>
+	<accordion-group ng-click="seccion.agregar()" ng-show="config.esEdicion">
+		<accordion-heading>	
+			<i class="glyphicon glyphicon-plus"></i>
+		</accordion-heading>
+	</accordion-group>
+</accordion>

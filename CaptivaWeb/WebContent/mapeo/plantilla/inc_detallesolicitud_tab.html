@@ -1,0 +1,26 @@
+<tabset>
+	<tab ng-repeat="seccionItem in seccion.lista" active="seccionItem.activo" select="asignarTab($index)">
+		<tab-heading ng-class="{'frm_plantillaFondo': seccionItem.plantilla == '1' && config.esEdicion==true}">
+			<i class="glyphicon" ng-class="{true:'glyphicon-folder-open', false:'glyphicon-folder-close'}[seccionItem.activo]"></i>&nbsp; {{seccionItem.nombre}}
+			<span style="color:red" ng-show="seccionItem.alertas>0">&nbsp;&nbsp;&nbsp;&nbsp; {{seccionItem.alertas}} <i class="glyphicon glyphicon-bell"></i></span>
+			<i class="glyphicon glyphicon-edit seccionEditar" 
+				ng-click="seccion.actual = $index + 1" 
+				popover-template="'popover_seccion.html'" 
+				popover-title="Editar" 
+				popover-placement="right" style="color: brown;"
+				eid="seccionEditar_{{$index}}"
+				ng-show="config.esEdicion"></i>
+			&nbsp;
+			<i ng-show="seccionItem.plantilla == '1' && config.esEdicion==true" title="Plantilla" style="color: #C18730;" class="glyphicon glyphicon-file"></i>
+		</tab-heading>
+		<div ng-include="'tareagestionar_detalle_subseccion.html'" ng-class="{'frm_plantillaFondo': seccionItem.plantilla == '1' && config.esEdicion==true}"></div>
+	</tab>
+	<tab ng-click="seccion.agregar()" ng-show="config.esEdicion">
+		<tab-heading title="Agregar Nueva Sección"><i class="glyphicon glyphicon-plus"></i></tab-heading>
+	</tab>
+	<tab ng-click="seccion.buscarPlantilla()" ng-show="config.esEdicion">
+		<tab-heading title="Agregar Plantilla"><i class="glyphicon glyphicon-plus" style="color: brown;"></i><i class="glyphicon glyphicon-plus" style="color: brown;"></i></tab-heading>
+	</tab>
+</tabset>	
+<hr />
+<pager total-items="seccion.lista.length" items-per-page="1" ng-model="seccion.actual" ng-change="seccion.lista[seccion.actual-1].activo = true"></pager>

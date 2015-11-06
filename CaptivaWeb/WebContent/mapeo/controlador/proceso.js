@@ -83,6 +83,13 @@
 		$scope.getControladorScope("procesogestionarinicio").instanciar();
 	};
 	
+	$scope.gestionarDetalle = function(cod_proceso){
+		$scope.data.PROCESO_CARGADO = util.getObjeto($scope.data.PROCESO,{cod_proceso : cod_proceso});
+		$scope.vista = "gestionardetalle";
+		$scope.getControladorScope("procesogestionardetalle").instanciar();
+	};
+	
+	
 	$scope.$watch("buscar",function(oldVal,newVal){
 		if(oldVal != newVal){
 			$scope.pag.actual = 1;

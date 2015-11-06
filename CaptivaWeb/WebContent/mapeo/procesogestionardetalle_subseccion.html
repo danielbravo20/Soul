@@ -1,0 +1,20 @@
+<div ng-repeat="subSeccionItem in seccionItem.subSeccion.lista">
+	<div class="filaTitulo">
+		&nbsp;&nbsp;
+		<i class="glyphicon glyphicon-list-alt"></i> 
+		{{subSeccionItem.nombre}}
+		<i class="glyphicon glyphicon-edit seccionEditar" 
+			ng-click="seccionItem.actual = $index" 
+			popover-template="'popover_subSeccion.html'" 
+			popover-title="Editar" 
+			popover-placement="right" style="color: brown;"
+			eid="subSeccionEditar_{{$index}}"
+			ng-show="config.esEdicion"></i>
+	</div>
+	<div ng-include="'procesogestionarinicio_atributo.html'"></div>
+</div>
+<div ng-show="!config.esEdicion">&nbsp;</div>
+<div class="filaTitulo" ng-show="config.esEdicion">
+	&nbsp;&nbsp;
+	<a ng-click="seccionItem.agregar()"><i class="glyphicon glyphicon-plus"></i></a>
+</div>
