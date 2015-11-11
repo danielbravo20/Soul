@@ -56,7 +56,7 @@
 		<div class="col-md-4">
 			<ol class="breadcrumb" style="text-align: right;">
 			  <li><a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR ATRIBUTOS</a></li>
-			  <li class="form-inline"><input type="checkbox" ng-model="cargado.esDetallado" tooltip="Mostrar campos adicionales?" class="form-control input-sm" style="width:30px"></li>
+			  <li class="form-inline"><input type="checkbox" ng-model="cargado.esDetallado" tooltip="Mostrar campos adicionales?" class="form-control input-sm" style="width:30px" ></li>
 			</ol>
 		</div>
 	</div>
@@ -69,10 +69,6 @@
 			  <tr>
 				<th>Codigo (*) :</th>
 				<td class="form-group" show-errors='{showSuccess: true}'><input type="number" ng-model="cargado.ATR_cod_atributo" name="ATR_cod_atributo" ng-disabled="esEdicion" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
-				<th>Inf Nombre :</th>
-				<td><input type="text" ng-model="cargado.ATR_inf_nombre" class="form-control input-sm" ng-change="formatearNombres()"></td>
 			  </tr>
 			  <tr>
 				<th>Nombre (*) :</th>
@@ -99,14 +95,6 @@
 			  <tr ng-show="cargado.esDetallado">
 				<th>Web Formato :</th>
 				<td><input type="text" ng-model="cargado.ATR_web_formato" class="form-control input-sm"></td>
-			  </tr>
-			  <tr ng-show="cargado.esDetallado">
-				<th>Inf Descripcion :</th>
-				<td><input type="text" ng-model="cargado.ATR_inf_descripcion" class="form-control input-sm"></td>
-			  </tr>
-			  <tr ng-show="cargado.esDetallado">
-				<th>Inf Autor :</th>
-				<td><input type="text" ng-model="cargado.ATR_inf_autor" class="form-control input-sm"></td>
 			  </tr>
 			  <tr ng-show="cargado.esDetallado">
 				<th>Web Mensaje Validación :</th>
@@ -156,7 +144,22 @@
 			  </tr>
 			  <tr class="warning" ng-show="cargado.FLG_sql && cargado.esDetallado">
 				<th>FK Tabla :</th>
-				<td><input type="number" ng-model="cargado.ADB_fk_tabla" class="form-control input-sm"></td>
+				<td>
+					<select class="form-control input-sm"
+						ng-model="cargado.ADB_fk_tabla"
+						ng-options="obj.cod_tabla as obj.nombre for obj in data.TABLA | orderBy: 'nombre'"
+						ng-change="cargarAtributos()"
+						name="ADB_fk_tabla"></select>
+				</td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.FLG_sql && cargado.esDetallado">
+				<th>FK Campo :</th>
+				<td>
+					<select class="form-control input-sm"
+						ng-model="cargado.ADB_fk_campo"
+						ng-options="obj.cod_atributo as obj.campo for obj in atributosFK | orderBy: 'nombre'"
+						name="ADB_fk_campo"></select>
+				</td>
 			  </tr>
 			  <tr class="warning" ng-show="cargado.FLG_sql && cargado.esDetallado">
 				<th>FK Es uno a muchos :</th>
@@ -173,10 +176,6 @@
 			  <tr class="warning" ng-show="cargado.FLG_sql && cargado.esDetallado">
 				<th>Valor por Defecto :</th>
 				<td><input type="text" ng-model="cargado.ADB_val_defecto" class="form-control input-sm"></td>
-			  </tr>
-			  <tr class="warning" ng-show="cargado.FLG_sql && cargado.esDetallado">
-				<th>FK Campo :</th>
-				<td><input type="number" ng-model="cargado.ADB_fk_campo" class="form-control input-sm"></td>
 			  </tr>
 			  <tr>
 				<td colspan="2">

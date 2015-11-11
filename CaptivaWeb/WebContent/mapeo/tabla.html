@@ -48,19 +48,9 @@
 			  <tr>
 				<th>Esquema (*) :</th>
 				<td class="form-group" show-errors='{showSuccess: true}'>
-					<input 
-						name="TAB_esquema"
-						type="text" 
-						autocomplete="off" 
-						class="form-control input-sm"
-						data-typeahead-editable="false" 
-						data-ng-model="cargado.TAB_esquema" 
-						data-typeahead="esquema for esquema in esquemas | filter:$viewValue | limitTo:8" required>
+					<input type="text" ng-model="cargado.TAB_esquema" name="TAB_esquema" class="form-control input-sm" required>
+						
 				</td>
-			  </tr>
-			  <tr>
-				<th>Nivel :</th>
-				<td><input type="number" ng-model="cargado.TAB_orden" class="form-control input-sm"></td>
 			  </tr>
 			  <tr>
 				<td colspan="2">

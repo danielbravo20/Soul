@@ -56,10 +56,6 @@
 				<td class="form-group" show-errors='{showSuccess: true}'><input type="number" ng-model="cargado.ATR_cod_atributo" name="ATR_cod_atributo" ng-disabled="esEdicion" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
-				<th>Inf Nombre :</th>
-				<td><input type="text" ng-model="cargado.ATR_inf_nombre" class="form-control input-sm" ng-change="formatearNombres()"></td>
-			  </tr>
-			  <tr>
 				<th>Nombre (*) :</th>
 				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.ATR_nombre" name="ATR_nombre" class="form-control input-sm" required></td>
 			  </tr>
@@ -81,25 +77,9 @@
 				<th>Web Nombre :</th>
 				<td><input type="text" ng-model="cargado.ATR_web_nombre" class="form-control input-sm"></td>
 			  </tr>
-			  <tr ng-show="cargado.esDetallado">
+			  <tr>
 				<th>Web Formato :</th>
 				<td><input type="text" ng-model="cargado.ATR_web_formato" class="form-control input-sm"></td>
-			  </tr>
-			  <tr ng-show="cargado.esDetallado">
-				<th>Inf Descripcion :</th>
-				<td><input type="text" ng-model="cargado.ATR_inf_descripcion" class="form-control input-sm"></td>
-			  </tr>
-			  <tr ng-show="cargado.esDetallado">
-				<th>Inf Autor :</th>
-				<td><input type="text" ng-model="cargado.ATR_inf_autor" class="form-control input-sm"></td>
-			  </tr>
-			  <tr ng-show="cargado.esDetallado">
-				<th>Web Mensaje Validación :</th>
-				<td><input type="text" ng-model="cargado.ATR_web_men_validacion" class="form-control input-sm"></td>
-			  </tr>
-			  <tr ng-show="cargado.esDetallado">
-				<th>Web Formulario Validación :</th>
-				<td><input type="text" ng-model="cargado.ATR_web_for_validacion" class="form-control input-sm"></td>
 			  </tr>
 			  <tr class="warning">
 				<th>Tiene SQL :</th>

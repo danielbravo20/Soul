@@ -7,14 +7,14 @@
 			<thead>
 			  <tr>
 				<th><input type="text" ng-model="buscar.cod_proceso" placeholder="Código" class="form-control input-sm"></th>
-				<th><input type="text" ng-model="buscar.inf_nombre" placeholder="Nombre" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.nombre" placeholder="Nombre" class="form-control input-sm"></th>
 				<th>Opción</th>
 			  </tr>
 			</thead>
 			<tbody>
 			  <tr ng-repeat="item in data.PROCESO | orderBy: 'cod_proceso' | filter:buscar" ng-show="pag.get($index) == pag.actual">
 				<td>{{item.cod_proceso}}</td>
-				<td>{{item.inf_nombre}}</td>
+				<td>{{item.nombre}}</td>
 				<td align="right"> 
 					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.cod_proceso)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
 					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.cod_proceso)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
@@ -43,39 +43,11 @@
 			  </tr>
 			  <tr>
 				<th>Nombre (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.PRO_inf_nombre" name="PRO_inf_nombre" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
-				<th>Unidad de Negocio (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.PRO_cod_uni_negocio" name="PRO_cod_uni_negocio" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
-				<th>Producto (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.PRO_cod_producto" name="PRO_cod_producto" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
-				<th>Sufijo :</th>
-				<td><input type="text" ng-model="cargado.PRO_inf_sufijo" class="form-control input-sm"></td>
-			  </tr>
-			  <tr>
-				<th>BPM Plantilla Proceso (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.PRO_bpm_plantilla" name="PRO_bpm_plantilla" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
-				<th>Nro Actividad Inicio(*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="number" ng-model="cargado.PRO_bpm_act_inicio" name="PRO_bpm_act_inicio" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
-				<th>Paquete (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.PRO_jav_paquete" name="PRO_jav_paquete" class="form-control input-sm" required></td>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.PRO_nombre" name="PRO_inf_nombre" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
 				<th>Clase (*) :</th>
 				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.PRO_jav_clase" name="PRO_jav_clase" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
-				<th>Aleas Web :</th>
-				<td><input type="text" ng-model="cargado.PRO_jav_ale_proceso" class="form-control input-sm"></td>
 			  </tr>
 			  <tr>
 				<th>Data Source (*) :</th>
@@ -100,10 +72,6 @@
 						name="PRO_cod_con_detalle" required></select>
 					<button class="btn btn-info btn-sm" ng-click="cargarModulo('detalle')" tooltip="Editar"><i class="glyphicon glyphicon-edit"></i></button>
 				</td>
-			  </tr>
-			  <tr>
-				<th>Sequecial :</th>
-				<td><input type="text" ng-model="cargado.PRO_jav_doc_sequence" class="form-control input-sm"></td>
 			  </tr>
 			  <tr>
 				<td colspan="2">

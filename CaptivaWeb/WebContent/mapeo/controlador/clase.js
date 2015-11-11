@@ -43,8 +43,7 @@
 		$scope.instanciar();
 		$scope.vista = "mantener";
 		// Datos por defecto
-			$scope.cargado.CLA_cod_clase = util.getUltimoCodigo($scope.data.CLASE,"cod_clase");
-			$scope.cargado.CLA_inf_autor = $scope.data.USUARIO.nombre
+		$scope.cargado.CLA_cod_clase = util.getUltimoCodigo($scope.data.CLASE,"cod_clase");
 	};
 	
 	$scope.eliminar = function(cod_clase){

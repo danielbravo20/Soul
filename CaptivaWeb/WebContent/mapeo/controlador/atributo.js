@@ -185,5 +185,18 @@
 			return "";
 		}
 	};
+		
+	$scope.cargarAtributos = function(){
+		var consulta = {
+			paquete : "modulo", 
+			clase : "Atributo",
+			metodo : "listarSQL",
+			ATR_W_cod_tabla : $scope.cargado.ADB_fk_tabla,
+			ATR_W_pk		: "1"
+		};
+		ajax.jpo(consulta,function(respuesta){
+			$scope.atributosFK = respuesta;
+		});
+	};
 	
 });

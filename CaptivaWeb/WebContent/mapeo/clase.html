@@ -8,7 +8,6 @@
 			  <tr>
 				<th><input type="text" ng-model="buscar.cod_clase" placeholder="Código" class="form-control input-sm"></th>
 				<th><input type="text" ng-model="buscar.nombre" placeholder="Nombre" class="form-control input-sm"></th>
-				<th><input type="text" ng-model="buscar.paquete" placeholder="Paquete" class="form-control input-sm"></th>
 				<th>Opción</th>
 			  </tr>
 			</thead>
@@ -16,7 +15,6 @@
 			  <tr ng-repeat="item in data.CLASE | orderBy: 'cod_clase' | filter:buscar" ng-show="pag.get($index) == pag.actual">
 				<td>{{item.cod_clase}}</td>
 				<td>{{item.nombre}}</td>
-				<td>{{item.paquete}}</td>
 				<td align="right">
 					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.cod_clase)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
 					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.cod_clase)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
@@ -44,27 +42,6 @@
 			  <tr>
 				<th>Nombre (*) :</th>
 				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CLA_nombre" name="CLA_nombre" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
-				<th>Paquete (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'>
-					<input 
-						name="CLA_paquete"
-						type="text" 
-						autocomplete="off" 
-						class="form-control input-sm"
-						data-typeahead-editable="false" 
-						data-ng-model="cargado.CLA_paquete" 
-						data-typeahead="paquete for paquete in paquetes | filter:$viewValue | limitTo:8" required>
-				</td>
-			  </tr>
-			  <tr>
-				<th>Autor :</th>
-				<td><input type="text" ng-model="cargado.CLA_inf_autor" class="form-control input-sm"></td>
-			  </tr>
-			  <tr>
-				<th>Descripción :</th>
-				<td><input type="text" ng-model="cargado.CLA_inf_descripcion" class="form-control input-sm"></td>
 			  </tr>
 			  <tr>
 				<th>Nivel :</th>
