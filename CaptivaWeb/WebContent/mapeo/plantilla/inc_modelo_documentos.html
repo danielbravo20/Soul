@@ -1,0 +1,72 @@
+<div>
+	 <div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-align-justify"></i> Documentos</div>
+	 <div style="overflow: auto;">
+		 <table class="table table-striped table-hover" style="min-width: 650px">
+			<thead>
+			  <tr>
+				<th width="40%">Documento</th>
+				<th width="15%">Nombre</th>
+				<th width="30%">Comentario</th>
+				<th width="15%">Opciones</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+				<td><span ng-show="item.isObligatorio" class="frm_requerido">(*)</span> Documento 01</td>
+				<td>
+					<span>Adjuntos.docx</span>
+				</td>
+				<td>
+					<span ng-show="item.esAdjuntado">Comentario de Adjunto</span>
+				</td>
+				<td>
+					<a class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-save"></i> Descargar</a>
+				</td>
+			  </tr>
+			  <tr>
+				<td><span ng-show="item.isObligatorio" class="frm_requerido">(*)</span> Documento 02</td>
+				<td>
+					<span>Adjuntos v2.docx</span>
+				</td>
+				<td>
+					<span ng-show="item.esAdjuntado"></span>
+				</td>
+				<td>
+					<a class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-save"></i> Descargar</a>
+				</td>
+			  </tr>
+			</tbody>
+		 </table>
+	  </div>
+</div>
+<div>
+	<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-align-justify"></i> Documentos Adicionales</div>
+	  <table class="table table-striped table-hover">
+		<thead>
+		  <tr>
+			<th width="15%">Documento</th>
+			<th width="40%">Nombre</th>
+			<th width="30%">Comentario</th>
+			<th width="15%">Opciones</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+			<td>Tipo Documento A</td>
+			<td>NombreAdicional.docx</td>
+			<td>Comentario</td>
+			<td>
+				<a class="btn btn-primary btn-sm" ng-click=""><i class="glyphicon glyphicon-save"></i> Descargar</a>
+			</td>
+		  </tr>
+		  <tr>
+			<td>Tipo Documento B</td>
+			<td>NombreAdicionalB.docx</td>
+			<td></td>
+			<td>
+				<a class="btn btn-primary btn-sm" ng-click=""><i class="glyphicon glyphicon-save"></i> Descargar</a>
+			</td>
+		  </tr>
+		</tbody>
+	 </table>
+ </div>

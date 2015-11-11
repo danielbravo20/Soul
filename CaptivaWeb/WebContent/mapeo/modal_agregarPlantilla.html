@@ -1,0 +1,45 @@
+<div class="modal-header">
+	<h3 class="modal-title">Agregar Plantilla</h3>
+</div>
+<div class="modal-body">
+	<div class="panel panel-default">
+	  <table class="table table-bordered">
+		<tbody>
+		  <tr>
+			<th rowspan="2">Plantillas Disponibles :</th>
+			<td><select class="form-control input-sm" ng-model="idPlantilla" ng-options="campo.cod_seccion as campo.nombre for campo in listaPlantillas"></select></td>
+		  </tr>
+		  <tr ng-show="idPlantilla">
+			<td>
+				<a class="btn btn-danger" ng-click="vistaPrevia()"><i class="glyphicon glyphicon-eye-open"></i> Vista Previa</a>
+				<a class="btn btn-info" ng-click="eliminar()"><i class="glyphicon glyphicon-remove"></i> Eliminar</a>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td colspan="2" ng-show="subSeccionLista.length>0" class="simpleDemoB">
+				<div ng-repeat="subSeccionItem in subSeccionLista">
+					<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> {{subSeccionItem.nombre}}</div>
+					<ul dnd-list="subSeccionItem.atributo.lista">
+					    <li ng-repeat="atributoItem in subSeccionItem.atributo.lista"
+					        class="ModoVisual" ng-class="{
+					        	'ModoVisualDual': ((subSeccionItem.atributo.lista.length-1 != $index || (($index+1)%2==0 && subSeccionItem.atributo.lista.length-1 == $index))), 
+					        	'ModoVisualTotal': (($index+1)%2!=0 && subSeccionItem.atributo.lista.length-1 == $index)
+					        }"
+					    >
+							<div class="frm_celda frm_cel_1a">
+								<div class="frm_etiqueta">{{atributoItem.web_etiqueta}} :</div>
+								<div class="frm_campo">{{atributoItem.web_modelo}}</div>
+							</div>
+					    </li>
+					</ul>
+				</div>
+		  	</td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+</div>
+<div class="modal-footer">
+	<a class="btn btn-danger" ng-click="Agregar()"><i class="glyphicon glyphicon-file"></i> Agregar</a>
+	<a class="btn btn-info" ng-click="Cancelar()"><i class="glyphicon glyphicon-remove-circle"></i> Cancelar</a>
+</div>

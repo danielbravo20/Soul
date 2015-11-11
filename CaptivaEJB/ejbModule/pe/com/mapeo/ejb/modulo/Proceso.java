@@ -49,7 +49,7 @@ public class Proceso extends GestionBase implements ProcesoLocal {
 	public Object registrarInicio(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		pe.com.mapeo.dao.Tabla 	proceso_insuse = jpo.tabla("proceso_inicio_sub_seccion","PIS");
 		proceso_insuse.eliminar();
-		pe.com.mapeo.dao.Tabla 	proceso_inicio = jpo.tabla("proceso_iniciob","PIN");
+		pe.com.mapeo.dao.Tabla 	proceso_inicio = jpo.tabla("proceso_inicio","PIN");
 		proceso_inicio.eliminar();
 		
 		proceso_inicio.registrarMultiple();
@@ -61,7 +61,7 @@ public class Proceso extends GestionBase implements ProcesoLocal {
 	public Object listarInicio(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		Map<String,Object> listados = new HashMap<String,Object>();
 			listados.put("SUB_SECCION", jpo.tabla("proceso_inicio_sub_seccion","PIS").ordenadoPor("cod_sub_seccion ASC").seleccionar("*"));
-			listados.put("INICIO", jpo.tabla("proceso_iniciob","PIN").ordenadoPor("cod_sub_seccion ASC, cod_proceso_inicio ASC").seleccionar("*"));
+			listados.put("INICIO", jpo.tabla("proceso_inicio","PIN").ordenadoPor("cod_sub_seccion ASC, cod_proceso_inicio ASC").seleccionar("*"));
 		return listados;
 	}
 	
