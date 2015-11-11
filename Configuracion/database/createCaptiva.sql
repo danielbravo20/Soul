@@ -20,12 +20,7 @@ CREATE TABLE soul.atributo(
  tipo Character varying(255) NOT NULL,
  flg_lista Character(1) DEFAULT '0'::bpchar NOT NULL,
  web_nombre Character varying(120),
- web_formato Character varying(120),
- inf_nombre Character varying(120),
- inf_descripcion Character varying(255),
- inf_autor Character varying(120),
- web_men_validacion Character varying(250),
- web_for_validacion Character varying(250)
+ web_formato Character varying(120)
 )
 ;
 
@@ -90,10 +85,7 @@ ALTER TABLE soul.catalogo ADD CONSTRAINT catalogo_pk PRIMARY KEY (cod_catalogo,c
 CREATE TABLE soul.clase(
  cod_clase Integer NOT NULL,
  nombre Character varying(120) NOT NULL,
- paquete Character varying(250) NOT NULL,
  cod_proyecto Integer NOT NULL,
- inf_autor Character varying(120),
- inf_descripcion Character varying(255),
  nivel Integer,
  cod_tabla Integer NULL
 )
@@ -257,7 +249,6 @@ CREATE TABLE soul.proceso(
  cod_proceso Integer NOT NULL,
  cod_proyecto Integer NOT NULL,
  nombre Character varying(120) NOT NULL,
- jav_paquete Character varying(255) NOT NULL,
  jav_clase Character varying(120) NOT NULL,
  jav_datasource Character varying(120) NOT NULL,
  cod_con_resumen Integer NOT NULL,
@@ -401,8 +392,7 @@ CREATE TABLE soul.tabla(
  cod_tabla Integer NOT NULL,
  esquema Character varying(50) NOT NULL,
  nombre Character varying(50) NOT NULL,
- cod_proyecto Integer NOT NULL,
- orden Integer
+ cod_proyecto Integer NOT NULL
 )
 ;
 
