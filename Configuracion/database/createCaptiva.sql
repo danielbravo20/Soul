@@ -287,17 +287,7 @@ ALTER TABLE soul.proceso ADD CONSTRAINT proceso_pk PRIMARY KEY (cod_proceso)
 CREATE TABLE soul.proceso_inicio(
  cod_proceso Integer NOT NULL,
  cod_atributo Integer NOT NULL,
- bpm_flg_entrada Character(1) DEFAULT '0'::bpchar NOT NULL,
- bpm_obj_referencia Character varying(60),
- bpm_flg_piid Character(1) DEFAULT '0'::bpchar NOT NULL,
- web_flg_referencia Character(1) DEFAULT '0'::bpchar NOT NULL,
- web_flg_validacion Character(1) DEFAULT '0'::bpchar NOT NULL,
- web_men_validacion Character varying(255),
- web_val_omision Character varying(255),
- web_requerido Character(1) DEFAULT '0'::bpchar NOT NULL,
- web_nom_cat_combo Character varying(255),
- sql_flg_autogenerado Character(1) DEFAULT '0'::bpchar NOT NULL,
- sql_nom_secuencial Character varying(255)
+ val_omision Character varying(255)
 )
 ;
 
