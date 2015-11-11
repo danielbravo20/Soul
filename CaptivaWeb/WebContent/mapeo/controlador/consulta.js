@@ -11,8 +11,8 @@
 	$scope.instanciar = function(listar){
 		$scope.vista = "lista";
 		$scope.cargado = { paquete : "modulo", clase : "Consulta"};
-		$scope.cargado.CON_W_COD_PROYECTO = $scope.data.PROYECTO.COD_PROYECTO;
-		$scope.cargado.CON_COD_PROYECTO = $scope.data.PROYECTO.COD_PROYECTO;
+		$scope.cargado.CON_W_cod_proyecto = $scope.data.PROYECTO.cod_proyecto;
+		$scope.cargado.CON_cod_proyecto = $scope.data.PROYECTO.cod_proyecto;
 		$scope.esEdicion = false;
 		
 		$scope.consultaTablas = [];
@@ -41,12 +41,12 @@
 		$scope.vista = "mantener";
 	};
 	
-	$scope.eliminar = function(COD_CONSULTA){
+	$scope.eliminar = function(cod_consulta){
 		if(confirm("Desea eliminar el elemento seleccionado?")){
 			$scope.cargado.metodo = "eliminar";
-			$scope.cargado.CAT_W_COD_CONSULTA = COD_CONSULTA;		// WHERE-------
-			$scope.cargado.CTA_W_COD_CONSULTA = COD_CONSULTA;		// WHERE-------
-			$scope.cargado.CON_W_COD_CONSULTA = COD_CONSULTA;		// WHERE-------
+			$scope.cargado.CAT_W_cod_consulta = cod_consulta;		// WHERE-------
+			$scope.cargado.CTA_W_cod_consulta = cod_consulta;		// WHERE-------
+			$scope.cargado.CON_W_cod_consulta = cod_consulta;		// WHERE-------
 			ajax.jpo($scope.cargado,function(respuesta){
 				$scope.agregarAlerta("success","Eliminado corréctamente");
 				$scope.instanciar(true);
@@ -54,18 +54,18 @@
 		}
 	};
 	
-	$scope.editarCargar = function(COD_CONSULTA){
+	$scope.editarCargar = function(cod_consulta){
 		$scope.vista = "mantener";
 		$scope.esEdicion = true;
 		$scope.cargado.metodo = "editarCargar";
-		$scope.cargado.CON_W_COD_CONSULTA = COD_CONSULTA;			// WHERE-------
-		$scope.cargado.CTA_W_COD_CONSULTA = COD_CONSULTA;			// WHERE-------
-		$scope.cargado.CAT_W_COD_CONSULTA = COD_CONSULTA;			// WHERE-------
+		$scope.cargado.CON_W_cod_consulta = cod_consulta;			// WHERE-------
+		$scope.cargado.CTA_W_cod_consulta = cod_consulta;			// WHERE-------
+		$scope.cargado.CAT_W_cod_consulta = cod_consulta;			// WHERE-------
 		ajax.jpo($scope.cargado,function(respuesta){
 			util.jpoCargar($scope.cargado,respuesta.CONSULTA,"CON");
 			$scope.consultaTablas = respuesta.CONSULTA_TABLA;
 			for(var i in respuesta.CONSULTA_TABLA){
-				if(respuesta.CONSULTA_TABLA[i].FK=="0"){
+				if(respuesta.CONSULTA_TABLA[i].fk=="0"){
 					$scope.consultaTablaEsFK = i;
 				}
 			}
@@ -86,7 +86,7 @@
 		}
 		var tablasRepeditas = {};
 		for(var i in $scope.consultaTablas){
-			var codTabla = $scope.consultaTablas[i].COD_TABLA;
+			var codTabla = $scope.consultaTablas[i].cod_tabla;
 			if(tablasRepeditas[codTabla]){
 				$scope.agregarAlerta("danger","No debes registrar tablas repetidas, fila Nro "+(Number(i)+1));
 				return false;
@@ -100,25 +100,25 @@
 	var cargarEnvio = function(){
 		var cont = 1;
 		var tablaPK = $scope.consultaTablas[Number($scope.consultaTablaEsFK)];
-		$scope.cargado["CTA_W_COD_CONSULTA"] = $scope.cargado.CON_COD_CONSULTA;
+		$scope.cargado["CTA_W_cod_consulta"] = $scope.cargado.CON_cod_consulta;
 		for(var i = 0; i< $scope.consultaTablas.length; i++){
 			var tabla = $scope.consultaTablas[i];
-			$scope.cargado["CTA_M_"+cont+"_COD_CONSULTA"] = $scope.cargado.CON_COD_CONSULTA;
-			$scope.cargado["CTA_M_"+cont+"_COD_TABLA"] = tabla.COD_TABLA;
+			$scope.cargado["CTA_M_"+cont+"_cod_consulta"] = $scope.cargado.CON_cod_consulta;
+			$scope.cargado["CTA_M_"+cont+"_cod_tabla"] = tabla.cod_tabla;
 			$scope.cargado["CTA_M_"+cont+"_FK"] = (Number($scope.consultaTablaEsFK)==i)?"0":"1";
 			$scope.cargado["CTA_M_"+cont+"_FLG_UNO_MUCHOS"] = (tabla.FLG_UNO_MUCHOS)?tabla.FLG_UNO_MUCHOS:"0";
-			$scope.cargado["CTA_M_"+cont+"_COD_TAB_PADRE"] = tablaPK.COD_TABLA;
+			$scope.cargado["CTA_M_"+cont+"_COD_TAB_PADRE"] = tablaPK.cod_tabla;
 			cont++;
 		}
 		cont = 1;
-		$scope.cargado["CAT_W_COD_CONSULTA"] = $scope.cargado.CON_COD_CONSULTA;
+		$scope.cargado["CAT_W_cod_consulta"] = $scope.cargado.CON_cod_consulta;
 		for(var i = 0; i< $scope.consultaAtributos.length; i++){
 			var atributo = $scope.consultaAtributos[i];
-			$scope.cargado["CAT_M_"+cont+"_COD_CONSULTA"] = $scope.cargado.CON_COD_CONSULTA;
-			$scope.cargado["CAT_M_"+cont+"_COD_TABLA"] = atributo.COD_TABLA;
-			$scope.cargado["CAT_M_"+cont+"_COD_ATRIBUTO"] = atributo.COD_ATRIBUTO;
-			$scope.cargado["CAT_M_"+cont+"_FLG_CONDICION"] = (atributo.FLG_CONDICION)?atributo.FLG_CONDICION:"0";
-			$scope.cargado["CAT_M_"+cont+"_FLG_VISIBLE"] = "1";
+			$scope.cargado["CAT_M_"+cont+"_cod_consulta"] = $scope.cargado.CON_cod_consulta;
+			$scope.cargado["CAT_M_"+cont+"_cod_tabla"] = atributo.cod_tabla;
+			$scope.cargado["CAT_M_"+cont+"_cod_atributo"] = atributo.cod_atributo;
+			$scope.cargado["CAT_M_"+cont+"_flg_condicion"] = (atributo.flg_condicion)?atributo.flg_condicion:"0";
+			$scope.cargado["CAT_M_"+cont+"_flg_visible"] = "1";
 			cont++;
 		}
 	};
@@ -130,7 +130,7 @@
 			cargarEnvio();
 			if($scope.esEdicion){
 				$scope.cargado.metodo = "editar";
-				$scope.cargado.CON_W_COD_CONSULTA = $scope.cargado.CON_COD_CONSULTA;			// WHERE-------
+				$scope.cargado.CON_W_cod_consulta = $scope.cargado.CON_cod_consulta;			// WHERE-------
 				ajax.jpo($scope.cargado,function(respuesta){
 					$scope.agregarAlerta("success","Editado corréctamente");
 					$scope.instanciar(true);
@@ -145,9 +145,9 @@
 		}
 	};
 	
-	$scope.gestionarAtributos = function(COD_CONSULTA){
+	$scope.gestionarAtributos = function(cod_consulta){
 		$scope.vista = "atributos";
-		$scope.getControladorScope("atributo").instanciar(true,util.getObjeto($scope.data.CONSULTA,{COD_CONSULTA : COD_CONSULTA}));
+		$scope.getControladorScope("atributo").instanciar(true,util.getObjeto($scope.data.CONSULTA,{cod_consulta : cod_consulta}));
 	};
 	
 	// TABLAS Y ATRIBUTOS 
@@ -162,11 +162,11 @@
 	
 	$scope.cargarSeleccionadas = function(){
 		$scope.tablasSeleccionadas = [];
-		var repetidas = [];
+		var repetidas = {};
 		for(var i in $scope.consultaTablas){
-			if($scope.consultaTablas[i].COD_TABLA && !repetidas[$scope.consultaTablas[i].COD_TABLA]){
-				$scope.tablasSeleccionadas.push(util.getObjeto($scope.data.TABLA,{COD_TABLA : $scope.consultaTablas[i].COD_TABLA}));
-				repetidas.push($scope.consultaTablas[i].COD_TABLA);
+			if($scope.consultaTablas[i].cod_tabla && !repetidas[$scope.consultaTablas[i].cod_tabla]){
+				$scope.tablasSeleccionadas.push(util.getObjeto($scope.data.TABLA,{cod_tabla : $scope.consultaTablas[i].cod_tabla}));
+				repetidas[$scope.consultaTablas[i].cod_tabla] = true;
 			}
 		}
 	};
@@ -176,7 +176,7 @@
 			iterativo = false;
 		}
 		if($scope.consultaAtributos[index]){
-			var codTabla = $scope.consultaAtributos[index].COD_TABLA;
+			var codTabla = $scope.consultaAtributos[index].cod_tabla;
 			if(!$scope.listaAtributos[codTabla]){
 				ajax.jpo({
 					paquete : "modulo", 

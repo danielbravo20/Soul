@@ -88,7 +88,7 @@
 						ng-model="cargado.PRO_cod_con_resumen"
 						ng-options="obj.cod_consulta as obj.nombre for obj in data.CONSULTA | orderBy: 'nombre'"
 						name="PRO_cod_con_resumen" required></select>
-					<button class="btn btn-info btn-sm" ng-click="cargarModulo('proyectocargado','consulta',cargado.PRO_COD_CON_RESUMEN)" tooltip="Editar"><i class="glyphicon glyphicon-edit"></i></button>
+					<button class="btn btn-info btn-sm" ng-click="cargarConsulta('resumen')" tooltip="Editar"><i class="glyphicon glyphicon-edit"></i></button>
 				</td>
 			  </tr>
 			  <tr>
@@ -98,7 +98,7 @@
 						ng-model="cargado.PRO_cod_con_detalle"
 						ng-options="obj.cod_consulta as obj.nombre for obj in data.CONSULTA | orderBy: 'nombre'"
 						name="PRO_cod_con_detalle" required></select>
-					<button class="btn btn-info btn-sm" ng-click="cargarModulo('proyectocargado','consulta',cargado.PRO_COD_CON_DETALLE)" tooltip="Editar"><i class="glyphicon glyphicon-edit"></i></button>
+					<button class="btn btn-info btn-sm" ng-click="cargarModulo('detalle')" tooltip="Editar"><i class="glyphicon glyphicon-edit"></i></button>
 				</td>
 			  </tr>
 			  <tr>
@@ -116,6 +116,5 @@
 		  </form>
 		</div>
 	</div>
-	<div ng-include="'procesogestionarinicio.html'" ng-show="vista === 'gestionarinicio'"></div>
-	<div ng-include="'procesogestionardetalle.html'" ng-show="vista === 'gestionardetalle'"></div>
+	<div ng-include="urlGestionar" ng-show="vista === 'gestionaraccion'"></div>
 </div>

@@ -47,7 +47,7 @@ public class Proceso extends GestionBase implements ProcesoLocal {
 	}
 	
 	public Object registrarInicio(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		pe.com.mapeo.dao.Tabla 	proceso_insuse = jpo.tabla("proceso_inicio_sub_seccion","PIS").ordenadoPor("");
+		pe.com.mapeo.dao.Tabla 	proceso_insuse = jpo.tabla("proceso_inicio_sub_seccion","PIS");
 		proceso_insuse.eliminar();
 		pe.com.mapeo.dao.Tabla 	proceso_inicio = jpo.tabla("proceso_iniciob","PIN");
 		proceso_inicio.eliminar();
@@ -62,6 +62,39 @@ public class Proceso extends GestionBase implements ProcesoLocal {
 		Map<String,Object> listados = new HashMap<String,Object>();
 			listados.put("SUB_SECCION", jpo.tabla("proceso_inicio_sub_seccion","PIS").ordenadoPor("cod_sub_seccion ASC").seleccionar("*"));
 			listados.put("INICIO", jpo.tabla("proceso_iniciob","PIN").ordenadoPor("cod_sub_seccion ASC, cod_proceso_inicio ASC").seleccionar("*"));
+		return listados;
+	}
+	
+	public Object registrarDetalle(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		jpo.tabla("proceso","PRO").editar();
+		
+		pe.com.mapeo.dao.Tabla 	prodesec = jpo.tabla("proceso_detalle_seccion","PDS");
+		prodesec.eliminar();
+		pe.com.mapeo.dao.Tabla 	prodesub = jpo.tabla("proceso_detalle_sub_seccion","PDB");
+		prodesub.eliminar();
+		pe.com.mapeo.dao.Tabla 	prodetal = jpo.tabla("proceso_detalle","PDA");
+		prodetal.eliminar();
+		
+		prodesec.registrarMultiple();
+		prodesub.registrarMultiple();
+		prodetal.registrarMultiple();
+		jpo.commitear();
+		return true;
+	}
+	
+	public Object eliminarDetalle(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		jpo.tabla("proceso_detalle_seccion","PDS").eliminar();
+		jpo.tabla("proceso_detalle_sub_seccion","PDB").eliminar();
+		jpo.tabla("proceso_detalle","PDA").eliminar();
+		jpo.commitear();
+		return true;
+	}
+	
+	public Object listarDetalle(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		Map<String,Object> listados = new HashMap<String,Object>();
+			listados.put("SECCION", jpo.tabla("proceso_detalle_seccion","PDS").ordenadoPor("cod_seccion ASC").seleccionar("*"));
+			listados.put("SUB_SECCION", jpo.tabla("proceso_detalle_sub_seccion","PDB").ordenadoPor("cod_sub_seccion ASC").seleccionar("*"));
+			listados.put("DETALLE", jpo.tabla("proceso_detalle","PDA").ordenadoPor("cod_seccion ASC,cod_sub_seccion ASC, cod_proceso_detalle ASC").seleccionar("*"));
 		return listados;
 	}
 

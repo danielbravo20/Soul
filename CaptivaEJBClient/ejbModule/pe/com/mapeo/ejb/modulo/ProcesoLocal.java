@@ -21,4 +21,10 @@ public interface ProcesoLocal extends GestionLocal {
 	
 	Object listarInicio(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
+	public Object registrarDetalle(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
+	public Object eliminarDetalle(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
+	public Object listarDetalle(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
 }

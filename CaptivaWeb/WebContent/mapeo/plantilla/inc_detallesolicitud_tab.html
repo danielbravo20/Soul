@@ -1,6 +1,6 @@
 <tabset>
-	<tab ng-repeat="seccionItem in seccion.lista" active="seccionItem.activo" select="asignarTab($index)">
-		<tab-heading ng-class="{'frm_plantillaFondo': seccionItem.plantilla == '1' && config.esEdicion==true}">
+	<tab ng-repeat="seccionItem in seccion.lista" active="seccionItem.activo" select="seccion.actual = $index + 1">
+		<tab-heading ng-class="{'frm_plantillaFondo': seccionItem.plantilla == '1' && config.esEdicion==true,'frm_widgetFondo': seccionItem.tipo=='W' && config.esEdicion==true}">
 			<i class="glyphicon" ng-class="{true:'glyphicon-folder-open', false:'glyphicon-folder-close'}[seccionItem.activo]"></i>&nbsp; {{seccionItem.nombre}}
 			<span style="color:red" ng-show="seccionItem.alertas>0">&nbsp;&nbsp;&nbsp;&nbsp; {{seccionItem.alertas}} <i class="glyphicon glyphicon-bell"></i></span>
 			<i class="glyphicon glyphicon-edit seccionEditar" 
@@ -12,8 +12,10 @@
 				ng-show="config.esEdicion"></i>
 			&nbsp;
 			<i ng-show="seccionItem.plantilla == '1' && config.esEdicion==true" title="Plantilla" style="color: #C18730;" class="glyphicon glyphicon-file"></i>
+			<i ng-show="seccionItem.tipo=='W' && config.esEdicion==true" title="Widget" style="color: #00D28C;" class="glyphicon glyphicon-cloud"></i>
 		</tab-heading>
-		<div ng-include="'tareagestionar_detalle_subseccion.html'" ng-class="{'frm_plantillaFondo': seccionItem.plantilla == '1' && config.esEdicion==true}"></div>
+		<div ng-hide="seccionItem.tipo=='W'" ng-include="'procesogestionardetalle_subseccion.html'" ng-class="{'frm_plantillaFondo': seccionItem.plantilla == '1' && config.esEdicion==true}"></div>
+		<div ng-show="seccionItem.tipo=='W'" ng-include="seccionItem.tipo_widget_url" ng-class="{'frm_widgetFondo': config.esEdicion==true}"></div>
 	</tab>
 	<tab ng-click="seccion.agregar()" ng-show="config.esEdicion">
 		<tab-heading title="Agregar Nueva Sección"><i class="glyphicon glyphicon-plus"></i></tab-heading>
