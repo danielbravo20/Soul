@@ -11,6 +11,7 @@
 	
 	$scope.instanciar = function(listar){
 		$scope.vista = "lista";
+		$scope.urlGestionar = "";
 		$scope.cargado = { paquete : "modulo", clase : "Proceso"};
 		$scope.cargado.PRO_W_cod_proyecto = $scope.data.PROYECTO.cod_proyecto;
 		$scope.cargado.PRO_cod_proyecto = $scope.data.PROYECTO.cod_proyecto;
@@ -79,14 +80,14 @@
 	
 	$scope.gestionarInicio = function(cod_proceso){
 		$scope.data.PROCESO_CARGADO = util.getObjeto($scope.data.PROCESO,{cod_proceso : cod_proceso});
-		$scope.vista = "gestionarinicio";
-		$scope.getControladorScope("procesogestionarinicio").instanciar();
+		$scope.vista = "gestionaraccion";
+		$scope.urlGestionar = "procesogestionarinicio.html";
 	};
 	
 	$scope.gestionarDetalle = function(cod_proceso){
 		$scope.data.PROCESO_CARGADO = util.getObjeto($scope.data.PROCESO,{cod_proceso : cod_proceso});
-		$scope.vista = "gestionardetalle";
-		$scope.getControladorScope("procesogestionardetalle").instanciar();
+		$scope.vista = "gestionaraccion";
+		$scope.urlGestionar = "procesogestionardetalle.html";
 	};
 	
 	
@@ -117,6 +118,11 @@
 			modal.result.then(function(){
 				$scope.instanciar();
 			});
+	};
+	
+	$scope.cargarConsulta = function(tipo){
+		$scope.cargarTab("consulta",false);
+		$scope.getControladorScope("consulta").editarCargar((tipo=="resumen")?$scope.cargado.PRO_COD_CON_RESUMEN:$scope.cargado.PRO_COD_CON_DETALLE);
 	};
 
 });

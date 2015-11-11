@@ -380,5 +380,7 @@
 			});
 		}
 	};
+	
+	$scope.instanciar();
 
 });

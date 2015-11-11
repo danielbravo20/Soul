@@ -33,6 +33,12 @@
 				nombre : "PROCESO",
 				activo : false,
 				url : 'proceso.html'
+			},
+			{
+				id : "consulta",
+				nombre : "CONSULTA",
+				activo : false,
+				url : 'consulta.html'
 			}/*,
 			{
 				id : "tarea",
@@ -77,7 +83,7 @@
 		$scope.cerrarTrabajarProyecto();
 	};
 	
-	$scope.cargarTab = function(tipo){
+	$scope.cargarTab = function(tipo,tipoCargado){
 		if(typeof(tipo)=="string"){
 			for(var i = 0;i< $scope.tabs.lista.length;i++){
 				if($scope.tabs.lista[i].id==tipo){
@@ -86,6 +92,12 @@
 			}
 		} else if(typeof(tipo)=="number"){
 			$scope.tabs.lista[tipo].activo = true;
+		}
+		if(typeof(tipoCargado)=="undefined"){
+			tipoCargado = true;
+		}
+		if(tipoCargado){
+			$scope.$apply();
 		}
 	};
 	

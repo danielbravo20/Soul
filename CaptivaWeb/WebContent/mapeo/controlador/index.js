@@ -29,8 +29,11 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 			}
 		};
 		
-		$scope.cargarModulo = function(modulo){
+		$scope.cargarModulo = function(modulo,functionEjec){
 			$scope.modulo = modulo;
+			if(functionEjec){
+				functionEjec();
+			}
 		};
 		
 		$scope.getPerfil = function(perfil){
