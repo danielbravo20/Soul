@@ -7,7 +7,7 @@
 		"String" : "S",
 		"boolean" : "b",
 		"java.math.BigDecimal" : "B",
-		"java.sql.Date" : "D",
+		"java.util.Date" : "D",
 		"java.sql.Timestamp" : "T"
 	};
 	
@@ -125,6 +125,7 @@
 	
 	var listar = function(){
 		$scope.subSeccion.lista = [];
+		$scope.interno.lista = [];
 		$scope.cargado.metodo = "listarInicio";
 		ajax.jpo($scope.cargado,function(respuesta){
 			if(respuesta.SUB_SECCION && respuesta.SUB_SECCION.length>0){
@@ -141,28 +142,36 @@
 					for(var i = 0;i< respuesta.INICIO.length;i++){
 						
 						var atributoItem = respuesta.INICIO[i];
-
-						if($scope.subSeccion.lista[atributoItem.cod_sub_seccion-1]){
+						
+						if(atributoItem.cod_sub_seccion && atributoItem.cod_proceso_inicio){
+							if($scope.subSeccion.lista[atributoItem.cod_sub_seccion-1]){
+								
+								var objAtributo = $scope.atributo.lista[$scope.atributo.listaId[atributoItem.cod_atributo]];
 							
+								$scope.subSeccion.lista[atributoItem.cod_sub_seccion-1].atributo.lista.push({
+									cod_atributo : atributoItem.cod_atributo,
+									web_etiqueta : atributoItem.web_etiqueta,
+									web_tipo : atributoItem.web_tipo,
+									web_tipo_campo : atributoItem.web_tipo_campo,
+									web_tipo_lista : atributoItem.web_tipo_lista,
+									web_catalogo : atributoItem.web_catalogo,
+									web_requerido : atributoItem.web_requerido,
+									web_mensaje_validacion : atributoItem.web_mensaje_validacion,
+									// Adicionales
+									cla_nombre : objAtributo.cla_nombre,
+									atr_nombre : objAtributo.nombre,
+									sql_longitud : objAtributo.sql_longitud,
+									sql_precision : objAtributo.sql_precision
+								});
+							}
+						} else {
 							var objAtributo = $scope.atributo.lista[$scope.atributo.listaId[atributoItem.cod_atributo]];
-						
-							$scope.subSeccion.lista[atributoItem.cod_sub_seccion-1].atributo.lista.push({
+							$scope.interno.lista.push({
 								cod_atributo : atributoItem.cod_atributo,
-								web_etiqueta : atributoItem.web_etiqueta,
-								web_tipo : atributoItem.web_tipo,
-								web_tipo_campo : atributoItem.web_tipo_campo,
-								web_tipo_lista : atributoItem.web_tipo_lista,
-								web_catalogo : atributoItem.web_catalogo,
-								web_requerido : atributoItem.web_requerido,
-								web_mensaje_validacion : atributoItem.web_mensaje_validacion,
-								// Adicionales
 								cla_nombre : objAtributo.cla_nombre,
-								atr_nombre : objAtributo.nombre,
-								sql_longitud : objAtributo.sql_longitud,
-								sql_precision : objAtributo.sql_precision
-							});
+								atr_nombre : objAtributo.nombre
+							})
 						}
-						
 					}
 					
 				}
@@ -221,7 +230,7 @@
 					// a registrar
 					cod_atributo : item.cod_atributo,
 					web_tipo : item.tipo,
-					web_etiqueta : item.inf_nombre,
+					web_etiqueta : item.nombre,
 					// apoyo
 					cla_nombre : item.cla_nombre,
 					atr_nombre : item.nombre,
@@ -281,6 +290,7 @@
 		lista : [],
 		agregar : function(){
 			$scope.interno.lista.push({
+				cod_atributo : $scope.interno.nuevoAtributo.cod_atributo,
 				cla_nombre : $scope.interno.nuevoAtributo.cla_nombre,
 				atr_nombre : $scope.interno.nuevoAtributo.nombre
 			});
@@ -366,6 +376,18 @@
 			$scope.cargado["PIS_M_"+(i+1)+"_cod_sub_seccion"] = (i+1);
 			$scope.cargado["PIS_M_"+(i+1)+"_nombre"] = subSeccionItem.nombre;
 
+		}
+		
+		for(var i = 0; i < $scope.interno.lista.length ; i++){
+			
+			var internoItem = $scope.interno.lista[i];
+			
+			$scope.cargado["PIN_M_"+(contaAtri)+"_cod_proceso"] = $scope.data.PROCESO_CARGADO.cod_proceso;
+			$scope.cargado["PIN_M_"+(contaAtri)+"_cod_atributo"] = internoItem.cod_atributo;
+			$scope.cargado["PIN_M_"+(contaAtri)+"_val_omision"] = internoItem.val_omision;
+			
+			contaAtri++;
+			
 		}
 		
 		return true;
