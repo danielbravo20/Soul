@@ -10,7 +10,7 @@ public class AtributoProceso extends AtributoBean{
 	private boolean webFlgReferencia;
 	private boolean webFlgValidacion;
 	private String webMensajeValidacion;
-	private String webValorOmision;
+	private String valorOmision;
 	private boolean webFlgRequerido;
 	private String webNombreCatalogoCombo;
 	private boolean sqlFlgAutogenerado;
@@ -68,12 +68,6 @@ public class AtributoProceso extends AtributoBean{
 	}
 	public void setWebMensajeValidacion(String webMensajeValidacion) {
 		this.webMensajeValidacion = webMensajeValidacion;
-	}
-	public String getWebValorOmision() {
-		return webValorOmision;
-	}
-	public void setWebValorOmision(String webValorOmision) {
-		this.webValorOmision = webValorOmision;
 	}
 	public boolean isWebFlgRequerido() {
 		return webFlgRequerido;
@@ -133,7 +127,7 @@ public class AtributoProceso extends AtributoBean{
 	}
 	
 	public boolean isJavaTieneValorOmision(){
-		if(this.webValorOmision!=null && this.webValorOmision.length()>0){
+		if(this.valorOmision!=null && this.valorOmision.length()>0){
 			return true;
 		}
 		return false;
@@ -150,6 +144,12 @@ public class AtributoProceso extends AtributoBean{
 	}
 	public void setClase(ClaseBean clase) {
 		this.clase = clase;
+	}
+	public String getValorOmision() {
+		return valorOmision;
+	}
+	public void setValorOmision(String valorOmision) {
+		this.valorOmision = valorOmision;
 	}
 	
 }

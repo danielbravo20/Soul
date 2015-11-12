@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
+// Generated 11/11/2015 09:33:32 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -22,62 +22,52 @@ public class ProcesoInicio implements java.io.Serializable {
 	private ProcesoInicioId id;
 	private Atributo atributo;
 	private Proceso proceso;
-	private char bpmFlgEntrada;
-	private String bpmObjReferencia;
-	private char bpmFlgPiid;
-	private char webFlgReferencia;
-	private char webFlgValidacion;
-	private String webMenValidacion;
-	private String webValOmision;
+	private String webEtiqueta;
+	private String webTipo;
+	private char webTipoCampo;
+	private Character webTipoLista;
+	private String webCatalogo;
 	private char webRequerido;
-	private String webNomCatCombo;
-	private char sqlFlgAutogenerado;
-	private String sqlNomSecuencial;
+	private String webMensajeValidacion;
+	private String valOmision;
 
 	public ProcesoInicio() {
 	}
 
 	public ProcesoInicio(ProcesoInicioId id, Atributo atributo,
-			Proceso proceso, char bpmFlgEntrada, char bpmFlgPiid,
-			char webFlgReferencia, char webFlgValidacion, char webRequerido,
-			char sqlFlgAutogenerado) {
+			Proceso proceso, String webEtiqueta, String webTipo,
+			char webTipoCampo, char webRequerido) {
 		this.id = id;
 		this.atributo = atributo;
 		this.proceso = proceso;
-		this.bpmFlgEntrada = bpmFlgEntrada;
-		this.bpmFlgPiid = bpmFlgPiid;
-		this.webFlgReferencia = webFlgReferencia;
-		this.webFlgValidacion = webFlgValidacion;
+		this.webEtiqueta = webEtiqueta;
+		this.webTipo = webTipo;
+		this.webTipoCampo = webTipoCampo;
 		this.webRequerido = webRequerido;
-		this.sqlFlgAutogenerado = sqlFlgAutogenerado;
 	}
 
 	public ProcesoInicio(ProcesoInicioId id, Atributo atributo,
-			Proceso proceso, char bpmFlgEntrada, String bpmObjReferencia,
-			char bpmFlgPiid, char webFlgReferencia, char webFlgValidacion,
-			String webMenValidacion, String webValOmision, char webRequerido,
-			String webNomCatCombo, char sqlFlgAutogenerado,
-			String sqlNomSecuencial) {
+			Proceso proceso, String webEtiqueta, String webTipo,
+			char webTipoCampo, Character webTipoLista, String webCatalogo,
+			char webRequerido, String webMensajeValidacion, String valOmision) {
 		this.id = id;
 		this.atributo = atributo;
 		this.proceso = proceso;
-		this.bpmFlgEntrada = bpmFlgEntrada;
-		this.bpmObjReferencia = bpmObjReferencia;
-		this.bpmFlgPiid = bpmFlgPiid;
-		this.webFlgReferencia = webFlgReferencia;
-		this.webFlgValidacion = webFlgValidacion;
-		this.webMenValidacion = webMenValidacion;
-		this.webValOmision = webValOmision;
+		this.webEtiqueta = webEtiqueta;
+		this.webTipo = webTipo;
+		this.webTipoCampo = webTipoCampo;
+		this.webTipoLista = webTipoLista;
+		this.webCatalogo = webCatalogo;
 		this.webRequerido = webRequerido;
-		this.webNomCatCombo = webNomCatCombo;
-		this.sqlFlgAutogenerado = sqlFlgAutogenerado;
-		this.sqlNomSecuencial = sqlNomSecuencial;
+		this.webMensajeValidacion = webMensajeValidacion;
+		this.valOmision = valOmision;
 	}
 
 	@EmbeddedId
 	@AttributeOverrides({
 			@AttributeOverride(name = "codProceso", column = @Column(name = "cod_proceso", nullable = false)),
-			@AttributeOverride(name = "codAtributo", column = @Column(name = "cod_atributo", nullable = false)) })
+			@AttributeOverride(name = "codSubSeccion", column = @Column(name = "cod_sub_seccion", nullable = false)),
+			@AttributeOverride(name = "codProcesoInicio", column = @Column(name = "cod_proceso_inicio", nullable = false)) })
 	public ProcesoInicioId getId() {
 		return this.id;
 	}
@@ -87,7 +77,7 @@ public class ProcesoInicio implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cod_atributo", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "cod_atributo", nullable = false)
 	public Atributo getAtributo() {
 		return this.atributo;
 	}
@@ -106,67 +96,49 @@ public class ProcesoInicio implements java.io.Serializable {
 		this.proceso = proceso;
 	}
 
-	@Column(name = "bpm_flg_entrada", nullable = false, length = 1)
-	public char getBpmFlgEntrada() {
-		return this.bpmFlgEntrada;
+	@Column(name = "web_etiqueta", nullable = false)
+	public String getWebEtiqueta() {
+		return this.webEtiqueta;
 	}
 
-	public void setBpmFlgEntrada(char bpmFlgEntrada) {
-		this.bpmFlgEntrada = bpmFlgEntrada;
+	public void setWebEtiqueta(String webEtiqueta) {
+		this.webEtiqueta = webEtiqueta;
 	}
 
-	@Column(name = "bpm_obj_referencia", length = 60)
-	public String getBpmObjReferencia() {
-		return this.bpmObjReferencia;
+	@Column(name = "web_tipo", nullable = false, length = 60)
+	public String getWebTipo() {
+		return this.webTipo;
 	}
 
-	public void setBpmObjReferencia(String bpmObjReferencia) {
-		this.bpmObjReferencia = bpmObjReferencia;
+	public void setWebTipo(String webTipo) {
+		this.webTipo = webTipo;
 	}
 
-	@Column(name = "bpm_flg_piid", nullable = false, length = 1)
-	public char getBpmFlgPiid() {
-		return this.bpmFlgPiid;
+	@Column(name = "web_tipo_campo", nullable = false, length = 1)
+	public char getWebTipoCampo() {
+		return this.webTipoCampo;
 	}
 
-	public void setBpmFlgPiid(char bpmFlgPiid) {
-		this.bpmFlgPiid = bpmFlgPiid;
+	public void setWebTipoCampo(char webTipoCampo) {
+		this.webTipoCampo = webTipoCampo;
 	}
 
-	@Column(name = "web_flg_referencia", nullable = false, length = 1)
-	public char getWebFlgReferencia() {
-		return this.webFlgReferencia;
+	@Column(name = "web_tipo_lista", length = 1)
+	public Character getWebTipoLista() {
+		return this.webTipoLista;
 	}
 
-	public void setWebFlgReferencia(char webFlgReferencia) {
-		this.webFlgReferencia = webFlgReferencia;
+	public void setWebTipoLista(Character webTipoLista) {
+		this.webTipoLista = webTipoLista;
 	}
 
-	@Column(name = "web_flg_validacion", nullable = false, length = 1)
-	public char getWebFlgValidacion() {
-		return this.webFlgValidacion;
+	@Column(name = "web_catalogo", length = 60)
+	public String getWebCatalogo() {
+		return this.webCatalogo;
 	}
 
-	public void setWebFlgValidacion(char webFlgValidacion) {
-		this.webFlgValidacion = webFlgValidacion;
-	}
-
-	@Column(name = "web_men_validacion")
-	public String getWebMenValidacion() {
-		return this.webMenValidacion;
-	}
-
-	public void setWebMenValidacion(String webMenValidacion) {
-		this.webMenValidacion = webMenValidacion;
-	}
-
-	@Column(name = "web_val_omision")
-	public String getWebValOmision() {
-		return this.webValOmision;
-	}
-
-	public void setWebValOmision(String webValOmision) {
-		this.webValOmision = webValOmision;
+	public void setWebCatalogo(String webCatalogo) {
+		this.webCatalogo = webCatalogo;
 	}
 
 	@Column(name = "web_requerido", nullable = false, length = 1)
@@ -178,31 +150,22 @@ public class ProcesoInicio implements java.io.Serializable {
 		this.webRequerido = webRequerido;
 	}
 
-	@Column(name = "web_nom_cat_combo")
-	public String getWebNomCatCombo() {
-		return this.webNomCatCombo;
+	@Column(name = "web_mensaje_validacion")
+	public String getWebMensajeValidacion() {
+		return this.webMensajeValidacion;
 	}
 
-	public void setWebNomCatCombo(String webNomCatCombo) {
-		this.webNomCatCombo = webNomCatCombo;
+	public void setWebMensajeValidacion(String webMensajeValidacion) {
+		this.webMensajeValidacion = webMensajeValidacion;
 	}
 
-	@Column(name = "sql_flg_autogenerado", nullable = false, length = 1)
-	public char getSqlFlgAutogenerado() {
-		return this.sqlFlgAutogenerado;
+	@Column(name = "val_omision")
+	public String getValOmision() {
+		return this.valOmision;
 	}
 
-	public void setSqlFlgAutogenerado(char sqlFlgAutogenerado) {
-		this.sqlFlgAutogenerado = sqlFlgAutogenerado;
-	}
-
-	@Column(name = "sql_nom_secuencial")
-	public String getSqlNomSecuencial() {
-		return this.sqlNomSecuencial;
-	}
-
-	public void setSqlNomSecuencial(String sqlNomSecuencial) {
-		this.sqlNomSecuencial = sqlNomSecuencial;
+	public void setValOmision(String valOmision) {
+		this.valOmision = valOmision;
 	}
 
 }

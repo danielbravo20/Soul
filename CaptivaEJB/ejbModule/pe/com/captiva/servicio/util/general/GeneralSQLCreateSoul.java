@@ -2,8 +2,11 @@ package pe.com.captiva.servicio.util.general;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import pe.com.captiva.bean.CampoSQLBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.bean.TablaBean;
 import pe.com.captiva.servicio.util.Componente;
@@ -37,15 +40,114 @@ public class GeneralSQLCreateSoul extends MultipleBaseConstructor{
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("\n\r");
 		for (TablaBean tablaBean : tablasBean) {
-			buffer.append(GeneradorUtil.crearDLLTabla(tablaBean));
+			buffer.append(crearDLLTabla(tablaBean));
 		}
 		
 		for (TablaBean tablaBean : tablasBean) {
-			buffer.append(GeneradorUtil.crearDLLFK(tablaBean));
+			buffer.append(crearDLLFK(tablaBean));
 		}
 		
 		return buffer;
 	}
 	
-	
+	public static String crearDLLFK(TablaBean tabla){
+		
+		StringBuffer buffer = new StringBuffer();
+		
+		List<CampoSQLBean> camposFK = tabla.getCamposFK();
+		if(camposFK!=null && camposFK.size()>0){
+			Map<Integer, TablaBean> tablasFK = new HashMap<Integer, TablaBean>();
+			List<Integer> nombreTablas = new ArrayList<Integer>();
+			for (int i = 0; i < camposFK.size(); i++) {
+				CampoSQLBean campoFK = camposFK.get(i);
+				if(tablasFK.containsKey(campoFK.getFk().getTabla().getCodigo())==false){
+					tablasFK.put(campoFK.getFk().getTabla().getCodigo(), campoFK.getFk().getTabla());
+					nombreTablas.add(campoFK.getFk().getTabla().getCodigo());
+				}
+			}
+			
+			
+			for (int i = 0; i < nombreTablas.size(); i++) {
+				TablaBean tablaFK = tablasFK.get(nombreTablas.get(i));
+				buffer.append("ALTER TABLE "+tabla.getEsquema()+"."+tabla.getNombre()+" ADD CONSTRAINT FK_"+tabla.getEsquema()+"_"+tabla.getNombre()+" FOREIGN KEY ");
+				StringBuffer camposA = new StringBuffer();
+				StringBuffer camposB = new StringBuffer();
+				for (int j = 0; j < camposFK.size(); j++) {
+					CampoSQLBean campoSQLFK = camposFK.get(j);
+					if(tablaFK.getCodigo()==campoSQLFK.getFk().getTabla().getCodigo()){
+						if(j==0){
+							camposA.append(campoSQLFK.getNombre());
+							camposB.append(campoSQLFK.getFk().getNombre());
+						}else{
+							camposA.append(","+campoSQLFK.getNombre());
+							camposB.append(","+campoSQLFK.getFk().getNombre());
+						}
+					}
+				}
+				
+				buffer.append("("+camposA.toString()+") REFERENCES "+tablaFK.getEsquema()+"."+tablaFK.getNombre()+" ("+camposB.toString()+");\r\n\r\n");
+			}
+		}
+		
+		return buffer.toString();
+	}
+
+	public static String crearDLLTabla(TablaBean tabla){
+		StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("CREATE TABLE "+tabla.getEsquema()+"."+tabla.getNombre()+"(\r\n");
+		
+		//se ponen los campos PK
+		for (int i = 0; i < tabla.getCamposPK().size(); i++) {
+			CampoSQLBean campoSQL = tabla.getCamposPK().get(i);
+			if(campoSQL.isTieneFuncion()==false && campoSQL.isFlgPK()==true){				
+				if(campoSQL.getTipo().equalsIgnoreCase("VARCHAR") || campoSQL.getTipo().equalsIgnoreCase("CHAR") || campoSQL.getTipo().equalsIgnoreCase("CHARACTER")){
+					buffer.append("\t\t"+campoSQL.getNombre()+" "+campoSQL.getTipo()+"("+campoSQL.getLongitud()+")");
+				}else if(campoSQL.getTipo().equalsIgnoreCase("DECIMAL")){
+					buffer.append("\t\t"+campoSQL.getNombre()+" "+campoSQL.getTipo()+"("+campoSQL.getLongitud()+", "+campoSQL.getPrecision()+")");
+				}else{
+					buffer.append("\t\t"+campoSQL.getNombre()+" "+campoSQL.getTipo());
+				}
+				buffer.append(" NOT NULL,\r\n");
+			}
+		}
+		
+		for (int i = 0; i < tabla.getCamposSQL().size(); i++) {
+			CampoSQLBean campoSQL = tabla.getCamposSQL().get(i);
+			if(campoSQL.isTieneFuncion()==false && campoSQL.isFlgPK()==false){
+				if(campoSQL.getTipo().equalsIgnoreCase("VARCHAR") || campoSQL.getTipo().equalsIgnoreCase("CHAR") || campoSQL.getTipo().equalsIgnoreCase("CHARACTER")){
+					buffer.append("\t\t"+campoSQL.getNombre()+" "+campoSQL.getTipo()+"("+campoSQL.getLongitud()+")");
+				}else if(campoSQL.getTipo().equalsIgnoreCase("DECIMAL")){
+					buffer.append("\t\t"+campoSQL.getNombre()+" "+campoSQL.getTipo()+"("+campoSQL.getLongitud()+", "+campoSQL.getPrecision()+")");
+				}else{
+					buffer.append("\t\t"+campoSQL.getNombre()+" "+campoSQL.getTipo());
+				}
+				if(campoSQL.isFlgObligatorio() || campoSQL.isFlgPK()){
+					buffer.append(" NOT NULL");
+				}
+				buffer.append(",\r\n");
+			}
+		}
+		
+		buffer = new StringBuffer(buffer.substring(0, buffer.length()-3));
+		buffer.append(");\r\n\r\n");
+		
+		buffer.append("ALTER TABLE "+tabla.getEsquema()+"."+tabla.getNombre()+" ADD CONSTRAINT pk_"+tabla.getNombre()+" PRIMARY KEY (");
+		
+		List<CampoSQLBean> camposPK = tabla.getCamposPK();
+		for (int i = 0; i < camposPK.size(); i++) {
+			CampoSQLBean campoSQL = camposPK.get(i);
+			if(i==0){
+				buffer.append(""+campoSQL.getNombre()+" ");
+			}else{
+				buffer.append(", "+campoSQL.getNombre()+" ");
+			}
+		}
+		
+		
+		buffer.append(");\r\n\r\n");
+		
+		return buffer.toString();
+		
+	}
 }

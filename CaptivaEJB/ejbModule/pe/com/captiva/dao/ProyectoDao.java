@@ -99,7 +99,7 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     	if(proceso!=null){
     		procesoBean = new ProcesoBean();
     		procesoBean.setCodigo(proceso.getCodProceso());
-    		procesoBean.setNombre(proceso.getInfNombre());
+    		procesoBean.setNombre(proceso.getNombre());
     		procesoBean.setClase(proceso.getJavClase());
     		
     		Set<Rol> rolSet = proceso.getRols();
@@ -133,11 +133,9 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     	AtributoProceso atributoProceso = null;
 		if(procesoInicio!=null){
 			atributoProceso = new AtributoProceso();
-			atributoProceso.setWebFlgValidacion('1'==procesoInicio.getWebFlgValidacion());
 			atributoProceso.setNombre(procesoInicio.getAtributo().getNombre());
 			atributoProceso.setTipo(procesoInicio.getAtributo().getTipo());
-			atributoProceso.setWebNombre(procesoInicio.getAtributo().getWebNombre());
-			atributoProceso.setWebValorOmision(procesoInicio.getWebValOmision());
+			atributoProceso.setValorOmision(procesoInicio.getValOmision());
 			atributoProceso.setClase(parseClaseBeanSimple(procesoInicio.getAtributo().getClase()));
 		}
 		return atributoProceso;

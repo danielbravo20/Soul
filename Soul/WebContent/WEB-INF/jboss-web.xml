@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jboss-web>
-	<context-root>Soul</context-root>
-	<security-domain>dominioSoul</security-domain>
-</jboss-web>

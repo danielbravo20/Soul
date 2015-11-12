@@ -8,6 +8,7 @@ import pe.com.captiva.bean.AtributoBean;
 import pe.com.captiva.bean.ClaseBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.servicio.util.Componente;
+import pe.com.captiva.servicio.util.GeneradorUtil;
 import pe.com.captiva.servicio.util.MultipleBaseConstructor;
 
 public class GeneralClaseEntity extends MultipleBaseConstructor{
@@ -67,41 +68,27 @@ public class GeneralClaseEntity extends MultipleBaseConstructor{
 		
 		for (int i = 0; i < clase.getAtributos().size(); i++) {
 			AtributoBean campo = clase.getAtributos().get(i);
-			if(campo.isFlgLista()){
-				buffer.append("\tprivate List<"+campo.getTipo()+"> "+campo.getNombre()+";\r\n");
-			}else{
+			if(campo.isCampoSQLBean()){
 				buffer.append("\tprivate "+campo.getTipo()+" "+campo.getNombre()+";\r\n");
 			}
 		}
 		
 		buffer.append("\r\n");
 		for (int i = 0; i < clase.getAtributos().size(); i++) {
-			AtributoBean campo = clase.getAtributos().get(i);
-			if(campo.isFlgLista()){
-				if(campo.getTipo().equalsIgnoreCase("boolean")==false){
-					buffer.append("\tpublic List<"+campo.getTipo()+"> get"+(campo.getNombre().substring(0, 1)).toUpperCase() + campo.getNombre().substring(1) +"(){\r\n");
-					buffer.append("\t\treturn "+campo.getNombre()+";\r\n");
+			AtributoBean atributoBean = clase.getAtributos().get(i);
+			if(atributoBean.isCampoSQLBean()){
+				buffer.append(GeneradorUtil.escribeAnotacionJPA(atributoBean));
+				if(atributoBean.getTipo().equalsIgnoreCase("boolean")==false){
+					buffer.append("\tpublic "+atributoBean.getTipo()+" get"+(atributoBean.getNombre().substring(0, 1)).toUpperCase() + atributoBean.getNombre().substring(1) +"(){\r\n");
+					buffer.append("\t\treturn "+atributoBean.getNombre()+";\r\n");
 					buffer.append("\t}\r\n\r\n");
 				}else{
-					buffer.append("\tpublic List<"+campo.getTipo()+">() is"+(campo.getNombre().substring(0, 1)).toUpperCase() + campo.getNombre().substring(1) +"(){\r\n");
-					buffer.append("\t\treturn "+campo.getNombre()+";\r\n");
+					buffer.append("\tpublic "+atributoBean.getTipo()+" is"+(atributoBean.getNombre().substring(0, 1)).toUpperCase() + atributoBean.getNombre().substring(1) +"(){\r\n");
+					buffer.append("\t\treturn "+atributoBean.getNombre()+";\r\n");
 					buffer.append("\t}\r\n\r\n");
 				}
-				buffer.append("\tpublic void set"+(campo.getNombre().substring(0, 1)).toUpperCase() + campo.getNombre().substring(1)+"(List<"+campo.getTipo()+"> "+campo.getNombre()+") {\r\n");
-				buffer.append("\t\tthis."+campo.getNombre()+" = "+campo.getNombre()+";\r\n");
-				buffer.append("\t}\r\n\r\n");
-			}else{
-				if(campo.getTipo().equalsIgnoreCase("boolean")==false){
-					buffer.append("\tpublic "+campo.getTipo()+" get"+(campo.getNombre().substring(0, 1)).toUpperCase() + campo.getNombre().substring(1) +"(){\r\n");
-					buffer.append("\t\treturn "+campo.getNombre()+";\r\n");
-					buffer.append("\t}\r\n\r\n");
-				}else{
-					buffer.append("\tpublic "+campo.getTipo()+" is"+(campo.getNombre().substring(0, 1)).toUpperCase() + campo.getNombre().substring(1) +"(){\r\n");
-					buffer.append("\t\treturn "+campo.getNombre()+";\r\n");
-					buffer.append("\t}\r\n\r\n");
-				}
-				buffer.append("\tpublic void set"+(campo.getNombre().substring(0, 1)).toUpperCase() + campo.getNombre().substring(1)+"("+campo.getTipo()+" "+campo.getNombre()+") {\r\n");
-				buffer.append("\t\tthis."+campo.getNombre()+" = "+campo.getNombre()+";\r\n");
+				buffer.append("\tpublic void set"+(atributoBean.getNombre().substring(0, 1)).toUpperCase() + atributoBean.getNombre().substring(1)+"("+atributoBean.getTipo()+" "+atributoBean.getNombre()+") {\r\n");
+				buffer.append("\t\tthis."+atributoBean.getNombre()+" = "+atributoBean.getNombre()+";\r\n");
 				buffer.append("\t}\r\n\r\n");
 			
 			}
