@@ -36,54 +36,54 @@ public class CargaMantenimientos {
      */
 	private static String nombrePaquete;
 		/**
-	     * Codigo del proyecto En cada Iteración de mantenimiento : <p>
+	     * Codigo del proyecto En cada Iteraciï¿½n de mantenimiento : <p>
 	     * EJM: BECartaFianza
 	     */
 		private static String codigoProyecto;
 		/**
-	     * Número de versión En cada Iteración de mantenimiento : <p>
+	     * Nï¿½mero de versiï¿½n En cada Iteraciï¿½n de mantenimiento : <p>
 	     * EJM: 1
 	     */
 		private static String numeroVersion;
 		/**
-	     * Codigo de Mantenimiento En cada Iteración de mantenimiento : <p>
+	     * Codigo de Mantenimiento En cada Iteraciï¿½n de mantenimiento : <p>
 	     * EJM: Catalogo
 	     */
 		private static String codigoMantenimiento;
 		/**
-	     * Codigo de Mantenimiento En cada Iteración de mantenimiento con separador al encontrar mayusculas : <p>
+	     * Codigo de Mantenimiento En cada Iteraciï¿½n de mantenimiento con separador al encontrar mayusculas : <p>
 	     * EJM: Documento_Tarea
 	     */
 		private static String codigoMantenimientoSEP;
 		/**
-	     * Codigo de Mantenimiento En cada Iteración de mantenimiento : <p>
+	     * Codigo de Mantenimiento En cada Iteraciï¿½n de mantenimiento : <p>
 	     * EJM: catalogo
 	     */
 		private static String nombreObjeto;
 		/**
-	     * Nombre de Clase En cada Iteración de mantenimiento : <p>
+	     * Nombre de Clase En cada Iteraciï¿½n de mantenimiento : <p>
 	     * EJM: MantenimientoCatalogo
 	     */
 		private static String nombreClase;
 		/**
-	     * Nombre de Interfaz En cada Iteración de mantenimiento : <p>
+	     * Nombre de Interfaz En cada Iteraciï¿½n de mantenimiento : <p>
 	     * EJM: mantenimientoCatalogo (Nombre de variable al ser llamada)
 	     */
 		private static String nombreInterfaz;
 		/**
-	     * Esquema de BD En cada Iteración de mantenimiento : <p>
+	     * Esquema de BD En cada Iteraciï¿½n de mantenimiento : <p>
 	     * EJM: BFP_CARTA_FIANZA
 	     */
 		private static String esquemaBD;
 		/**
-	     * Esquema de BD En cada Iteración de mantenimiento : <p>
+	     * Esquema de BD En cada Iteraciï¿½n de mantenimiento : <p>
 	     * EJM: jdbc/cartaFianza
 	     */
 		private static String codigoDataSource;
 		
 		
 		/**
-	     * Lista de Atributos En cada Iteración de mantenimiento : <p>
+	     * Lista de Atributos En cada Iteraciï¿½n de mantenimiento : <p>
 	     * EJM:
 	     *  codigoProyecto VARCHAR(50)  	NOT NULL," + <p>
 	     *  numeroVersion VARCHAR(10)    	NOT NULL," + <p>
@@ -570,7 +570,7 @@ public class CargaMantenimientos {
 		texto.append("			if(cargarRegistroAccion("+nombreObjeto+") == null){\n");
 		texto.append("				return "+instanciaDao+".registrar("+nombreObjeto+");\n");
 		texto.append("			} else {\n");
-		texto.append("				return new MensajeValidacion(false,\"Ya existe un registro creado con los códigos ingresados\");\n");
+		texto.append("				return new MensajeValidacion(false,\"Ya existe un registro creado con los cï¿½digos ingresados\");\n");
 		texto.append("			}\n");
 		texto.append("		} else {\n");
 		texto.append("			return validar; \n");
@@ -1516,42 +1516,42 @@ public class CargaMantenimientos {
 
 		content.append("portal.registerCtrl('resumenMantenimiento', function($scope) {\n\n");
 			
-		content.append("	// Métodos que se ejecutan antes y despues de cada acción, los métodos antes retornan la confirmación de la acción\n");
+		content.append("	// Mï¿½todos que se ejecutan antes y despues de cada acciï¿½n, los mï¿½todos antes retornan la confirmaciï¿½n de la acciï¿½n\n");
 		content.append("	$scope.callbacks = {\n");
 		content.append("		//Parametros para enviar adjuntos, deben estar activos\n");
 		content.append("		//esModoAdjunto : true,\n");
 		content.append("		//file : {},\n");
-		content.append("		//Métodos que se ejecutan al momento de listar los datos de la tabla al inicio y al pulsar boton de filtro\n");
+		content.append("		//Mï¿½todos que se ejecutan al momento de listar los datos de la tabla al inicio y al pulsar boton de filtro\n");
 		content.append("		listar_antes : function(){\n");
 		content.append("			return true;\n");
 		content.append("		},\n");
 		content.append("		listar_despues : function(){\n");
 		content.append("		},\n");
-		content.append("		//Métodos que se ejecutan al grabar los datos de la tabla cuando insertamos un nuevo registro\n");
+		content.append("		//Mï¿½todos que se ejecutan al grabar los datos de la tabla cuando insertamos un nuevo registro\n");
 		content.append("		nuevo_antes : function(){\n");
 		content.append("			return true;\n");
 		content.append("		},\n");
 		content.append("		nuevo_despues : function(){\n");
 		content.append("		},\n");
-		content.append("		//Métodos que se ejecutan al grabar los datos de la tabla cuando actualizamos un registro\n");
+		content.append("		//Mï¿½todos que se ejecutan al grabar los datos de la tabla cuando actualizamos un registro\n");
 		content.append("		editar_antes : function(){\n");
 		content.append("			return true;\n");
 		content.append("		},\n");
 		content.append("		editar_despues : function(){\n");
 		content.append("		},\n");
-		content.append("		//Métodos que se ejecutan al pulsar boton eliminar cuando eliminamos un registro\n");
+		content.append("		//Mï¿½todos que se ejecutan al pulsar boton eliminar cuando eliminamos un registro\n");
 		content.append("		eliminar_antes : function(){\n");
 		content.append("			return true;\n");
 		content.append("		},\n");
 		content.append("		eliminar_despues : function(){\n");
 		content.append("		},\n");
-		content.append("		//Métodos que se ejecutan al pulsar boton nuevo cuando agregamos un nuevo registro\n");
+		content.append("		//Mï¿½todos que se ejecutan al pulsar boton nuevo cuando agregamos un nuevo registro\n");
 		content.append("		agregar_antes : function(){\n");
 		content.append("			return true;\n");
 		content.append("		},\n");
 		content.append("		agregar_despues : function(){\n");
 		content.append("		},\n");
-		content.append("		//Métodos que se ejecutan al pulsar el boton de editar cuando modificamos un registro\n");
+		content.append("		//Mï¿½todos que se ejecutan al pulsar el boton de editar cuando modificamos un registro\n");
 		content.append("		cargarEditar_antes : function(){\n");
 		content.append("			return true;\n");
 		content.append("		},\n");
@@ -1662,7 +1662,7 @@ public class CargaMantenimientos {
 		tipoDatoClase.put("String", "java.lang.String");
 		tipoDatoClase.put("BigDecimal", "java.math.BigDecimal");
 		tipoDatoClase.put("double", "java.lang.Double");
-		tipoDatoClase.put("Date", "java.sql.Date");
+		tipoDatoClase.put("Date", "java.util.Date");
 		tipoDatoClase.put("boolean", "java.lang.Boolean");
 		tipoDatoClase.put("Timestamp", "java.sql.Timestamp");
 		tipoDatoClase.put("int", "java.lang.Integer");

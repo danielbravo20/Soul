@@ -36,7 +36,7 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 	
 	private StringBuffer contenido(ProyectoBean proyectoBean, ProcesoBean procesoBean){
 		StringBuffer buffer = new StringBuffer();
-		
+
 		buffer.append("package "+proyectoBean.getPaquete()+"."+procesoBean.getClase().toLowerCase()+".servicio;\r\n\r\n");
 
 		buffer.append("import javax.annotation.Resource;\r\n");
@@ -50,6 +50,11 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 		buffer.append("import pe.com.soul.core.servicio.BaseProcesoServicioLocal;\r\n");
 		buffer.append("import pe.com.soul.core.servicio.impl.BaseProcesoServicioImpl;\r\n\r\n");
 
+		buffer.append("import pe.com.cartaFianza.bean.*;\r\n\r\n");
+		
+		
+		buffer.append("import "+proyectoBean.getPaquete()+"."+procesoBean.getClase().toLowerCase()+".servicio.dao."+procesoBean.getClase()+"DaoLocal;\r\n\r\n");
+		
 		buffer.append("public abstract class Pre"+procesoBean.getClase()+"Servicio extends BaseProcesoServicioImpl implements BaseProcesoServicioLocal{\r\n\r\n");
 
 		buffer.append("\tpublic static final long   PROCESO_CODIGO_PLANTILLA_PROCESO = "+procesoBean.getCodigo()+";\r\n");
@@ -59,7 +64,11 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 			
 		buffer.append("\t@EJB\r\n");
 		buffer.append("\tProcesoServiceLocal procesoServiceLocal;\r\n\r\n");
-			
+		
+		buffer.append("\t@EJB\r\n");
+		buffer.append("\t"+procesoBean.getClase()+"DaoLocal "+procesoBean.getClase().toLowerCase()+"DaoLocal;\r\n\r\n");
+		
+		
 		buffer.append("\t@Resource\r\n");
 		buffer.append("\tprivate SessionContext sessionContext;\r\n\r\n");
 
@@ -73,11 +82,17 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 		buffer.append("\t\tproceso = procesoServiceLocal.crearInstancia(proceso);\r\n");
 		buffer.append("\t\treturn proceso;\r\n");
 		buffer.append("\t}\r\n\r\n");
+		
+		
+		buffer.append("\tpublic Proceso registrarOperacion(Proceso proceso, UsuarioPortal usuario, Object objeto) throws Exception {\r\n");
+		buffer.append("\t\t"+procesoBean.getClase().toLowerCase()+"DaoLocal.registrar(("+proyectoBean.getClasePadre().getNombre()+")objeto);\r\n");
+		buffer.append("\t\treturn proceso;\r\n");
+		buffer.append("\t}\r\n");
 			
 		buffer.append("\tpublic TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{\r\n");
-		buffer.append("\t\tTareaPlantilla plantilla = new TareaPlantilla();\r\n");
 		
 		if(procesoBean.getTareas()!=null && procesoBean.getTareas().size()>0){
+			buffer.append("\t\tTareaPlantilla plantilla = new TareaPlantilla();\r\n");
 			TareaBean tareaBean = procesoBean.getTareas().get(0);
 			buffer.append("\t\tplantilla.setCodigoTareaPlantilla("+tareaBean.getCodigo()+");\r\n");
 			buffer.append("\t\tplantilla.setNombre(\""+tareaBean.getNombre()+"\");\r\n");
@@ -86,8 +101,10 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 			buffer.append("\t\tplantilla.setOrden(1);\r\n");
 			buffer.append("\t\tplantilla.setPrioridad(1);\r\n");
 			buffer.append("\t\tplantilla.setVersion(\"v1.0.0\");\r\n");
+			buffer.append("\t\treturn plantilla;\r\n");
+		}else{
+			buffer.append("\t\treturn null;\r\n");
 		}
-		buffer.append("\t\treturn plantilla;\r\n");
 		buffer.append("\t}\r\n\r\n");
 
 		buffer.append("\t@Override\r\n");

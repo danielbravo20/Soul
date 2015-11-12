@@ -1,4 +1,4 @@
-package pe.com.soul.core.dao;
+package pe.com.soul.core.servicio.dao;
 
 import java.util.List;
 import java.util.Map;
@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public class BaseDao<T> {
+public abstract class BaseDao<T> {
 
 	private final static String UNIT_NAME = "SoulDao";
 	

@@ -18,6 +18,7 @@ import pe.com.soul.core.modelo.ProcesoPlantilla;
 import pe.com.soul.core.modelo.Rol;
 import pe.com.soul.core.modelo.UsuarioPortal;
 import pe.com.soul.core.seguridad.dao.UsuarioDaoLocal;
+import pe.com.soul.core.servicio.dao.BaseDao;
 
 /**
  * Session Bean implementation class UsuarioDao

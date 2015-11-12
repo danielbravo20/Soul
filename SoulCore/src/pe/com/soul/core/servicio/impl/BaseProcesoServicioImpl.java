@@ -13,13 +13,19 @@ public abstract class BaseProcesoServicioImpl implements BaseProcesoServicioLoca
 	@EJB
 	TareaServiceLocal tareaServiceLocal;
 	
-	public Proceso accionCrearInstancia(UsuarioPortal usuario) throws Exception{
+	public Proceso accionCrearInstancia(UsuarioPortal usuario, Object objeto) throws Exception{
 		Proceso proceso = crearInstancia(usuario);
-		tareaServiceLocal.crearTarea(definirProximaTarea(proceso), proceso, definirProximoDueno(proceso));
+		proceso = registrarOperacion(proceso, usuario, objeto);
+		TareaPlantilla tareaPlantilla = definirProximaTarea(proceso);
+		if(tareaPlantilla!=null){
+			tareaServiceLocal.crearTarea(tareaPlantilla, proceso, definirProximoDueno(proceso));
+		}
 		return proceso;
 	}
 	
 	public abstract Proceso crearInstancia(UsuarioPortal usuario) throws Exception;
+	
+	public abstract Proceso registrarOperacion(Proceso proceso, UsuarioPortal usuario, Object objeto) throws Exception;
 	
 	public abstract TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception;
 	

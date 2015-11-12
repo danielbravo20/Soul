@@ -14,6 +14,12 @@ public class PreEmisionUtil implements ProcesoUtil{
 	@Override
 	public MensajeValidacion validacionCampos(HttpServletRequest request, HttpServletResponse response) {
 		MensajeValidacion mensajeValidacion = new MensajeValidacion();
+		if (ValidacionUtil.decimalNoValidoRequestParameter(request.getParameter("solicitud.monto"))){
+			mensajeValidacion.setConforme(false);
+			mensajeValidacion.setMensaje("monto es invalido");
+			return mensajeValidacion;
+		}
+
 		mensajeValidacion.setConforme(true);
 		return mensajeValidacion;
 	}
@@ -21,6 +27,9 @@ public class PreEmisionUtil implements ProcesoUtil{
 	@Override
 	public Object poblarObjetos(HttpServletRequest request, HttpServletResponse response) {
 		Solicitud solicitud = new Solicitud();
+		if(request.getParameter("solicitud.monto")!=null && request.getParameter("solicitud.monto").trim().length()>0){
+			solicitud.setMonto(new java.math.BigDecimal(request.getParameter("solicitud.monto").trim()));
+		}
 		return solicitud;
 	}
 }

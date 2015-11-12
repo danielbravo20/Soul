@@ -5,6 +5,6 @@ import pe.com.soul.core.modelo.UsuarioPortal;
 
 public interface BaseProcesoServicioLocal {
 	
-	Proceso accionCrearInstancia(UsuarioPortal usuario) throws Exception;
+	Proceso accionCrearInstancia(UsuarioPortal usuario, Object objeto) throws Exception;
 	
 }

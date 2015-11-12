@@ -1,17 +1,11 @@
 package pe.com.captiva.servicio.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import pe.com.captiva.bean.AtributoBean;
 import pe.com.captiva.bean.AtributoProceso;
 import pe.com.captiva.bean.CampoSQLBean;
-import pe.com.captiva.bean.TablaBean;
 
 public class GeneradorUtil {
 	
@@ -31,12 +25,12 @@ public class GeneradorUtil {
 				buffer.append("\t\telse{\r\n");
 				buffer.append("\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(false);\r\n");
 				buffer.append("\t\t}\r\n");
-			}else if(atributo.getTipo().equals("java.sql.Date")){
+			}else if(atributo.getTipo().equals("java.util.Date")){
 				buffer.append("\t\tif(request.getParameter(\""+atributo.getWebNombre()+"\")!=null && request.getParameter(\""+atributo.getWebNombre()+"\").length() > 0 ){\r\n");
 				buffer.append("\t\t\ttry{\r\n");
 				buffer.append("\t\t\t\tjava.text.SimpleDateFormat "+atributo.getNombre().toLowerCase()+"SDF = new java.text.SimpleDateFormat(dd/MM/yyyy);\r\n");
 				buffer.append("\t\t\t\tjava.util.Date date"+nombreVariable(atributo.getNombre())+"= "+atributo.getNombre().toLowerCase()+"SDF.parse(request.getParameter(\""+atributo.getWebNombre()+"\"));\r\n");
-				buffer.append("\t\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(new java.sql.Date(date"+nombreVariable(atributo.getNombre())+ ".getTime()));\r\n");
+				buffer.append("\t\t\t\t"+nombreClase+".set"+nombreVariable(atributo.getNombre())+"(new java.util.Date(date"+nombreVariable(atributo.getNombre())+ ".getTime()));\r\n");
 				buffer.append("\t\t\t}catch (java.text.ParseException pe) { \r\n");
 				buffer.append("\t\t\t\tpe.printStackTrace();\r\n");
 				buffer.append("\t\t\t}\r\n");
@@ -70,6 +64,15 @@ public class GeneradorUtil {
 		
 		if(campoSQLBean.isFlgPK()){
 			buffer.append("\t@Id\r\n");
+			if(campoSQLBean.isSequence()){
+				String idSequence = "id_gen_"+campoSQLBean.getSequence().replace('.', '_');
+				buffer.append("\t@GeneratedValue(generator=\""+idSequence+"\")\r\n"); 
+				buffer.append("\t@SequenceGenerator(name=\""+idSequence+"\",sequenceName=\""+campoSQLBean.getSequence()+"\", allocationSize=0)\r\n");
+			}
+		}
+		
+		if(atributoBean.getTipo().equals("java.util.Date")){
+			buffer.append("\t@Temporal(TemporalType.DATE)\r\n");
 		}
 		
 		buffer.append("\t@Column(name = \""+campoSQLBean.getNombre()+"\" ");
@@ -84,6 +87,14 @@ public class GeneradorUtil {
 		}
 		if(atributoBean.getTipo().equals("String")){
 			buffer.append(",length = "+campoSQLBean.getLongitud()+" ");
+		}
+		
+		if(atributoBean.getTipo().equals("java.util.Date")){
+			buffer.append(",length = 13 ");
+		}
+		
+		if(atributoBean.getTipo().equals("java.math.BigDecimal")){
+			buffer.append(",precision = "+campoSQLBean.getLongitud()+", scale = "+campoSQLBean.getPrecision()+" ");
 		}
 		buffer.append(")\r\n");
 		return buffer.toString();

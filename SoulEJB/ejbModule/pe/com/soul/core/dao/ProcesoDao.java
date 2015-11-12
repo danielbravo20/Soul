@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import pe.com.soul.core.dao.entities.ProcesoEntity;
 import pe.com.soul.core.dao.entities.UsuarioEntity;
 import pe.com.soul.core.modelo.Proceso;
+import pe.com.soul.core.servicio.dao.BaseDao;
 
 /**
  * Session Bean implementation class ProcesoDao

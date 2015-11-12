@@ -136,6 +136,10 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 			atributoProceso.setNombre(procesoInicio.getAtributo().getNombre());
 			atributoProceso.setTipo(procesoInicio.getAtributo().getTipo());
 			atributoProceso.setValorOmision(procesoInicio.getValOmision());
+			if(procesoInicio.getWebRequerido()=='1'){
+				atributoProceso.setWebFlgValidacion(true);
+			}
+			atributoProceso.setWebNombre(procesoInicio.getAtributo().getWebNombre());
 			atributoProceso.setClase(parseClaseBeanSimple(procesoInicio.getAtributo().getClase()));
 		}
 		return atributoProceso;
@@ -299,6 +303,7 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		campoSQLBean.setPrecision(atributoSql.getPrecision()!=null?atributoSql.getPrecision():0);
     		campoSQLBean.setFlgObligatorio(atributoSql.getObligatorio()=='1'?true:false);
     		campoSQLBean.setFlgPK(atributoSql.getPk()=='1'?true:false);
+    		campoSQLBean.setSequence(atributoSql.getSequencial());
     		
     		if(atributoSql.getFkUnoMucho() != null){
     			campoSQLBean.setFkUnoMuchos(atributoSql.getFkUnoMucho()=='1'?true:false);

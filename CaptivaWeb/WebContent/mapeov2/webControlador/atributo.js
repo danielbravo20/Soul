@@ -8,7 +8,7 @@
 			"String" : "String", 
 			"boolean" : "boolean", 
 			"java.math.BigDecimal" : "java.math.BigDecimal", 
-			"java.sql.Date" : "java.sql.Date", 
+			"java.util.Date" : "java.util.Date", 
 			"java.sql.Timestamp" : "java.sql.Timestamp"
 		},
 		"DO" : {
@@ -18,7 +18,7 @@
 			"String" : "String",
 			"boolean" : "boolean", 
 			"java.math.BigDecimal" : "BigDecimal",
-			"java.sql.Date" : "date"
+			"java.util.Date" : "date"
 		},
 		"SQL" : {
 			"Integer" : "INTEGER",
@@ -27,7 +27,7 @@
 			"String" : "VARCHAR",
 			"boolean" : "CHAR",
 			"java.math.BigDecimal" : "DECIMAL",
-			"java.sql.Date" : "DATE",
+			"java.util.Date" : "DATE",
 			"java.sql.Timestamp" : "TIMESTAMP"
 		}
 	};

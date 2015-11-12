@@ -17,8 +17,7 @@ public class CampoSQLBean {
 	private String 		funcionBusquedaCatalogo;
 	private String 		valorDefecto;
 	private boolean     fkUnoMuchos;
-	
-	
+	private String		sequence;
 	
 	public int getCodigo() {
 		return codigo;
@@ -123,5 +122,18 @@ public class CampoSQLBean {
 		}
 		return false;
 	}
+	public String getSequence() {
+		return sequence;
+	}
 	
+	public void setSequence(String sequence) {
+		this.sequence = sequence;
+	}
+	
+	public boolean isSequence(){
+		if(getSequence()!=null && getSequence().trim().length()>0){
+			return true;
+		}
+		return false;
+	}
 }
