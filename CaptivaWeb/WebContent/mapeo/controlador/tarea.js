@@ -16,9 +16,9 @@
 		
 		$scope.consultaCompletar = [];
 		$scope.consultaTrabajar = [];
-		if($scope.COD_PROCESO && $scope.COD_PROCESO!=""){
-			$scope.cargado.TAR_W_COD_PROCESO = $scope.COD_PROCESO;
-			$scope.cargado.TAR_COD_PROCESO = $scope.COD_PROCESO;
+		if($scope.cod_proceso && $scope.cod_proceso!=""){
+			$scope.cargado.TAR_W_cod_proceso = $scope.cod_proceso;
+			$scope.cargado.TAR_cod_proceso = $scope.cod_proceso;
 		}
 		$scope.esEdicion = false;
 		if(typeof(listar)!="undefined" && listar == true){
@@ -26,13 +26,13 @@
 		}
 		/*DUMMY */
 		if(getParametro.accion && getParametro.accion=="gestionarTarea"){
-			$scope.COD_PROCESO = "1";
+			$scope.cod_proceso = "1";
 		}
 	};
 	
-	$scope.$watch("COD_PROCESO",function(oldVal,newVal){
+	$scope.$watch("cod_proceso",function(oldVal,newVal){
 		if(oldVal != newVal){
-			if($scope.COD_PROCESO != ""){
+			if($scope.cod_proceso != ""){
 				$scope.listar();
 			}
 		}
@@ -40,7 +40,7 @@
 	
 	$scope.listar = function(){
 		$scope.cargado.metodo = "listar";
-		$scope.cargado.TAR_W_COD_PROCESO = $scope.COD_PROCESO;
+		$scope.cargado.TAR_W_cod_proceso = $scope.cod_proceso;
 		ajax.jpo($scope.cargado,function(respuesta){
 			$scope.data.TAREA = respuesta;
 			$scope.pag.total = $scope.data.TAREA.length;
@@ -56,10 +56,10 @@
 		$scope.vista = "mantener";
 	};
 	
-	$scope.eliminar = function(COD_TAREA){
+	$scope.eliminar = function(cod_tarea){
 		if(confirm("Desea eliminar el elemento seleccionado?")){
 			$scope.cargado.metodo = "eliminar";
-			$scope.cargado.TAR_W_COD_TAREA = COD_TAREA;		// WHERE-------
+			$scope.cargado.TAR_W_cod_tarea = cod_tarea;		// WHERE-------
 			ajax.jpo($scope.cargado,function(respuesta){
 				$scope.agregarAlerta("success","Eliminado corréctamente");
 				$scope.instanciar(true);
@@ -67,13 +67,13 @@
 		}
 	};
 	
-	$scope.editarCargar = function(COD_TAREA){
+	$scope.editarCargar = function(cod_tarea){
 		$scope.vista = "mantener";
 		$scope.esEdicion = true;
 		$scope.cargado.metodo = "editarCargar";
-		$scope.cargado.TAR_W_COD_TAREA = COD_TAREA;			// WHERE-------
-		$scope.cargado.TCB_W_COD_TAREA = COD_TAREA;			// WHERE-------
-		$scope.cargado.TTB_W_COD_TAREA = COD_TAREA;			// WHERE-------
+		$scope.cargado.TAR_W_cod_tarea = cod_tarea;			// WHERE-------
+		$scope.cargado.TCB_W_cod_tarea = cod_tarea;			// WHERE-------
+		$scope.cargado.TTB_W_cod_tarea = cod_tarea;			// WHERE-------
 		ajax.jpo($scope.cargado,function(respuesta){
 			util.jpoCargar($scope.cargado,respuesta.TAREA,"TAR");
 			$scope.consultaCompletar = respuesta.TAREA_COM_BPM;
@@ -85,7 +85,7 @@
 		if($scope.consultaCompletar.length>0){
 			var consultaCompletarRe = {};
 			for(var i in $scope.consultaCompletar){
-				var codObjBPM = $scope.consultaCompletar[i].COD_OBJ_BPM;
+				var codObjBPM = $scope.consultaCompletar[i].cod_obj_bpm;
 				if(consultaCompletarRe[codObjBPM]){
 					$scope.agregarAlerta("danger","Accion Completar: No debes registrar objetos BPM repetidos, fila Nro "+(Number(i)+1));
 					return false;
@@ -97,7 +97,7 @@
 		if($scope.consultaTrabajar.length>0){
 			var consultaTrabajarRe = {};
 			for(var i in $scope.consultaTrabajar){
-				var codObjBPM = $scope.consultaTrabajar[i].COD_OBJ_BPM;
+				var codObjBPM = $scope.consultaTrabajar[i].cod_obj_bpm;
 				if(consultaTrabajarRe[codObjBPM]){
 					$scope.agregarAlerta("danger","Accion Trabajar: No debes registrar objetos BPM repetidos, fila Nro "+(Number(i)+1));
 					return false;
@@ -111,12 +111,12 @@
 	
 	var cargarEnvio = function(){
 		for(var i = 0; i< $scope.consultaCompletar.length; i++){
-			$scope.cargado["TCB_M_"+(i+1)+"_COD_TAREA"] = $scope.cargado.TAR_COD_TAREA;
-			$scope.cargado["TCB_M_"+(i+1)+"_COD_OBJ_BPM"] = $scope.consultaCompletar[i].COD_OBJ_BPM;
+			$scope.cargado["TCB_M_"+(i+1)+"_cod_tarea"] = $scope.cargado.TAR_cod_tarea;
+			$scope.cargado["TCB_M_"+(i+1)+"_cod_obj_bpm"] = $scope.consultaCompletar[i].cod_obj_bpm;
 		}
 		for(var i = 0; i< $scope.consultaTrabajar.length; i++){
-			$scope.cargado["TTB_M_"+(i+1)+"_COD_TAREA"] = $scope.cargado.TAR_COD_TAREA;
-			$scope.cargado["TTB_M_"+(i+1)+"_COD_OBJ_BPM"] = $scope.consultaTrabajar[i].COD_OBJ_BPM;
+			$scope.cargado["TTB_M_"+(i+1)+"_cod_tarea"] = $scope.cargado.TAR_cod_tarea;
+			$scope.cargado["TTB_M_"+(i+1)+"_cod_obj_bpm"] = $scope.consultaTrabajar[i].cod_obj_bpm;
 		}
 	};
 	
@@ -141,9 +141,9 @@
 		}
 	};
 	
-	$scope.gestionarAtributos = function(TIPO_ACCION,COD_TAREA){
+	$scope.gestionarAtributos = function(TIPO_ACCION,cod_tarea){
 		$scope.vista = "atributos";
-		$scope.getControladorScope("tareaaccionatributo").instanciar(TIPO_ACCION,$scope.COD_PROCESO,util.getObjeto($scope.data.TAREA,{COD_TAREA : COD_TAREA}));
+		$scope.getControladorScope("tareaaccionatributo").instanciar(TIPO_ACCION,$scope.cod_proceso,util.getObjeto($scope.data.TAREA,{cod_tarea : cod_tarea}));
 	};
 		
 	$scope.CompletaCompletarAgregar = function(){
@@ -168,9 +168,9 @@
 		}
 	});
 	
-	$scope.gestionarTarea = function(COD_TAREA){
+	$scope.gestionarTarea = function(cod_tarea){
 		$scope.vista = "gestionar";
-		$scope.getControladorScope("tareagestionar").instanciar($scope.COD_PROCESO,util.getObjeto($scope.data.TAREA,{COD_TAREA : COD_TAREA}));
+		$scope.getControladorScope("tareagestionar").instanciar($scope.cod_proceso,util.getObjeto($scope.data.TAREA,{cod_tarea : cod_tarea}));
 	};
 	
 });
