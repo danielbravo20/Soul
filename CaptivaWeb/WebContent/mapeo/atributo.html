@@ -78,7 +78,7 @@
 				<th>Tipo (*) :</th>
 				<td class="form-group" show-errors='{showSuccess: true}'>
 					<input type="text" autocomplete="off" name="ATR_tipo" class="form-control input-sm"
-						data-typeahead-editable="false" 
+						data-typeahead-editable="true" 
 						data-ng-model="cargado.ATR_tipo" 
 						data-typeahead="tipoDato for tipoDato in tipoDatos | filter:$viewValue | limitTo:8"
 					required>
@@ -112,7 +112,9 @@
 			  </tr>
 			  <tr class="warning" ng-show="cargado.FLG_sql">
 				<th>Campo (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.ADB_campo" name="ADB_campo" class="form-control input-sm" ng-required="cargado.FLG_sql"></td>
+				<td class="form-group" show-errors='{showSuccess: true}'>
+					<input type="text" ng-model="cargado.ADB_campo" name="ADB_campo" class="form-control input-sm" ng-required="cargado.FLG_sql">
+				</td>
 			  </tr>
 			  <tr class="warning" ng-show="cargado.FLG_sql">
 				<th>Tipo (*) :</th>
@@ -129,6 +131,12 @@
 			  <tr class="warning" ng-show="cargado.FLG_sql">
 				<th>Llave Primaria (*) :</th>
 				<td><input type="checkbox" ng-model="cargado.ADB_PK" name="ADB_PK" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
+			  </tr>
+			  <tr class="warning" ng-show="cargado.ADB_PK ">
+				<th>Sequencial :</th>
+				<td>
+					<input type="text" ng-model="cargado.ADB_sequencial" name="ADB_sequencial" class="form-control input-sm">
+				</td>
 			  </tr>
 			  <tr class="warning" ng-show="cargado.FLG_sql">
 				<th>Obligatorio (*) :</th>
