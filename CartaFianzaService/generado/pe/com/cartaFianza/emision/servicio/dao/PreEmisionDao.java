@@ -2,8 +2,6 @@ package pe.com.cartaFianza.emision.servicio.dao;
 
 import pe.com.cartaFianza.bean.Solicitud;
 import pe.com.cartaFianza.dao.entity.SolicitudEntity;
-import pe.com.soul.core.servicio.dao.BaseDao;
-
 
 public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 

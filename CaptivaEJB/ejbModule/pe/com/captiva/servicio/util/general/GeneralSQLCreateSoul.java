@@ -150,4 +150,16 @@ public class GeneralSQLCreateSoul extends MultipleBaseConstructor{
 		return buffer.toString();
 		
 	}
+	
+	public static String sequencial(){
+		/*
+		CREATE SEQUENCE bfp_carta_fianza.seq_cod_solicitud
+		  INCREMENT 1
+		  MINVALUE 0
+		  MAXVALUE 9223372036854775807
+		  START 1
+		  CACHE 1;
+		  */
+		return null;
+	}
 }

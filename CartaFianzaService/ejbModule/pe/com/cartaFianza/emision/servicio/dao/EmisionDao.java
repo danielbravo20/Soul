@@ -5,7 +5,6 @@ import javax.ejb.Stateless;
 
 import pe.com.cartaFianza.bean.Solicitud;
 import pe.com.cartaFianza.dao.entity.SolicitudEntity;
-import pe.com.soul.core.servicio.dao.BaseDao;
 
 @Stateless
 @LocalBean

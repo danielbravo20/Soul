@@ -13,7 +13,6 @@ import pe.com.soul.core.modelo.Proceso;
 import pe.com.soul.core.modelo.Tarea;
 import pe.com.soul.core.modelo.TareaPlantilla;
 import pe.com.soul.core.modelo.UsuarioPortal;
-import pe.com.soul.core.servicio.dao.BaseDao;
 
 /**
  * Session Bean implementation class TareaDao

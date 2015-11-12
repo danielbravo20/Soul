@@ -1,4 +1,4 @@
-package pe.com.soul.core.servicio.dao;
+package pe.com.soul.core.dao;
 
 import java.util.List;
 import java.util.Map;
