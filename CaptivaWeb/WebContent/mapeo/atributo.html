@@ -21,6 +21,7 @@
 			  <tr>
 				<th><input type="text" ng-model="buscar.cod_atributo" placeholder="Código" class="form-control input-sm"></th>
 				<th><input type="text" ng-model="buscar.nombre" placeholder="Nombre" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.etiqueta" placeholder="Etiqueta" class="form-control input-sm"></th>
 				<th><input type="text" ng-model="buscar.tipo" placeholder="Tipo" class="form-control input-sm"></th>
 				<th><input type="text" ng-model="buscar.web_nombre" placeholder="Web Nombre" class="form-control input-sm"></th>
 				<th width="120px">Opción</th>
@@ -30,6 +31,7 @@
 			  <tr ng-repeat="item in data.ATRIBUTO | orderBy: 'cod_atributo' | filter:buscar" ng-show="pag.get($index) == pag.actual">
 				<td>{{item.cod_atributo}}</td>
 				<td>{{item.nombre}}</td>
+				<td>{{item.etiqueta}}</td>
 				<td>{{item.tipo}}</td>
 				<td>{{item.web_nombre}}</td>
 				<td>
@@ -69,6 +71,10 @@
 			  <tr>
 				<th>Codigo (*) :</th>
 				<td class="form-group" show-errors='{showSuccess: true}'><input type="number" ng-model="cargado.ATR_cod_atributo" name="ATR_cod_atributo" ng-disabled="esEdicion" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr>
+				<th>Etiqueta (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.ATR_etiqueta" name="ATR_etiqueta" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
 				<th>Nombre (*) :</th>

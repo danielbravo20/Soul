@@ -17,6 +17,7 @@ CREATE TABLE soul.atributo(
  cod_atributo Integer NOT NULL,
  cod_clase Integer NOT NULL,
  nombre Character varying(120) NOT NULL,
+ etiqueta Character varying(255) NOT NULL,
  tipo Character varying(255) NOT NULL,
  flg_lista Character(1) DEFAULT '0'::bpchar NOT NULL,
  web_nombre Character varying(120),
