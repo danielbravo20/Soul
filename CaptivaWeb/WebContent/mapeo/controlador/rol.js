@@ -16,17 +16,23 @@
 		$scope.esEdicion = false;
 		
 		if(typeof(listar)!="undefined" && listar == true){
-			$scope.listar();
+			$scope.listar(function(){
+				$scope.cargado.ROL_cod_rol = util.getUltimoCodigo($scope.data.ROL,"cod_rol");
+			});
 		} else {
+			$scope.cargado.ROL_cod_rol = util.getUltimoCodigo($scope.data.ROL,"cod_rol");
 			$scope.pag.total = $scope.data.ROL.length;
 		}
 	};
 	
-	$scope.listar = function(){
+	$scope.listar = function(call){
 		$scope.cargado.metodo = "listar";
 		ajax.jpo($scope.cargado,function(respuesta){
 			$scope.data.ROL = respuesta;
 			$scope.pag.total = respuesta.length;
+			if(call){
+				call();
+			}
 		});
 	};
 	

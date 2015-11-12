@@ -61,7 +61,7 @@
 </ul>
 <div class="form-inline" ng-show="config.esEdicion">
 	<input type="text" autocomplete="off" class="form-control input-sm"
-		data-typeahead-editable="false" 
+		data-typeahead-editable="true" 
 		data-ng-model="subSeccionItem.nuevoAtributo" 
 		data-typeahead="atributo as atributo.busqueda for atributo in atributo.lista | filter:{busqueda:$viewValue} | limitTo:8"
 	>

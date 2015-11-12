@@ -72,10 +72,12 @@ var core = angular.module('core', []);
 		return {
 			getUltimoCodigo : function(objeto,nombreCodigo){
 				var contador = 0;
-				for(var i = 0; i<objeto.length; i++){
-					var nro = Number(objeto[i][nombreCodigo]);
-					if(nro>contador){
-						contador = nro;
+				if(objeto){
+					for(var i = 0; i<objeto.length; i++){
+						var nro = Number(objeto[i][nombreCodigo]);
+						if(nro>contador){
+							contador = nro;
+						}
 					}
 				}
 				return contador+1;
