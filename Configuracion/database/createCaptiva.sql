@@ -316,12 +316,12 @@ ALTER TABLE soul.proceso_inicio_sub_seccion ADD CONSTRAINT proceso_inicio_sub_se
 
 CREATE TABLE soul.proceso_inicio(
  cod_proceso Integer NOT NULL,
- cod_sub_seccion Integer NOT NULL,
- cod_proceso_inicio Integer NOT NULL,
+ cod_sub_seccion Integer,
+ cod_proceso_inicio Integer,
  cod_atributo Integer NOT NULL,
- web_etiqueta Character varying(255) NOT NULL,
- web_tipo Character varying(60) NOT NULL,
- web_tipo_campo Character(1) NOT NULL,
+ web_etiqueta Character varying(255),
+ web_tipo Character varying(60),
+ web_tipo_campo Character(1),
  web_tipo_lista Character(1),
  web_catalogo Character varying(60),
  web_requerido Character(1) DEFAULT '0'::bpchar NOT NULL,

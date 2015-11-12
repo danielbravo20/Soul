@@ -14,10 +14,7 @@ import pe.com.mapeo.ejb.controller.GestionBase;
 public class Tarea extends GestionBase implements TareaLocal {
 
 	public Object registrar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		jpo.autoCommit(false);
-			jpo.tabla("TAREA","TAR").registrar();
-			jpo.tabla("TAREA_COM_BPM","TCB").registrarMultiple();
-			jpo.tabla("TAREA_TRA_BPM","TTB").registrarMultiple();
+		jpo.tabla("TAREA","TAR").registrar();
 		jpo.commitear();
 		return true;
 	}
@@ -25,24 +22,19 @@ public class Tarea extends GestionBase implements TareaLocal {
 	public Object editarCargar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		Map<String,Object> elementos = new HashMap<String,Object>();
 			elementos.put("TAREA", jpo.tabla("TAREA","TAR").obtener("*"));
-			elementos.put("TAREA_COM_BPM", jpo.tabla("TAREA_COM_BPM","TCB").seleccionar("*"));
-			elementos.put("TAREA_TRA_BPM", jpo.tabla("TAREA_TRA_BPM","TTB").seleccionar("*"));
 		return elementos;
 	}
 	
 	public Object editar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		jpo.autoCommit(false);
-			jpo.tabla("TAREA","TAR").editar();
-			jpo.tabla("TAREA_COM_BPM","TCB").eliminar();
-			jpo.tabla("TAREA_TRA_BPM","TTB").eliminar();
-			jpo.tabla("TAREA_COM_BPM","TCB").registrarMultiple();
-			jpo.tabla("TAREA_TRA_BPM","TTB").registrarMultiple();
+		jpo.tabla("TAREA","TAR").editar();
 		jpo.commitear();
 		return true;
 	}
 	
 	public Object eliminar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		return jpo.tabla("TAREA","TAR").eliminar();
+		jpo.tabla("TAREA","TAR").eliminar();
+		jpo.commitear();
+		return true;
 	}
 
 	public Object listar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {

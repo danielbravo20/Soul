@@ -1,5 +1,6 @@
 <script type="text/javascript" src="controlador/clase.js"></script>
 <div ng-controller="clase" style="padding-top: 5px;">
+	<alert type="danger" ng-show="data.TABLA.length==0">Debes registrar "Tablas" antes de trabajar Clases</alert>
 	<div class="show-grid" ng-show="vista === 'lista'">
 		<div class="panel panel-default">
 		  <div class="panel-heading"><strong>Listado de Clases</strong></div>
@@ -8,7 +9,7 @@
 			  <tr>
 				<th><input type="text" ng-model="buscar.cod_clase" placeholder="Código" class="form-control input-sm"></th>
 				<th><input type="text" ng-model="buscar.nombre" placeholder="Nombre" class="form-control input-sm"></th>
-				<th>Opción</th>
+				<th align="right">Opción</th>
 			  </tr>
 			</thead>
 			<tbody>

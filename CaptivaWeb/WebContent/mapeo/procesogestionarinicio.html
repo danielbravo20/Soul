@@ -23,20 +23,14 @@
 				<thead>
 				  <tr>
 					<th>Atributo</th>
-					<th>Es PIID</th>
 					<th>Valor por Omisión</th>
-					<th>Es Autogenerado</th>
-					<th>Nom Secuencial</th>
 					<th>Opciones</th>
 				  </tr>
 				</thead>
 				<tbody>
 				  <tr ng-repeat="atributoItem in interno.lista">
 					<td>{{atributoItem.atr_nombre}} <em>({{atributoItem.cla_nombre}})</em></td>
-					<td><input type="checkbox" ng-model="atributoItem.bpm_flg_entrada" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
-					<td><input type="text" ng-model="atributoItem.bpm_autogenerado" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.bpm_autogenerado}}"></td>
-					<td><input type="checkbox" ng-model="atributoItem.bpm_flg_autogenerado" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
-					<td><input type="text" ng-model="atributoItem.bpm_secuencial" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.bpm_secuencial}}"></td>
+					<td><input type="text" ng-model="atributoItem.val_omision" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.val_omision}}"></td>
 					<td>
 						<a class="btn btn-danger btn-sm" ng-click="interno.eliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a>
 					</td>
