@@ -72,9 +72,9 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr ng-repeat="consultaTabla in consultaTablas">
+					  <tr ng-repeat="consultaTabla in consultaTablas | orderBy : 'cod_tabla'">
 						<td>{{$index+1}}</td>
-						<td><select class="form-control input-sm" ng-model="consultaTabla.cod_tabla" ng-options="item.cod_tabla as item.nombre for item in data.TABLA | orderBy: 'nombre'" ng-change="cargarSeleccionadas()"></select></td>
+						<td>{{tablaId[consultaTabla.cod_tabla].nombre}}</td>
 						<td><input type="radio" ng-model="$parent.consultaTablaEsFK" name="consultaTablaEsFK" value="{{$index}}" class="form-control input-sm" style="width:30px"></td>
 						<td><input type="checkbox" ng-model="consultaTabla.flg_uno_muchos" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
 						<td width="220px">
@@ -82,7 +82,9 @@
 						</td>
 					  </tr>
 					  <tr>
-						<td colspan="5"><a class="btn btn-primary btn-sm" ng-click="tablaAgregar()"><i class="glyphicon glyphicon-plus"></i></a></td>
+						<td>{{consultaTablas.length+1}}</td>
+						<td><select class="form-control input-sm" ng-model="codTablaNueva" ng-options="item.cod_tabla as item.nombre for item in data.TABLA | orderBy: 'nombre'"></select></td>
+						<td colspan="3"><a class="btn btn-primary btn-sm" ng-click="tablaAgregar()"><i class="glyphicon glyphicon-plus"></i></a></td>
 					  </tr>
 					</tbody>
 				  </table>
@@ -102,17 +104,20 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr ng-repeat="consultaAtributo in consultaAtributos">
+					  <tr ng-repeat="consultaAtributo in consultaAtributos | orderBy : ['cod_tabla','cod_atributo']">
 						<td>{{$index+1}}</td>
-						<td><select class="form-control input-sm" ng-model="consultaAtributo.cod_tabla" ng-options="item.cod_tabla as item.nombre for item in tablasSeleccionadas | orderBy: 'nombre'" ng-change="cargarAtributos($index)"></select></td>
-						<td><select class="form-control input-sm" ng-model="consultaAtributo.cod_atributo" ng-options="item.cod_atributo as item.nombre for item in listaAtributos[consultaAtributo.cod_tabla] | orderBy: 'nombre'"></select></td>
+						<td>{{tablaId[consultaAtributo.cod_tabla].nombre}}</td>
+						<td>{{listaAtributosId[consultaAtributo.cod_tabla][consultaAtributo.cod_atributo].nombre}}</td>
 						<td><input type="checkbox" ng-model="consultaAtributo.flg_condicion" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
 						<td width="220px">
 							<a class="btn btn-primary btn-sm" ng-click="atributoEliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a>&nbsp;&nbsp;
 						</td>
 					  </tr>
 					  <tr>
-						<td colspan="5"><a class="btn btn-primary btn-sm" ng-click="atributoAgregar()"><i class="glyphicon glyphicon-plus"></i></a></td>
+						<td>{{consultaAtributos.length+1}}</td>
+						<td><select class="form-control input-sm" ng-model="Atrib_codTablaNueva" ng-options="item.cod_tabla as item.nombre for item in tablasSeleccionadas | orderBy: 'nombre'" ng-change="cargarAtributo()"></select></td>
+						<td><select class="form-control input-sm" ng-model="Atrib_codAtributoNuevo" ng-options="item as item.nombre for item in Atrib_listaAtributos | orderBy: 'nombre'"></select></td>
+						<td colspan="2"><a class="btn btn-primary btn-sm" ng-click="atributoAgregar()"><i class="glyphicon glyphicon-plus"></i></a></td>
 					  </tr>
 					</tbody>
 				  </table>

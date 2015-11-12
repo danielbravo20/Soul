@@ -119,7 +119,6 @@ CREATE TABLE soul.consulta_atributo(
  cod_consulta Integer NOT NULL,
  cod_atributo Integer NOT NULL,
  flg_condicion Character(1) DEFAULT '0'::bpchar NOT NULL,
- flg_visible Character(1) DEFAULT '1'::bpchar NOT NULL,
  cod_tabla Integer DEFAULT 0 NOT NULL
 )
 ;

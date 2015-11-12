@@ -6,8 +6,8 @@
 		  <tr>
 			<td><b>SELECCIONA UN PROCESO :</b></td>
 			<td><select class="form-control input-sm"
-						ng-model="COD_PROCESO"
-						ng-options="obj.COD_PROCESO as obj.INF_NOMBRE for obj in data.PROCESO | orderBy: 'INF_NOMBRE'"></select></td>
+						ng-model="cod_proceso"
+						ng-options="obj.cod_proceso as obj.nombre for obj in data.PROCESO | orderBy: 'nombre'"></select></td>
 		  </tr>
 		</tbody>
 	  </table>
@@ -18,8 +18,8 @@
 		  <table class="table">
 			<thead>
 			  <tr>
-				<th><input type="text" ng-model="buscar.COD_TAREA" placeholder="Código" class="form-control input-sm"></th>
-				<th><input type="text" ng-model="buscar.NOMBRE" placeholder="Nombre" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.cod_tarea" placeholder="Código" class="form-control input-sm"></th>
+				<th><input type="text" ng-model="buscar.nombre" placeholder="Nombre" class="form-control input-sm"></th>
 				<th><span tooltip="Atributos de Completar">COMPLETAR</span></th>
 				<th><span tooltip="Atributos de Cancelar">CANCELAR</span></th>
 				<th><span tooltip="Atributos de Observar">OBSERVAR</span></th>
@@ -28,17 +28,17 @@
 			  </tr>
 			</thead>
 			<tbody>
-			  <tr ng-repeat="item in data.TAREA | orderBy: 'COD_TAREA' | filter:buscar" ng-show="pag.get($index) == pag.actual">
-				<td>{{item.COD_TAREA}}</td>
-				<td>{{item.NOMBRE}}</td>
-				<td><a ng-show="item.WEB_ACC_COMPLETAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('COMPLETAR',item.COD_TAREA)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
-				<td><a ng-show="item.WEB_ACC_CANCELAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('CANCELAR',item.COD_TAREA)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
-				<td><a ng-show="item.WEB_ACC_OBSERVAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('OBSERVAR',item.COD_TAREA)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
-				<td><a ng-show="item.WEB_ACC_RECHAZAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('RECHAZAR',item.COD_TAREA)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
+			  <tr ng-repeat="item in data.TAREA | orderBy: 'cod_tarea' | filter:buscar" ng-show="pag.get($index) == pag.actual">
+				<td>{{item.cod_tarea}}</td>
+				<td>{{item.nombre}}</td>
+				<td><a ng-show="item.WEB_ACC_COMPLETAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('COMPLETAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
+				<td><a ng-show="item.WEB_ACC_CANCELAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('CANCELAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
+				<td><a ng-show="item.WEB_ACC_OBSERVAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('OBSERVAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
+				<td><a ng-show="item.WEB_ACC_RECHAZAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('RECHAZAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
 				<td>
-					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.COD_TAREA)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
-					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.COD_TAREA)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
-					<a class="btn btn-info btn-sm" ng-click="gestionarTarea(item.COD_TAREA)" ng-hide="estalisto" tooltip="Gestionar Tarea"><i class="glyphicon glyphicon-book"></i></a>
+					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.cod_tarea)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.cod_tarea)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+					<a class="btn btn-info btn-sm" ng-click="gestionarTarea(item.cod_tarea)" ng-hide="estalisto" tooltip="Gestionar Tarea"><i class="glyphicon glyphicon-book"></i></a>
 				</td>
 			  </tr>
 			  <tr>
@@ -57,11 +57,11 @@
 			<tbody>
 			  <tr>
 				<th>Codigo (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_COD_TAREA" name="TAR_COD_TAREA" ng-disabled="esEdicion" class="form-control input-sm" required></td>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_cod_tarea" name="TAR_cod_tarea" ng-disabled="esEdicion" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
 				<th>Nombre (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_NOMBRE" name="TAR_NOMBRE" class="form-control input-sm" required></td>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_nombre" name="TAR_nombre" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
 				<th>Versión (*) :</th>
@@ -72,7 +72,7 @@
 				<td class="form-inline form-group" show-errors='{showSuccess: true}'>
 					<select class="form-control input-sm"
 						ng-model="cargado.TAR_COD_CON_TRABAJAR"
-						ng-options="obj.COD_CONSULTA as obj.NOMBRE for obj in data.CONSULTA | orderBy: 'NOMBRE'"
+						ng-options="obj.COD_CONSULTA as obj.nombre for obj in data.CONSULTA | orderBy: 'nombre'"
 						name="TAR_COD_CON_TRABAJAR" required>
 					</select>
 					<button class="btn btn-info btn-sm" ng-click="cargarModulo('proyectocargado','consulta',cargado.TAR_COD_CON_TRABAJAR)" tooltip="Editar"><i class="glyphicon glyphicon-edit"></i></button></td>
@@ -82,7 +82,7 @@
 				<td class="form-inline form-group" show-errors='{showSuccess: true}'>
 					<select class="form-control input-sm"
 						ng-model="cargado.TAR_COD_CON_COMPLETAR"
-						ng-options="obj.COD_CONSULTA as obj.NOMBRE for obj in data.CONSULTA | orderBy: 'NOMBRE'"
+						ng-options="obj.COD_CONSULTA as obj.nombre for obj in data.CONSULTA | orderBy: 'nombre'"
 						name="TAR_COD_CON_COMPLETAR" required>
 					</select>
 					<button class="btn btn-info btn-sm" ng-click="cargarModulo('proyectocargado','consulta',cargado.TAR_COD_CON_COMPLETAR)" tooltip="Editar"><i class="glyphicon glyphicon-edit"></i></button></td>
@@ -100,7 +100,7 @@
 			  </tr>
 			  <tr>
 				<th>Nombre BPM (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_BPM_NOMBRE" name="TAR_BPM_NOMBRE" class="form-control input-sm" required></td>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_BPM_nombre" name="TAR_BPM_nombre" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
 				<th>Java Paquete (*) :</th>
@@ -181,8 +181,8 @@
 					  <tr ng-repeat="consultaCompleta in consultaCompletar">
 						<td>{{$index+1}}</td>
 						<td><select class="form-control input-sm" 
-								ng-model="consultaCompleta.COD_OBJ_BPM" 
-								ng-options="item.COD_OBJ_BPM as item.NOMBRE for item in data.OBJ_BPM | orderBy: 'NOMBRE'"
+								ng-model="consultaCompleta.cod_obj_bpm" 
+								ng-options="item.cod_obj_bpm as item.nombre for item in data.OBJ_BPM | orderBy: 'nombre'"
 							></select></td>
 						<td width="220px">
 							<a class="btn btn-primary" ng-click="CompletaCompletarEliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a>&nbsp;&nbsp;
@@ -208,7 +208,7 @@
 					<tbody>
 					  <tr ng-repeat="consultaTrabaja in consultaTrabajar">
 						<td>{{$index+1}}</td>
-						<td><select class="form-control input-sm" ng-model="consultaTrabaja.COD_OBJ_BPM" ng-options="item.COD_OBJ_BPM as item.NOMBRE for item in data.OBJ_BPM | orderBy: 'NOMBRE'"></select></td>
+						<td><select class="form-control input-sm" ng-model="consultaTrabaja.cod_obj_bpm" ng-options="item.cod_obj_bpm as item.nombre for item in data.OBJ_BPM | orderBy: 'nombre'"></select></td>
 						<td width="220px">
 							<a class="btn btn-primary" ng-click="CompletaTrabajarEliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a>&nbsp;&nbsp;
 						</td>

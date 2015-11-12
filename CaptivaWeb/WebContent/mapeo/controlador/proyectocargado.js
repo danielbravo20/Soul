@@ -29,29 +29,23 @@
 				url : 'tabla.html'
 			},
 			{
+				id : "consulta",
+				nombre : "CONSULTA",
+				activo : false,
+				url : 'consulta.html'
+			},
+			{
 				id : "proceso",
 				nombre : "PROCESO",
 				activo : false,
 				url : 'proceso.html'
 			},
 			{
-				id : "consulta",
-				nombre : "CONSULTA",
-				activo : false,
-				url : 'consulta.html'
-			}/*,
-			{
 				id : "tarea",
-				nombre : "Tareas",
+				nombre : "TAREA",
 				activo : false,
 				url : 'tarea.html'
-			},
-			{
-				id : "consulta",
-				nombre : "Consultas",
-				activo : false,
-				url : 'consulta.html'
-			},
+			}/*,
 			{
 				id : "mantenimiento",
 				nombre : "Mantenimientos",
