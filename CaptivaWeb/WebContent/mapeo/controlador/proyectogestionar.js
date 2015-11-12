@@ -10,13 +10,14 @@
 		
 		$scope.paquetes = [];
 		var miPaquete = {};
-		for(var i =0;i< $scope.data.PROYECTOS.length; i++){
-			if(!miPaquete[$scope.data.PROYECTOS[i].paquete]){
-				miPaquete[$scope.data.PROYECTOS[i].paquete] = $scope.data.PROYECTOS[i].paquete;
-				$scope.paquetes.push($scope.data.PROYECTOS[i].paquete);
+		if($scope.data.PROYECTOS){
+			for(var i =0;i< $scope.data.PROYECTOS.length; i++){
+				if(!miPaquete[$scope.data.PROYECTOS[i].paquete]){
+					miPaquete[$scope.data.PROYECTOS[i].paquete] = $scope.data.PROYECTOS[i].paquete;
+					$scope.paquetes.push($scope.data.PROYECTOS[i].paquete);
+				}
 			}
 		}
-		
 		$scope.USUARIOS = angular.copy($scope.data.USUARIOS);
 
 	};
