@@ -45,7 +45,8 @@ CREATE TABLE soul.atributo_sql(
  fn_bus_nombre Character varying(120),
  fn_bus_catalogo Character varying(50),
  val_defecto Character varying(120),
- fk_campo Integer
+ fk_campo Integer,
+ sequencial Character varying(120)
 )
 ;
 

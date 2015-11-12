@@ -197,8 +197,7 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		tareaBean = new TareaBean();
     		tareaBean.setCodigo(tarea.getCodTarea());
     		tareaBean.setNombre(tarea.getNombre());
-    		tareaBean.setVersion(tarea.getVersionTarea());
-    		tareaBean.setClase(tarea.getJavClase());
+    		tareaBean.setClase(tarea.getClase());
     		
     		Set<Rol> rolPotencialSet = tarea.getRols();
     		Iterator<Rol> rolPotencialIterator = rolPotencialSet.iterator();
@@ -227,8 +226,7 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		tareaBean = new TareaBean();
     		tareaBean.setCodigo(tarea.getCodTarea());
     		tareaBean.setNombre(tarea.getNombre());
-    		tareaBean.setVersion(tarea.getVersionTarea());
-    		tareaBean.setClase(tarea.getJavClase());
+    		tareaBean.setClase(tarea.getClase());
     	}
     	return tareaBean;
     }

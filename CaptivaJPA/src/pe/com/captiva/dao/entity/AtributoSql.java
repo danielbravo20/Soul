@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 11/11/2015 09:33:32 PM by Hibernate Tools 4.3.1
+// Generated 12/11/2015 12:28:21 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,6 +35,7 @@ public class AtributoSql implements java.io.Serializable {
 	private String fnBusCatalogo;
 	private String valDefecto;
 	private Integer fkCampo;
+	private String sequencial;
 
 	public AtributoSql() {
 	}
@@ -53,7 +54,7 @@ public class AtributoSql implements java.io.Serializable {
 			String tipo, Integer longitud, Integer precision, char pk,
 			char obligatorio, Integer fkTabla, Character fkUnoMucho,
 			String fnBusNombre, String fnBusCatalogo, String valDefecto,
-			Integer fkCampo) {
+			Integer fkCampo, String sequencial) {
 		this.atributo = atributo;
 		this.tabla = tabla;
 		this.campo = campo;
@@ -68,6 +69,7 @@ public class AtributoSql implements java.io.Serializable {
 		this.fnBusCatalogo = fnBusCatalogo;
 		this.valDefecto = valDefecto;
 		this.fkCampo = fkCampo;
+		this.sequencial = sequencial;
 	}
 
 	@Id
@@ -206,6 +208,15 @@ public class AtributoSql implements java.io.Serializable {
 
 	public void setFkCampo(Integer fkCampo) {
 		this.fkCampo = fkCampo;
+	}
+
+	@Column(name = "sequencial", length = 120)
+	public String getSequencial() {
+		return this.sequencial;
+	}
+
+	public void setSequencial(String sequencial) {
+		this.sequencial = sequencial;
 	}
 
 }

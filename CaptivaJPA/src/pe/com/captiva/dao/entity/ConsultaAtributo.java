@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 11/11/2015 09:33:32 PM by Hibernate Tools 4.3.1
+// Generated 12/11/2015 12:28:21 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -23,19 +23,17 @@ public class ConsultaAtributo implements java.io.Serializable {
 	private Atributo atributo;
 	private Consulta consulta;
 	private char flgCondicion;
-	private char flgVisible;
 	private int codTabla;
 
 	public ConsultaAtributo() {
 	}
 
 	public ConsultaAtributo(ConsultaAtributoId id, Atributo atributo,
-			Consulta consulta, char flgCondicion, char flgVisible, int codTabla) {
+			Consulta consulta, char flgCondicion, int codTabla) {
 		this.id = id;
 		this.atributo = atributo;
 		this.consulta = consulta;
 		this.flgCondicion = flgCondicion;
-		this.flgVisible = flgVisible;
 		this.codTabla = codTabla;
 	}
 
@@ -78,15 +76,6 @@ public class ConsultaAtributo implements java.io.Serializable {
 
 	public void setFlgCondicion(char flgCondicion) {
 		this.flgCondicion = flgCondicion;
-	}
-
-	@Column(name = "flg_visible", nullable = false, length = 1)
-	public char getFlgVisible() {
-		return this.flgVisible;
-	}
-
-	public void setFlgVisible(char flgVisible) {
-		this.flgVisible = flgVisible;
 	}
 
 	@Column(name = "cod_tabla", nullable = false)

@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 11/11/2015 09:33:32 PM by Hibernate Tools 4.3.1
+// Generated 12/11/2015 12:28:21 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,26 +29,14 @@ public class Tarea implements java.io.Serializable {
 	private Tarea tareaByCodTareaObservado;
 	private Tarea tareaByCodTareaSiguiente;
 	private String nombre;
-	private String versionTarea;
-	private String sqlAleas;
-	private String sqlDatasource;
-	private String bpmNombre;
-	private String javPaquete;
-	private String javClase;
+	private String clase;
 	private char webAccCompletar;
 	private char webAccGrabar;
 	private char webAccCancelar;
 	private char webAccRechazar;
 	private char webAccObservar;
-	private char webAccSalir;
-	private char webAccSubsanar;
-	private String webParHisComentario;
-	private String webParHisAccion;
 	private int webTieRojo;
 	private int webTieAmarillo;
-	private char webFlgArcAdjuntos;
-	private char webFlgArcAdicionales;
-	private String webNomConfiguracion;
 	private Character tipoVista;
 	private Set<TareaAtrCompletar> tareaAtrCompletars = new HashSet<TareaAtrCompletar>(
 			0);
@@ -67,51 +55,31 @@ public class Tarea implements java.io.Serializable {
 	}
 
 	public Tarea(int codTarea, Consulta consultaByCodConTrabajar,
-			Consulta consultaByCodConCompletar, String nombre,
-			String versionTarea, String sqlAleas, String sqlDatasource,
-			String bpmNombre, String javPaquete, String javClase,
+			Consulta consultaByCodConCompletar, String nombre, String clase,
 			char webAccCompletar, char webAccGrabar, char webAccCancelar,
-			char webAccRechazar, char webAccObservar, char webAccSalir,
-			char webAccSubsanar, String webParHisComentario,
-			String webParHisAccion, int webTieRojo, int webTieAmarillo,
-			char webFlgArcAdjuntos, char webFlgArcAdicionales) {
+			char webAccRechazar, char webAccObservar, int webTieRojo,
+			int webTieAmarillo) {
 		this.codTarea = codTarea;
 		this.consultaByCodConTrabajar = consultaByCodConTrabajar;
 		this.consultaByCodConCompletar = consultaByCodConCompletar;
 		this.nombre = nombre;
-		this.versionTarea = versionTarea;
-		this.sqlAleas = sqlAleas;
-		this.sqlDatasource = sqlDatasource;
-		this.bpmNombre = bpmNombre;
-		this.javPaquete = javPaquete;
-		this.javClase = javClase;
+		this.clase = clase;
 		this.webAccCompletar = webAccCompletar;
 		this.webAccGrabar = webAccGrabar;
 		this.webAccCancelar = webAccCancelar;
 		this.webAccRechazar = webAccRechazar;
 		this.webAccObservar = webAccObservar;
-		this.webAccSalir = webAccSalir;
-		this.webAccSubsanar = webAccSubsanar;
-		this.webParHisComentario = webParHisComentario;
-		this.webParHisAccion = webParHisAccion;
 		this.webTieRojo = webTieRojo;
 		this.webTieAmarillo = webTieAmarillo;
-		this.webFlgArcAdjuntos = webFlgArcAdjuntos;
-		this.webFlgArcAdicionales = webFlgArcAdicionales;
 	}
 
 	public Tarea(int codTarea, Consulta consultaByCodConTrabajar,
 			Consulta consultaByCodConCompletar, Proceso proceso,
 			Tarea tareaByCodTareaObservado, Tarea tareaByCodTareaSiguiente,
-			String nombre, String versionTarea, String sqlAleas,
-			String sqlDatasource, String bpmNombre, String javPaquete,
-			String javClase, char webAccCompletar, char webAccGrabar,
-			char webAccCancelar, char webAccRechazar, char webAccObservar,
-			char webAccSalir, char webAccSubsanar, String webParHisComentario,
-			String webParHisAccion, int webTieRojo, int webTieAmarillo,
-			char webFlgArcAdjuntos, char webFlgArcAdicionales,
-			String webNomConfiguracion, Character tipoVista,
-			Set<TareaAtrCompletar> tareaAtrCompletars,
+			String nombre, String clase, char webAccCompletar,
+			char webAccGrabar, char webAccCancelar, char webAccRechazar,
+			char webAccObservar, int webTieRojo, int webTieAmarillo,
+			Character tipoVista, Set<TareaAtrCompletar> tareaAtrCompletars,
 			Set<TareaAtrCancelar> tareaAtrCancelars, Set<Rol> rols,
 			Set<Tarea> tareasForCodTareaObservado,
 			Set<Tarea> tareasForCodTareaSiguiente,
@@ -124,26 +92,14 @@ public class Tarea implements java.io.Serializable {
 		this.tareaByCodTareaObservado = tareaByCodTareaObservado;
 		this.tareaByCodTareaSiguiente = tareaByCodTareaSiguiente;
 		this.nombre = nombre;
-		this.versionTarea = versionTarea;
-		this.sqlAleas = sqlAleas;
-		this.sqlDatasource = sqlDatasource;
-		this.bpmNombre = bpmNombre;
-		this.javPaquete = javPaquete;
-		this.javClase = javClase;
+		this.clase = clase;
 		this.webAccCompletar = webAccCompletar;
 		this.webAccGrabar = webAccGrabar;
 		this.webAccCancelar = webAccCancelar;
 		this.webAccRechazar = webAccRechazar;
 		this.webAccObservar = webAccObservar;
-		this.webAccSalir = webAccSalir;
-		this.webAccSubsanar = webAccSubsanar;
-		this.webParHisComentario = webParHisComentario;
-		this.webParHisAccion = webParHisAccion;
 		this.webTieRojo = webTieRojo;
 		this.webTieAmarillo = webTieAmarillo;
-		this.webFlgArcAdjuntos = webFlgArcAdjuntos;
-		this.webFlgArcAdicionales = webFlgArcAdicionales;
-		this.webNomConfiguracion = webNomConfiguracion;
 		this.tipoVista = tipoVista;
 		this.tareaAtrCompletars = tareaAtrCompletars;
 		this.tareaAtrCancelars = tareaAtrCancelars;
@@ -224,58 +180,13 @@ public class Tarea implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	@Column(name = "version_tarea", nullable = false, length = 10)
-	public String getVersionTarea() {
-		return this.versionTarea;
+	@Column(name = "clase", nullable = false)
+	public String getClase() {
+		return this.clase;
 	}
 
-	public void setVersionTarea(String versionTarea) {
-		this.versionTarea = versionTarea;
-	}
-
-	@Column(name = "sql_aleas", nullable = false, length = 20)
-	public String getSqlAleas() {
-		return this.sqlAleas;
-	}
-
-	public void setSqlAleas(String sqlAleas) {
-		this.sqlAleas = sqlAleas;
-	}
-
-	@Column(name = "sql_datasource", nullable = false, length = 120)
-	public String getSqlDatasource() {
-		return this.sqlDatasource;
-	}
-
-	public void setSqlDatasource(String sqlDatasource) {
-		this.sqlDatasource = sqlDatasource;
-	}
-
-	@Column(name = "bpm_nombre", nullable = false)
-	public String getBpmNombre() {
-		return this.bpmNombre;
-	}
-
-	public void setBpmNombre(String bpmNombre) {
-		this.bpmNombre = bpmNombre;
-	}
-
-	@Column(name = "jav_paquete", nullable = false)
-	public String getJavPaquete() {
-		return this.javPaquete;
-	}
-
-	public void setJavPaquete(String javPaquete) {
-		this.javPaquete = javPaquete;
-	}
-
-	@Column(name = "jav_clase", nullable = false)
-	public String getJavClase() {
-		return this.javClase;
-	}
-
-	public void setJavClase(String javClase) {
-		this.javClase = javClase;
+	public void setClase(String clase) {
+		this.clase = clase;
 	}
 
 	@Column(name = "web_acc_completar", nullable = false, length = 1)
@@ -323,42 +234,6 @@ public class Tarea implements java.io.Serializable {
 		this.webAccObservar = webAccObservar;
 	}
 
-	@Column(name = "web_acc_salir", nullable = false, length = 1)
-	public char getWebAccSalir() {
-		return this.webAccSalir;
-	}
-
-	public void setWebAccSalir(char webAccSalir) {
-		this.webAccSalir = webAccSalir;
-	}
-
-	@Column(name = "web_acc_subsanar", nullable = false, length = 1)
-	public char getWebAccSubsanar() {
-		return this.webAccSubsanar;
-	}
-
-	public void setWebAccSubsanar(char webAccSubsanar) {
-		this.webAccSubsanar = webAccSubsanar;
-	}
-
-	@Column(name = "web_par_his_comentario", nullable = false, length = 120)
-	public String getWebParHisComentario() {
-		return this.webParHisComentario;
-	}
-
-	public void setWebParHisComentario(String webParHisComentario) {
-		this.webParHisComentario = webParHisComentario;
-	}
-
-	@Column(name = "web_par_his_accion", nullable = false, length = 120)
-	public String getWebParHisAccion() {
-		return this.webParHisAccion;
-	}
-
-	public void setWebParHisAccion(String webParHisAccion) {
-		this.webParHisAccion = webParHisAccion;
-	}
-
 	@Column(name = "web_tie_rojo", nullable = false)
 	public int getWebTieRojo() {
 		return this.webTieRojo;
@@ -375,33 +250,6 @@ public class Tarea implements java.io.Serializable {
 
 	public void setWebTieAmarillo(int webTieAmarillo) {
 		this.webTieAmarillo = webTieAmarillo;
-	}
-
-	@Column(name = "web_flg_arc_adjuntos", nullable = false, length = 1)
-	public char getWebFlgArcAdjuntos() {
-		return this.webFlgArcAdjuntos;
-	}
-
-	public void setWebFlgArcAdjuntos(char webFlgArcAdjuntos) {
-		this.webFlgArcAdjuntos = webFlgArcAdjuntos;
-	}
-
-	@Column(name = "web_flg_arc_adicionales", nullable = false, length = 1)
-	public char getWebFlgArcAdicionales() {
-		return this.webFlgArcAdicionales;
-	}
-
-	public void setWebFlgArcAdicionales(char webFlgArcAdicionales) {
-		this.webFlgArcAdicionales = webFlgArcAdicionales;
-	}
-
-	@Column(name = "web_nom_configuracion", length = 120)
-	public String getWebNomConfiguracion() {
-		return this.webNomConfiguracion;
-	}
-
-	public void setWebNomConfiguracion(String webNomConfiguracion) {
-		this.webNomConfiguracion = webNomConfiguracion;
 	}
 
 	@Column(name = "tipo_vista", length = 1)

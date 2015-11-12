@@ -90,7 +90,7 @@ public class GeneralSQLInsertSoul extends MultipleBaseConstructor{
 		List<TareaBean> tareas = procesoBean.getTareas();
 		for (int x = 0; x < tareas.size(); x++) {
 			TareaBean tareaBean = tareas.get(x);
-			stringBuffer.append("insert into proceso.tarea_plantilla(codigo_tarea_plantilla, codigo_proceso_plantilla, estado_tarea, nombre_tarea, aleas_tarea, version_tarea, prioridad_tarea, orden_tarea) values ("+tareaBean.getCodigo()+", "+procesoBean.getCodigo()+", '1', '"+tareaBean.getNombre()+"', '"+tareaBean.getClase()+"', '"+tareaBean.getVersion()+"', 1, 1);\r\n");
+			stringBuffer.append("insert into proceso.tarea_plantilla(codigo_tarea_plantilla, codigo_proceso_plantilla, estado_tarea, nombre_tarea, aleas_tarea, version_tarea, prioridad_tarea, orden_tarea) values ("+tareaBean.getCodigo()+", "+procesoBean.getCodigo()+", '1', '"+tareaBean.getNombre()+"', '"+tareaBean.getClase()+"', 1, 1);\r\n");
 		}
 		return stringBuffer.toString();
 	}

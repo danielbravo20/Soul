@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 11/11/2015 09:33:32 PM by Hibernate Tools 4.3.1
+// Generated 12/11/2015 12:28:21 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,9 +22,6 @@ public class Consulta implements java.io.Serializable {
 
 	private int codConsulta;
 	private Proyecto proyecto;
-	private String sqlAleStoProcedure;
-	private String javPaquete;
-	private String javInterface;
 	private String nombre;
 	private Set<ConsultaAtributo> consultaAtributos = new HashSet<ConsultaAtributo>(
 			0);
@@ -37,20 +34,14 @@ public class Consulta implements java.io.Serializable {
 	public Consulta() {
 	}
 
-	public Consulta(int codConsulta, Proyecto proyecto,
-			String sqlAleStoProcedure, String javPaquete, String javInterface,
-			String nombre) {
+	public Consulta(int codConsulta, Proyecto proyecto, String nombre) {
 		this.codConsulta = codConsulta;
 		this.proyecto = proyecto;
-		this.sqlAleStoProcedure = sqlAleStoProcedure;
-		this.javPaquete = javPaquete;
-		this.javInterface = javInterface;
 		this.nombre = nombre;
 	}
 
-	public Consulta(int codConsulta, Proyecto proyecto,
-			String sqlAleStoProcedure, String javPaquete, String javInterface,
-			String nombre, Set<ConsultaAtributo> consultaAtributos,
+	public Consulta(int codConsulta, Proyecto proyecto, String nombre,
+			Set<ConsultaAtributo> consultaAtributos,
 			Set<Tarea> tareasForCodConTrabajar,
 			Set<Proceso> procesosForCodConResumen,
 			Set<Proceso> procesosForCodConDetalle,
@@ -58,9 +49,6 @@ public class Consulta implements java.io.Serializable {
 			Set<Tarea> tareasForCodConCompletar) {
 		this.codConsulta = codConsulta;
 		this.proyecto = proyecto;
-		this.sqlAleStoProcedure = sqlAleStoProcedure;
-		this.javPaquete = javPaquete;
-		this.javInterface = javInterface;
 		this.nombre = nombre;
 		this.consultaAtributos = consultaAtributos;
 		this.tareasForCodConTrabajar = tareasForCodConTrabajar;
@@ -88,33 +76,6 @@ public class Consulta implements java.io.Serializable {
 
 	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
-	}
-
-	@Column(name = "sql_ale_sto_procedure", nullable = false, length = 120)
-	public String getSqlAleStoProcedure() {
-		return this.sqlAleStoProcedure;
-	}
-
-	public void setSqlAleStoProcedure(String sqlAleStoProcedure) {
-		this.sqlAleStoProcedure = sqlAleStoProcedure;
-	}
-
-	@Column(name = "jav_paquete", nullable = false)
-	public String getJavPaquete() {
-		return this.javPaquete;
-	}
-
-	public void setJavPaquete(String javPaquete) {
-		this.javPaquete = javPaquete;
-	}
-
-	@Column(name = "jav_interface", nullable = false)
-	public String getJavInterface() {
-		return this.javInterface;
-	}
-
-	public void setJavInterface(String javInterface) {
-		this.javInterface = javInterface;
 	}
 
 	@Column(name = "nombre", nullable = false, length = 120)

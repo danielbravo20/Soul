@@ -23,7 +23,6 @@ public class TareaBean {
 	private String webParametroComentario;
 	private String webParametroAccion;
 	private ConsultaTareaCompletarBean consultaCompletar;
-	private String version;
 	private int tiempoRojo;
 	private int tiempoAmarillo;
 	private boolean adjuntaArchivos; 
@@ -197,12 +196,6 @@ public class TareaBean {
 	}
 	public void setConsultaCompletar(ConsultaTareaCompletarBean consultaCompletar) {
 		this.consultaCompletar = consultaCompletar;
-	}
-	public String getVersion() {
-		return version;
-	}
-	public void setVersion(String version) {
-		this.version = version;
 	}
 	public int getTiempoRojo() {
 		return tiempoRojo;
