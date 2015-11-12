@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
+// Generated 11/11/2015 09:33:32 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,11 +28,6 @@ public class Atributo implements java.io.Serializable {
 	private char flgLista;
 	private String webNombre;
 	private String webFormato;
-	private String infNombre;
-	private String infDescripcion;
-	private String infAutor;
-	private String webMenValidacion;
-	private String webForValidacion;
 	private Set<TareaAtrObservar> tareaAtrObservars = new HashSet<TareaAtrObservar>(
 			0);
 	private Set<TareaAtrCompletar> tareaAtrCompletars = new HashSet<TareaAtrCompletar>(
@@ -60,8 +55,6 @@ public class Atributo implements java.io.Serializable {
 
 	public Atributo(int codAtributo, Clase clase, String nombre, String tipo,
 			char flgLista, String webNombre, String webFormato,
-			String infNombre, String infDescripcion, String infAutor,
-			String webMenValidacion, String webForValidacion,
 			Set<TareaAtrObservar> tareaAtrObservars,
 			Set<TareaAtrCompletar> tareaAtrCompletars,
 			Set<ProcesoInicio> procesoInicios,
@@ -75,11 +68,6 @@ public class Atributo implements java.io.Serializable {
 		this.flgLista = flgLista;
 		this.webNombre = webNombre;
 		this.webFormato = webFormato;
-		this.infNombre = infNombre;
-		this.infDescripcion = infDescripcion;
-		this.infAutor = infAutor;
-		this.webMenValidacion = webMenValidacion;
-		this.webForValidacion = webForValidacion;
 		this.tareaAtrObservars = tareaAtrObservars;
 		this.tareaAtrCompletars = tareaAtrCompletars;
 		this.procesoInicios = procesoInicios;
@@ -152,51 +140,6 @@ public class Atributo implements java.io.Serializable {
 
 	public void setWebFormato(String webFormato) {
 		this.webFormato = webFormato;
-	}
-
-	@Column(name = "inf_nombre", length = 120)
-	public String getInfNombre() {
-		return this.infNombre;
-	}
-
-	public void setInfNombre(String infNombre) {
-		this.infNombre = infNombre;
-	}
-
-	@Column(name = "inf_descripcion")
-	public String getInfDescripcion() {
-		return this.infDescripcion;
-	}
-
-	public void setInfDescripcion(String infDescripcion) {
-		this.infDescripcion = infDescripcion;
-	}
-
-	@Column(name = "inf_autor", length = 120)
-	public String getInfAutor() {
-		return this.infAutor;
-	}
-
-	public void setInfAutor(String infAutor) {
-		this.infAutor = infAutor;
-	}
-
-	@Column(name = "web_men_validacion", length = 250)
-	public String getWebMenValidacion() {
-		return this.webMenValidacion;
-	}
-
-	public void setWebMenValidacion(String webMenValidacion) {
-		this.webMenValidacion = webMenValidacion;
-	}
-
-	@Column(name = "web_for_validacion", length = 250)
-	public String getWebForValidacion() {
-		return this.webForValidacion;
-	}
-
-	public void setWebForValidacion(String webForValidacion) {
-		this.webForValidacion = webForValidacion;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "atributo")

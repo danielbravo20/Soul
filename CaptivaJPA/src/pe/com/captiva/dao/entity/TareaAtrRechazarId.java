@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
+// Generated 11/11/2015 09:33:32 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

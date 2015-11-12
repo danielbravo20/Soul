@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
+// Generated 11/11/2015 09:33:32 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,32 +24,24 @@ public class Clase implements java.io.Serializable {
 	private Proyecto proyecto;
 	private Tabla tabla;
 	private String nombre;
-	private String paquete;
-	private String infAutor;
-	private String infDescripcion;
 	private Integer nivel;
 	private Set<Atributo> atributos = new HashSet<Atributo>(0);
 
 	public Clase() {
 	}
 
-	public Clase(int codClase, Proyecto proyecto, String nombre, String paquete) {
+	public Clase(int codClase, Proyecto proyecto, String nombre) {
 		this.codClase = codClase;
 		this.proyecto = proyecto;
 		this.nombre = nombre;
-		this.paquete = paquete;
 	}
 
 	public Clase(int codClase, Proyecto proyecto, Tabla tabla, String nombre,
-			String paquete, String infAutor, String infDescripcion,
 			Integer nivel, Set<Atributo> atributos) {
 		this.codClase = codClase;
 		this.proyecto = proyecto;
 		this.tabla = tabla;
 		this.nombre = nombre;
-		this.paquete = paquete;
-		this.infAutor = infAutor;
-		this.infDescripcion = infDescripcion;
 		this.nivel = nivel;
 		this.atributos = atributos;
 	}
@@ -91,33 +83,6 @@ public class Clase implements java.io.Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	@Column(name = "paquete", nullable = false, length = 250)
-	public String getPaquete() {
-		return this.paquete;
-	}
-
-	public void setPaquete(String paquete) {
-		this.paquete = paquete;
-	}
-
-	@Column(name = "inf_autor", length = 120)
-	public String getInfAutor() {
-		return this.infAutor;
-	}
-
-	public void setInfAutor(String infAutor) {
-		this.infAutor = infAutor;
-	}
-
-	@Column(name = "inf_descripcion")
-	public String getInfDescripcion() {
-		return this.infDescripcion;
-	}
-
-	public void setInfDescripcion(String infDescripcion) {
-		this.infDescripcion = infDescripcion;
 	}
 
 	@Column(name = "nivel")

@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
+// Generated 11/11/2015 09:33:32 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +24,6 @@ public class Tabla implements java.io.Serializable {
 	private Proyecto proyecto;
 	private String esquema;
 	private String nombre;
-	private Integer orden;
 	private Set<ConsultaTabla> consultaTablasForCodTabPadre = new HashSet<ConsultaTabla>(
 			0);
 	private Set<AtributoSql> atributoSqls = new HashSet<AtributoSql>(0);
@@ -43,15 +42,13 @@ public class Tabla implements java.io.Serializable {
 	}
 
 	public Tabla(int codTabla, Proyecto proyecto, String esquema,
-			String nombre, Integer orden,
-			Set<ConsultaTabla> consultaTablasForCodTabPadre,
+			String nombre, Set<ConsultaTabla> consultaTablasForCodTabPadre,
 			Set<AtributoSql> atributoSqls,
 			Set<ConsultaTabla> consultaTablasForCodTabla, Set<Clase> clases) {
 		this.codTabla = codTabla;
 		this.proyecto = proyecto;
 		this.esquema = esquema;
 		this.nombre = nombre;
-		this.orden = orden;
 		this.consultaTablasForCodTabPadre = consultaTablasForCodTabPadre;
 		this.atributoSqls = atributoSqls;
 		this.consultaTablasForCodTabla = consultaTablasForCodTabla;
@@ -94,15 +91,6 @@ public class Tabla implements java.io.Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	@Column(name = "orden")
-	public Integer getOrden() {
-		return this.orden;
-	}
-
-	public void setOrden(Integer orden) {
-		this.orden = orden;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablaByCodTabPadre")

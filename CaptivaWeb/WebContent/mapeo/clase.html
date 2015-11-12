@@ -48,6 +48,16 @@
 				<td><input type="number" ng-model="cargado.CLA_nivel" class="form-control input-sm"></td>
 			  </tr>
 			  <tr>
+				<th>Tabla :</th>
+				<td>
+					<select class="form-control input-sm"
+						ng-model="cargado.CLA_cod_tabla"
+						ng-options="obj.cod_tabla as obj.nombre for obj in data.TABLA | orderBy: 'nombre'"
+						name="CLA_cod_tabla"></select>	
+				</td>
+			  </tr>
+			  
+			  <tr>
 				<td colspan="2">
 					<a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">GUARDAR</span><span ng-show="!esEdicion">REGISTRAR</span></a>
 					<a class="btn btn-info btn-sm" ng-click="instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR</a>

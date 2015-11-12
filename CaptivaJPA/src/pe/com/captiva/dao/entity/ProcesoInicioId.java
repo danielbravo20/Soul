@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
+// Generated 11/11/2015 09:33:32 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -12,14 +12,17 @@ import javax.persistence.Embeddable;
 public class ProcesoInicioId implements java.io.Serializable {
 
 	private int codProceso;
-	private int codAtributo;
+	private int codSubSeccion;
+	private int codProcesoInicio;
 
 	public ProcesoInicioId() {
 	}
 
-	public ProcesoInicioId(int codProceso, int codAtributo) {
+	public ProcesoInicioId(int codProceso, int codSubSeccion,
+			int codProcesoInicio) {
 		this.codProceso = codProceso;
-		this.codAtributo = codAtributo;
+		this.codSubSeccion = codSubSeccion;
+		this.codProcesoInicio = codProcesoInicio;
 	}
 
 	@Column(name = "cod_proceso", nullable = false)
@@ -31,13 +34,22 @@ public class ProcesoInicioId implements java.io.Serializable {
 		this.codProceso = codProceso;
 	}
 
-	@Column(name = "cod_atributo", nullable = false)
-	public int getCodAtributo() {
-		return this.codAtributo;
+	@Column(name = "cod_sub_seccion", nullable = false)
+	public int getCodSubSeccion() {
+		return this.codSubSeccion;
 	}
 
-	public void setCodAtributo(int codAtributo) {
-		this.codAtributo = codAtributo;
+	public void setCodSubSeccion(int codSubSeccion) {
+		this.codSubSeccion = codSubSeccion;
+	}
+
+	@Column(name = "cod_proceso_inicio", nullable = false)
+	public int getCodProcesoInicio() {
+		return this.codProcesoInicio;
+	}
+
+	public void setCodProcesoInicio(int codProcesoInicio) {
+		this.codProcesoInicio = codProcesoInicio;
 	}
 
 	public boolean equals(Object other) {
@@ -50,14 +62,17 @@ public class ProcesoInicioId implements java.io.Serializable {
 		ProcesoInicioId castOther = (ProcesoInicioId) other;
 
 		return (this.getCodProceso() == castOther.getCodProceso())
-				&& (this.getCodAtributo() == castOther.getCodAtributo());
+				&& (this.getCodSubSeccion() == castOther.getCodSubSeccion())
+				&& (this.getCodProcesoInicio() == castOther
+						.getCodProcesoInicio());
 	}
 
 	public int hashCode() {
 		int result = 17;
 
 		result = 37 * result + this.getCodProceso();
-		result = 37 * result + this.getCodAtributo();
+		result = 37 * result + this.getCodSubSeccion();
+		result = 37 * result + this.getCodProcesoInicio();
 		return result;
 	}
 

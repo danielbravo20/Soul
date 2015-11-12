@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="CaptivaJPA">
+		<class>pe.com.captiva.dao.entity.Atributo</class>
+		<class>pe.com.captiva.dao.entity.AtributoSql</class>
+		<class>pe.com.captiva.dao.entity.Catalogo</class>
+		<class>pe.com.captiva.dao.entity.CatalogoId</class>
+		<class>pe.com.captiva.dao.entity.Clase</class>
+		<class>pe.com.captiva.dao.entity.Consulta</class>
+		<class>pe.com.captiva.dao.entity.ConsultaAtributo</class>
+		<class>pe.com.captiva.dao.entity.ConsultaAtributoId</class>
+		<class>pe.com.captiva.dao.entity.ConsultaTabla</class>
+		<class>pe.com.captiva.dao.entity.ConsultaTablaId</class>
+		<class>pe.com.captiva.dao.entity.Datasource</class>
+		<class>pe.com.captiva.dao.entity.Equipo</class>
+		<class>pe.com.captiva.dao.entity.EquipoId</class>
+		<class>pe.com.captiva.dao.entity.Mantenimiento</class>
+		<class>pe.com.captiva.dao.entity.MantenimientoAtributo</class>
+		<class>pe.com.captiva.dao.entity.Proceso</class>
+		<class>pe.com.captiva.dao.entity.ProcesoInicio</class>
+		<class>pe.com.captiva.dao.entity.ProcesoInicioId</class>
+		<class>pe.com.captiva.dao.entity.Proyecto</class>
+		<class>pe.com.captiva.dao.entity.Rol</class>
+		<class>pe.com.captiva.dao.entity.Tabla</class>
+		<class>pe.com.captiva.dao.entity.Tarea</class>
+		<class>pe.com.captiva.dao.entity.TareaAtrCancelar</class>
+		<class>pe.com.captiva.dao.entity.TareaAtrCancelarId</class>
+		<class>pe.com.captiva.dao.entity.TareaAtrCompletar</class>
+		<class>pe.com.captiva.dao.entity.TareaAtrCompletarId</class>
+		<class>pe.com.captiva.dao.entity.TareaAtrObservar</class>
+		<class>pe.com.captiva.dao.entity.TareaAtrObservarId</class>
+		<class>pe.com.captiva.dao.entity.TareaAtrRechazar</class>
+		<class>pe.com.captiva.dao.entity.TareaAtrRechazarId</class>
+		<class>pe.com.captiva.dao.entity.Usuario</class>
 		<properties>
 			<property name="hibernate.connection.datasource" value="java:jboss/captivaDS"/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />

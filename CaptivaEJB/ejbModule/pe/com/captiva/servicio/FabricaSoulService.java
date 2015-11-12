@@ -58,8 +58,9 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 			proyectoBean.setEquipoBean(equipoBean);
 			new GeneralClaseBean().construir(proyectoBean);
 			new GeneralClaseEntity().construir(proyectoBean);
-			new GeneralSQLInsertSoul().construir(proyectoBean);
 			new GeneralSQLCreateSoul().construir(proyectoBean);
+			new GeneralSQLInsertSoul().construir(proyectoBean);
+			
 			
 			new ProcesoClasePreUtil().construir(proyectoBean);
 			new ProcesoClaseUtil().construir(proyectoBean);
@@ -86,7 +87,7 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 	 * @return
 	 * @throws Exception
 	 * 
-	 * Se valida que la configuración del usuario:
+	 * Se valida que la configuraciï¿½n del usuario:
 	 * 	- existe el directorio del workspace
 	 *  - existe el directorio temporal/parcial
 	 *  - existe el proyecto EAR

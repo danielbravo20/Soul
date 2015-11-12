@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 30/10/2015 11:10:41 AM by Hibernate Tools 4.3.1
+// Generated 11/11/2015 09:33:32 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,17 +26,10 @@ public class Proceso implements java.io.Serializable {
 	private Consulta consultaByCodConResumen;
 	private Consulta consultaByCodConDetalle;
 	private Proyecto proyecto;
-	private String infNombre;
-	private String codUniNegocio;
-	private String codProducto;
-	private String infSufijo;
-	private String bpmPlantilla;
-	private int bpmActInicio;
-	private String javPaquete;
+	private String nombre;
 	private String javClase;
-	private String javAleProceso;
 	private String javDatasource;
-	private String javDocSequence;
+	private String webDetalleTipovista;
 	private Set<ProcesoInicio> procesoInicios = new HashSet<ProcesoInicio>(0);
 	private Set<Rol> rols = new HashSet<Rol>(0);
 	private Set<Tarea> tareas = new HashSet<Tarea>(0);
@@ -45,46 +38,29 @@ public class Proceso implements java.io.Serializable {
 	}
 
 	public Proceso(int codProceso, Consulta consultaByCodConResumen,
-			Consulta consultaByCodConDetalle, Proyecto proyecto,
-			String infNombre, String codUniNegocio, String codProducto,
-			String bpmPlantilla, int bpmActInicio, String javPaquete,
+			Consulta consultaByCodConDetalle, Proyecto proyecto, String nombre,
 			String javClase, String javDatasource) {
 		this.codProceso = codProceso;
 		this.consultaByCodConResumen = consultaByCodConResumen;
 		this.consultaByCodConDetalle = consultaByCodConDetalle;
 		this.proyecto = proyecto;
-		this.infNombre = infNombre;
-		this.codUniNegocio = codUniNegocio;
-		this.codProducto = codProducto;
-		this.bpmPlantilla = bpmPlantilla;
-		this.bpmActInicio = bpmActInicio;
-		this.javPaquete = javPaquete;
+		this.nombre = nombre;
 		this.javClase = javClase;
 		this.javDatasource = javDatasource;
 	}
 
 	public Proceso(int codProceso, Consulta consultaByCodConResumen,
-			Consulta consultaByCodConDetalle, Proyecto proyecto,
-			String infNombre, String codUniNegocio, String codProducto,
-			String infSufijo, String bpmPlantilla, int bpmActInicio,
-			String javPaquete, String javClase, String javAleProceso,
-			String javDatasource, String javDocSequence,
+			Consulta consultaByCodConDetalle, Proyecto proyecto, String nombre,
+			String javClase, String javDatasource, String webDetalleTipovista,
 			Set<ProcesoInicio> procesoInicios, Set<Rol> rols, Set<Tarea> tareas) {
 		this.codProceso = codProceso;
 		this.consultaByCodConResumen = consultaByCodConResumen;
 		this.consultaByCodConDetalle = consultaByCodConDetalle;
 		this.proyecto = proyecto;
-		this.infNombre = infNombre;
-		this.codUniNegocio = codUniNegocio;
-		this.codProducto = codProducto;
-		this.infSufijo = infSufijo;
-		this.bpmPlantilla = bpmPlantilla;
-		this.bpmActInicio = bpmActInicio;
-		this.javPaquete = javPaquete;
+		this.nombre = nombre;
 		this.javClase = javClase;
-		this.javAleProceso = javAleProceso;
 		this.javDatasource = javDatasource;
-		this.javDocSequence = javDocSequence;
+		this.webDetalleTipovista = webDetalleTipovista;
 		this.procesoInicios = procesoInicios;
 		this.rols = rols;
 		this.tareas = tareas;
@@ -130,67 +106,13 @@ public class Proceso implements java.io.Serializable {
 		this.proyecto = proyecto;
 	}
 
-	@Column(name = "inf_nombre", nullable = false, length = 120)
-	public String getInfNombre() {
-		return this.infNombre;
+	@Column(name = "nombre", nullable = false, length = 120)
+	public String getNombre() {
+		return this.nombre;
 	}
 
-	public void setInfNombre(String infNombre) {
-		this.infNombre = infNombre;
-	}
-
-	@Column(name = "cod_uni_negocio", nullable = false, length = 12)
-	public String getCodUniNegocio() {
-		return this.codUniNegocio;
-	}
-
-	public void setCodUniNegocio(String codUniNegocio) {
-		this.codUniNegocio = codUniNegocio;
-	}
-
-	@Column(name = "cod_producto", nullable = false, length = 12)
-	public String getCodProducto() {
-		return this.codProducto;
-	}
-
-	public void setCodProducto(String codProducto) {
-		this.codProducto = codProducto;
-	}
-
-	@Column(name = "inf_sufijo", length = 6)
-	public String getInfSufijo() {
-		return this.infSufijo;
-	}
-
-	public void setInfSufijo(String infSufijo) {
-		this.infSufijo = infSufijo;
-	}
-
-	@Column(name = "bpm_plantilla", nullable = false, length = 120)
-	public String getBpmPlantilla() {
-		return this.bpmPlantilla;
-	}
-
-	public void setBpmPlantilla(String bpmPlantilla) {
-		this.bpmPlantilla = bpmPlantilla;
-	}
-
-	@Column(name = "bpm_act_inicio", nullable = false)
-	public int getBpmActInicio() {
-		return this.bpmActInicio;
-	}
-
-	public void setBpmActInicio(int bpmActInicio) {
-		this.bpmActInicio = bpmActInicio;
-	}
-
-	@Column(name = "jav_paquete", nullable = false)
-	public String getJavPaquete() {
-		return this.javPaquete;
-	}
-
-	public void setJavPaquete(String javPaquete) {
-		this.javPaquete = javPaquete;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	@Column(name = "jav_clase", nullable = false, length = 120)
@@ -202,15 +124,6 @@ public class Proceso implements java.io.Serializable {
 		this.javClase = javClase;
 	}
 
-	@Column(name = "jav_ale_proceso", length = 120)
-	public String getJavAleProceso() {
-		return this.javAleProceso;
-	}
-
-	public void setJavAleProceso(String javAleProceso) {
-		this.javAleProceso = javAleProceso;
-	}
-
 	@Column(name = "jav_datasource", nullable = false, length = 120)
 	public String getJavDatasource() {
 		return this.javDatasource;
@@ -220,13 +133,13 @@ public class Proceso implements java.io.Serializable {
 		this.javDatasource = javDatasource;
 	}
 
-	@Column(name = "jav_doc_sequence", length = 120)
-	public String getJavDocSequence() {
-		return this.javDocSequence;
+	@Column(name = "web_detalle_tipovista", length = 1)
+	public String getWebDetalleTipovista() {
+		return this.webDetalleTipovista;
 	}
 
-	public void setJavDocSequence(String javDocSequence) {
-		this.javDocSequence = javDocSequence;
+	public void setWebDetalleTipovista(String webDetalleTipovista) {
+		this.webDetalleTipovista = webDetalleTipovista;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
