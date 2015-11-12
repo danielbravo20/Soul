@@ -1,15 +1,16 @@
 <script type="text/javascript" src="controlador/consulta.js"></script>
 <div ng-controller="consulta" style="padding-top: 5px;">
-	<div class="container-fluid show-grid" ng-show="vista === 'lista'">
+	<alert type="danger" ng-show="data.TABLA.length==0">Debes registrar "Tablas" antes de trabajar Consultas</alert>
+	<div class="show-grid" ng-show="vista === 'lista'">
 		<div class="panel panel-default">
-		  <div class="panel-heading">Listado de Consultas</div>
+		  <div class="panel-heading"><strong>Listado de Consultas</strong></div>
 		  <table class="table">
 			<thead>
 			  <tr>
 				<th><input type="text" ng-model="buscar.cod_consulta" placeholder="Código" class="form-control input-sm"></th>
 				<th><input type="text" ng-model="buscar.nombre" placeholder="Nombre" class="form-control input-sm"></th>
 				<th><input type="text" ng-model="buscar.sql_ale_sto_procedure" placeholder="Nombre SP" class="form-control input-sm"></th>
-				<th>Opción</th>
+				<th align="right">Opción</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -32,7 +33,7 @@
 		</div>
 		<pagination total-items="pag.total" ng-model="pag.actual" max-size="pag.max" class="pagination-sm" boundary-links="true" items-per-page="pag.itemxPagina" style="margin: 0px 0;"></pagination>
 	</div>
-	<div class="container-fluid show-grid" ng-show="vista === 'mantener'">
+	<div class="show-grid" ng-show="vista === 'mantener'">
 		<div class="panel panel-default">
 		  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
 		  <form name="FRM_CONSULTA" novalidate>

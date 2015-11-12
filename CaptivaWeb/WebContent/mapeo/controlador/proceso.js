@@ -1,4 +1,4 @@
-﻿mapeo.registerCtrl('proceso', function($scope, $modal, ajax, util) {
+﻿mapeo.registerCtrl('proceso', function($scope, ajax, util) {
 
 	$scope.pag = {
 		actual : 1,
@@ -99,25 +99,7 @@
 	
 	$scope.gestionarRoles = function(cod_proceso){
 		var miProceso = util.getObjeto($scope.data.PROCESO,{cod_proceso : cod_proceso});
-		var modal = $modal.open({
-			animation: true,
-			templateUrl: 'rol_modal_entidad.html',
-			controller: 'rol_modal_entidad',
-			resolve: {
-				config : function(){
-					return {
-						atributo : cod_proceso,
-						titulo	 : "ROLES DE '"+miProceso.inf_nombre+"'",
-						rol		 : $scope.data.ROL,
-						tabla	 : "proceso_rol_potencial",
-						cod_entidad	 : "cod_proceso"
-					};
-				}
-			}
-		});
-			modal.result.then(function(){
-				$scope.instanciar();
-			});
+		$scope.asociarRoles(cod_proceso,"ROLES DE '"+miProceso.nombre+"'","proceso_rol_potencial","cod_proceso");
 	};
 	
 	$scope.cargarConsulta = function(tipo){

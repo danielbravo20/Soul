@@ -16,7 +16,7 @@
 		$scope.cargado.CON_W_cod_proyecto = $scope.data.PROYECTO.cod_proyecto;
 		$scope.cargado.CON_cod_proyecto = $scope.data.PROYECTO.cod_proyecto;
 		$scope.esEdicion = false;
-		
+		$scope.cargado.CON_cod_consulta = util.getUltimoCodigo($scope.data.CONSULTA,"cod_consulta");
 		$scope.consultaTablas = [];
 		$scope.consultaAtributos = [];
 		$scope.tablasSeleccionadas = [];

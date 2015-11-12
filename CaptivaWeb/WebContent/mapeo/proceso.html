@@ -1,5 +1,6 @@
 <script type="text/javascript" src="controlador/proceso.js"></script>
 <div ng-controller="proceso" style="padding-top: 5px;">
+	<alert type="danger" ng-show="data.CONSULTA.length==0">Debes registrar "Consultas" antes de trabajar Procesos</alert>
 	<div class="show-grid" ng-show="vista === 'lista'">
 		<div class="panel panel-default">
 		  <div class="panel-heading"><strong>Listado de procesos</strong></div>
@@ -8,7 +9,7 @@
 			  <tr>
 				<th><input type="text" ng-model="buscar.cod_proceso" placeholder="Código" class="form-control input-sm"></th>
 				<th><input type="text" ng-model="buscar.nombre" placeholder="Nombre" class="form-control input-sm"></th>
-				<th>Opción</th>
+				<th align="right">Opción</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -20,7 +21,7 @@
 					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.cod_proceso)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
 					<a class="btn btn-info btn-sm" ng-click="gestionarInicio(item.cod_proceso)" tooltip="Gestionar Inicio de Solicitud"><i class="glyphicon glyphicon-play"></i></a>
 					<a class="btn btn-info btn-sm" ng-click="gestionarDetalle(item.cod_proceso)" tooltip="Gestionar Detalle de Solicitud"><i class="glyphicon glyphicon-align-justify"></i></a>
-					<a class="btn btn-warning btn-sm" ng-click="gestionarRoles(item.cod_proceso)" tooltip="Gestionar Roles"><i class="glyphicon glyphicon-user"></i></a>
+					<a class="btn btn-warning btn-sm" ng-click="gestionarRoles(item.cod_proceso)" tooltip="Gestionar Roles Potenciales"><i class="glyphicon glyphicon-user"></i></a>
 				</td>
 			  </tr>
 			  <tr>

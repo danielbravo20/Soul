@@ -1,5 +1,7 @@
 <script type="text/javascript" src="controlador/tarea.js"></script>
 <div ng-controller="tarea" style="padding-top: 5px;">
+	<alert type="danger" ng-show="data.CONSULTA.length==0">Debes registrar "Consultas" antes de trabajar Procesos</alert>
+	<alert type="danger" ng-show="data.PROCESO.length==0">Debes registrar "Procesos" antes de trabajar Tareas</alert>
 	<div class="panel panel-default" ng-show="vista === 'lista'">
 	  <table class="table">
 		<tbody>
@@ -12,33 +14,35 @@
 		</tbody>
 	  </table>
 	</div>
-	<div class="container-fluid show-grid" ng-show="vista === 'lista'">
+	<div class="show-grid" ng-show="vista === 'lista' && cod_proceso">
 		<div class="panel panel-default">
-		  <div class="panel-heading">Listado de Tareas</div>
+		  <div class="panel-heading"><strong>Listado de Tareas</strong></div>
 		  <table class="table">
 			<thead>
 			  <tr>
 				<th><input type="text" ng-model="buscar.cod_tarea" placeholder="Código" class="form-control input-sm"></th>
 				<th><input type="text" ng-model="buscar.nombre" placeholder="Nombre" class="form-control input-sm"></th>
-				<th><span tooltip="Atributos de Completar">COMPLETAR</span></th>
-				<th><span tooltip="Atributos de Cancelar">CANCELAR</span></th>
-				<th><span tooltip="Atributos de Observar">OBSERVAR</span></th>
-				<th><span tooltip="Atributos de Rechazar">RECHAZAR</span></th>
-				<th>Opción</th>
+				<th><input type="text" ng-model="buscar.clase" placeholder="Clase" class="form-control input-sm"></th>
+				<th>Acciones Configuradas</th>
+				<th align="right">Opción</th>
 			  </tr>
 			</thead>
 			<tbody>
 			  <tr ng-repeat="item in data.TAREA | orderBy: 'cod_tarea' | filter:buscar" ng-show="pag.get($index) == pag.actual">
 				<td>{{item.cod_tarea}}</td>
 				<td>{{item.nombre}}</td>
-				<td><a ng-show="item.WEB_ACC_COMPLETAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('COMPLETAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
-				<td><a ng-show="item.WEB_ACC_CANCELAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('CANCELAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
-				<td><a ng-show="item.WEB_ACC_OBSERVAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('OBSERVAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
-				<td><a ng-show="item.WEB_ACC_RECHAZAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('RECHAZAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i></td>
+				<td>{{item.clase}}</td>
+				<td><a ng-show="item.WEB_ACC_COMPLETAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('COMPLETAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i>
+					<a ng-show="item.WEB_ACC_CANCELAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('CANCELAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i>
+					<a ng-show="item.WEB_ACC_OBSERVAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('OBSERVAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i>
+					<a ng-show="item.WEB_ACC_RECHAZAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('RECHAZAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i>
+				</td>
 				<td>
 					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.cod_tarea)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
 					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.cod_tarea)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
 					<a class="btn btn-info btn-sm" ng-click="gestionarTarea(item.cod_tarea)" ng-hide="estalisto" tooltip="Gestionar Tarea"><i class="glyphicon glyphicon-book"></i></a>
+					<a class="btn btn-warning btn-sm" ng-click="gestionarRoles(item.cod_tarea,'Administrador')" tooltip="Gestionar Roles de Administrador"><i class="glyphicon glyphicon-user"></i></a>
+					<a class="btn btn-warning btn-sm" ng-click="gestionarRoles(item.cod_tarea,'Potencial')" tooltip="Gestionar Roles Potenciales"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-user"></i></a>
 				</td>
 			  </tr>
 			  <tr>
@@ -49,7 +53,7 @@
 		</div>
 		<pagination total-items="pag.total" ng-model="pag.actual" max-size="pag.max" class="pagination-sm" boundary-links="true" items-per-page="pag.itemxPagina" style="margin: 0px 0;"></pagination>
 	</div>
-	<div class="container-fluid show-grid" ng-show="vista === 'mantener'">
+	<div class="show-grid" ng-show="vista === 'mantener'">
 		<div class="panel panel-default">
 		  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
 		  <form name="FRM_TAREA">
@@ -64,51 +68,28 @@
 				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_nombre" name="TAR_nombre" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
-				<th>Versión (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_VERSION" name="TAR_VERSION" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
 				<th>Consulta Trabajar (*) :</th>
 				<td class="form-inline form-group" show-errors='{showSuccess: true}'>
 					<select class="form-control input-sm"
-						ng-model="cargado.TAR_COD_CON_TRABAJAR"
-						ng-options="obj.COD_CONSULTA as obj.nombre for obj in data.CONSULTA | orderBy: 'nombre'"
-						name="TAR_COD_CON_TRABAJAR" required>
+						ng-model="cargado.TAR_cod_con_trabajar"
+						ng-options="obj.cod_consulta as obj.nombre for obj in data.CONSULTA | orderBy: 'nombre'"
+						name="TAR_cod_con_trabajar" required>
 					</select>
-					<button class="btn btn-info btn-sm" ng-click="cargarModulo('proyectocargado','consulta',cargado.TAR_COD_CON_TRABAJAR)" tooltip="Editar"><i class="glyphicon glyphicon-edit"></i></button></td>
+					<button class="btn btn-info btn-sm" ng-click="cargarModulo('proyectocargado','consulta',cargado.cod_con_trabajar)" tooltip="Editar"><i class="glyphicon glyphicon-edit"></i></button></td>
 			  </tr>
 			  <tr>
 				<th>Consulta Completar (*) :</th>
 				<td class="form-inline form-group" show-errors='{showSuccess: true}'>
 					<select class="form-control input-sm"
-						ng-model="cargado.TAR_COD_CON_COMPLETAR"
-						ng-options="obj.COD_CONSULTA as obj.nombre for obj in data.CONSULTA | orderBy: 'nombre'"
-						name="TAR_COD_CON_COMPLETAR" required>
+						ng-model="cargado.TAR_cod_con_completar"
+						ng-options="obj.cod_consulta as obj.nombre for obj in data.CONSULTA | orderBy: 'nombre'"
+						name="TAR_cod_con_completar" required>
 					</select>
-					<button class="btn btn-info btn-sm" ng-click="cargarModulo('proyectocargado','consulta',cargado.TAR_COD_CON_COMPLETAR)" tooltip="Editar"><i class="glyphicon glyphicon-edit"></i></button></td>
-			  </tr>
-			  <tr>
-				<th>Aleas SQL (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_SQL_ALEAS" name="TAR_SQL_ALEAS" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
-				<th>DataSource SQL (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><select class="form-control input-sm"
-						ng-model="cargado.TAR_SQL_DATASOURCE"
-						ng-options="obj.COD_DATASOURCE as obj.DESCRIPCION for obj in data.DATASOURCE | orderBy: 'DESCRIPCION'"
-						name="TAR_SQL_DATASOURCE" required></select></td>
-			  </tr>
-			  <tr>
-				<th>Nombre BPM (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_BPM_nombre" name="TAR_BPM_nombre" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
-				<th>Java Paquete (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_JAV_PAQUETE" name="TAR_JAV_PAQUETE" class="form-control input-sm" required></td>
+					<button class="btn btn-info btn-sm" ng-click="cargarModulo('proyectocargado','consulta',cargado.cod_con_completar)" tooltip="Editar"><i class="glyphicon glyphicon-edit"></i></button></td>
 			  </tr>
 			  <tr>
 				<th>Java Clase (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_JAV_CLASE" name="TAR_JAV_CLASE" class="form-control input-sm" required></td>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_clase" name="TAR_clase" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
 				<th>Acciones (*) :</th>
@@ -121,103 +102,46 @@
 						<th>Cancelar</th>
 						<th>Rechazar</th>
 					    <th>Observar</th>
-					    <th>Salir</th>
-					    <th>Subsanar</th>
 					  </tr>
 					</thead>
 					<tbody>
 					  <tr>
-						<td><input type="checkbox" ng-model="cargado.TAR_WEB_ACC_COMPLETAR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
-						<td><input type="checkbox" ng-model="cargado.TAR_WEB_ACC_GRABAR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
-					  	<td><input type="checkbox" ng-model="cargado.TAR_WEB_ACC_CANCELAR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
-					  	<td><input type="checkbox" ng-model="cargado.TAR_WEB_ACC_RECHAZAR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
-					  	<td><input type="checkbox" ng-model="cargado.TAR_WEB_ACC_OBSERVAR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
-					  	<td><input type="checkbox" ng-model="cargado.TAR_WEB_ACC_SALIR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
-					  	<td><input type="checkbox" ng-model="cargado.TAR_WEB_ACC_SUBSANAR" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
+						<td><input type="checkbox" ng-model="cargado.TAR_web_acc_completar" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
+						<td><input type="checkbox" ng-model="cargado.TAR_web_acc_grabar" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
+					  	<td><input type="checkbox" ng-model="cargado.TAR_web_acc_cancelar" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
+					  	<td><input type="checkbox" ng-model="cargado.TAR_web_acc_rechazar" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
+					  	<td><input type="checkbox" ng-model="cargado.TAR_web_acc_observar" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
 					  </tr>
 					</tbody>
 				  </table>
 				</td>
-			  </tr>
-			  <tr>
-				<th>Variable Comentario (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_WEB_PAR_HIS_COMENTARIO" name="TAR_WEB_PAR_HIS_COMENTARIO" class="form-control input-sm" required></td>
-			  </tr>
-			  <tr>
-				<th>Variable Acción (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_WEB_PAR_HIS_ACCION" name="TAR_WEB_PAR_HIS_ACCION" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
 				<th>Tiempo Caducidad Rojo Defecto (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_WEB_TIE_ROJO" name="TAR_WEB_TIE_ROJO" class="form-control input-sm" required></td>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_web_tie_rojo" name="TAR_web_tie_rojo" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
 				<th>Tiempo Caducidad Rojo Amarillo (*) :</th>
-				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_WEB_TIE_AMARILLO" name="TAR_WEB_TIE_AMARILLO" class="form-control input-sm" required></td>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.TAR_web_tie_amarillo" name="TAR_web_tie_amarillo" class="form-control input-sm" required></td>
 			  </tr>
 			  <tr>
-				<th>Opción a registrar Adjuntos? :</th>
-				<td><input type="checkbox" ng-model="cargado.TAR_WEB_FLG_ARC_ADJUNTOS" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
-			  </tr>
-			  <tr>
-				<th>Opción a registrar Adicionales? :</th>
-				<td><input type="checkbox" ng-model="cargado.TAR_WEB_FLG_ARC_ADICIONALES" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td>
-			  </tr>
-			  <tr>
-				<th>Nombre Web Configuración :</th>
-				<td><input type="text" ng-model="cargado.TAR_WEB_NOM_CONFIGURACION" class="form-control input-sm"></td>
-			  </tr>
-			  <tr>
-				<th>OBJETO BPM - ACCION COMPLETAR :</th>
+				<th>Tarea Siguiente :</th>
 				<td>
-				  <table class="table">
-					<thead>
-					  <tr>
-						<th>&nbsp;</th>
-						<th>OBJETO BPM (*) :</th>
-					  </tr>
-					</thead>
-					<tbody>
-					  <tr ng-repeat="consultaCompleta in consultaCompletar">
-						<td>{{$index+1}}</td>
-						<td><select class="form-control input-sm" 
-								ng-model="consultaCompleta.cod_obj_bpm" 
-								ng-options="item.cod_obj_bpm as item.nombre for item in data.OBJ_BPM | orderBy: 'nombre'"
-							></select></td>
-						<td width="220px">
-							<a class="btn btn-primary" ng-click="CompletaCompletarEliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a>&nbsp;&nbsp;
-						</td>
-					  </tr>
-					  <tr>
-						<td colspan="9"><a class="btn btn-primary" ng-click="CompletaCompletarAgregar()"><i class="glyphicon glyphicon-plus"></i></a></td>
-					  </tr>
-					</tbody>
-				  </table>
+					<select class="form-control input-sm"
+						ng-model="cargado.TAR_cod_tarea_siguiente"
+						ng-options="obj.cod_tarea as obj.nombre for obj in data.TAREA | orderBy: 'nombre'"
+						name="TAR_cod_tarea_siguiente">
+					</select>
 				</td>
 			  </tr>
 			  <tr>
-				<th>OBJETO BPM - ACCION TRABAJAR :</th>
+				<th>Tarea Observado (*) :</th>
 				<td>
-				  <table class="table">
-					<thead>
-					  <tr>
-						<th>&nbsp;</th>
-						<th>OBJETO BPM (*) :</th>
-					  </tr>
-					</thead>
-					<tbody>
-					  <tr ng-repeat="consultaTrabaja in consultaTrabajar">
-						<td>{{$index+1}}</td>
-						<td><select class="form-control input-sm" ng-model="consultaTrabaja.cod_obj_bpm" ng-options="item.cod_obj_bpm as item.nombre for item in data.OBJ_BPM | orderBy: 'nombre'"></select></td>
-						<td width="220px">
-							<a class="btn btn-primary" ng-click="CompletaTrabajarEliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a>&nbsp;&nbsp;
-						</td>
-					  </tr>
-					  <tr>
-						<td colspan="9"><a class="btn btn-primary" ng-click="CompletaTrabajarAgregar()"><i class="glyphicon glyphicon-plus"></i></a></td>
-					  </tr>
-					</tbody>
-				  </table>
+					<select class="form-control input-sm"
+						ng-model="cargado.TAR_cod_tarea_observado"
+						ng-options="obj.cod_tarea as obj.nombre for obj in data.TAREA | orderBy: 'nombre'"
+						name="TAR_cod_tarea_observado">
+					</select>
 				</td>
 			  </tr>
 			  <tr>

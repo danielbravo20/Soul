@@ -45,6 +45,7 @@
 	$scope.instanciar = function(listar,clasePadre){
 		$scope.vista = "lista";
 		$scope.cargado = { paquete : "modulo", clase : "Atributo"};
+		$scope.cargado.esDetallado = true;
 		$scope.esEdicion = false;
 		if(clasePadre){
 			$scope.clasePadre = clasePadre;
