@@ -50,7 +50,7 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 		buffer.append("import pe.com.soul.core.servicio.BaseProcesoServicioLocal;\r\n");
 		buffer.append("import pe.com.soul.core.servicio.impl.BaseProcesoServicioImpl;\r\n\r\n");
 
-		buffer.append("import pe.com.cartaFianza.bean.*;\r\n\r\n");
+		buffer.append("import "+proyectoBean.getPaquete()+".bean.*;\r\n\r\n");
 		
 		
 		buffer.append("import "+proyectoBean.getPaquete()+"."+procesoBean.getClase().toLowerCase()+".servicio.dao."+procesoBean.getClase()+"DaoLocal;\r\n\r\n");

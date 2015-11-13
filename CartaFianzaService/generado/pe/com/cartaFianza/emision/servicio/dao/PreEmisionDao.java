@@ -1,7 +1,7 @@
 package pe.com.cartaFianza.emision.servicio.dao;
 
-import pe.com.cartaFianza.bean.Solicitud;
-import pe.com.cartaFianza.dao.entity.SolicitudEntity;
+import pe.com.cartaFianza.bean.*;
+import pe.com.cartaFianza.dao.entity.*;
 
 public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 
@@ -20,25 +20,21 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 	public Solicitud verDetalle(Solicitud solicitud) throws Exception {
 		return null;
 	}
-	
+
 	private SolicitudEntity parseSolicitudEntity(Solicitud solicitud){
 		SolicitudEntity solicitudEntity = null;
 		if(solicitud!=null){
 			solicitudEntity = new SolicitudEntity();
-			solicitudEntity.setEvento(solicitud.getEvento());
 			solicitudEntity.setMonto(solicitud.getMonto());
 		}
 		return solicitudEntity;
 	}
-	
+
 	private Solicitud parseSolicitud(SolicitudEntity solicitudEntity){
 		Solicitud solicitud = null;
 		if(solicitudEntity!=null){
 			solicitud = new Solicitud();
-			solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
-			solicitud.setEvento(solicitudEntity.getEvento());
 			solicitud.setMonto(solicitudEntity.getMonto());
-			solicitud.setVigencia(solicitudEntity.getVigencia());
 		}
 		return solicitud;
 	}

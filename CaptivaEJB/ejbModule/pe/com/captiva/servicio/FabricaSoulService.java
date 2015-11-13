@@ -17,6 +17,7 @@ import pe.com.captiva.servicio.util.general.GeneralSQLCreateSoul;
 import pe.com.captiva.servicio.util.proceso.ProcesoClaseControlador;
 import pe.com.captiva.servicio.util.proceso.ProcesoClaseInterfaceServicio;
 import pe.com.captiva.servicio.util.proceso.ProcesoClasePreControlador;
+import pe.com.captiva.servicio.util.proceso.ProcesoClasePreDao;
 import pe.com.captiva.servicio.util.proceso.ProcesoClasePreServicio;
 import pe.com.captiva.servicio.util.proceso.ProcesoClasePreUtil;
 import pe.com.captiva.servicio.util.proceso.ProcesoClaseServicio;
@@ -48,19 +49,12 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 		ProyectoBean proyectoBean = proyectoDaoLocal.obtenerProyecto(codigoProyecto);
 		
 		if(validacionConfiguracion(equipoBean, proyectoBean)){
-			System.out.println("--->>> "+equipoBean.getDirectorioWorkspace());
-			System.out.println("--->>> "+equipoBean.getDirectorioParcial());
-			System.out.println("---> "+proyectoBean.getNombre());
-			System.out.println("---> "+proyectoBean.getProyecto());
-			System.out.println("---> "+proyectoBean.getPaquete());
-			System.out.println("..."+proyectoBean.getClases());
 			
 			proyectoBean.setEquipoBean(equipoBean);
 			new GeneralClaseBean().construir(proyectoBean);
 			new GeneralClaseEntity().construir(proyectoBean);
 			new GeneralSQLCreateSoul().construir(proyectoBean);
 			new GeneralSQLInsertSoul().construir(proyectoBean);
-			
 			
 			new ProcesoClasePreUtil().construir(proyectoBean);
 			new ProcesoClaseUtil().construir(proyectoBean);
@@ -69,6 +63,7 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 			new ProcesoClaseControlador().construir(proyectoBean);
 			new ProcesoClasePreServicio().construir(proyectoBean);
 			new ProcesoClaseServicio().construir(proyectoBean);
+			new ProcesoClasePreDao().construir(proyectoBean);
 			
 			new TareaClasePreUtil().construir(proyectoBean);
 			new TareaClaseUtil().construir(proyectoBean);

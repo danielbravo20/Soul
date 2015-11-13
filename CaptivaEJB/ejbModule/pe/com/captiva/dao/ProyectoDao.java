@@ -141,6 +141,7 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 			}
 			atributoProceso.setWebNombre(procesoInicio.getAtributo().getWebNombre());
 			atributoProceso.setClase(parseClaseBeanSimple(procesoInicio.getAtributo().getClase()));
+			atributoProceso.setCampoSQLBean(parseCampoSQLBeanSimple(procesoInicio.getAtributo().getAtributoSql()));
 		}
 		return atributoProceso;
     }
@@ -312,6 +313,30 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		if(atributoSql.getFkTabla()!=null && atributoSql.getFkCampo()!=null && atributoSql.getFkCampo()>0){
     			campoSQLBean.setFk(atributoSQLDaoLocal.obtenerCampoSQLBean(atributoSql.getFkTabla(), atributoSql.getFkCampo()));
     		}
+    	}
+    	return campoSQLBean;
+    }
+    
+    private CampoSQLBean parseCampoSQLBeanSimple(AtributoSql atributoSql){
+    	CampoSQLBean campoSQLBean = null;
+    	if(atributoSql!=null){
+    		campoSQLBean = new CampoSQLBean();
+    		
+    		campoSQLBean.setNombre(atributoSql.getCampo()); 
+    		campoSQLBean.setTipo(atributoSql.getTipo());
+    		campoSQLBean.setFuncionBusqueda(atributoSql.getFnBusNombre());
+    		campoSQLBean.setFuncionBusquedaCatalogo(atributoSql.getFnBusCatalogo());
+    		campoSQLBean.setLongitud(atributoSql.getLongitud()!=null?atributoSql.getLongitud():0);
+    		campoSQLBean.setPrecision(atributoSql.getPrecision()!=null?atributoSql.getPrecision():0);
+    		campoSQLBean.setFlgObligatorio(atributoSql.getObligatorio()=='1'?true:false);
+    		campoSQLBean.setFlgPK(atributoSql.getPk()=='1'?true:false);
+    		campoSQLBean.setSequence(atributoSql.getSequencial());
+    		
+    		if(atributoSql.getFkUnoMucho() != null){
+    			campoSQLBean.setFkUnoMuchos(atributoSql.getFkUnoMucho()=='1'?true:false);
+    		}
+    		campoSQLBean.setValorDefecto(atributoSql.getValDefecto());
+    		
     	}
     	return campoSQLBean;
     }
