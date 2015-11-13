@@ -17,18 +17,18 @@ public class SolicitudEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private String evento;
-	private java.util.Date vigencia;
-	private Long codigoSolicitud;
 	private java.math.BigDecimal monto;
+	private java.util.Date vigencia;
+	private String evento;
+	private Long codigoSolicitud;
 
-	@Column(name = "evento" ,nullable = true ,length = 3 )
-	public String getEvento(){
-		return evento;
+	@Column(name = "monto" ,nullable = true ,precision = 12, scale = 3 )
+	public java.math.BigDecimal getMonto(){
+		return monto;
 	}
 
-	public void setEvento(String evento) {
-		this.evento = evento;
+	public void setMonto(java.math.BigDecimal monto) {
+		this.monto = monto;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -41,6 +41,15 @@ public class SolicitudEntity implements Serializable{
 		this.vigencia = vigencia;
 	}
 
+	@Column(name = "evento" ,nullable = true ,length = 3 )
+	public String getEvento(){
+		return evento;
+	}
+
+	public void setEvento(String evento) {
+		this.evento = evento;
+	}
+
 	@Id
 	@GeneratedValue(generator="id_gen_bfp_carta_fianza_seq_cod_solicitud")
 	@SequenceGenerator(name="id_gen_bfp_carta_fianza_seq_cod_solicitud",sequenceName="bfp_carta_fianza.seq_cod_solicitud", allocationSize=0)
@@ -51,15 +60,6 @@ public class SolicitudEntity implements Serializable{
 
 	public void setCodigoSolicitud(Long codigoSolicitud) {
 		this.codigoSolicitud = codigoSolicitud;
-	}
-
-	@Column(name = "monto" ,nullable = true ,precision = 12, scale = 3 )
-	public java.math.BigDecimal getMonto(){
-		return monto;
-	}
-
-	public void setMonto(java.math.BigDecimal monto) {
-		this.monto = monto;
 	}
 
 }
