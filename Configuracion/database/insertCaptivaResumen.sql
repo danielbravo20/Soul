@@ -15,10 +15,10 @@ INSERT INTO soul.TABLA (cod_proyecto,nombre,esquema,cod_tabla) VALUES ('1','soli
 
 INSERT INTO soul.CLASE (nivel,cod_proyecto,cod_tabla,cod_clase,nombre) VALUES ('1','1','1','1','Solicitud');
 
-INSERT INTO soul.ATRIBUTO (tipo,nombre,cod_atributo,cod_clase) VALUES ('Long','codigoSolicitud','1','1');
-INSERT INTO soul.ATRIBUTO (tipo,nombre,cod_atributo,cod_clase) VALUES ('String','evento','2','1');
-INSERT INTO soul.ATRIBUTO (tipo,nombre,cod_atributo,cod_clase) VALUES ('java.math.BigDecimal','monto','3','1');
-INSERT INTO soul.ATRIBUTO (tipo,nombre,cod_atributo,cod_clase) VALUES ('java.sql.Date','vigencia','4','1');
+INSERT INTO soul.ATRIBUTO (tipo,nombre,cod_atributo,cod_clase,etiqueta) VALUES ('Long','codigoSolicitud','1','1','');
+INSERT INTO soul.ATRIBUTO (tipo,nombre,cod_atributo,cod_clase,etiqueta) VALUES ('String','evento','2','1','');
+INSERT INTO soul.ATRIBUTO (tipo,nombre,cod_atributo,cod_clase,etiqueta) VALUES ('java.math.BigDecimal','monto','3','1','');
+INSERT INTO soul.ATRIBUTO (tipo,nombre,cod_atributo,cod_clase,etiqueta) VALUES ('java.sql.Date','vigencia','4','1','');
 
 INSERT INTO soul.ATRIBUTO_SQL (obligatorio,cod_tabla,campo,sequencial,cod_atributo,tipo,PK) VALUES ('1','1','cod_solicitud','bfp_carta_fianza.seq_cod_solicitud','1','BIGINT','1');
 INSERT INTO soul.ATRIBUTO_SQL (cod_tabla,longitud,campo,cod_atributo,tipo) VALUES ('1','3','evento','2','VARCHAR');
