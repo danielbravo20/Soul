@@ -71,12 +71,12 @@ public class ProcesoClaseServicio extends MultipleBaseConstructor{
 		
 		buffer.append("\t@Override\r\n");
 		buffer.append("\tpublic "+clasePadre+" accionVerResumen(UsuarioPortal usuarioPortal, "+clasePadre+" "+clasePadre.toLowerCase()+") throws Exception {\r\n");
-		buffer.append("\t\treturn null;\r\n");
+		buffer.append("\t\treturn super.accionVerResumen(usuarioPortal, "+clasePadre.toLowerCase()+");\r\n");
 		buffer.append("\t}\r\n\r\n");
 
 		buffer.append("\t@Override\r\n");
 		buffer.append("\tpublic "+clasePadre+" accionVerDetalle(UsuarioPortal usuarioPortal, "+clasePadre+" "+clasePadre.toLowerCase()+") throws Exception {\r\n");
-		buffer.append("\t\treturn null;\r\n");
+		buffer.append("\t\treturn super.accionVerDetalle(usuarioPortal, "+clasePadre.toLowerCase()+");\r\n");
 		buffer.append("\t}\r\n\r\n");
 		
 		buffer.append("}");

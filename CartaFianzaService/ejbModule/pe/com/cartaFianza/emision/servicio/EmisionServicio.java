@@ -20,12 +20,12 @@ public class EmisionServicio extends PreEmisionServicio implements EmisionServic
 
 	@Override
 	public Solicitud accionVerResumen(UsuarioPortal usuarioPortal, Solicitud solicitud) throws Exception {
-		return null;
+		return super.accionVerResumen(usuarioPortal, solicitud);
 	}
 
 	@Override
 	public Solicitud accionVerDetalle(UsuarioPortal usuarioPortal, Solicitud solicitud) throws Exception {
-		return null;
+		return super.accionVerDetalle(usuarioPortal, solicitud);
 	}
 
 }

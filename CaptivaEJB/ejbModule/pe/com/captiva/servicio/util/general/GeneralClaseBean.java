@@ -35,6 +35,13 @@ public class GeneralClaseBean extends MultipleBaseConstructor{
 	
 	
 	private StringBuffer contenido(ProyectoBean proyectoBean, ClaseBean clase){
+		
+		String clasePadre = proyectoBean.getClasePadre().getNombre();
+		boolean esClasePadre = false;
+		if (clase.getNombre().equals(clasePadre)) {
+			esClasePadre = true;
+		}
+		
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("package "+proyectoBean.getPaquete()+ClaseBean.SUFIJO_PAQUETE+";\r\n");
 		buffer.append("\r\n");
@@ -46,9 +53,18 @@ public class GeneralClaseBean extends MultipleBaseConstructor{
 				break;
 			}
 		}
+		
+		if(esClasePadre){
+			buffer.append("import pe.com.soul.core.bean.BasePadreBean;\r\n\r\n");
+		}
+		
 		buffer.append("import java.io.Serializable;\r\n\r\n");
 		
-		buffer.append("public class "+clase.getNombre()+" implements Serializable{\r\n \r\n");
+		if(esClasePadre){
+			buffer.append("public class "+clase.getNombre()+" extends BasePadreBean implements Serializable{\r\n \r\n");
+		}else{
+			buffer.append("public class "+clase.getNombre()+" implements Serializable{\r\n \r\n");
+		}
 		
 		buffer.append("\tprivate static final long serialVersionUID = 1L;\r\n\r\n");
 		

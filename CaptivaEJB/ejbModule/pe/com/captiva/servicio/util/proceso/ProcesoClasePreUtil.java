@@ -151,6 +151,60 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 			buffer.append("\t\treturn null;\r\n");
 		}
 		buffer.append("\t}\r\n");
+		
+		
+		buffer.append("\t@Override\r\n");
+		buffer.append("\tpublic MensajeValidacion validacionCamposVerResumen(HttpServletRequest request, HttpServletResponse response) {\r\n");
+		buffer.append("\t\tMensajeValidacion mensajeValidacion = new MensajeValidacion();\r\n");
+		buffer.append("\t\tif (ValidacionUtil.longNoValidoRequestParameter(request.getParameter(\"codigoProceso\"))){\r\n");
+		buffer.append("\t\t\tmensajeValidacion.setConforme(false);\r\n");
+		buffer.append("\t\t\tmensajeValidacion.setMensaje(\"ingrese el codigo de proceso\");\r\n");
+		buffer.append("\t\t\treturn mensajeValidacion;\r\n");
+		buffer.append("\t\t}\r\n");
+		buffer.append("\t\tmensajeValidacion.setConforme(true);\r\n");
+		buffer.append("\t\treturn mensajeValidacion;\r\n");
+		buffer.append("\t}\r\n");
+
+		buffer.append("\t@Override\r\n");
+		buffer.append("\tpublic Object poblarObjetosVerResumen(HttpServletRequest request, HttpServletResponse response) {\r\n");
+		if(clasePadre!=null){
+			String nombreClase = clasePadre.getNombre();
+			String nombreObjeto = nombreClase.toLowerCase();
+			buffer.append("\t\t"+nombreClase+" "+nombreObjeto+" = new "+nombreClase+"();\r\n");
+			buffer.append("\t\t"+nombreObjeto+".setCodigoProceso(new Long(request.getParameter(\"codigoProceso\").trim()));\r\n");
+			buffer.append("\t\treturn "+nombreObjeto+";\r\n");
+		}else{
+			buffer.append("\t\treturn null;\r\n");
+		}
+		buffer.append("\t}\r\n");
+
+		buffer.append("\t@Override\r\n");
+		buffer.append("\tpublic MensajeValidacion validacionCamposVerDetalle(HttpServletRequest request, HttpServletResponse response) {\r\n");
+		buffer.append("\t\tMensajeValidacion mensajeValidacion = new MensajeValidacion();\r\n");
+		buffer.append("\t\tif (ValidacionUtil.longNoValidoRequestParameter(request.getParameter(\"codigoProceso\"))){\r\n");
+		buffer.append("\t\t\tmensajeValidacion.setConforme(false);\r\n");
+		buffer.append("\t\t\tmensajeValidacion.setMensaje(\"ingrese el codigo de proceso\");\r\n");
+		buffer.append("\t\t\treturn mensajeValidacion;\r\n");
+		buffer.append("\t\t}\r\n");
+		buffer.append("\t\tmensajeValidacion.setConforme(true);\r\n");
+		buffer.append("\t\treturn mensajeValidacion;\r\n");
+		buffer.append("\t}\r\n");
+
+		buffer.append("\t@Override\r\n");
+		buffer.append("\tpublic Object poblarObjetosVerDetalle(HttpServletRequest request, HttpServletResponse response) {\r\n");
+		if(clasePadre!=null){
+			String nombreClase = clasePadre.getNombre();
+			String nombreObjeto = nombreClase.toLowerCase();
+			buffer.append("\t\t"+nombreClase+" "+nombreObjeto+" = new "+nombreClase+"();\r\n");
+			buffer.append("\t\t"+nombreObjeto+".setCodigoProceso(new Long(request.getParameter(\"codigoProceso\").trim()));\r\n");
+			buffer.append("\t\treturn "+nombreObjeto+";\r\n");
+		}else{
+			buffer.append("\t\treturn null;\r\n");
+		}
+		
+		buffer.append("\t}\r\n");
+		
+		
 		buffer.append("}");
 		
 		return buffer;

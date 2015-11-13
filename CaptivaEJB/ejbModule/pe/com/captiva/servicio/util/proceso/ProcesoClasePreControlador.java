@@ -36,6 +36,8 @@ public class ProcesoClasePreControlador extends MultipleBaseConstructor{
 	
 	private StringBuffer contenido(ProyectoBean proyectoBean, ProcesoBean procesoBean){
 		StringBuffer buffer = new StringBuffer();
+		ClaseBean clasePadre = proyectoBean.getClasePadre();
+		String nombreClase = clasePadre.getNombre();
 		
 		buffer.append("package "+proyectoBean.getPaquete()+"."+procesoBean.getClase().toLowerCase()+".controlador;\r\n\r\n");
 		
@@ -72,14 +74,31 @@ public class ProcesoClasePreControlador extends MultipleBaseConstructor{
 		buffer.append("\t@Override\r\n");
 		buffer.append("\tpublic Respuesta accionResumen(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuarioPortal) throws Exception {\r\n");
 		buffer.append("\t\tRespuesta respuesta = new Respuesta();\r\n");
+		buffer.append("\t\tMensajeValidacion mensajeValidacion =  getProcesoUtil().validacionCamposVerResumen(request, response);\r\n");
+		buffer.append("\t\tif(mensajeValidacion.isConforme()){\r\n");
+		buffer.append("\t\t\trespuesta.setResultado(true);\r\n");
+		buffer.append("\t\t\trespuesta.setRespuesta("+procesoBean.getClase().toLowerCase()+"ServicioLocal.accionVerResumen(usuarioPortal, ("+nombreClase+")getProcesoUtil().poblarObjetosVerResumen(request, response)));\r\n");
+		buffer.append("\t\t}else{\r\n");
+		buffer.append("\t\t\trespuesta.setResultado(false);\r\n");
+		buffer.append("\t\t\trespuesta.setRespuesta(mensajeValidacion);\r\n");
+		buffer.append("\t\t}\r\n");
 		buffer.append("\t\treturn respuesta;\r\n");
 		buffer.append("\t}\r\n\r\n");
 			
 		buffer.append("\t@Override\r\n");
 		buffer.append("\tpublic Respuesta accionDetalle(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuarioPortal) throws Exception {\r\n");
-		buffer.append("\t\t\tRespuesta respuesta = new Respuesta();\r\n");
-		buffer.append("\t\t\treturn respuesta;\r\n");
-		buffer.append("\t}\r\n");
+		buffer.append("\t\tRespuesta respuesta = new Respuesta();\r\n\r\n");
+		
+		buffer.append("\t\tMensajeValidacion mensajeValidacion =  getProcesoUtil().validacionCamposVerDetalle(request, response);\r\n");
+		buffer.append("\t\tif(mensajeValidacion.isConforme()){\r\n");
+		buffer.append("\t\t\trespuesta.setResultado(true);\r\n");
+		buffer.append("\t\t\trespuesta.setRespuesta("+procesoBean.getClase().toLowerCase()+"ServicioLocal.accionVerDetalle(usuarioPortal, ("+nombreClase+")getProcesoUtil().poblarObjetosVerDetalle(request, response)));\r\n");
+		buffer.append("\t\t}else{\r\n");
+		buffer.append("\t\t\trespuesta.setResultado(false);\r\n");
+		buffer.append("\t\t\trespuesta.setRespuesta(mensajeValidacion);\r\n");
+		buffer.append("\t\t}\r\n");
+		buffer.append("\t\treturn respuesta;\r\n");
+		buffer.append("\t}\r\n\r\n");
 		
 		buffer.append("\tpublic Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario) throws Exception {\r\n");
 		buffer.append("\t\tRespuesta respuesta = new Respuesta();\r\n");
@@ -92,10 +111,10 @@ public class ProcesoClasePreControlador extends MultipleBaseConstructor{
 		buffer.append("\t\t\trespuesta.setRespuesta(mensajeValidacion);\r\n");
 		buffer.append("\t\t}\r\n");
 		buffer.append("\t\treturn respuesta;\r\n");
-		buffer.append("\t}\r\n");
+		buffer.append("\t}\r\n\r\n");
 		
 		
-		buffer.append("\t}");
+		buffer.append("}");
 
 		
 		return buffer;

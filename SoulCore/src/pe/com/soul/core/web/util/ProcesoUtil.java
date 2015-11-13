@@ -7,7 +7,10 @@ import pe.com.soul.core.modelo.MensajeValidacion;
 
 public interface ProcesoUtil {
 
-	public MensajeValidacion validacionCampos(HttpServletRequest request, HttpServletResponse response);
-	public Object poblarObjetos(HttpServletRequest request, HttpServletResponse response);
-	
+	MensajeValidacion validacionCampos(HttpServletRequest request, HttpServletResponse response);
+	Object poblarObjetos(HttpServletRequest request, HttpServletResponse response);
+	MensajeValidacion validacionCamposVerResumen(HttpServletRequest request, HttpServletResponse response);
+	Object poblarObjetosVerResumen(HttpServletRequest request, HttpServletResponse response);
+	MensajeValidacion validacionCamposVerDetalle(HttpServletRequest request, HttpServletResponse response);
+	Object poblarObjetosVerDetalle(HttpServletRequest request, HttpServletResponse response);
 }

@@ -1,15 +1,25 @@
 package pe.com.cartaFianza.bean;
 
+import pe.com.soul.core.bean.BasePadreBean;
+
 import java.io.Serializable;
 
-public class Solicitud implements Serializable{
+public class Solicitud extends BasePadreBean implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
+	private java.util.Date vigencia;
 	private Long codigoSolicitud;
 	private java.math.BigDecimal monto;
 	private String evento;
-	private java.util.Date vigencia;
+
+	public java.util.Date getVigencia(){
+		return vigencia;
+	}
+
+	public void setVigencia(java.util.Date vigencia) {
+		this.vigencia = vigencia;
+	}
 
 	public Long getCodigoSolicitud(){
 		return codigoSolicitud;
@@ -33,14 +43,6 @@ public class Solicitud implements Serializable{
 
 	public void setEvento(String evento) {
 		this.evento = evento;
-	}
-
-	public java.util.Date getVigencia(){
-		return vigencia;
-	}
-
-	public void setVigencia(java.util.Date vigencia) {
-		this.vigencia = vigencia;
 	}
 
 }

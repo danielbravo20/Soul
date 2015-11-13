@@ -32,4 +32,38 @@ public class PreEmisionUtil implements ProcesoUtil{
 		}
 		return solicitud;
 	}
+	@Override
+	public MensajeValidacion validacionCamposVerResumen(HttpServletRequest request, HttpServletResponse response) {
+		MensajeValidacion mensajeValidacion = new MensajeValidacion();
+		if (ValidacionUtil.longNoValidoRequestParameter(request.getParameter("codigoProceso"))){
+			mensajeValidacion.setConforme(false);
+			mensajeValidacion.setMensaje("ingrese el codigo de proceso");
+			return mensajeValidacion;
+		}
+		mensajeValidacion.setConforme(true);
+		return mensajeValidacion;
+	}
+	@Override
+	public Object poblarObjetosVerResumen(HttpServletRequest request, HttpServletResponse response) {
+		Solicitud solicitud = new Solicitud();
+		solicitud.setCodigoProceso(new Long(request.getParameter("codigoProceso").trim()));
+		return solicitud;
+	}
+	@Override
+	public MensajeValidacion validacionCamposVerDetalle(HttpServletRequest request, HttpServletResponse response) {
+		MensajeValidacion mensajeValidacion = new MensajeValidacion();
+		if (ValidacionUtil.longNoValidoRequestParameter(request.getParameter("codigoProceso"))){
+			mensajeValidacion.setConforme(false);
+			mensajeValidacion.setMensaje("ingrese el codigo de proceso");
+			return mensajeValidacion;
+		}
+		mensajeValidacion.setConforme(true);
+		return mensajeValidacion;
+	}
+	@Override
+	public Object poblarObjetosVerDetalle(HttpServletRequest request, HttpServletResponse response) {
+		Solicitud solicitud = new Solicitud();
+		solicitud.setCodigoProceso(new Long(request.getParameter("codigoProceso").trim()));
+		return solicitud;
+	}
 }
