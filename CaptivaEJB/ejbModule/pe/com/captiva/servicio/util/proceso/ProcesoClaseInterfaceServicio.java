@@ -34,17 +34,26 @@ public class ProcesoClaseInterfaceServicio extends MultipleBaseConstructor{
 	
 	
 	private StringBuffer contenido(ProyectoBean proyectoBean, ProcesoBean procesoBean){
+		
+		String clasePadre = proyectoBean.getClasePadre().getNombre();
+		
 		StringBuffer buffer = new StringBuffer();
 		
 		buffer.append("package "+proyectoBean.getPaquete()+"."+procesoBean.getClase().toLowerCase()+".servicio;\r\n\r\n");
 
+		buffer.append("import pe.com.soul.core.modelo.Proceso;\r\n");
+		buffer.append("import pe.com.soul.core.modelo.UsuarioPortal;\r\n");
 		buffer.append("import javax.ejb.Local;\r\n\r\n");
+		
+		buffer.append("import "+proyectoBean.getPaquete()+".bean."+clasePadre+";\r\n\r\n");
 
 		buffer.append("import pe.com.soul.core.servicio.BaseProcesoServicioLocal;\r\n\r\n");
 
 		buffer.append("@Local\r\n");
 		buffer.append("public interface "+procesoBean.getClase()+"ServicioLocal extends BaseProcesoServicioLocal{\r\n\r\n");
-		
+		buffer.append("\tProceso accionCrearInstancia(UsuarioPortal usuarioPortal, Object objeto) throws Exception;\r\n\r\n");
+		buffer.append("\t"+clasePadre+" accionVerResumen(UsuarioPortal usuarioPortal, "+clasePadre+" "+clasePadre.toLowerCase()+") throws Exception;\r\n\r\n");
+		buffer.append("\t"+clasePadre+" accionVerDetalle(UsuarioPortal usuarioPortal, "+clasePadre+" "+clasePadre.toLowerCase()+") throws Exception;\r\n\r\n");
 		buffer.append("}");
 		
 		return buffer;

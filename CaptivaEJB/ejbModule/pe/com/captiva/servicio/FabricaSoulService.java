@@ -15,6 +15,8 @@ import pe.com.captiva.servicio.util.general.GeneralClaseEntity;
 import pe.com.captiva.servicio.util.general.GeneralSQLInsertSoul;
 import pe.com.captiva.servicio.util.general.GeneralSQLCreateSoul;
 import pe.com.captiva.servicio.util.proceso.ProcesoClaseControlador;
+import pe.com.captiva.servicio.util.proceso.ProcesoClaseDao;
+import pe.com.captiva.servicio.util.proceso.ProcesoClaseInterfaceDao;
 import pe.com.captiva.servicio.util.proceso.ProcesoClaseInterfaceServicio;
 import pe.com.captiva.servicio.util.proceso.ProcesoClasePreControlador;
 import pe.com.captiva.servicio.util.proceso.ProcesoClasePreDao;
@@ -63,7 +65,9 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 			new ProcesoClaseControlador().construir(proyectoBean);
 			new ProcesoClasePreServicio().construir(proyectoBean);
 			new ProcesoClaseServicio().construir(proyectoBean);
+			new ProcesoClaseInterfaceDao().construir(proyectoBean);
 			new ProcesoClasePreDao().construir(proyectoBean);
+			new ProcesoClaseDao().construir(proyectoBean);
 			
 			new TareaClasePreUtil().construir(proyectoBean);
 			new TareaClaseUtil().construir(proyectoBean);

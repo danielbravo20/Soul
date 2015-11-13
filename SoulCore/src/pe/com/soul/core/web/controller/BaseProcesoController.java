@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import pe.com.soul.core.modelo.MensajeValidacion;
 import pe.com.soul.core.modelo.UsuarioPortal;
 import pe.com.soul.core.servicio.BaseProcesoServicioLocal;
 import pe.com.soul.core.web.bean.Respuesta;
@@ -50,27 +49,14 @@ public abstract class BaseProcesoController extends BaseController{
 		printWriter.print(gson.toJson(respuesta));
 	}
 	
-	public Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario) throws Exception {
-		Respuesta respuesta = new Respuesta();
-		MensajeValidacion mensajeValidacion =  getProcesoUtil().validacionCampos(request, response);
-		
-		if(mensajeValidacion.isConforme()){
-			respuesta.setResultado(true);
-			respuesta.setRespuesta(getBaseProcesoServicioLocal().accionCrearInstancia(usuario, getProcesoUtil().poblarObjetos(request, response)));
-		}else{
-			respuesta.setResultado(false);
-			respuesta.setRespuesta(mensajeValidacion);
-		}
-		
-		return respuesta;
-	}
-	
 	public abstract ProcesoUtil getProcesoUtil();
 	
 	public abstract BaseProcesoServicioLocal getBaseProcesoServicioLocal();
 	
-	protected abstract Respuesta accionResumen(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario) throws Exception;
+	public abstract Respuesta accionCrear(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario) throws Exception;
 	
-	protected abstract Respuesta accionDetalle(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario) throws Exception;
+	public abstract Respuesta accionResumen(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario) throws Exception;
+	
+	public abstract Respuesta accionDetalle(HttpServletRequest request, HttpServletResponse response, UsuarioPortal usuario) throws Exception;
 	
 }
