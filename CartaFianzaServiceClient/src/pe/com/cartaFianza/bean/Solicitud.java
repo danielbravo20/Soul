@@ -6,10 +6,18 @@ public class Solicitud implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
-	private java.math.BigDecimal monto;
-	private java.util.Date vigencia;
-	private String evento;
 	private Long codigoSolicitud;
+	private java.math.BigDecimal monto;
+	private String evento;
+	private java.util.Date vigencia;
+
+	public Long getCodigoSolicitud(){
+		return codigoSolicitud;
+	}
+
+	public void setCodigoSolicitud(Long codigoSolicitud) {
+		this.codigoSolicitud = codigoSolicitud;
+	}
 
 	public java.math.BigDecimal getMonto(){
 		return monto;
@@ -17,14 +25,6 @@ public class Solicitud implements Serializable{
 
 	public void setMonto(java.math.BigDecimal monto) {
 		this.monto = monto;
-	}
-
-	public java.util.Date getVigencia(){
-		return vigencia;
-	}
-
-	public void setVigencia(java.util.Date vigencia) {
-		this.vigencia = vigencia;
 	}
 
 	public String getEvento(){
@@ -35,12 +35,12 @@ public class Solicitud implements Serializable{
 		this.evento = evento;
 	}
 
-	public Long getCodigoSolicitud(){
-		return codigoSolicitud;
+	public java.util.Date getVigencia(){
+		return vigencia;
 	}
 
-	public void setCodigoSolicitud(Long codigoSolicitud) {
-		this.codigoSolicitud = codigoSolicitud;
+	public void setVigencia(java.util.Date vigencia) {
+		this.vigencia = vigencia;
 	}
 
 }

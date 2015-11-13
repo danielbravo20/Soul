@@ -8,7 +8,9 @@ import pe.com.cartaFianza.bean.Solicitud;
 public interface EmisionDaoLocal{
 
 	Solicitud registrar(Solicitud solicitud) throws Exception;
+
 	Solicitud verResumen(Solicitud solicitud) throws Exception;
+
 	Solicitud verDetalle(Solicitud solicitud) throws Exception;
-	
+
 }

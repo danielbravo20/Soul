@@ -37,6 +37,8 @@ public class ProcesoClaseServicio extends MultipleBaseConstructor{
 	private StringBuffer contenido(ProyectoBean proyectoBean, ProcesoBean procesoBean){
 		StringBuffer buffer = new StringBuffer();
 		
+		String clasePadre = proyectoBean.getClasePadre().getNombre();
+		
 		buffer.append("package "+proyectoBean.getPaquete()+"."+procesoBean.getClase().toLowerCase()+".servicio;\r\n\r\n");
 
 		buffer.append("import javax.ejb.LocalBean;\r\n");
@@ -46,6 +48,8 @@ public class ProcesoClaseServicio extends MultipleBaseConstructor{
 		
 		buffer.append("import pe.com.soul.core.modelo.Proceso;\r\n");
 		buffer.append("import pe.com.soul.core.modelo.UsuarioPortal;\r\n\r\n");
+		
+		buffer.append("import "+proyectoBean.getPaquete()+".bean."+clasePadre+";\r\n\r\n");
 		
 		buffer.append("@Stateless\r\n");
 		buffer.append("@LocalBean\r\n");
@@ -63,6 +67,16 @@ public class ProcesoClaseServicio extends MultipleBaseConstructor{
 		buffer.append("\t@RolesAllowed("+rol.toString()+")\r\n");
 		buffer.append("\tpublic Proceso accionCrearInstancia(UsuarioPortal usuarioPortal, Object objeto) throws Exception {\r\n");
 		buffer.append("\t\treturn super.accionCrearInstancia(usuarioPortal, objeto);\r\n");
+		buffer.append("\t}\r\n\r\n");
+		
+		buffer.append("\t@Override\r\n");
+		buffer.append("\tpublic "+clasePadre+" accionVerResumen(UsuarioPortal usuarioPortal, "+clasePadre+" "+clasePadre.toLowerCase()+") throws Exception {\r\n");
+		buffer.append("\t\treturn null;\r\n");
+		buffer.append("\t}\r\n\r\n");
+
+		buffer.append("\t@Override\r\n");
+		buffer.append("\tpublic "+clasePadre+" accionVerDetalle(UsuarioPortal usuarioPortal, "+clasePadre+" "+clasePadre.toLowerCase()+") throws Exception {\r\n");
+		buffer.append("\t\treturn null;\r\n");
 		buffer.append("\t}\r\n\r\n");
 		
 		buffer.append("}");
