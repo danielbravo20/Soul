@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pe.com.captiva.bean.AtributoBean;
+import pe.com.captiva.bean.CampoSQLBean;
 import pe.com.captiva.bean.ClaseBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.servicio.util.Componente;
@@ -52,12 +53,29 @@ public class GeneralClaseEntity extends MultipleBaseConstructor{
 		buffer.append("import java.io.Serializable;\r\n\r\n");
 		buffer.append("import javax.persistence.Column;\r\n");
 		buffer.append("import javax.persistence.Entity;\r\n");
-		buffer.append("import javax.persistence.FetchType;\r\n");
 		buffer.append("import javax.persistence.Id;\r\n");
-		buffer.append("import javax.persistence.JoinColumn;\r\n");
-		buffer.append("import javax.persistence.ManyToOne;\r\n");
-		buffer.append("import javax.persistence.OneToMany;\r\n");
-		buffer.append("import javax.persistence.OneToOne;\r\n");
+		
+		boolean noExistePK = true;
+		boolean noExisteDate = true;
+		
+		for (int i = 0; i < clase.getAtributos().size(); i++) {
+			AtributoBean atributoBean = clase.getAtributos().get(i);
+			if(atributoBean.isCampoSQLBean()){
+				CampoSQLBean campoSQLBean = atributoBean.getCampoSQLBean(); 
+				if(campoSQLBean.isFlgPK() && campoSQLBean.isSequence() && noExistePK){
+					buffer.append("import javax.persistence.GeneratedValue;\r\n");
+					buffer.append("import javax.persistence.SequenceGenerator;\r\n");
+					noExistePK = false;
+				}
+				
+				if(campoSQLBean.getTipo().equalsIgnoreCase("DATE") && noExisteDate){
+					buffer.append("import javax.persistence.Temporal;\r\n");
+					buffer.append("import javax.persistence.TemporalType;\r\n");
+					noExisteDate = false;
+				}
+			}
+		}
+		
 		buffer.append("import javax.persistence.Table;\r\n\r\n");
 		
 		buffer.append("@Entity\r\n");

@@ -12,8 +12,8 @@ import pe.com.soul.core.modelo.UsuarioPortal;
 public class EmisionServicio extends PreEmisionServicio implements EmisionServicioLocal {
 
 	@RolesAllowed("Analista")
-	public Proceso accionCrearInstancia(UsuarioPortal usuarioPortal) throws Exception {
-		return super.accionCrearInstancia(usuarioPortal);
+	public Proceso accionCrearInstancia(UsuarioPortal usuarioPortal, Object objeto) throws Exception {
+		return super.accionCrearInstancia(usuarioPortal, objeto);
 	}
 
 }

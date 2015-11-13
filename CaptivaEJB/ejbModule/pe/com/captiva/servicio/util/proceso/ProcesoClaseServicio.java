@@ -61,8 +61,8 @@ public class ProcesoClaseServicio extends MultipleBaseConstructor{
 		}
 		
 		buffer.append("\t@RolesAllowed("+rol.toString()+")\r\n");
-		buffer.append("\tpublic Proceso accionCrearInstancia(UsuarioPortal usuarioPortal) throws Exception {\r\n");
-		buffer.append("\t\treturn super.accionCrearInstancia(usuarioPortal);\r\n");
+		buffer.append("\tpublic Proceso accionCrearInstancia(UsuarioPortal usuarioPortal, Object objeto) throws Exception {\r\n");
+		buffer.append("\t\treturn super.accionCrearInstancia(usuarioPortal, objeto);\r\n");
 		buffer.append("\t}\r\n\r\n");
 		
 		buffer.append("}");

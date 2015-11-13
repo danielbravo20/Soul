@@ -1,4 +1,4 @@
-package pe.com.soul.core.dao;
+package pe.com.cartaFianza.emision.servicio.dao;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import javax.persistence.Query;
 
 public abstract class BaseDao<T> {
 
-	private final static String UNIT_NAME = "SoulDao";
+	private final static String UNIT_NAME = "CartaFianzaDao";
 	
 	@PersistenceContext(unitName = UNIT_NAME)
 	protected EntityManager em;

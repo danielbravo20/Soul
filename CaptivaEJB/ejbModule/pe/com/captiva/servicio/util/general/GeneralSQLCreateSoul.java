@@ -11,7 +11,6 @@ import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.bean.TablaBean;
 import pe.com.captiva.servicio.util.Componente;
 import pe.com.captiva.servicio.util.MultipleBaseConstructor;
-import pe.com.captiva.servicio.util.GeneradorUtil;
 
 public class GeneralSQLCreateSoul extends MultipleBaseConstructor{
 
@@ -38,7 +37,11 @@ public class GeneralSQLCreateSoul extends MultipleBaseConstructor{
 	
 	private StringBuffer contenido(ProyectoBean proyectoBean, List<TablaBean> tablasBean){
 		StringBuffer buffer = new StringBuffer();
+		
 		buffer.append("\n\r");
+		buffer.append(crearSequencial(tablasBean));
+		buffer.append("\n\r");
+		
 		for (TablaBean tablaBean : tablasBean) {
 			buffer.append(crearDLLTabla(tablaBean));
 		}
@@ -149,5 +152,32 @@ public class GeneralSQLCreateSoul extends MultipleBaseConstructor{
 		
 		return buffer.toString();
 		
+	}
+	
+	public static String crearSequencial(List<TablaBean> tablasBean){
+		
+		Map<String, String> sequencialesMap = new HashMap<String, String>();
+		List<String> sequencialesList = new ArrayList<String>();
+		
+		for (TablaBean tablaBean : tablasBean) {
+			List<CampoSQLBean> campos = tablaBean.getCamposPK();
+			for (CampoSQLBean campoSQLBean : campos) {
+				String sequencial = campoSQLBean.getSequence();
+				if(sequencialesMap.containsKey(sequencial)==false){
+					sequencialesMap.put(sequencial, sequencial);
+					sequencialesList.add(sequencial);
+				}
+			}
+		}
+		
+		StringBuffer buffer = new StringBuffer();
+		
+		if(sequencialesList.size()>0){
+			for (String sequencial : sequencialesList) {
+				buffer.append("CREATE SEQUENCE "+sequencial+" INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 START 1 CACHE 1;\r\n");
+			}
+		}
+		
+		return buffer.toString();
 	}
 }

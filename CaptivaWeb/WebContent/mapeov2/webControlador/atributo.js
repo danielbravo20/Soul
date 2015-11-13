@@ -45,7 +45,6 @@
 	$scope.instanciar = function(listar,clasePadre){
 		$scope.vista = "lista";
 		$scope.cargado = { paquete : "modulo", clase : "Atributo"};
-		$scope.cargado.esDetallado = true;
 		$scope.esEdicion = false;
 		if(clasePadre){
 			$scope.clasePadre = clasePadre;
@@ -78,11 +77,6 @@
 		ajax.jpo($scope.cargado,function(respuesta){
 			$scope.data.ATRIBUTO = respuesta;
 			$scope.pag.total = respuesta.length;
-			if($scope.postCargamosAtributo){
-				$scope.editarCargar($scope.postAtributo);
-				delete $scope.postCargamosAtributo;
-				delete $scope.postAtributo;
-			}
 		});
 	};
 	
@@ -185,19 +179,6 @@
 		} else {
 			return "";
 		}
-	};
-		
-	$scope.cargarAtributos = function(){
-		var consulta = {
-			paquete : "modulo", 
-			clase : "Atributo",
-			metodo : "listarSQL",
-			ATR_W_cod_tabla : $scope.cargado.ADB_fk_tabla,
-			ATR_W_pk		: "1"
-		};
-		ajax.jpo(consulta,function(respuesta){
-			$scope.atributosFK = respuesta;
-		});
 	};
 	
 });

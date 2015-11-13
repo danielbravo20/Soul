@@ -9,7 +9,7 @@
             <ejb-name>*</ejb-name>
             <s:security-domain>dominioSoul</s:security-domain>
             <s:run-as-principal></s:run-as-principal>
-            <s:missing-method-permissions-deny-access>true</s:missing-method-permissions-deny-access>
+            <s:missing-method-permissions-deny-access>false</s:missing-method-permissions-deny-access>
         </s:security>
     </assembly-descriptor>
 </jboss:ejb-jar>

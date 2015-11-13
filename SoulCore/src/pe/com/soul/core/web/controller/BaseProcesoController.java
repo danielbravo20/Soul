@@ -56,7 +56,7 @@ public abstract class BaseProcesoController extends BaseController{
 		
 		if(mensajeValidacion.isConforme()){
 			respuesta.setResultado(true);
-			respuesta.setRespuesta(getBaseProcesoServicioLocal().accionCrearInstancia(usuario));
+			respuesta.setRespuesta(getBaseProcesoServicioLocal().accionCrearInstancia(usuario, getProcesoUtil().poblarObjetos(request, response)));
 		}else{
 			respuesta.setResultado(false);
 			respuesta.setRespuesta(mensajeValidacion);

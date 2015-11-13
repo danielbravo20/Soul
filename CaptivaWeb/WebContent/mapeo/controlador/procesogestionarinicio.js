@@ -7,7 +7,7 @@
 		"String" : "S",
 		"boolean" : "b",
 		"java.math.BigDecimal" : "B",
-		"java.sql.Date" : "D",
+		"java.util.Date" : "D",
 		"java.sql.Timestamp" : "T"
 	};
 	

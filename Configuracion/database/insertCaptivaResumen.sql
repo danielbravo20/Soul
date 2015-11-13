@@ -44,3 +44,6 @@ INSERT INTO soul.CONSULTA_ATRIBUTO (cod_atributo,cod_tabla,flg_condicion,cod_con
 INSERT INTO soul.PROCESO (jav_datasource,cod_proceso,nombre,jav_clase,cod_proyecto,cod_con_resumen,cod_con_detalle) VALUES ('java:jboss/soulDS','1','Emision','Emision','1','1','2');
 
 INSERT INTO soul.proceso_rol_potencial (cod_proceso,cod_rol) VALUES ('1','Analista');
+
+INSERT INTO soul.proceso_inicio_sub_seccion (nombre,cod_proceso,cod_sub_seccion) VALUES ('Sub Seccion Nro 1','1','1');
+INSERT INTO soul.proceso_inicio (cod_proceso_inicio,cod_sub_seccion,web_mensaje_validacion,web_tipo,cod_atributo,cod_proceso,web_etiqueta,web_tipo_campo,web_requerido) VALUES ('1','1','Por favor ingrese el monto','java.math.BigDecimal','3','1','Monto:','C','1');

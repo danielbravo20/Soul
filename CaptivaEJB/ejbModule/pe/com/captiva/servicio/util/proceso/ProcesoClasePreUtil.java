@@ -73,7 +73,7 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 				else if ("long".equals(atributoProceso.getTipo().toLowerCase())){
 					metodoValidacion = "ValidacionUtil.longNoValidoRequestParameter";
 				}
-				else if ("java.sql.date".equals(atributoProceso.getTipo().toLowerCase())){
+				else if ("java.util.Date".equals(atributoProceso.getTipo().toLowerCase())){
 					metodoValidacion = "ValidacionUtil.dateNoValidoRequestParameter";
 				}
 				else if ("java.math.bigdecimal".equals(atributoProceso.getTipo().toLowerCase())){

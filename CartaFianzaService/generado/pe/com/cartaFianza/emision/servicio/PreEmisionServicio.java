@@ -11,6 +11,10 @@ import pe.com.soul.core.service.portal.ProcesoServiceLocal;
 import pe.com.soul.core.servicio.BaseProcesoServicioLocal;
 import pe.com.soul.core.servicio.impl.BaseProcesoServicioImpl;
 
+import pe.com.cartaFianza.bean.*;
+
+import pe.com.cartaFianza.emision.servicio.dao.EmisionDaoLocal;
+
 public abstract class PreEmisionServicio extends BaseProcesoServicioImpl implements BaseProcesoServicioLocal{
 
 	public static final long   PROCESO_CODIGO_PLANTILLA_PROCESO = 1;
@@ -20,6 +24,9 @@ public abstract class PreEmisionServicio extends BaseProcesoServicioImpl impleme
 
 	@EJB
 	ProcesoServiceLocal procesoServiceLocal;
+
+	@EJB
+	EmisionDaoLocal emisionDaoLocal;
 
 	@Resource
 	private SessionContext sessionContext;
@@ -35,9 +42,12 @@ public abstract class PreEmisionServicio extends BaseProcesoServicioImpl impleme
 		return proceso;
 	}
 
+	public Proceso registrarOperacion(Proceso proceso, UsuarioPortal usuario, Object objeto) throws Exception {
+		emisionDaoLocal.registrar((Solicitud)objeto);
+		return proceso;
+	}
 	public TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{
-		TareaPlantilla plantilla = new TareaPlantilla();
-		return plantilla;
+		return null;
 	}
 
 	@Override
