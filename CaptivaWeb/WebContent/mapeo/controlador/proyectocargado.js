@@ -117,7 +117,7 @@
 			}
 		});
 			modal.result.then(function(){
-				$scope.instanciar();
+				//$scope.instanciar();
 			});
 	}
 	

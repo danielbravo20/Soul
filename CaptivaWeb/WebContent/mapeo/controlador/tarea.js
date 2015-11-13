@@ -10,6 +10,7 @@
 	
 	$scope.instanciar = function(listar){
 		$scope.vista = "lista";
+		$scope.urlGestionar = "";
 		$scope.cargado = { paquete : "modulo", clase : "Tarea"};
 		$scope.cargado.TAR_W_COD_PROYECTO = $scope.data.PROYECTO.COD_PROYECTO;
 		$scope.cargado.TAR_COD_PROYECTO = $scope.data.PROYECTO.COD_PROYECTO;
@@ -25,8 +26,8 @@
 			$scope.listar();
 		}
 		/*DUMMY */
-		if(getParametro.accion && getParametro.accion=="gestionarTarea"){
-			$scope.cod_proceso = "1";
+		if(getParametro.accion && getParametro.accion=="gestionarResumen"){
+			$scope.cod_proceso = 1;
 		}
 	};
 	
@@ -109,9 +110,18 @@
 		}
 	});
 	
-	$scope.gestionarTarea = function(cod_tarea){
+	$scope.gestionarAccion = function(cod_tarea){
+		$scope.data.PROCESO_CARGADO = util.getObjeto($scope.data.PROCESO,{cod_proceso : $scope.cod_proceso});
+		$scope.data.TAREA_CARGADA = util.getObjeto($scope.data.TAREA,{cod_tarea : cod_tarea});
 		$scope.vista = "gestionar";
-		$scope.getControladorScope("tareagestionar").instanciar($scope.cod_proceso,util.getObjeto($scope.data.TAREA,{cod_tarea : cod_tarea}));
+		$scope.urlGestionar = "tareagestionaraccion.html";
+	};
+	
+	$scope.gestionarResumen = function(cod_tarea){
+		$scope.data.PROCESO_CARGADO = util.getObjeto($scope.data.PROCESO,{cod_proceso : $scope.cod_proceso});
+		$scope.data.TAREA_CARGADA = util.getObjeto($scope.data.TAREA,{cod_tarea : cod_tarea});
+		$scope.vista = "gestionar";
+		$scope.urlGestionar = "tareagestionarresumen.html";
 	};
 	
 	$scope.gestionarRoles = function(cod_tarea,tipo){

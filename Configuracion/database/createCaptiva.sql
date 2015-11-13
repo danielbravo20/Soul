@@ -317,8 +317,8 @@ ALTER TABLE soul.proceso_inicio_sub_seccion ADD CONSTRAINT proceso_inicio_sub_se
 
 CREATE TABLE soul.proceso_inicio(
  cod_proceso Integer NOT NULL,
- cod_sub_seccion Integer,
- cod_proceso_inicio Integer,
+ cod_sub_seccion Integer NOT NULL,
+ cod_proceso_inicio Integer NOT NULL,
  cod_atributo Integer NOT NULL,
  web_etiqueta Character varying(255),
  web_tipo Character varying(60),

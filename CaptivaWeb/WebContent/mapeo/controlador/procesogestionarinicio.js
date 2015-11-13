@@ -8,6 +8,7 @@
 		"boolean" : "b",
 		"java.math.BigDecimal" : "B",
 		"java.util.Date" : "D",
+		"java.sql.Date" : "D",
 		"java.sql.Timestamp" : "T"
 	};
 	
@@ -143,7 +144,7 @@
 						
 						var atributoItem = respuesta.INICIO[i];
 						
-						if(atributoItem.cod_sub_seccion && atributoItem.cod_proceso_inicio){
+						if(atributoItem.cod_sub_seccion!="0"){
 							if($scope.subSeccion.lista[atributoItem.cod_sub_seccion-1]){
 								
 								var objAtributo = $scope.atributo.lista[$scope.atributo.listaId[atributoItem.cod_atributo]];
@@ -235,13 +236,10 @@
 					cla_nombre : item.cla_nombre,
 					atr_nombre : item.nombre,
 					sql_longitud : item.sql_longitud,
-					sql_precision : item.sql_precision,
+					sql_precision : item.sql_precision
 				});
 				delete $scope.subSeccion.lista[indice].nuevoAtributo;
 			}
-		},
-		nuevo : function(){
-			
 		},
 		eliminar : function($index){
 			
@@ -378,11 +376,14 @@
 
 		}
 		
+		var contCodPro = subSeccionItem.atributo.lista.length;
 		for(var i = 0; i < $scope.interno.lista.length ; i++){
 			
 			var internoItem = $scope.interno.lista[i];
 			
 			$scope.cargado["PIN_M_"+(contaAtri)+"_cod_proceso"] = $scope.data.PROCESO_CARGADO.cod_proceso;
+			$scope.cargado["PIN_M_"+(contaAtri)+"_cod_sub_seccion"] = "0";
+			$scope.cargado["PIN_M_"+(contaAtri)+"_cod_proceso_inicio"] = (i+1);
 			$scope.cargado["PIN_M_"+(contaAtri)+"_cod_atributo"] = internoItem.cod_atributo;
 			$scope.cargado["PIN_M_"+(contaAtri)+"_val_omision"] = internoItem.val_omision;
 			

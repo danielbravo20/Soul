@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-md-8">
 			<ol class="breadcrumb">
-				<li><strong>{{data.PROCESO_CARGADO.inf_nombre | uppercase}}</strong></li>
+				<li><strong>{{data.PROCESO_CARGADO.nombre | uppercase}}</strong></li>
 				<li>DETALLE DE SOLICITUD</li>
 			</ol>
 		</div>
@@ -46,7 +46,7 @@
 							<select class="form-control input-sm" ng-model="atrBuscar.cod_tabla" ng-options="tabla.cod_tabla as tabla.nombre for tabla in consulta.tablas | orderBy: 'nombre'">
 								<option></option>
 							</select>
-							<input type="text" ng-model="atrBuscar.web_nombre" placeholder="Nombre" class="form-control input-sm">
+							<input type="text" ng-model="atrBuscar.nombre" placeholder="Nombre" class="form-control input-sm">
 							<div class="simpleDemo" style="max-height: 200px; overflow : auto; border: 1px solid #ccc;">
 								<ul dnd-list="consulta.atributos">
 							 	    <li ng-repeat="item in consulta.atributos | filter:atrBuscar"
@@ -57,7 +57,7 @@
 								        dnd-type="'atributos'"
 								        ng-class="{'selected': consulta.seleccionado === item}"
 								    >
-								        {{item.web_nombre}} <span class="referenciaClase">({{item.cla_nombre}})</span>
+								        {{item.nombre}} <span class="referenciaClase">({{item.cla_nombre}})</span>
 								        <div class="tipoAtributo" title="{{item.web_tipo}}">({{tipoClase[item.web_tipo]}})</div>
 								    </li>
 								</ul>

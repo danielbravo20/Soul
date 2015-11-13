@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-md-8">
 			<ol class="breadcrumb">
-				<li><strong>{{data.PROCESO_CARGADO.inf_nombre | uppercase}}</strong></li>
+				<li><strong>{{data.PROCESO_CARGADO.nombre | uppercase}}</strong></li>
 				<li>INICIAR SOLICITUD</li>
 			</ol>
 		</div>
@@ -49,7 +49,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading"><strong>Datos de Inicio</strong></div>
 		<div class="simpleDemoB">
-			<div ng-repeat="subSeccionItem in subSeccion.lista">
+			<div ng-repeat="subSeccionItem in subSeccion.lista" ng-init="subSeccionItem.index = $index">
 				<div class="filaTitulo">
 					&nbsp;&nbsp;
 					<i class="glyphicon glyphicon-list-alt"></i> 
@@ -105,9 +105,9 @@
 		</tr>
 		<tr>
 			<td>Opciones : </td>
-			<td><a class="btn btn-danger btn-sm" ng-click="atributo.eliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
-			<td><a class="btn btn-info btn-sm" ng-click="atributo.bajar($index)" tooltip="Mover a la Izquierda"><i class="glyphicon glyphicon-arrow-left"></i></a></td>
-			<td><a class="btn btn-info btn-sm" ng-click="atributo.subir($index)" tooltip="Mover a la Derecha"><i class="glyphicon glyphicon-arrow-right"></i></a></td>
+			<td><a class="btn btn-danger btn-sm" ng-click="atributo.eliminar(subSeccionItem.index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="atributo.bajar(subSeccionItem.index)" tooltip="Mover a la Izquierda"><i class="glyphicon glyphicon-arrow-left"></i></a></td>
+			<td><a class="btn btn-info btn-sm" ng-click="atributo.subir(subSeccionItem.index)" tooltip="Mover a la Derecha"><i class="glyphicon glyphicon-arrow-right"></i></a></td>
 			<td><input ng-show="atributoItem.web_tipo_campo == 'C' || atributoItem.web_tipo_campo == 'A' || atributoItem.web_tipo_campo == 'E' || atributoItem.web_tipo_campo == 'E'" type="checkbox" ng-model="atributoItem.web_requerido" ng-true-value="'1'" ng-false-value="'0'" tooltip="Marcar si es un Campo Requerido" class="form-control input-sm" style="width:30px"></td>
 		</tr>
 		<tr ng-show="atributoItem.web_requerido == '1'">

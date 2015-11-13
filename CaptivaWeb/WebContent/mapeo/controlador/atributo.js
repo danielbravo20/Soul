@@ -151,7 +151,7 @@
 	};
 	
 	$scope.formatearNombres = function(){
-		var formatos = util.getClases($scope.cargado.ATR_inf_nombre);
+		var formatos = util.getClases($scope.cargado.ATR_nombre);
 		$scope.cargado.ATR_nombre = formatos[0];
 		$scope.cargado.ADB_campo = formatos[2];
 	};

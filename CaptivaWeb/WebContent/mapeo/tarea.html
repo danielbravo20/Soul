@@ -37,10 +37,11 @@
 					<a ng-show="item.WEB_ACC_OBSERVAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('OBSERVAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i>
 					<a ng-show="item.WEB_ACC_RECHAZAR == '1'" class="btn btn-info btn-sm" ng-click="gestionarAtributos('RECHAZAR',item.cod_tarea)" tooltip="Gestionar Atributos"><i class="glyphicon glyphicon-tag"></i>
 				</td>
-				<td>
+				<td align="right">
 					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.cod_tarea)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
 					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.cod_tarea)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
-					<a class="btn btn-info btn-sm" ng-click="gestionarTarea(item.cod_tarea)" ng-hide="estalisto" tooltip="Gestionar Tarea"><i class="glyphicon glyphicon-book"></i></a>
+					<a class="btn btn-info btn-sm" ng-click="gestionarAccion(item.cod_tarea)" tooltip="Gestionar Acciones de Tarea"><i class="glyphicon glyphicon-play"></i></a>
+					<a class="btn btn-info btn-sm" ng-click="gestionarResumen(item.cod_tarea)" tooltip="Gestionar Resumen de Tarea"><i class="glyphicon glyphicon-align-justify"></i></a>
 					<a class="btn btn-warning btn-sm" ng-click="gestionarRoles(item.cod_tarea,'Administrador')" tooltip="Gestionar Roles de Administrador"><i class="glyphicon glyphicon-user"></i></a>
 					<a class="btn btn-warning btn-sm" ng-click="gestionarRoles(item.cod_tarea,'Potencial')" tooltip="Gestionar Roles Potenciales"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-user"></i></a>
 				</td>
@@ -155,6 +156,5 @@
 		  </form>
 		</div>
 	</div>
-	<div ng-include="'tareaaccionatributo.html'" ng-show="vista === 'atributos'"></div>
-	<div ng-include="'tareagestionar.html'" ng-show="vista === 'gestionar'"></div>
+	<div ng-include="urlGestionar" ng-show="vista === 'gestionar'"></div>
 </div>
