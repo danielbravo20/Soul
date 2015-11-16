@@ -408,6 +408,9 @@ CREATE TABLE soul.tarea(
  cod_con_trabajar Integer NOT NULL,
  cod_con_completar Integer NOT NULL,
  clase Character varying(255) NOT NULL,
+ tipo_vista Character(1),
+ cod_tarea_siguiente Integer,
+ cod_tarea_observado Integer
  web_acc_completar Character(1) DEFAULT '1'::bpchar NOT NULL,
  web_acc_grabar Character(1) DEFAULT '1'::bpchar NOT NULL,
  web_acc_cancelar Character(1) DEFAULT '0'::bpchar NOT NULL,
@@ -415,9 +418,7 @@ CREATE TABLE soul.tarea(
  web_acc_observar Character(1) DEFAULT '0'::bpchar NOT NULL,
  web_tie_rojo Integer NOT NULL,
  web_tie_amarillo Integer NOT NULL,
- tipo_vista Character(1),
- cod_tarea_siguiente Integer,
- cod_tarea_observado Integer
+ web_plantilla_resumen Character varying(20)
 )
 ;
 
@@ -676,6 +677,36 @@ ALTER TABLE soul.equipo ADD CONSTRAINT Relationship40 FOREIGN KEY (cod_usuario) 
 ALTER TABLE soul.tarea ADD CONSTRAINT Relationship41 FOREIGN KEY (cod_proceso) REFERENCES soul.proceso (cod_proceso) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
+
+-- Table soul.tarea_resumen_plantilla
+
+CREATE TABLE soul.tarea_resumen_plantilla (
+ cod_plantilla Character varying(20),
+ nombre Character varying(100)
+ )
+;
+
+-- Table soul.tarea_resumen_sub_seccion
+
+CREATE TABLE soul.tarea_resumen_sub_seccion(
+ cod_tarea Integer,
+ cod_plantilla Character varying(20),
+ cod_sub_seccion Integer NOT NULL,
+ nombre Character varying(100) NOT NULL
+ )
+;
+
+-- Table soul.tarea_resumen
+
+CREATE TABLE soul.tarea_resumen(
+ cod_tarea Integer,
+ cod_plantilla Character varying(20),
+ cod_sub_seccion Integer NOT NULL,
+ cod_tarea_resumen Integer NOT NULL,
+ cod_atributo Integer NOT NULL,
+ web_etiqueta Character varying(255) NOT NULL
+)
+;
 
 
 -- Create roles section -------------------------------------------------
