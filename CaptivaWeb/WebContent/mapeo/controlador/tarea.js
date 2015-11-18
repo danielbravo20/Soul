@@ -22,13 +22,12 @@
 			$scope.cargado.TAR_cod_proceso = $scope.cod_proceso;
 		}
 		$scope.esEdicion = false;
+		if(typeof(listar)!="undefined" && listar == true){
+			$scope.listar();
+		}
 		/*DUMMY */
 		if(getParametro.accion && getParametro.accion=="gestionarResumen"){
 			$scope.cod_proceso = 1;
-			listar = true;
-		}
-		if(typeof(listar)!="undefined" && listar == true){
-			$scope.listar();
 		}
 	};
 	
@@ -47,8 +46,8 @@
 			$scope.data.TAREA = respuesta;
 			$scope.pag.total = $scope.data.TAREA.length;
 			/*DUMMY */
-			if(getParametro.accion && getParametro.accion=="gestionarResumen"){
-				$scope.gestionarResumen(1);
+			if(getParametro.accion && getParametro.accion=="gestionarTarea"){
+				$scope.gestionarTarea("1");
 			}
 		});
 	};
