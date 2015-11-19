@@ -17,7 +17,7 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 
 	public Solicitud verResumen(Solicitud solicitud) throws Exception {
 		if(solicitud!=null){
-			String consulta = "select * from Solicitud a where a.codigoProceso =:parametro ";
+			String consulta = "select a from SolicitudEntity a where a.codigoProceso =:parametro ";
 			List<SolicitudEntity> solicitudEntitys = buscarRegistros(consulta, "parametro", solicitud.getCodigoProceso());
 			if(solicitudEntitys!=null){
 				SolicitudEntity solicitudEntity = solicitudEntitys.get(0);
@@ -30,14 +30,14 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 
 	public Solicitud verDetalle(Solicitud solicitud) throws Exception {
 		if(solicitud!=null){
-			String consulta = "select * from Solicitud a where a.codigoProceso =:parametro ";
+			String consulta = "select a from SolicitudEntity a where a.codigoProceso =:parametro ";
 			List<SolicitudEntity> solicitudEntitys = buscarRegistros(consulta, "parametro", solicitud.getCodigoProceso());
 			if(solicitudEntitys!=null){
 				SolicitudEntity solicitudEntity = solicitudEntitys.get(0);
-				solicitud.setVigencia(solicitudEntity.getVigencia());
-				solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
-				solicitud.setEvento(solicitudEntity.getEvento());
 				solicitud.setMonto(solicitudEntity.getMonto());
+				solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
+				solicitud.setVigencia(solicitudEntity.getVigencia());
+				solicitud.setEvento(solicitudEntity.getEvento());
 			}
 		}
 		return solicitud;

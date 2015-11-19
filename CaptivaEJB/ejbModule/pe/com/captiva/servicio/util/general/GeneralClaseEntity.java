@@ -100,10 +100,11 @@ public class GeneralClaseEntity extends MultipleBaseConstructor{
 		buffer.append("\r\n");
 		
 		if(clase.getNivel()==1){
+			buffer.append("\t@Column(name = \"codigo_proceso\" ,unique = true ,nullable = false )\r\n");
 			buffer.append("\tpublic Long getCodigoProceso() {\r\n");
 			buffer.append("\t\treturn codigoProceso;\r\n");
 			buffer.append("\t}\r\n");
-			buffer.append("\t@Column(name = \"codigo_proceso\" ,unique = true ,nullable = false )\r\n");
+			
 			buffer.append("\tpublic void setCodigoProceso(Long codigoProceso) {\r\n");
 			buffer.append("\t\tthis.codigoProceso = codigoProceso;\r\n");
 			buffer.append("\t}\r\n");

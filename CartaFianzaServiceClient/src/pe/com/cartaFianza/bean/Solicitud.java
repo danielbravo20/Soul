@@ -8,17 +8,17 @@ public class Solicitud extends BasePadreBean implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 
-	private java.util.Date vigencia;
+	private String evento;
 	private Long codigoSolicitud;
 	private java.math.BigDecimal monto;
-	private String evento;
+	private java.util.Date vigencia;
 
-	public java.util.Date getVigencia(){
-		return vigencia;
+	public String getEvento(){
+		return evento;
 	}
 
-	public void setVigencia(java.util.Date vigencia) {
-		this.vigencia = vigencia;
+	public void setEvento(String evento) {
+		this.evento = evento;
 	}
 
 	public Long getCodigoSolicitud(){
@@ -37,12 +37,12 @@ public class Solicitud extends BasePadreBean implements Serializable{
 		this.monto = monto;
 	}
 
-	public String getEvento(){
-		return evento;
+	public java.util.Date getVigencia(){
+		return vigencia;
 	}
 
-	public void setEvento(String evento) {
-		this.evento = evento;
+	public void setVigencia(java.util.Date vigencia) {
+		this.vigencia = vigencia;
 	}
 
 }

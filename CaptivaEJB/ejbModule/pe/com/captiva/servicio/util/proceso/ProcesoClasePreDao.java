@@ -60,7 +60,7 @@ public class ProcesoClasePreDao extends MultipleBaseConstructor{
 
 		buffer.append("\tpublic "+clasePadre+" verResumen("+clasePadre+" "+clasePadre.toLowerCase()+") throws Exception {\r\n");
 		buffer.append("\t\tif("+clasePadre.toLowerCase()+"!=null){\r\n");
-		buffer.append("\t\t\tString consulta = \"select * from "+clasePadre+" a where a.codigoProceso =:parametro \";\r\n");
+		buffer.append("\t\t\tString consulta = \"select a from "+clasePadre+"Entity a where a.codigoProceso =:parametro \";\r\n");
 		buffer.append("\t\t\tList<"+clasePadre+"Entity> "+clasePadre.toLowerCase()+"Entitys = buscarRegistros(consulta, \"parametro\", "+clasePadre.toLowerCase()+".getCodigoProceso());\r\n");	
 		buffer.append("\t\t\tif("+clasePadre.toLowerCase()+"Entitys!=null){\r\n");
 		buffer.append("\t\t\t\t"+clasePadre+"Entity "+clasePadre.toLowerCase()+"Entity = "+clasePadre.toLowerCase()+"Entitys.get(0);\r\n");
@@ -79,7 +79,7 @@ public class ProcesoClasePreDao extends MultipleBaseConstructor{
 
 		buffer.append("\tpublic "+clasePadre+" verDetalle("+clasePadre+" "+clasePadre.toLowerCase()+") throws Exception {\r\n");
 		buffer.append("\t\tif("+clasePadre.toLowerCase()+"!=null){\r\n");
-		buffer.append("\t\t\tString consulta = \"select * from "+clasePadre+" a where a.codigoProceso =:parametro \";\r\n");
+		buffer.append("\t\t\tString consulta = \"select a from "+clasePadre+"Entity a where a.codigoProceso =:parametro \";\r\n");
 		buffer.append("\t\t\tList<"+clasePadre+"Entity> "+clasePadre.toLowerCase()+"Entitys = buscarRegistros(consulta, \"parametro\", "+clasePadre.toLowerCase()+".getCodigoProceso());\r\n");	
 		buffer.append("\t\t\tif("+clasePadre.toLowerCase()+"Entitys!=null){\r\n");
 		buffer.append("\t\t\t\t"+clasePadre+"Entity "+clasePadre.toLowerCase()+"Entity = "+clasePadre.toLowerCase()+"Entitys.get(0);\r\n");
