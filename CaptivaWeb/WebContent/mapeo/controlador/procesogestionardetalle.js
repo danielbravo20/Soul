@@ -1,9 +1,12 @@
 ﻿mapeo.registerCtrl('procesogestionardetalle', function($scope, $modal, ajax, util) {
 
-	$scope.config = {
-		esEdicion : true,
-		fechaInicio : new Date()
-	};
+	// EDITOR ----------------------------------
+	$scope.editor = {
+		atributo_tipo : "sololectura"
+	}
+	// EDITOR ----------------------------------
+	
+	func.consulta($scope, ajax, $scope.data.PROCESO_CARGADO.cod_proyecto, $scope.data.PROCESO_CARGADO.cod_con_detalle);
 	
 	var detalle = {
 		index_seccion : {},
@@ -139,71 +142,18 @@
 			$scope.consulta.tablas = [];
 			$scope.consulta.atributos = [];
 			$scope.consulta.atributosId = [];
-			$scope.seccion.lista = [];
-			
+
 			if($scope.data.PROCESO_CARGADO.web_detalle_tipovista){
-				$scope.config.tipoVista = $scope.data.PROCESO_CARGADO.web_detalle_tipovista;
+				$scope.editor.tipoVista = $scope.data.PROCESO_CARGADO.web_detalle_tipovista;
 			}
 			
 			$scope.consulta.cargar(function(){
-				detalle.cargar();
+				//detalle.cargar();
 			});
 		}
 	};
 	
-	$scope.tipoClase = {
-		"Integer" : "I",
-		"Long" : "L",
-		"long" : "l",
-		"String" : "S",
-		"boolean" : "b",
-		"java.math.BigDecimal" : "B",
-		"java.util.Date" : "D",
-		"java.sql.Timestamp" : "T"
-	};
-	
-	$scope.consulta = {
-		tablas : [],
-		atributos : [],
-		atributosId : {},
-		cargar : function(callback){
-			ajax.jpo({
-				paquete : "modulo",
-				clase : "Consulta",
-				metodo : "cargarConsulta",
-				CON_COD_PROYECTO : $scope.data.PROCESO_CARGADO.cod_proyecto,
-				CON_W_COD_CONSULTA : $scope.data.PROCESO_CARGADO.cod_con_detalle,
-				CON_W_COD_PROYECTO : $scope.data.PROCESO_CARGADO.cod_proyecto,
-				CAT_W_COD_CONSULTA : $scope.data.PROCESO_CARGADO.cod_con_detalle,
-				CTA_W_COD_CONSULTA : $scope.data.PROCESO_CARGADO.cod_con_detalle
-			},function(respuesta){
-				
-				for(var i = 0; i<respuesta.CONSULTA_TABLA.length ; i++){
-					if(!$scope.consulta.tablas[respuesta.CONSULTA_TABLA[i].cod_tabla]){
-						$scope.consulta.tablas[respuesta.CONSULTA_TABLA[i].cod_tabla] = respuesta.CONSULTA_TABLA[i];
-					}
-				}
-				
-				for(var i = 0; i<respuesta.CONSULTA_ATRIBUTO.length ; i++){
-					respuesta.CONSULTA_ATRIBUTO[i].web_tipo = respuesta.CONSULTA_ATRIBUTO[i].tipo;
-					respuesta.CONSULTA_ATRIBUTO[i].web_etiqueta = respuesta.CONSULTA_ATRIBUTO[i].etiqueta;
-					respuesta.CONSULTA_ATRIBUTO[i].atr_nombre = respuesta.CONSULTA_ATRIBUTO[i].nombre;
-					if(!$scope.consulta.atributosId[respuesta.CONSULTA_ATRIBUTO[i].cod_atributo]){
-						$scope.consulta.atributosId[respuesta.CONSULTA_ATRIBUTO[i].cod_atributo] = i;
-					}
-				}
-				
-				$scope.consulta.atributos = respuesta.CONSULTA_ATRIBUTO;
-				
-				if(callback){
-					callback();
-				}
-				
-			});
-		}
-	};
-	
-	$scope.$watch('config.seccionHistorial', function(newValue, oldValue) {
+	$scope.$watch('editor.seccionHistorial', function(newValue, oldValue) {
 		if(newValue != oldValue){
 			 if(newValue=="1"){
 				 $scope.seccion.agregarWidget("HIS");
@@ -212,7 +162,7 @@
 			 }
 		}
 	});
-	$scope.$watch('config.seccionDocumentos', function(newValue, oldValue) {
+	$scope.$watch('editor.seccionDocumentos', function(newValue, oldValue) {
 		if(newValue != oldValue){
 			 if(newValue=="1"){
 				 $scope.seccion.agregarWidget("DOC");
@@ -221,7 +171,7 @@
 			 }
 		}
 	});
-	$scope.$watch('config.seccionObservaciones', function(newValue, oldValue) {
+	$scope.$watch('editor.seccionObservaciones', function(newValue, oldValue) {
 		if(newValue != oldValue){
 			 if(newValue=="1"){
 				 $scope.seccion.agregarWidget("OBS");
@@ -246,184 +196,6 @@
 			"HIS" : "plantilla/inc_modelo_historialtareas.html",
 			"DOC" : "plantilla/inc_modelo_documentos.html",
 			"OBS" : "plantilla/inc_modelo_observaciones.html"
-		}
-	};
-	
-	$scope.seccion = {
-		actual : -1,
-		lista : [],
-		agregar : function(){
-			var eid = $scope.seccion.lista.length+1;
-			$scope.seccion.lista.push({
-				nombre : "Seccion Nro "+eid,
-				tipo : "S",
-				activo : true,
-				subSeccion : {
-					lista : []
-				}
-			});
-			$scope.seccion.lista[eid-1].activo = true;
-		},
-		agregarWidget : function(widget){
-			for(var i = 0; i< $scope.seccion.lista.length;i++){
-				if($scope.seccion.lista[i].tipo=="W" && $scope.seccion.lista[i].tipo_widget == widget){
-					return false;
-				}
-			}
-			var eid = $scope.seccion.lista.length+1;
-			$scope.seccion.lista.push({
-				nombre : $scope.widget.widgetNombre[widget],
-				tipo : "W",
-				tipo_widget : widget,
-				tipo_widget_url : $scope.widget.widgetUrl[widget],
-				activo : true,
-				subSeccion : {
-					lista : []
-				}
-			});
-			$scope.seccion.lista[eid-1].activo = true;
-		},
-		quitarWidget : function(widget){
-			for(var i = 0; i< $scope.seccion.lista.length;i++){
-				if($scope.seccion.lista[i].tipo=="W" && $scope.seccion.lista[i].tipo_widget == widget){
-					$("i[eid='seccionEditar_"+i+"']").next().hide();
-					$scope.seccion.lista.splice(i,1);
-				}
-			}
-		},
-		eliminar : function(){
-			var index = $scope.seccion.actual-1;
-			$("i[eid='seccionEditar_"+index+"']").next().hide();
-			if($scope.seccion.lista[index].tipo=="W"){
-				$scope.config[$scope.widget.widgetRadios[$scope.seccion.lista[index].tipo_widget]] = "0";
-			}
-			$scope.seccion.lista.splice(index,1);
-		},
-		bajar : function(){
-			var index = $scope.seccion.actual-1;
-			$("i[eid='seccionEditar_"+index+"']").next().hide();
-			if(index>0){
-				$scope.seccion.lista.move(index-1,index);
-			}
-			$scope.seccion.actual = $scope.seccion.actual-1;
-		},
-		subir : function(){
-			var index = $scope.seccion.actual-1;
-			$("i[eid='seccionEditar_"+index+"']").next().hide();
-			if(index<$scope.seccion.lista.length-1){
-				$scope.seccion.lista.move(index,index+1);
-			}
-			$scope.seccion.actual = $scope.seccion.actual+1;
-		},
-		copiar : function(){
-			var index = $scope.seccion.actual-1;
-			$("i[eid='seccionEditar_"+index+"']").next().hide();
-			var newTab = angular.copy($scope.seccion.lista[index]);
-				newTab.nombre += " Copia";
-			$scope.seccion.lista.push(newTab);
-		},
-		asignarTab : function(nroIndex){
-			$("i").next(".popover").hide($index);
-			$scope.seccion.actual = nroIndex + 1;
-		},
-		buscarPlantilla : function(){
-			if($scope.seccion.lista.length>0){
-				$scope.seccion.lista[0].activo = true;
-			}
-			var modalInstance = $modal.open({
-				animation: true,
-				templateUrl: 'modal_agregarPlantilla.html',
-				controller: 'modal_agregarPlantilla',
-				resolve: {
-					config : function(){
-						return {
-							accionEliminar : function(idPlantilla){
-								for(var i = 0;i<$scope.seccion.lista.length;i++){
-									if($scope.seccion.lista[i].cod_seccion_padre == idPlantilla){
-										$scope.seccion.lista.splice(i,1);
-										break;
-									}
-								}
-							}
-						};
-					}
-				}
-			});
-			modalInstance.result.then(function(){	
-			});
-		}
-	};
-	
-	$scope.subSeccion = {
-		getSubSeccion : function(){
-			return $scope.seccion.lista[$scope.seccion.actual-1].subSeccion;
-		},
-		agregar : function(){
-			var eid = this.getSubSeccion().lista.length;
-			this.getSubSeccion().lista.push({
-				nombre : "Sub Seccion Nro "+(eid+1),
-				atributo : {
-					selected : null,
-					lista : []
-				}
-			});
-		},
-		eliminar : function(){
-			var index = this.getSubSeccion().actual;
-			$("i[eid='subSeccionEditar_"+index+"']").next().hide();
-			this.getSubSeccion().lista.splice(index,1);
-		},
-		bajar : function(){
-			var index = this.getSubSeccion().actual;
-			$("i[eid='subSeccionEditar_"+index+"']").next().hide();
-			if(index<this.getSubSeccion().lista.length-1){
-				this.getSubSeccion().lista.move(index,index+1);
-			}
-		},
-		subir : function(){
-			var index = this.getSubSeccion().actual;
-			$("i[eid='subSeccionEditar_"+index+"']").next().hide();
-			if(index>0){
-				this.getSubSeccion().lista.move(index-1,index);
-			}
-		},
-		copiar : function(){
-			var index = this.getSubSeccion().actual;
-			$("i[eid='subSeccionEditar_"+index+"']").next().hide();
-			var newTab = angular.copy(this.getSubSeccion().lista[index]);
-				newTab.nombre += " Copia";
-			this.getSubSeccion().lista.push(newTab);
-		}
-	};
-		
-	$scope.atributo = {
-		getSeccion : function(subSeccionIndex){
-			return $scope.subSeccion.getSubSeccion().lista[subSeccionIndex];
-		},
-		getActual : function(subSeccionIndex){
-			return $scope.atributo.getSeccion(subSeccionIndex).atributo.actual;
-		},
-		getLista : function(subSeccionIndex){
-			return $scope.atributo.getSeccion(subSeccionIndex).atributo.lista;
-		},
-		eliminar : function(subSeccionIndex){
-			var index = $scope.atributo.getActual(subSeccionIndex);
-			$("i[eid='atributo_"+index+"']").next().hide();
-			$scope.atributo.getLista(subSeccionIndex).splice(index,1);
-		},
-		bajar : function(subSeccionIndex){
-			var index = $scope.atributo.getActual(subSeccionIndex);
-			$("i[eid='atributo_"+index+"']").next().hide();
-			if(index>0){
-				$scope.atributo.getLista(subSeccionIndex).move(index-1,index);
-			}
-		},
-		subir : function(subSeccionIndex){
-			var index = $scope.atributo.getActual(subSeccionIndex);
-			$("i[eid='atributo_"+index+"']").next().hide();
-			if(index<this.getLista(subSeccionIndex).length-1){
-				$scope.atributo.getLista(subSeccionIndex).move(index,index+1);
-			}
 		}
 	};
 	
@@ -546,7 +318,7 @@
 	
 	$scope.registrarInicio = function(){
 		if(validarRegistro()){
-			$scope.cargado["PRO_web_detalle_tipovista"] = $scope.config.tipoVista;
+			$scope.cargado["PRO_web_detalle_tipovista"] = $scope.editor.tipoVista;
 			$scope.cargado.metodo = "registrarDetalle";
 			ajax.jpo($scope.cargado,function(respuesta){
 				$scope.agregarAlerta("success","Registrado corréctamente");
@@ -557,82 +329,4 @@
 	
 	$scope.instanciar();
 
-});
-
-mapeo.registerCtrl('modal_agregarPlantilla', function ($scope, $modalInstance, ajax, config) {
-
-	$scope.listaPlantillas = [];
-	
-	$scope.Agregar = function(){
-		$modalInstance.close();
-	};
-	
-	$scope.Cancelar = function(){
-		$modalInstance.close();
-	};
-	
-	var cargarPlantillas = function(){
-		ajax.jpo({
-			paquete : "modulo",
-			clase : "Proceso",
-			metodo : "listarDetalle",
-			PDS_W_TIPO : 'P',
-			PDB_W_COD_SECCION : "-1",
-			PDA_W_COD_SECCION : "-1"
-		},function(respuesta){
-			$scope.listaPlantillas = respuesta.SECCION;
-		});
-	};
-	
-	cargarPlantillas();
-	
-	$scope.vistaPrevia = function(){
-		ajax.jpo({
-			paquete : "modulo",
-			clase : "Proceso",
-			metodo : "listarDetalle",
-			PDS_W_COD_SECCION : $scope.idPlantilla,
-			PDB_W_COD_SECCION : $scope.idPlantilla,
-			PDA_W_COD_SECCION : $scope.idPlantilla
-		},function(respuesta){
-			$scope.subSeccionLista = [];
-			var indexSubSeccion = {};
-			for(var i = 0; i < respuesta.SUB_SECCION.length ; i++){
-				indexSubSeccion[respuesta.SUB_SECCION[i].cod_sub_seccion] = i;
-				$scope.subSeccionLista.push({
-					nombre : respuesta.SUB_SECCION[i].nombre,
-					atributo : {
-						lista : []
-					}
-				});
-			}
-
-			for(var i = 0;i < respuesta.DETALLE.length; i++){
-				var atributoItem = respuesta.DETALLE[i];
-				$scope.subSeccionLista[indexSubSeccion[atributoItem.cod_sub_seccion]].atributo.lista.push({
-					web_etiqueta : atributoItem.web_etiqueta
-				});
-			}
-		});
-	};
-	
-	$scope.eliminar = function(){
-		if(confirm("Desea eliminar la plantilla seleccionada?")){
-			ajax.jpo({
-				paquete : "modulo",
-				clase : "Proceso",
-				metodo : 'eliminarDetalle',
-				PDS_W_COD_SECCION : $scope.idPlantilla,
-				PDB_W_COD_SECCION : $scope.idPlantilla,
-				PDA_W_COD_SECCION : $scope.idPlantilla
-			},function(respuesta){
-				if(respuesta){
-					config.accionEliminar($scope.idPlantilla);
-					alert("atributo eliminado correctamente");
-					$modalInstance.close();
-				}
-			});
-		};
-	};
-	
 });

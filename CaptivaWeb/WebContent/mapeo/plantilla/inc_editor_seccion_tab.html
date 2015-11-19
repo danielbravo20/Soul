@@ -1,26 +1,26 @@
 <tabset>
 	<tab ng-repeat="seccionItem in seccion.lista" active="seccionItem.activo" select="seccion.actual = $index + 1">
-		<tab-heading ng-class="{'frm_plantillaFondo': seccionItem.plantilla == '1' && config.esEdicion==true,'frm_widgetFondo': seccionItem.tipo=='W' && config.esEdicion==true}">
+		<tab-heading ng-class="{'frm_plantillaFondo': seccionItem.plantilla == '1' && editor.esEdicion==true,'frm_widgetFondo': seccionItem.tipo=='W' && editor.esEdicion==true}">
 			<i class="glyphicon" ng-class="{true:'glyphicon-folder-open', false:'glyphicon-folder-close'}[seccionItem.activo]"></i>&nbsp; {{seccionItem.nombre}}
 			<span style="color:red" ng-show="seccionItem.alertas>0">&nbsp;&nbsp;&nbsp;&nbsp; {{seccionItem.alertas}} <i class="glyphicon glyphicon-bell"></i></span>
 			<i class="glyphicon glyphicon-edit seccionEditar" 
 				ng-click="seccion.actual = $index + 1" 
-				popover-template="'popover_seccion.html'" 
+				popover-template="seccion.url_seccion_editor"
 				popover-title="Editar" 
 				popover-placement="right" style="color: brown;"
 				eid="seccionEditar_{{$index}}"
-				ng-show="config.esEdicion"></i>
+				ng-show="editor.esEdicion"></i>
 			&nbsp;
-			<i ng-show="seccionItem.plantilla == '1' && config.esEdicion==true" title="Plantilla" style="color: #C18730;" class="glyphicon glyphicon-file"></i>
-			<i ng-show="seccionItem.tipo=='W' && config.esEdicion==true" title="Widget" style="color: #00D28C;" class="glyphicon glyphicon-cloud"></i>
+			<i ng-show="seccionItem.plantilla == '1' && editor.esEdicion==true" title="Plantilla" style="color: #C18730;" class="glyphicon glyphicon-file"></i>
+			<i ng-show="seccionItem.tipo=='W' && editor.esEdicion==true" title="Widget" style="color: #00D28C;" class="glyphicon glyphicon-cloud"></i>
 		</tab-heading>
-		<div ng-hide="seccionItem.tipo=='W'" ng-include="'procesogestionardetalle_subseccion.html'" ng-class="{'frm_plantillaFondo': seccionItem.plantilla == '1' && config.esEdicion==true}"></div>
-		<div ng-show="seccionItem.tipo=='W'" ng-include="seccionItem.tipo_widget_url" ng-class="{'frm_widgetFondo': config.esEdicion==true}"></div>
+		<div ng-hide="seccionItem.tipo=='W'" ng-include="seccion.url_subSeccion" ng-class="{'frm_plantillaFondo': seccionItem.plantilla == '1' && editor.esEdicion==true}"></div>
+		<div ng-show="seccionItem.tipo=='W'" ng-include="seccionItem.tipo_widget_url" ng-class="{'frm_widgetFondo': editor.esEdicion==true}"></div>
 	</tab>
-	<tab ng-click="seccion.agregar()" ng-show="config.esEdicion">
+	<tab ng-click="seccion.agregar()" ng-show="editor.esEdicion">
 		<tab-heading title="Agregar Nueva Sección"><i class="glyphicon glyphicon-plus"></i></tab-heading>
 	</tab>
-	<tab ng-click="seccion.buscarPlantilla()" ng-show="config.esEdicion">
+	<tab ng-click="seccion.buscarPlantilla()" ng-show="editor.esEdicion">
 		<tab-heading title="Agregar Plantilla"><i class="glyphicon glyphicon-plus" style="color: brown;"></i><i class="glyphicon glyphicon-plus" style="color: brown;"></i></tab-heading>
 	</tab>
 </tabset>	

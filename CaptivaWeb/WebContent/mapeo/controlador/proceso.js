@@ -25,6 +25,10 @@
 			$scope.gestionarInicio(1);
 			delete getParametro.accion;
 		}
+		if(getParametro.accion=="gestionarDetalle"){
+			$scope.gestionarDetalle(1);
+			delete getParametro.accion;
+		}
 	};
 	
 	$scope.nuevo = function(){

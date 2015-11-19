@@ -1,0 +1,15 @@
+<table style="border-collapse: separate; border-spacing: 5px;">
+	<tr>
+		<td colspan="4"><strong>ATRIBUTO {{atributoItem.atr_nombre}}.{{atributoItem.cla_nombre}}</strong></td>
+	</tr>
+	<tr>
+		<td>Etiqueta : </td>
+		<td colspan="3"><input type="text" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.web_etiqueta}}" ng-model="atributoItem.web_etiqueta"></td>
+	</tr>
+	<tr>
+		<td>Opciones : </td>
+		<td><a class="btn btn-danger btn-sm" ng-click="atributo.eliminar(subSeccionItem.index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+		<td><a class="btn btn-info btn-sm" ng-click="atributo.bajar(subSeccionItem.index)" tooltip="Mover a la Izquierda"><i class="glyphicon glyphicon-arrow-left"></i></a></td>
+		<td><a class="btn btn-info btn-sm" ng-click="atributo.subir(subSeccionItem.index)" tooltip="Mover a la Derecha"><i class="glyphicon glyphicon-arrow-right"></i></a></td>
+	</tr>
+</table>

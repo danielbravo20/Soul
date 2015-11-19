@@ -1,0 +1,30 @@
+<accordion close-others="false">
+	<accordion-group ng-repeat="seccionItem in seccion.lista" is-open="seccionItem.activo">
+		<accordion-heading>	
+			<i class="glyphicon" ng-class="{true:'glyphicon-folder-open', false:'glyphicon-folder-close'}[seccionItem.activo]"></i>&nbsp; {{seccionItem.nombre}}
+			<span style="color:red" ng-show="seccionItem.alertas>0">&nbsp;&nbsp;&nbsp;&nbsp; {{seccionItem.alertas}} <i class="glyphicon glyphicon-bell"></i></span>
+			<i class="glyphicon glyphicon-edit seccionEditar" 
+				ng-click="seccion.actual = $index + 1" 
+				popover-template="seccion.url_seccion_editor" 
+				popover-title="Editar" 
+				popover-placement="right" style="color: brown;"
+				eid="seccionEditar_{{$index}}"
+				ng-show="editor.esEdicion"></i>
+			&nbsp;
+			<i ng-show="seccionItem.plantilla == '1' && editor.esEdicion==true" title="Plantilla" style="color: #C18730;" class="glyphicon glyphicon-file"></i>
+			<i ng-show="seccionItem.tipo=='W' && editor.esEdicion==true" title="Widget" style="color: #00D28C;" class="glyphicon glyphicon-cloud"></i>
+		</accordion-heading>
+		<div ng-hide="seccionItem.tipo=='W'" ng-include="seccion.url_subSeccion" ng-class="{'frm_plantillaFondo': seccionItem.plantilla == '1' && editor.esEdicion==true}"></div>
+		<div ng-show="seccionItem.tipo=='W'" ng-include="seccionItem.tipo_widget_url" ng-class="{'frm_widgetFondo': editor.esEdicion==true}"></div>
+	</accordion-group>
+	<accordion-group ng-click="seccion.agregar()" ng-show="editor.esEdicion" is-open="false">
+		<accordion-heading title="Agregar Nueva Sección">	
+			<i class="glyphicon glyphicon-plus"></i>
+		</accordion-heading>
+	</accordion-group>
+	<accordion-group ng-click="seccion.buscarPlantilla()" ng-show="editor.esEdicion" is-open="false">
+		<accordion-heading title="Agregar Plantilla">	
+			<i class="glyphicon glyphicon-plus" style="color: brown;"></i><i class="glyphicon glyphicon-plus" style="color: brown;"></i>
+		</accordion-heading>
+	</accordion-group>
+</accordion>

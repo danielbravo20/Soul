@@ -5,16 +5,16 @@
 		{{subSeccionItem.nombre}}
 		<i class="glyphicon glyphicon-edit seccionEditar" 
 			ng-click="seccionItem.subSeccion.actual = $index" 
-			popover-template="'popover_subSeccion.html'" 
+			popover-template="seccion.url_subSeccion_editor"
 			popover-title="Editar v2" 
 			popover-placement="right" style="color: brown;"
 			eid="subSeccionEditar_{{$index}}"
-			ng-show="config.esEdicion && !seccionItem.cod_seccion_padre"></i>
+			ng-show="editor.esEdicion && !seccionItem.cod_seccion_padre"></i>
 	</div>
-	<div ng-include="'procesogestionardetalle_atributo.html'"></div>
+	<div ng-include="seccion.url_atributo"></div>
 </div>
-<div ng-show="!config.esEdicion">&nbsp;</div>
-<div class="filaTitulo" ng-show="config.esEdicion && !seccionItem.cod_seccion_padre">
+<div ng-show="!editor.esEdicion">&nbsp;</div>
+<div class="filaTitulo" ng-show="editor.esEdicion && !seccionItem.cod_seccion_padre">
 	&nbsp;&nbsp;
 	<a ng-click="subSeccion.agregar()"><i class="glyphicon glyphicon-plus"></i></a>
 </div>

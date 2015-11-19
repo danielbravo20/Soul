@@ -1,0 +1,21 @@
+<ul dnd-list="subSeccionItem.atributo.lista">
+    <li ng-repeat="atributoItem in subSeccionItem.atributo.lista"
+        dnd-draggable="atributoItem"
+        dnd-moved="subSeccionItem.atributo.lista.splice($index, 1)"
+        dnd-allowed-types="['atributos']"
+		dnd-effect-allowed="move"
+		dnd-disable-if="!editor.esEdicion"
+        ng-class="{
+        	'selected': subSeccionItem.atributo.actual === atributo, 
+        	'AnchoExtendido': editor.esEdicion != true && (($index+1)%2 == 0 && subSeccionItem.atributo.lista[$index-1].web_tipo_campo=='A' || ($index+1)%2 != 0 && subSeccionItem.atributo.lista[$index+1].web_tipo_campo=='A'), 
+        	'ModoEditor': editor.esEdicion == true, 
+        	'ModoVisual': editor.esEdicion != true,
+        	'ModoEditorDual': (editor.esEdicion == true && (subSeccionItem.atributo.lista.length-1 != $index || (($index+1)%2==0 && subSeccionItem.atributo.lista.length-1 == $index))), 
+        	'ModoEditorTotal': (editor.esEdicion == true && ($index+1)%2!=0 && subSeccionItem.atributo.lista.length-1 == $index), 
+        	'ModoVisualDual': (editor.esEdicion != true && (subSeccionItem.atributo.lista.length-1 != $index || (($index+1)%2==0 && subSeccionItem.atributo.lista.length-1 == $index))), 
+        	'ModoVisualTotal': (editor.esEdicion != true && ($index+1)%2!=0 && subSeccionItem.atributo.lista.length-1 == $index)
+        	}"
+    >
+		<div ng-include="editor.url_atributo_tipo"></div>
+    </li>
+</ul>

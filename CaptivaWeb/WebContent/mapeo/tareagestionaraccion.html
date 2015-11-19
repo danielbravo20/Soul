@@ -1,16 +1,17 @@
-<script type="text/javascript" src="controlador/procesogestionardetalle.js"></script>
-<div ng-controller="procesogestionardetalle" style="padding-top: 5px;">
+<script type="text/javascript" src="controlador/tareagestionaraccion.js"></script>
+<div ng-controller="tareagestionaraccion" style="padding-top: 5px;">
 	<div class="row">
 		<div class="col-md-8">
 			<ol class="breadcrumb">
 				<li><strong>{{data.PROCESO_CARGADO.nombre | uppercase}}</strong></li>
-				<li>DETALLE DE SOLICITUD</li>
+				<li><strong>{{data.TAREA_CARGADA.nombre | uppercase}}</strong></li>
+				<li>ACCIONES DE TAREA</li>
 			</ol>
 		</div>
 		<div class="col-md-4">
 			<ol class="breadcrumb" style="text-align: right;">
 			  <li><a class="btn btn-primary btn-sm" ng-model="editor.esEdicion" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">MODO EDITOR</a></li>
-			  <li><a class="btn btn-info btn-sm" ng-click="$parent.instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR PROCESOS</a></li>
+			  <li><a class="btn btn-info btn-sm" ng-click="$parent.instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR TAREAS</a></li>
 			</ol>
 		</div>
 	</div>
@@ -20,27 +21,27 @@
 			<td width="20%" style="border: 1px solid #ccc; padding: 5px;" valign="top" ng-show="editor.esEdicion">
 				<div>
 					<accordion close-others="false">
-						<accordion-group is-open="true">
-							<accordion-heading>Vista</accordion-heading>
-							<div class="btn-group">
-						        <label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'H'"> Acordeon </label>
-						        <label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'V'"> Tabs </label>
-						    </div>
-						</accordion-group>
-					</accordion>
-					<accordion close-others="false">
-						<accordion-group is-open="true">
-							<accordion-heading>Widgets</accordion-heading>
-							<table class="table">
-								<tbody>
-									<tr><td><input type="checkbox" ng-model="editor.seccionHistorial" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Historial de Tareas</td></tr>
-								  	<tr><td><input type="checkbox" ng-model="editor.seccionDocumentos" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Documentos</td></tr>
-								  	<tr><td><input type="checkbox" ng-model="editor.seccionObservaciones" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Observaciones</td></tr>
-								</tbody>
-							  </table>
-						</accordion-group>
-					</accordion>
-					<accordion close-others="false">
+						<accordion close-others="false">
+							<accordion-group is-open="true">
+								<accordion-heading>Vista</accordion-heading>
+								<div class="btn-group">
+							        <label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'H'"> Acordeon </label>
+							        <label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'V'"> Tabs </label>
+							    </div>
+							</accordion-group>
+						</accordion>
+						<accordion close-others="false">
+							<accordion-group is-open="true">
+								<accordion-heading>Widgets</accordion-heading>
+								<table class="table">
+									<tbody>
+										<tr><td><input type="checkbox" ng-model="editor.seccionHistorial" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Historial de Tareas</td></tr>
+									  	<tr><td><input type="checkbox" ng-model="editor.seccionDocumentos" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Documentos</td></tr>
+									  	<tr><td><input type="checkbox" ng-model="editor.seccionObservaciones" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Observaciones</td></tr>
+									</tbody>
+								  </table>
+							</accordion-group>
+						</accordion>
 						<accordion-group is-open="true">
 							<accordion-heading>Atributos</accordion-heading>
 							<select class="form-control input-sm" ng-model="atrBuscar.cod_tabla" ng-options="tabla.cod_tabla as tabla.nombre for tabla in consulta.tablas | orderBy: 'nombre'">
@@ -68,9 +69,9 @@
 				</div>
 			</td>
 			<td width="80%" style="border: 1px solid #ccc; padding: 5px;" valign="top" class="simpleDemoB">
-				<div ng-include="'plantilla/inc_detallesolicitud_titulo.html'"></div>
+				<div ng-include="'plantilla/inc_acciontarea_titulo.html'"></div>
 				<div ng-include="'plantilla/inc_editor.html'"></div>
-				<div ng-include="'plantilla/inc_detallesolicitud_botonera.html'"></div>
+				<div ng-include="'plantilla/inc_acciontarea_botonera.html'"></div>
 			</td>
 		</tr>
 	</table>

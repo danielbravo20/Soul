@@ -81,4 +81,37 @@ public class Tarea extends GestionBase implements TareaLocal {
 		return true;
 	}
 	
+	public Object registrarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		jpo.tabla("tarea","TAR").editar();
+		
+		pe.com.mapeo.dao.Tabla 	prodesec = jpo.tabla("tarea_accion_seccion","TSE");
+		prodesec.eliminar();
+		pe.com.mapeo.dao.Tabla 	prodesub = jpo.tabla("tarea_accion_sub_seccion","TSU");
+		prodesub.eliminar();
+		pe.com.mapeo.dao.Tabla 	prodetal = jpo.tabla("tarea_accion","TAC");
+		prodetal.eliminar();
+		
+		prodesec.registrarMultiple();
+		prodesub.registrarMultiple();
+		prodetal.registrarMultiple();
+		jpo.commitear();
+		return true;
+	}
+	
+	public Object eliminarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		jpo.tabla("tarea_accion_seccion","TSE").eliminar();
+		jpo.tabla("tarea_accion_sub_seccion","TSU").eliminar();
+		jpo.tabla("tarea_accion","TAC").eliminar();
+		jpo.commitear();
+		return true;
+	}
+	
+	public Object listarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		Map<String,Object> listados = new HashMap<String,Object>();
+			listados.put("SECCION", jpo.tabla("tarea_accion_seccion","TSE").ordenadoPor("cod_seccion ASC").seleccionar("*"));
+			listados.put("SUB_SECCION", jpo.tabla("tarea_accion_sub_seccion","TSU").ordenadoPor("cod_sub_seccion ASC").seleccionar("*"));
+			listados.put("ATRIBUTO", jpo.tabla("tarea_accion","TAC").ordenadoPor("cod_seccion ASC,cod_sub_seccion ASC, cod_tarea_accion ASC").seleccionar("*"));
+		return listados;
+	}
+	
 }

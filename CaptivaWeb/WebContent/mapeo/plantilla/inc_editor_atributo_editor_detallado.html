@@ -1,0 +1,29 @@
+<table style="border-collapse: separate; border-spacing: 5px;">
+	<tr>
+		<td colspan="5"><strong>ATRIBUTO {{atributoItem.atr_nombre}}.{{atributoItem.cla_nombre}}</strong></td>
+	</tr>
+	<tr>
+		<td>Etiqueta : </td>
+		<td colspan="4"><input type="text" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.web_etiqueta}}" ng-model="atributoItem.web_etiqueta"></td>
+	</tr>
+	<tr>
+		<td>Tipo de Campo : </td>
+		<td colspan="4"><select class="form-control input-sm" ng-change="atributo.restaurarAtributo(atributoItem)" ng-model="atributoItem.web_tipo_campo" ng-options="campo.id as campo.nombre for campo in tipoCampo[tipoClase[atributoItem.web_tipo]]"></select></td>
+	</tr>
+	<tr>
+		<td>Opciones : </td>
+		<td><a class="btn btn-danger btn-sm" ng-click="atributo.eliminar(subSeccionItem.index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+		<td><a class="btn btn-info btn-sm" ng-click="atributo.bajar(subSeccionItem.index)" tooltip="Mover a la Izquierda"><i class="glyphicon glyphicon-arrow-left"></i></a></td>
+		<td><a class="btn btn-info btn-sm" ng-click="atributo.subir(subSeccionItem.index)" tooltip="Mover a la Derecha"><i class="glyphicon glyphicon-arrow-right"></i></a></td>
+		<td><input ng-show="atributoItem.web_tipo_campo == 'C' || atributoItem.web_tipo_campo == 'A' || atributoItem.web_tipo_campo == 'E' || atributoItem.web_tipo_campo == 'E'" type="checkbox" ng-model="atributoItem.web_requerido" ng-true-value="'1'" ng-false-value="'0'" tooltip="Marcar si es un Campo Requerido" class="form-control input-sm" style="width:30px"></td>
+	</tr>
+	<tr ng-show="atributoItem.web_requerido == '1'">
+		<td>Mensaje Validación : </td>
+		<td colspan="4"><input type="text" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.web_mensaje_validacion}}" ng-model="atributoItem.web_mensaje_validacion"></td>
+	</tr>
+	<tr ng-show="atributoItem.web_tipo_campo == 'E'">
+		<td>Tipo de Lista : </td>
+		<td><input type="radio" ng-model="atributoItem.web_tipo_lista" value="C"> Catálogo</td>
+		<td colspan="3"><select ng-disabled="atributoItem.web_tipo_lista!='C'" class="form-control input-sm" ng-model="atributoItem.web_catalogo" ng-options="catalogo.cod_catalogo as catalogo.descripcion for catalogo in data.CATALOGO"></select></td>
+	</tr>
+</table>

@@ -29,6 +29,9 @@
 		if(getParametro.accion && getParametro.accion=="gestionarResumen"){
 			$scope.cod_proceso = 1;
 		}
+		if(getParametro.accion && getParametro.accion=="gestionarAccion"){
+			$scope.cod_proceso = 1;
+		}
 	};
 	
 	$scope.$watch("cod_proceso",function(oldVal,newVal){
@@ -46,8 +49,11 @@
 			$scope.data.TAREA = respuesta;
 			$scope.pag.total = $scope.data.TAREA.length;
 			/*DUMMY */
-			if(getParametro.accion && getParametro.accion=="gestionarTarea"){
-				$scope.gestionarTarea("1");
+			if(getParametro.accion && getParametro.accion=="gestionarResumen"){
+				$scope.gestionarResumen("1");
+			}
+			if(getParametro.accion && getParametro.accion=="gestionarAccion"){
+				$scope.gestionarAccion("1");
 			}
 		});
 	};

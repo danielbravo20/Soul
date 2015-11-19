@@ -1,0 +1,14 @@
+<table style="border-collapse: separate; border-spacing: 5px;">
+	<tr>
+		<td colspan="5">
+			<input type="text" placeholder="Nombre" class="form-control input-sm" style="width:100%" ng-model="seccionItem.nombre" ng-disabled="seccionItem.tipo=='W' || seccionItem.cod_seccion_padre" >
+		</td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-danger btn-sm" ng-click="seccion.eliminar()" ng-disabled="seccionItem.cod_seccion_padre" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
+		<td><a class="btn btn-info btn-sm" ng-click="seccion.bajar()" tooltip="Mover a la Izquierda"><i class="glyphicon glyphicon-arrow-left"></i></a></td>
+		<td><a class="btn btn-info btn-sm" ng-click="seccion.subir()" tooltip="Mover a la Derecha"><i class="glyphicon glyphicon-arrow-right"></i></a></td>
+		<td ng-hide="seccionItem.tipo=='W'"><a class="btn btn-info btn-sm" ng-click="seccion.copiar()" ng-disabled="seccionItem.cod_seccion_padre" tooltip="Copiar"><i class="glyphicon glyphicon-tags"></i></a></td>
+		<td ng-hide="seccionItem.tipo=='W'"><input ng-hide="seccionItem.cod_seccion_padre" type="checkbox" ng-model="seccionItem.plantilla" ng-true-value="'1'" ng-false-value="'0'" tooltip="Definir como plantilla" class="form-control input-sm" style="width:30px"></td>
+	</tr>
+</table>
