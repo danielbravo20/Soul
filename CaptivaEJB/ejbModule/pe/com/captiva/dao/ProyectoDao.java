@@ -104,6 +104,8 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		procesoBean.setCodigo(proceso.getCodProceso());
     		procesoBean.setNombre(proceso.getNombre());
     		procesoBean.setClase(proceso.getJavClase());
+    		procesoBean.setTareaInicial(parseTareaBeanSimple(proceso.getTarea()));
+    		procesoBean.setAleas(proceso.getJavClase().toLowerCase());
     		
     		Set<Rol> rolSet = proceso.getRols();
     		Iterator<Rol> rolIterator = rolSet.iterator();

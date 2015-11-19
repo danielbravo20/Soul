@@ -251,9 +251,9 @@ CREATE TABLE soul.proceso(
  jav_datasource Character varying(120) NOT NULL,
  cod_con_resumen Integer NOT NULL,
  cod_con_detalle Integer NOT NULL,
- web_detalle_tipovista Character varying(1)
-)
-;
+ web_detalle_tipovista Character varying(1),
+ cod_tarea Integer
+);
 
 -- Table soul.proceso_detalle_seccion
 
@@ -602,6 +602,9 @@ ALTER TABLE soul.proceso ADD CONSTRAINT proceso_consulta_fk1 FOREIGN KEY (cod_co
 ;
 
 ALTER TABLE soul.proceso ADD CONSTRAINT proceso_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE CASCADE
+;
+
+ALTER TABLE soul.proceso ADD CONSTRAINT proceso_tarea_fk FOREIGN KEY (cod_tarea) REFERENCES soul.tarea (cod_tarea) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
 ALTER TABLE soul.proceso_inicio ADD CONSTRAINT pro_ini_atributo_atributo_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE NO ACTION

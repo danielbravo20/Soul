@@ -35,9 +35,9 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 			if(solicitudEntitys!=null){
 				SolicitudEntity solicitudEntity = solicitudEntitys.get(0);
 				solicitud.setMonto(solicitudEntity.getMonto());
-				solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
-				solicitud.setVigencia(solicitudEntity.getVigencia());
 				solicitud.setEvento(solicitudEntity.getEvento());
+				solicitud.setVigencia(solicitudEntity.getVigencia());
+				solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
 			}
 		}
 		return solicitud;

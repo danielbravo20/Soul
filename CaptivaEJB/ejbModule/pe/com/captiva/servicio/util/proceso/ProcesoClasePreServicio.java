@@ -96,9 +96,9 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 			
 		buffer.append("\tpublic TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{\r\n");
 		
-		if(procesoBean.getTareas()!=null && procesoBean.getTareas().size()>0){
+		if(procesoBean.getTareaInicial()!=null){
 			buffer.append("\t\tTareaPlantilla plantilla = new TareaPlantilla();\r\n");
-			TareaBean tareaBean = procesoBean.getTareas().get(0);
+			TareaBean tareaBean = procesoBean.getTareaInicial();
 			buffer.append("\t\tplantilla.setCodigoTareaPlantilla("+tareaBean.getCodigo()+");\r\n");
 			buffer.append("\t\tplantilla.setNombre(\""+tareaBean.getNombre()+"\");\r\n");
 			buffer.append("\t\tplantilla.setAleas(\""+tareaBean.getClase()+"\");\r\n");

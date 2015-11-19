@@ -23,6 +23,8 @@ public class ProcesoBean {
 	private List<AtributoProceso> objetosDOsinEntreda;
 	private String nombreSecuenciaDocumentos;
 	private List<RolBean> rolPotencial;
+	private TareaBean tareaInicial;
+	private String aleas;
 	
 	public int getCodigo() {
 		return codigo;
@@ -137,6 +139,18 @@ public class ProcesoBean {
 	}
 	public void setRolPotencial(List<RolBean> rolPotencial) {
 		this.rolPotencial = rolPotencial;
+	}
+	public TareaBean getTareaInicial() {
+		return tareaInicial;
+	}
+	public void setTareaInicial(TareaBean tareaInicial) {
+		this.tareaInicial = tareaInicial;
+	}
+	public String getAleas() {
+		return aleas;
+	}
+	public void setAleas(String aleas) {
+		this.aleas = aleas;
 	}
 
 }
