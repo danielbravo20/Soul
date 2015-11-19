@@ -17,10 +17,20 @@ public class SolicitudEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	private Long codigoProceso;
 	private java.util.Date vigencia;
 	private Long codigoSolicitud;
 	private java.math.BigDecimal monto;
 	private String evento;
+
+	@Column(name = "codigo_proceso" ,unique = true ,nullable = false )
+	public Long getCodigoProceso() {
+		return codigoProceso;
+	}
+	
+	public void setCodigoProceso(Long codigoProceso) {
+		this.codigoProceso = codigoProceso;
+	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "vigencia" ,nullable = true ,length = 13 )

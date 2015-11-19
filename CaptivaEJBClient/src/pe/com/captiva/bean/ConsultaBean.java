@@ -10,6 +10,7 @@ public class ConsultaBean {
 	private String interfase;
 	private TablaConsultaBean tablaPadre;
 	private List<TablaConsultaBean> tablasFK;
+	public List<AtributoBean> AtributosBean;
 	
 	public int getCodigo() {
 		return codigo;
@@ -46,6 +47,12 @@ public class ConsultaBean {
 	}
 	public void setTablasFK(List<TablaConsultaBean> tablasFK) {
 		this.tablasFK = tablasFK;
+	}
+	public List<AtributoBean> getAtributosBean() {
+		return AtributosBean;
+	}
+	public void setAtributosBean(List<AtributoBean> atributosBean) {
+		AtributosBean = atributosBean;
 	}
 	
 }

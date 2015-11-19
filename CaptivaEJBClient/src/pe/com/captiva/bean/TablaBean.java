@@ -11,6 +11,7 @@ public class TablaBean {
 	private List<CampoSQLBean> camposSQL;
 	private List<CampoSQLBean> camposPK;
 	private List<CampoSQLBean> camposFK;
+	private ClaseBean claseBean;
 	
 	public int getCodigo() {
 		return codigo;
@@ -53,6 +54,12 @@ public class TablaBean {
 	}
 	public void setCamposFK(List<CampoSQLBean> camposFK) {
 		this.camposFK = camposFK;
+	}
+	public ClaseBean getClaseBean() {
+		return claseBean;
+	}
+	public void setClaseBean(ClaseBean claseBean) {
+		this.claseBean = claseBean;
 	}
 	
 }

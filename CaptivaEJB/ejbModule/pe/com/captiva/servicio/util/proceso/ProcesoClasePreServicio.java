@@ -37,6 +37,9 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 	private StringBuffer contenido(ProyectoBean proyectoBean, ProcesoBean procesoBean){
 		StringBuffer buffer = new StringBuffer();
 
+		String nombreClasePadre = proyectoBean.getClasePadre().getNombre();
+		String objetoClasePadre = nombreClasePadre.toLowerCase();
+		
 		buffer.append("package "+proyectoBean.getPaquete()+"."+procesoBean.getClase().toLowerCase()+".servicio;\r\n\r\n");
 
 		buffer.append("import javax.annotation.Resource;\r\n");
@@ -85,7 +88,9 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 		
 		
 		buffer.append("\tpublic Proceso registrarOperacion(Proceso proceso, UsuarioPortal usuario, Object objeto) throws Exception {\r\n");
-		buffer.append("\t\t"+procesoBean.getClase().toLowerCase()+"DaoLocal.registrar(("+proyectoBean.getClasePadre().getNombre()+")objeto);\r\n");
+		buffer.append("\t\t"+nombreClasePadre+" "+objetoClasePadre+" = ("+nombreClasePadre+")objeto;\r\n");
+		buffer.append("\t\t"+objetoClasePadre+".setCodigoProceso(proceso.getCodigoProceso());\r\n");
+		buffer.append("\t\t"+procesoBean.getClase().toLowerCase()+"DaoLocal.registrar("+objetoClasePadre+");\r\n");
 		buffer.append("\t\treturn proceso;\r\n");
 		buffer.append("\t}\r\n");
 			
@@ -112,6 +117,14 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 		buffer.append("\t\treturn null;\r\n");
 		buffer.append("\t}\r\n\r\n");
 			
+		buffer.append("\tpublic Solicitud accionVerResumen(UsuarioPortal usuarioPortal, "+nombreClasePadre+" "+objetoClasePadre+") throws Exception {\r\n");
+		buffer.append("\t\treturn "+procesoBean.getClase().toLowerCase()+"DaoLocal.verResumen("+objetoClasePadre+");\r\n");
+		buffer.append("\t}\r\n\r\n");
+
+		buffer.append("\tpublic Solicitud accionVerDetalle(UsuarioPortal usuarioPortal, "+nombreClasePadre+" "+objetoClasePadre+") throws Exception {\r\n");
+		buffer.append("\t\treturn "+procesoBean.getClase().toLowerCase()+"DaoLocal.verDetalle("+objetoClasePadre+");\r\n");
+		buffer.append("\t}\r\n\r\n");
+		
 		buffer.append("}");
 		
 		return buffer;

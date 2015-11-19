@@ -13,6 +13,7 @@ import pe.com.captiva.bean.AtributoBean;
 import pe.com.captiva.bean.AtributoProceso;
 import pe.com.captiva.bean.CampoSQLBean;
 import pe.com.captiva.bean.ClaseBean;
+import pe.com.captiva.bean.ConsultaBean;
 import pe.com.captiva.bean.ProcesoBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.bean.RolBean;
@@ -21,6 +22,8 @@ import pe.com.captiva.bean.TareaBean;
 import pe.com.captiva.dao.entity.Atributo;
 import pe.com.captiva.dao.entity.AtributoSql;
 import pe.com.captiva.dao.entity.Clase;
+import pe.com.captiva.dao.entity.Consulta;
+import pe.com.captiva.dao.entity.ConsultaAtributo;
 import pe.com.captiva.dao.entity.Proceso;
 import pe.com.captiva.dao.entity.ProcesoInicio;
 import pe.com.captiva.dao.entity.Proyecto;
@@ -125,6 +128,36 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     			atributoProcesoBeans.add(parseAtributoProcesoBean((ProcesoInicio) procesoInicioIterator.next()));
 			}
     		procesoBean.setAtributosEntrada(atributoProcesoBeans);
+    		
+    		
+    		//consulta detalle del proceso
+    		ConsultaBean consultaDetalleBean = new ConsultaBean();
+    		List<AtributoBean> consultaDetalleAtributosBean = new ArrayList<AtributoBean>();
+    		Consulta consultaDetalle = proceso.getConsultaByCodConDetalle();
+    		
+    		Set<ConsultaAtributo> consultaDetalleAtributoSet = consultaDetalle.getConsultaAtributos();
+    		Iterator<ConsultaAtributo> consultaDetalleAtributoIterator = consultaDetalleAtributoSet.iterator();
+    		while (consultaDetalleAtributoIterator.hasNext()) {
+				ConsultaAtributo consultaAtributo = (ConsultaAtributo) consultaDetalleAtributoIterator.next();
+				consultaDetalleAtributosBean.add(parseAtributoBean(consultaAtributo.getAtributo()));
+			}
+    		consultaDetalleBean.setAtributosBean(consultaDetalleAtributosBean);
+    		procesoBean.setConsultaDetalle(consultaDetalleBean);
+    		
+    		//consulta resumen del proceso
+    		ConsultaBean consultaResumenBean = new ConsultaBean();
+    		List<AtributoBean> consultaResumenAtributosBean = new ArrayList<AtributoBean>();
+    		Consulta consultaResumen = proceso.getConsultaByCodConResumen();
+    		
+    		Set<ConsultaAtributo> consultaAtributoResumenSet = consultaResumen.getConsultaAtributos();
+    		Iterator<ConsultaAtributo> consultaAtributoResumenIterator = consultaAtributoResumenSet.iterator();
+    		while (consultaAtributoResumenIterator.hasNext()) {
+				ConsultaAtributo consultaAtributo = (ConsultaAtributo) consultaAtributoResumenIterator.next();
+				consultaResumenAtributosBean.add(parseAtributoBean(consultaAtributo.getAtributo()));
+			}
+    		consultaResumenBean.setAtributosBean(consultaResumenAtributosBean);
+    		procesoBean.setConsultaResumen(consultaResumenBean);
+    		
     	}
     	return procesoBean;
     }
@@ -254,6 +287,8 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		tablaBean.setNombre(tabla.getNombre());
     		tablaBean.setCodigo(tabla.getCodTabla());
     		
+    		System.out.println(tabla.getNombre()+" - "+tabla.getClases().size()); 
+    		
     		List<CampoSQLBean> camposSQL = new ArrayList<CampoSQLBean>();
     		List<CampoSQLBean> camposPK = new ArrayList<CampoSQLBean>();
     		List<CampoSQLBean> camposFK = new ArrayList<CampoSQLBean>();
@@ -276,6 +311,14 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		tablaBean.setCamposSQL(camposSQL);
     		tablaBean.setCamposPK(camposPK);
     		tablaBean.setCamposFK(camposFK);
+    		
+    		Set<Clase> clasesSet = tabla.getClases();
+    		Iterator<Clase> clasesIterator = clasesSet.iterator();
+    		
+    		while (clasesIterator.hasNext()) {
+				tablaBean.setClaseBean(parseClaseBeanSimple((Clase) clasesIterator.next()));
+			}
+    		
     	}
     	return tablaBean;
     }

@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+
 import pe.com.captiva.bean.AtributoBean;
 import pe.com.captiva.bean.CampoSQLBean;
 import pe.com.captiva.bean.ClaseBean;
@@ -84,11 +86,27 @@ public class GeneralClaseEntity extends MultipleBaseConstructor{
 		
 		buffer.append("\tprivate static final long serialVersionUID = 1L;\r\n\r\n");
 		
+		if(clase.getNivel()==1){
+			buffer.append("\tprivate Long codigoProceso;\r\n");
+		}
+		
 		for (int i = 0; i < clase.getAtributos().size(); i++) {
 			AtributoBean campo = clase.getAtributos().get(i);
 			if(campo.isCampoSQLBean()){
 				buffer.append("\tprivate "+campo.getTipo()+" "+campo.getNombre()+";\r\n");
 			}
+		}
+		
+		buffer.append("\r\n");
+		
+		if(clase.getNivel()==1){
+			buffer.append("\tpublic Long getCodigoProceso() {\r\n");
+			buffer.append("\t\treturn codigoProceso;\r\n");
+			buffer.append("\t}\r\n");
+			buffer.append("\t@Column(name = \"codigo_proceso\" ,unique = true ,nullable = false )\r\n");
+			buffer.append("\tpublic void setCodigoProceso(Long codigoProceso) {\r\n");
+			buffer.append("\t\tthis.codigoProceso = codigoProceso;\r\n");
+			buffer.append("\t}\r\n");
 		}
 		
 		buffer.append("\r\n");

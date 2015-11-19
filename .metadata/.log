@@ -1,0 +1,263 @@
+!SESSION 2015-11-19 10:12:06.223 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_40
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_PE
+Framework arguments:  -product com.jboss.devstudio.core.product
+Command-line arguments:  -data P:\git\Soul -os win32 -ws win32 -arch x86_64 -product com.jboss.devstudio.core.product
+
+!ENTRY org.jboss.tools.common.jdt.debug 4 2 2015-11-19 10:12:15.992
+!MESSAGE <no message>
+!STACK 0
+java.lang.Exception
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findFirstValidVMInstall(Tools.java:267)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findSecondaryVMInstall(Tools.java:424)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findHomeDirectoryToAddToClasspath(Tools.java:409)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsJar(Tools.java:125)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsLoader(Tools.java:100)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.reset(Tools.java:93)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.<init>(Tools.java:80)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getInstance(Tools.java:71)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.propertyChange(RemoteDebugActivator.java:248)
+	at org.eclipse.core.runtime.Preferences$1.run(Preferences.java:512)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.runtime.Preferences.firePropertyChangeEvent(Preferences.java:515)
+	at org.eclipse.core.internal.preferences.legacy.PreferenceForwarder.preferenceChange(PreferenceForwarder.java:116)
+	at org.eclipse.core.internal.preferences.EclipsePreferences$3.run(EclipsePreferences.java:896)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.firePreferenceEvent(EclipsePreferences.java:899)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.put(EclipsePreferences.java:912)
+	at org.eclipse.jdt.launching.JavaRuntime.initializeVMs(JavaRuntime.java:2777)
+	at org.eclipse.jdt.launching.JavaRuntime.getVMInstallTypes(JavaRuntime.java:539)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getAllVMInstalls(Tools.java:183)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getAllCompatibleInstalls(Tools.java:214)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findFirstValidVMInstall(Tools.java:257)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findSecondaryVMInstall(Tools.java:424)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findHomeDirectoryToAddToClasspath(Tools.java:409)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsJar(Tools.java:125)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsLoader(Tools.java:100)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.reset(Tools.java:93)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.<init>(Tools.java:80)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getInstance(Tools.java:71)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.getActiveProcessIds(ToolsCore.java:154)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler.updatesActiveJvms(JvmAttachHandler.java:100)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler$1.run(JvmAttachHandler.java:78)
+	at java.util.TimerThread.mainLoop(Unknown Source)
+	at java.util.TimerThread.run(Unknown Source)
+!SUBENTRY 1 org.jboss.tools.common.jdt.debug 4 2 2015-11-19 10:12:15.993
+!MESSAGE java.lang.Exception: <no message>
+!STACK 0
+java.lang.Exception
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findFirstValidVMInstall(Tools.java:267)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findSecondaryVMInstall(Tools.java:424)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findHomeDirectoryToAddToClasspath(Tools.java:409)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsJar(Tools.java:125)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsLoader(Tools.java:100)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.reset(Tools.java:93)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.<init>(Tools.java:80)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getInstance(Tools.java:71)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.propertyChange(RemoteDebugActivator.java:248)
+	at org.eclipse.core.runtime.Preferences$1.run(Preferences.java:512)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.runtime.Preferences.firePropertyChangeEvent(Preferences.java:515)
+	at org.eclipse.core.internal.preferences.legacy.PreferenceForwarder.preferenceChange(PreferenceForwarder.java:116)
+	at org.eclipse.core.internal.preferences.EclipsePreferences$3.run(EclipsePreferences.java:896)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.firePreferenceEvent(EclipsePreferences.java:899)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.put(EclipsePreferences.java:912)
+	at org.eclipse.jdt.launching.JavaRuntime.initializeVMs(JavaRuntime.java:2777)
+	at org.eclipse.jdt.launching.JavaRuntime.getVMInstallTypes(JavaRuntime.java:539)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getAllVMInstalls(Tools.java:183)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getAllCompatibleInstalls(Tools.java:214)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findFirstValidVMInstall(Tools.java:257)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findSecondaryVMInstall(Tools.java:424)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findHomeDirectoryToAddToClasspath(Tools.java:409)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsJar(Tools.java:125)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsLoader(Tools.java:100)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.reset(Tools.java:93)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.<init>(Tools.java:80)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getInstance(Tools.java:71)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.getActiveProcessIds(ToolsCore.java:154)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler.updatesActiveJvms(JvmAttachHandler.java:100)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler$1.run(JvmAttachHandler.java:78)
+	at java.util.TimerThread.mainLoop(Unknown Source)
+	at java.util.TimerThread.run(Unknown Source)
+
+!ENTRY org.jboss.tools.common.jdt.debug 4 2 2015-11-19 10:12:16.009
+!MESSAGE <no message>
+!STACK 0
+java.lang.Exception
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findFirstValidVMInstall(Tools.java:267)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findSecondaryVMInstall(Tools.java:424)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findHomeDirectoryToAddToClasspath(Tools.java:409)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsJar(Tools.java:125)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsLoader(Tools.java:100)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.reset(Tools.java:93)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.propertyChange(RemoteDebugActivator.java:248)
+	at org.eclipse.core.runtime.Preferences$1.run(Preferences.java:512)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.runtime.Preferences.firePropertyChangeEvent(Preferences.java:515)
+	at org.eclipse.core.internal.preferences.legacy.PreferenceForwarder.preferenceChange(PreferenceForwarder.java:116)
+	at org.eclipse.core.internal.preferences.EclipsePreferences$3.run(EclipsePreferences.java:896)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.firePreferenceEvent(EclipsePreferences.java:899)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.put(EclipsePreferences.java:912)
+	at org.eclipse.jdt.launching.JavaRuntime.initializeVMs(JavaRuntime.java:2777)
+	at org.eclipse.jdt.launching.JavaRuntime.getVMInstallTypes(JavaRuntime.java:539)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getAllVMInstalls(Tools.java:183)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getAllCompatibleInstalls(Tools.java:214)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findFirstValidVMInstall(Tools.java:257)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findSecondaryVMInstall(Tools.java:424)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findHomeDirectoryToAddToClasspath(Tools.java:409)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsJar(Tools.java:125)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsLoader(Tools.java:100)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.reset(Tools.java:93)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.<init>(Tools.java:80)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getInstance(Tools.java:71)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.getActiveProcessIds(ToolsCore.java:154)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler.updatesActiveJvms(JvmAttachHandler.java:100)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler$1.run(JvmAttachHandler.java:78)
+	at java.util.TimerThread.mainLoop(Unknown Source)
+	at java.util.TimerThread.run(Unknown Source)
+!SUBENTRY 1 org.jboss.tools.common.jdt.debug 4 2 2015-11-19 10:12:16.009
+!MESSAGE java.lang.Exception: <no message>
+!STACK 0
+java.lang.Exception
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findFirstValidVMInstall(Tools.java:267)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findSecondaryVMInstall(Tools.java:424)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findHomeDirectoryToAddToClasspath(Tools.java:409)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsJar(Tools.java:125)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsLoader(Tools.java:100)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.reset(Tools.java:93)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.propertyChange(RemoteDebugActivator.java:248)
+	at org.eclipse.core.runtime.Preferences$1.run(Preferences.java:512)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.runtime.Preferences.firePropertyChangeEvent(Preferences.java:515)
+	at org.eclipse.core.internal.preferences.legacy.PreferenceForwarder.preferenceChange(PreferenceForwarder.java:116)
+	at org.eclipse.core.internal.preferences.EclipsePreferences$3.run(EclipsePreferences.java:896)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.firePreferenceEvent(EclipsePreferences.java:899)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.put(EclipsePreferences.java:912)
+	at org.eclipse.jdt.launching.JavaRuntime.initializeVMs(JavaRuntime.java:2777)
+	at org.eclipse.jdt.launching.JavaRuntime.getVMInstallTypes(JavaRuntime.java:539)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getAllVMInstalls(Tools.java:183)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getAllCompatibleInstalls(Tools.java:214)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findFirstValidVMInstall(Tools.java:257)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findSecondaryVMInstall(Tools.java:424)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findHomeDirectoryToAddToClasspath(Tools.java:409)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsJar(Tools.java:125)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsLoader(Tools.java:100)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.reset(Tools.java:93)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.<init>(Tools.java:80)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getInstance(Tools.java:71)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.getActiveProcessIds(ToolsCore.java:154)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler.updatesActiveJvms(JvmAttachHandler.java:100)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler$1.run(JvmAttachHandler.java:78)
+	at java.util.TimerThread.mainLoop(Unknown Source)
+	at java.util.TimerThread.run(Unknown Source)
+
+!ENTRY org.jboss.tools.common.jdt.debug 4 2 2015-11-19 10:12:16.042
+!MESSAGE <no message>
+!STACK 0
+java.lang.Exception
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findFirstValidVMInstall(Tools.java:267)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findSecondaryVMInstall(Tools.java:424)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findHomeDirectoryToAddToClasspath(Tools.java:409)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsJar(Tools.java:125)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsLoader(Tools.java:100)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.reset(Tools.java:93)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.<init>(Tools.java:80)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getInstance(Tools.java:71)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.getActiveProcessIds(ToolsCore.java:154)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler.updatesActiveJvms(JvmAttachHandler.java:100)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler$1.run(JvmAttachHandler.java:78)
+	at java.util.TimerThread.mainLoop(Unknown Source)
+	at java.util.TimerThread.run(Unknown Source)
+!SUBENTRY 1 org.jboss.tools.common.jdt.debug 4 2 2015-11-19 10:12:16.042
+!MESSAGE java.lang.Exception: <no message>
+!STACK 0
+java.lang.Exception
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findFirstValidVMInstall(Tools.java:267)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findSecondaryVMInstall(Tools.java:424)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.findHomeDirectoryToAddToClasspath(Tools.java:409)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsJar(Tools.java:125)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getToolsLoader(Tools.java:100)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.reset(Tools.java:93)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.<init>(Tools.java:80)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getInstance(Tools.java:71)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.getActiveProcessIds(ToolsCore.java:154)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler.updatesActiveJvms(JvmAttachHandler.java:100)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler$1.run(JvmAttachHandler.java:78)
+	at java.util.TimerThread.mainLoop(Unknown Source)
+	at java.util.TimerThread.run(Unknown Source)
+
+!ENTRY org.jboss.tools.jmx.jvmmonitor.tools 4 0 2015-11-19 10:12:16.053
+!MESSAGE Update timer canceled.
+!STACK 1
+org.jboss.tools.jmx.jvmmonitor.core.JvmCoreException: sun.jvmstat.monitor.MonitoredHost
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler.updatesActiveJvms(JvmAttachHandler.java:124)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler$1.run(JvmAttachHandler.java:78)
+	at java.util.TimerThread.mainLoop(Unknown Source)
+	at java.util.TimerThread.run(Unknown Source)
+Caused by: org.jboss.tools.common.jdt.debug.tools.ToolsCoreException: sun.jvmstat.monitor.MonitoredHost
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeGetMonitoredHost(Tools.java:510)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeActiveVms(Tools.java:517)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.getActiveProcessIds(ToolsCore.java:154)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler.updatesActiveJvms(JvmAttachHandler.java:100)
+	... 3 more
+Caused by: java.lang.ClassNotFoundException: sun.jvmstat.monitor.MonitoredHost
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at org.eclipse.osgi.internal.framework.ContextFinder.loadClass(ContextFinder.java:131)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeGetMonitoredHost(Tools.java:505)
+	... 6 more
+!SUBENTRY 1 org.jboss.tools.jmx.jvmmonitor.core 4 0 2015-11-19 10:12:16.054
+!MESSAGE sun.jvmstat.monitor.MonitoredHost
+!STACK 1
+org.jboss.tools.common.jdt.debug.tools.ToolsCoreException: sun.jvmstat.monitor.MonitoredHost
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeGetMonitoredHost(Tools.java:510)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeActiveVms(Tools.java:517)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.getActiveProcessIds(ToolsCore.java:154)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler.updatesActiveJvms(JvmAttachHandler.java:100)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler$1.run(JvmAttachHandler.java:78)
+	at java.util.TimerThread.mainLoop(Unknown Source)
+	at java.util.TimerThread.run(Unknown Source)
+Caused by: java.lang.ClassNotFoundException: sun.jvmstat.monitor.MonitoredHost
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at org.eclipse.osgi.internal.framework.ContextFinder.loadClass(ContextFinder.java:131)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeGetMonitoredHost(Tools.java:505)
+	... 6 more
+!SUBENTRY 2 org.jboss.tools.common.jdt.debug 4 0 2015-11-19 10:12:16.054
+!MESSAGE sun.jvmstat.monitor.MonitoredHost
+!STACK 0
+java.lang.ClassNotFoundException: sun.jvmstat.monitor.MonitoredHost
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at org.eclipse.osgi.internal.framework.ContextFinder.loadClass(ContextFinder.java:131)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeGetMonitoredHost(Tools.java:505)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeActiveVms(Tools.java:517)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.getActiveProcessIds(ToolsCore.java:154)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler.updatesActiveJvms(JvmAttachHandler.java:100)
+	at org.jboss.tools.jmx.jvmmonitor.internal.tools.JvmAttachHandler$1.run(JvmAttachHandler.java:78)
+	at java.util.TimerThread.mainLoop(Unknown Source)
+	at java.util.TimerThread.run(Unknown Source)
+
+!ENTRY org.eclipse.mylyn.tasks.core 1 0 2015-11-19 10:12:16.900
+!MESSAGE Migrating task repository credentials from keyring.
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-11-19 10:12:17.175
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'P:\'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
