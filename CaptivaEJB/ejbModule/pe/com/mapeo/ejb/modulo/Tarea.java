@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import pe.com.mapeo.dao.Jpo;
 import pe.com.mapeo.ejb.controller.GestionBase;
+import pe.com.mapeo.dao.Tabla;
 
 @Stateless
 public class Tarea extends GestionBase implements TareaLocal {
@@ -82,22 +83,33 @@ public class Tarea extends GestionBase implements TareaLocal {
 	}
 	
 	public Object registrarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		
 		jpo.tabla("tarea","TAR").editar();
 		
-		pe.com.mapeo.dao.Tabla 	prodesec = jpo.tabla("tarea_accion_seccion","TSE");
-		prodesec.eliminar();
-		pe.com.mapeo.dao.Tabla 	prodesub = jpo.tabla("tarea_accion_sub_seccion","TSU");
-		prodesub.eliminar();
-		pe.com.mapeo.dao.Tabla 	prodetal = jpo.tabla("tarea_accion","TAC");
-		prodetal.eliminar();
+		Tabla cancelar = jpo.tabla("mae_motivo_cancelar","MMC");
+		Tabla rechazar = jpo.tabla("mae_motivo_rechazar","MMR");
+		Tabla documento = jpo.tabla("mae_documento_tarea","MDT");
+		Tabla observacion = jpo.tabla("mae_observacion","MOB");
+		Tabla subsanacion = jpo.tabla("mae_subsanacion","MSU");
 		
-		prodesec.registrarMultiple();
-		prodesub.registrarMultiple();
-		prodetal.registrarMultiple();
+			subsanacion.eliminar();
+			observacion.eliminar();
+			documento.eliminar();
+			rechazar.eliminar();
+			cancelar.eliminar();
+			
+			cancelar.registrarMultiple();
+			rechazar.registrarMultiple();
+			documento.registrarMultiple();
+			observacion.registrarMultiple();
+			subsanacion.registrarMultiple();
+		
 		jpo.commitear();
+		
 		return true;
+		
 	}
-	
+	/*
 	public Object eliminarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		jpo.tabla("tarea_accion_seccion","TSE").eliminar();
 		jpo.tabla("tarea_accion_sub_seccion","TSU").eliminar();
@@ -105,13 +117,15 @@ public class Tarea extends GestionBase implements TareaLocal {
 		jpo.commitear();
 		return true;
 	}
-	
+	*/
 	public Object listarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		Map<String,Object> listados = new HashMap<String,Object>();
-			listados.put("SECCION", jpo.tabla("tarea_accion_seccion","TSE").ordenadoPor("cod_seccion ASC").seleccionar("*"));
-			listados.put("SUB_SECCION", jpo.tabla("tarea_accion_sub_seccion","TSU").ordenadoPor("cod_sub_seccion ASC").seleccionar("*"));
-			listados.put("ATRIBUTO", jpo.tabla("tarea_accion","TAC").ordenadoPor("cod_seccion ASC,cod_sub_seccion ASC, cod_tarea_accion ASC").seleccionar("*"));
-		return listados;
+			listados.put("CANCELAR", jpo.tabla("mae_motivo_cancelar","MMC").ordenadoPor("cod_mae_motivo_cancelar ASC").seleccionar("*"));
+			listados.put("RECHAZAR", jpo.tabla("mae_motivo_rechazar","MMR").ordenadoPor("cod_mae_motivo_rechazar ASC").seleccionar("*"));
+			listados.put("DOCUMENTO", jpo.tabla("mae_documento_tarea","MDT").ordenadoPor("cod_mae_documento_tarea ASC").seleccionar("*"));
+			listados.put("OBSERVACION", jpo.tabla("mae_observacion","MDT").ordenadoPor("cod_mae_observacion ASC").seleccionar("*"));
+			listados.put("SUBSANACION", jpo.tabla("mae_subsanacion","MDT").ordenadoPor("cod_mae_subsanacion ASC").seleccionar("*"));
+			return listados;
 	}
 	
 }

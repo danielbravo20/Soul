@@ -27,7 +27,7 @@
 		  	<th>&nbsp;</th>
 		  </tr>
 		  <tr ng-show="listaDocumentos.length>0" ng-repeat="documentoItem in listaDocumentos">
-			<td>{{documentoItem.maeDocumento.nombre}}</td>
+			<td>{{($index+1)+" - "+documentoItem.maeDocumento.nombre}}</td>
 			<td>
 				<input type="radio" ng-model="documentoItem.tipo" data-ng-value="'F'"> FIJO
 				<input type="radio" ng-model="documentoItem.tipo" data-ng-value="'A'"> ADICIONAL

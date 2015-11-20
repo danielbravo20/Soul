@@ -552,12 +552,6 @@ mapeo.registerCtrl('inc_editor_seccion_modelo_documentos_gestionar', function ($
 			$scope.mensaje = "Seleccione el documento corréctamente";
 			return;
 		}
-		for(var i = 0;i < $scope.listaDocumentos.length; i++){
-			if($scope.listaDocumentos[i].cod_mae_documento == $scope.meastroDocumento.cod_mae_documento){
-				$scope.mensaje = "Documento repetido";
-				return;
-			}
-		}
 		$scope.listaDocumentos.push({
 			maeDocumento : $scope.meastroDocumento,
 			tipo : "F",

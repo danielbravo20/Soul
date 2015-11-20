@@ -711,6 +711,40 @@ CREATE TABLE soul.tarea_resumen(
 )
 ;
 
+-- Table soul.mae_motivo_cancelar
+
+CREATE TABLE soul.mae_motivo_cancelar(
+ cod_proyecto Integer NOT NULL,
+ cod_tarea Integer NOT NULL,
+ cod_mae_motivo_cancelar Integer NOT NULL,
+ nombre Character varying(100) NOT NULL,
+ descripcion Character varying(250),
+ estado Character(1) DEFAULT '0'::bpchar NOT NULL
+)
+;
+
+-- Create indexes for table soul.mae_motivo_cancelar
+
+ALTER TABLE soul.mae_motivo_cancelar ADD CONSTRAINT mae_motivo_cancelar_pk PRIMARY KEY (cod_proyecto,cod_tarea,cod_mae_motivo_cancelar)
+;
+
+-- Table soul.mae_motivo_rechazar
+
+CREATE TABLE soul.mae_motivo_rechazar(
+ cod_proyecto Integer NOT NULL,
+ cod_tarea Integer NOT NULL,
+ cod_mae_motivo_rechazar Integer NOT NULL,
+ nombre Character varying(100) NOT NULL,
+ descripcion Character varying(250),
+ estado Character(1) DEFAULT '0'::bpchar NOT NULL
+)
+;
+
+-- Create indexes for table soul.mae_motivo_rechazar
+
+ALTER TABLE soul.mae_motivo_rechazar ADD CONSTRAINT mae_motivo_rechazar_pk PRIMARY KEY (cod_proyecto,cod_tarea,cod_mae_motivo_rechazar)
+;
+
 -- Table soul.mae_documento
 
 CREATE TABLE soul.mae_documento(
@@ -723,14 +757,63 @@ CREATE TABLE soul.mae_documento(
 )
 ;
 
--- Create indexes for table soul.catalogo
+-- Create indexes for table soul.mae_documento
 
 ALTER TABLE soul.mae_documento ADD CONSTRAINT mae_documento_pk PRIMARY KEY (cod_proyecto,cod_mae_documento)
 ;
 
+-- Table soul.mae_documento_tarea | tipo : "F" FIJO  -  "A" ADICIONAL
 
--- Create roles section -------------------------------------------------
+CREATE TABLE soul.mae_documento_tarea(
+ cod_proyecto Integer NOT NULL,
+ cod_tarea Integer NOT NULL,
+ cod_mae_documento_tarea Integer NOT NULL,
+ cod_mae_documento Integer NOT NULL,
+ tipo Character(1) NOT NULL
+ es_obligatorio Character(1) DEFAULT '0'::bpchar NOT NULL
+ estado Character(1) DEFAULT '0'::bpchar NOT NULL
+)
+;
 
+-- Create indexes for table soul.mae_documento_tarea
 
--- Grant permissions section -------------------------------------------------
+ALTER TABLE soul.mae_documento_tarea ADD CONSTRAINT mae_documento_tarea_pk PRIMARY KEY (cod_proyecto,cod_tarea,cod_mae_documento_tarea)
+;
+
+-- Table soul.mae_observacion
+
+CREATE TABLE soul.mae_observacion(
+ cod_proyecto Integer NOT NULL,
+ cod_tarea Integer NOT NULL,
+ cod_mae_observacion Integer NOT NULL,
+ nombre Character varying(100) NOT NULL,
+ descripcion Character varying(250),
+ estado Character(1) DEFAULT '0'::bpchar NOT NULL
+)
+;
+
+-- Create indexes for table soul.mae_observacion
+
+ALTER TABLE soul.mae_observacion ADD CONSTRAINT mae_observacion_pk PRIMARY KEY (cod_proyecto,cod_tarea,cod_mae_observacion)
+;
+
+-- Table soul.mae_subsanacion | tipo_sustento : "A" ADJUNTO  -  "T" TEXTO
+
+CREATE TABLE soul.mae_subsanacion(
+ cod_proyecto Integer NOT NULL,
+ cod_tarea Integer NOT NULL,
+ cod_mae_observacion Integer NOT NULL,
+ cod_mae_subsanacion Integer NOT NULL,
+ nombre Character varying(100) NOT NULL,
+ descripcion Character varying(250),
+ estado Character(1) DEFAULT '0'::bpchar NOT NULL,
+ tipo_sustento Character(1) DEFAULT 'F'::bpchar NOT NULL,
+ cod_mae_documento_tarea Integer
+)
+;
+
+-- Create indexes for table soul.mae_subsanacion
+
+ALTER TABLE soul.mae_subsanacion ADD CONSTRAINT mae_subsanacion_pk PRIMARY KEY (cod_proyecto,cod_tarea,cod_mae_observacion, cod_mae_subsanacion)
+;
 

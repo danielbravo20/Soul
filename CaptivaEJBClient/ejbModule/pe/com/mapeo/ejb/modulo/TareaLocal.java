@@ -27,7 +27,7 @@ public interface TareaLocal extends GestionLocal {
 	
 	Object registrarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
-	Object eliminarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	//Object eliminarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 	Object listarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	

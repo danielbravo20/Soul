@@ -101,7 +101,11 @@ public class Tabla {
 			for (Map.Entry<String, String> entry : data.entrySet()) {
 				String campo = entry.getKey();
 		    	String valor = entry.getValue();
-		    	campos.append(campo+"='"+valor+"', ");
+		    	if(valor.equals("IS_NULL")){
+		    		campos.append(campo+"= NULL, ");
+		    	} else {
+		    		campos.append(campo+"='"+valor+"', ");
+		    	}
 			}
 			
 			String camposString = campos.toString();
