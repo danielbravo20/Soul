@@ -45,6 +45,12 @@
 				nombre : "TAREA",
 				activo : false,
 				url : 'tarea.html'
+			},
+			{
+				id : "maestro",
+				nombre : "MAESTRO",
+				activo : false,
+				url : 'maestro.html'
 			}/*,
 			{
 				id : "mantenimiento",

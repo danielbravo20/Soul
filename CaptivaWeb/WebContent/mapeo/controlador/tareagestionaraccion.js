@@ -3,10 +3,58 @@
 	// EDITOR ----------------------------------
 	$scope.editor = {
 		atributo_tipo : "detallado"
-	}
+	};
 	// EDITOR ----------------------------------
 	
 	func.consulta($scope, ajax, $scope.data.TAREA_CARGADA.cod_proyecto, $scope.data.TAREA_CARGADA.cod_con_trabajar);
+
+	$scope.accion = {
+		rechazo : {
+			activo : false,
+			listaMotivos : [],
+			listaAtributos : [],
+			abrirModal : function(){
+				$scope.accion.gestionarAccionDenegar("rechazo","Cancelación");
+			}
+		},
+		cancelar : {
+			activo : false,
+			listaMotivos : [],
+			listaAtributos : [],
+			abrirModal : function(){
+				$scope.accion.gestionarAccionDenegar("cancelar","Rechazo");
+			}
+		},
+		gestionarAccionDenegar : function(motivo,titulo){
+			var modalInstance = $modal.open({
+				animation: true,
+				templateUrl: 'tareagestionaraccion_modal_denegar.html',
+				controller: 'tareagestionaraccion_modal_denegar',
+				resolve: {
+					config : function(){
+						return {
+							guardar : function(listaMotivos,listaAtributos){
+								$scope.accion[motivo].listaMotivos = listaMotivos;
+								$scope.accion[motivo].listaAtributos = listaAtributos;
+							},
+							cargarAtributosConsulta : function(){
+								return $scope.consulta.atributos;
+							},
+							cargarAtributos : function(){
+								return $scope.accion[motivo].listaAtributos;
+							},
+							cargar : function(){
+								return $scope.accion[motivo].listaMotivos;
+							},
+							titulo : titulo
+						};
+					}
+				}
+			});
+			modalInstance.result.then(function(){
+			});
+		}
+	};
 	
 	$scope.instanciar = function(vaAListar){ //s
 		$scope.cargado = { paquete : "modulo", clase : "Tarea"};
@@ -137,4 +185,65 @@
 		
 	$scope.instanciar();
 
+});
+
+mapeo.registerCtrl('tareagestionaraccion_modal_denegar', function ($scope, $modalInstance, config) {
+
+	$scope.titulo = config.titulo;
+	
+	
+	$scope.listaMotivos = angular.copy(config.cargar());
+	$scope.motivo = "";
+	$scope.agregar = function(){
+		$scope.mensaje = "";
+		for(var i = 0;i < $scope.listaMotivos.length; i++){
+			if($scope.listaMotivos[i].nombre == $scope.motivo){
+				$scope.mensaje = "Motivo repetido";
+				return;
+			}
+		}
+		$scope.listaMotivos.push({
+			nombre : $scope.motivo,
+			estado : "1"
+		});
+		delete $scope.motivo;
+	};
+	$scope.eliminar = function(index){
+		$scope.listaMotivos.splice(index,1);
+	};
+	
+	$scope.atributosConsulta = angular.copy(config.cargarAtributosConsulta());
+	
+	$scope.listaAtributos = angular.copy(config.cargarAtributos());
+	$scope.agregarAtributo = function(){
+		$scope.mensaje = "";
+		if(typeof($scope.atributo)!="object"){
+			$scope.mensaje = "Seleccione el atributo corréctamente";
+			return;
+		}
+		for(var i = 0;i < $scope.listaAtributos.length; i++){
+			if($scope.listaAtributos[i].cod_clase == $scope.atributo.cod_clase && $scope.listaAtributos[i].cod_atributo == $scope.atributo.cod_atributo){
+				$scope.mensaje = "Atributo repetido";
+				return;
+			}
+		}
+		$scope.listaAtributos.push($scope.atributo);
+		delete $scope.atributo;
+	};
+	$scope.eliminarAtributo = function(index){
+		$scope.listaAtributos.splice(index,1);
+	};
+	
+	$scope.guardar = function(){
+		if($scope.listaMotivos.length==0){
+			$scope.mensaje = "Debe ingresar por lo menos un motivo";
+			return;
+		}
+		config.guardar($scope.listaMotivos,$scope.listaAtributos);
+		$modalInstance.close();
+	};
+	$scope.cancelar = function(){
+		$modalInstance.close();
+	};
+	
 });

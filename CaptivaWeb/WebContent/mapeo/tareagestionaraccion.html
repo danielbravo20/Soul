@@ -16,6 +16,12 @@
 		</div>
 	</div>
 	<hr>
+	<!-- ALERTAS DE TAREA -->
+	<alert type="danger" ng-show="editor.esEdicion==true && accion.cancelar.activo==true && accion.cancelar.listaMotivos.length==0">Pendiente registrar motivos de cancelación</alert>
+	<alert type="danger" ng-show="editor.esEdicion==true && accion.rechazo.activo==true && accion.rechazo.listaMotivos.length==0">Pendiente registrar motivos de rechazo</alert>
+	<alert type="danger" ng-show="editor.esEdicion==true && editor.seccionDocumentos==true && editor.documento.listaDocumentos.length==0">Pendiente registrar Tipos de Documentos</alert>
+	<alert type="danger" ng-show="editor.esEdicion==true && editor.seccionObservaciones==true && editor.observacion.tipoObservar==true && editor.observacion.listaObservacion.length==0">Pendiente registrar Observaciónes</alert>
+	<alert type="danger" ng-show="editor.esEdicion==true && editor.seccionObservaciones==true && editor.observacion.tipoObservar==true && editor.observacion.subsanacionesAgregadas!=editor.observacion.listaObservacion.length">Pendiente registrar Subsanaciones de Observación</alert>
 	<table style="width: 100%;">
 		<tr>
 			<td width="20%" style="border: 1px solid #ccc; padding: 5px;" valign="top" ng-show="editor.esEdicion">
@@ -23,23 +29,83 @@
 					<accordion close-others="false">
 						<accordion close-others="false">
 							<accordion-group is-open="true">
-								<accordion-heading>Vista</accordion-heading>
-								<div class="btn-group">
-							        <label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'H'"> Acordeon </label>
-							        <label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'V'"> Tabs </label>
-							    </div>
-							</accordion-group>
-						</accordion>
-						<accordion close-others="false">
-							<accordion-group is-open="true">
-								<accordion-heading>Widgets</accordion-heading>
+								<accordion-heading>Configuración</accordion-heading>
 								<table class="table">
 									<tbody>
-										<tr><td><input type="checkbox" ng-model="editor.seccionHistorial" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Historial de Tareas</td></tr>
-									  	<tr><td><input type="checkbox" ng-model="editor.seccionDocumentos" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Documentos</td></tr>
-									  	<tr><td><input type="checkbox" ng-model="editor.seccionObservaciones" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Observaciones</td></tr>
+										<tr>
+											<td><strong>Tipo de Vista :</strong><br>
+												<div class="btn-group">
+							       					<label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'H'"> Acordeon </label>
+							        				<label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'V'"> Tabs </label>
+							        			</div>
+											</td>
+										</tr>
+										<tr>
+											<td><strong>Acciones :</strong>
+												<div class="btn-group">
+							       					<label class="btn btn-primary btn-sm" ng-model="accion.grabar" btn-checkbox> Grabar </label>
+							        				<label class="btn btn-primary btn-sm" ng-model="accion.cancelar.activo" btn-checkbox> Cancelar </label>
+							        				<label class="btn btn-primary btn-sm" ng-model="accion.rechazo.activo" btn-checkbox> Rechazar </label>
+							        			</div>
+											</td>
+										</tr>
+										<tr>
+											<td><strong>Widgets :</strong><br>
+												<div class="btn-group">
+							       					<label class="btn btn-primary btn-sm" ng-model="editor.seccionHistorial" btn-checkbox tooltip="Historial de Tareas"> <i class="glyphicon glyphicon-align-justify"></i> </label>
+							        				<label class="btn btn-primary btn-sm" ng-model="editor.seccionDocumentos" btn-checkbox tooltip="Documentos"> <i class="glyphicon glyphicon-download-alt"></i> </label>
+							        				<label class="btn btn-primary btn-sm" ng-model="editor.seccionObservaciones" btn-checkbox tooltip="Observaciones"> <i class="glyphicon glyphicon-comment"></i> </label>
+							        			</div>
+											</td>
+										</tr>
+										<tr ng-show="editor.seccionDocumentos">
+											<td>
+												<strong>Documentos :</strong>
+												<a class="btn btn-info btn-sm" ng-click="editor.documento.gestionar()">
+													<i class="glyphicon glyphicon-download-alt"></i> 
+													GESTIONAR DOCUMENTOS
+													<i ng-show="editor.documento.listaDocumentos.length==0" class="glyphicon glyphicon-warning-sign"></i>
+													<span ng-show="editor.documento.listaDocumentos.length>0 && editor.esEdicion==true">({{editor.documento.listaDocumentos.length}})</span>
+												</a>
+											</td>
+										</tr>
+										<tr ng-show="editor.seccionObservaciones">
+											<td>
+												<strong>Observación :</strong>
+												<div class="btn-group">
+							       					<label class="btn btn-info btn-sm" ng-model="editor.observacion.tipoObservar" btn-checkbox> Observación </label>
+							        				<label class="btn btn-info btn-sm" ng-model="editor.observacion.tipoSubsanar" btn-checkbox> Subsanación </label>
+							        			</div>
+											</td>
+										</tr>
+										<tr ng-show="editor.observacion.tipoObservar">
+											<td>
+						        				<strong>Como observación :</strong><br>
+						        				<strong>Tarea a Observar :</strong><br>
+						        				<select class="form-control input-sm" ng-model="editor.observacion.cod_tarea" ng-options="tarea.cod_tarea as tarea.nombre for tarea in data.TAREA | orderBy: 'nombre'" style="margin-bottom: 5px;">
+													<option></option>
+												</select>
+							        			<a class="btn btn-info btn-sm" ng-click="editor.observacion.gestionarTipoObservacion()" style="margin-bottom: 5px;">
+													<i class="glyphicon glyphicon-comment"></i> 
+													TIPOS DE OBSERVACION
+													<i ng-show="editor.observacion.listaObservacion.length==0" class="glyphicon glyphicon-warning-sign"></i>
+													<span ng-show="editor.observacion.listaObservacion.length>0 && editor.esEdicion==true">({{editor.observacion.listaObservacion.length}})</span>
+												</a>
+												<a class="btn btn-info btn-sm" ng-click="editor.observacion.gestionarTipoSubsanacion()" ng-disabled="editor.observacion.listaObservacion.length==0">
+													<i class="glyphicon glyphicon-comment"></i> 
+													TIPOS DE SUBSANACION
+													<i ng-show="editor.observacion.subsanacionesAgregadas!=editor.observacion.listaObservacion.length" class="glyphicon glyphicon-warning-sign"></i>
+													<span ng-show="editor.esEdicion==true">({{editor.observacion.subsanacionesAgregadas}})</span>
+												</a>
+											</td>
+										</tr>
+										<tr ng-show="editor.observacion.tipoSubsanar">
+											<td>
+												<strong>Como Subsanación :</strong>
+											</td>
+										</tr>
 									</tbody>
-								  </table>
+								</table>
 							</accordion-group>
 						</accordion>
 						<accordion-group is-open="true">

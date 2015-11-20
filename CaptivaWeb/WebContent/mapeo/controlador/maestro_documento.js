@@ -1,4 +1,4 @@
-﻿mapeo.registerCtrl('rol', function($scope, ajax, util, $modal) {
+﻿mapeo.registerCtrl('maestro_documento', function($scope, ajax, util, $modal) {
 
 	$scope.pag = {
 		actual : 1,
@@ -9,26 +9,26 @@
 	};
 	
 	$scope.instanciar = function(listar){
-		$scope.cargado = { paquete : "modulo", clase : "Rol"};
-		$scope.cargado.ROL_W_cod_proyecto = $scope.data.PROYECTO.cod_proyecto;
-		$scope.cargado.ROL_cod_proyecto = $scope.data.PROYECTO.cod_proyecto;
-		$scope.cargado.ROL_estado = "0";
+		$scope.cargado = { paquete : "modulo", clase : "MaestroDocumento"};
+		$scope.cargado.DOC_W_cod_proyecto = $scope.data.PROYECTO.cod_proyecto;
+		$scope.cargado.DOC_cod_proyecto = $scope.data.PROYECTO.cod_proyecto;
+		$scope.cargado.DOC_estado = "0";
 		$scope.esEdicion = false;
 		
 		if(typeof(listar)!="undefined" && listar == true){
 			$scope.listar(function(){
-				$scope.cargado.ROL_cod_rol = util.getUltimoCodigo($scope.data.ROL,"cod_rol");
+				$scope.cargado.DOC_cod_mae_documento = util.getUltimoCodigo($scope.data.MAE_DOCUMENTO,"cod_mae_documento");
 			});
 		} else {
-			$scope.cargado.ROL_cod_rol = util.getUltimoCodigo($scope.data.ROL,"cod_rol");
-			$scope.pag.total = $scope.data.ROL.length;
+			$scope.cargado.DOC_cod_mae_documento = util.getUltimoCodigo($scope.data.MAE_DOCUMENTO,"cod_mae_documento");
+			$scope.pag.total = $scope.data.MAE_DOCUMENTO.length;
 		}
 	};
 	
 	$scope.listar = function(call){
 		$scope.cargado.metodo = "listar";
 		ajax.jpo($scope.cargado,function(respuesta){
-			$scope.data.ROL = respuesta;
+			$scope.data.MAE_DOCUMENTO = respuesta;
 			$scope.pag.total = respuesta.length;
 			if(call){
 				call();
@@ -40,10 +40,10 @@
 		$scope.instanciar();
 	};
 	
-	$scope.eliminar = function(cod_rol){
+	$scope.eliminar = function(cod_mae_documento){
 		if(confirm("Desea eliminar el elemento seleccionado?")){
 			$scope.cargado.metodo = "eliminar";
-			$scope.cargado.ROL_W_cod_rol = cod_rol;		// WHERE-------
+			$scope.cargado.DOC_W_cod_mae_documento = cod_mae_documento;		// WHERE-------
 			ajax.jpo($scope.cargado,function(respuesta){
 				$scope.agregarAlerta("success","Eliminado corréctamente");
 				$scope.instanciar(true);
@@ -51,17 +51,17 @@
 		}
 	};
 	
-	$scope.editarCargar = function(cod_rol){
+	$scope.editarCargar = function(cod_mae_documento){
 		$scope.esEdicion = true;
-		util.jpoCargar($scope.cargado,util.getObjeto($scope.data.ROL,{cod_rol : cod_rol}),"ROL");
+		util.jpoCargar($scope.cargado,util.getObjeto($scope.data.MAE_DOCUMENTO,{cod_mae_documento : cod_mae_documento}),"DOC");
 	};
 	
 	$scope.guardar = function(){
 		$scope.$broadcast('show-errors-check-validity');
-		if ($scope.FRM_ROL.$invalid) { return; }
+		if ($scope.FRM_DOC.$invalid) { return; }
 		if($scope.esEdicion){
 			$scope.cargado.metodo = "editar";
-			$scope.cargado.ROL_W_cod_rol = $scope.cargado.ROL_cod_rol;			// WHERE-------
+			$scope.cargado.DOC_W_cod_mae_documento = $scope.cargado.DOC_cod_mae_documento;			// WHERE-------
 			ajax.jpo($scope.cargado,function(respuesta){
 				$scope.agregarAlerta("success","Editado corréctamente");
 				$scope.instanciar(true);
@@ -80,5 +80,7 @@
 			$scope.pag.actual = 1;
 		}
 	});
+	
+	$scope.instanciar(true);
 	
 });

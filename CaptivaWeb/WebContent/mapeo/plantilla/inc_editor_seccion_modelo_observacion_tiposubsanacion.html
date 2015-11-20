@@ -1,0 +1,59 @@
+<div class="modal-header">
+	<h3 class="modal-title">Gestionar Subsanaciones de Observación</h3>
+</div>
+<div class="modal-body">
+	<strong>Seleccione una observación (*) :</strong><br>
+	<select class="form-control input-sm" ng-model="observacion" ng-options="observaciones as observaciones.nombre for observaciones in listaObservacion | orderBy: 'nombre'" ng-change="limpiarSubsanacion()">
+		<option></option>
+	</select>
+	<div class="panel panel-default" ng-show="observacion">
+	  <table class="table table-bordered table-striped">
+		<tbody>
+		  <tr>
+			<th colspan="5">Ingrese una nueva subsanación (*) :</th>
+		  </tr>
+		  <tr>
+			<td colspan="4">
+				<input type="text" name="nombre" class="form-control input-sm" ng-model="subsanacion.nombre">
+			</td>
+			<td><a class="btn btn-info btn-sm" ng-click="agregar()" tooltip="Agregar Subsanacion"><i class="glyphicon glyphicon-plus"></i></a></td>
+		  </tr>
+		  <tr ng-show="observacion.listaSubsanaciones.length>0">
+			<th colspan="5">Listado :</th>
+		  </tr>
+		  <tr ng-show="observacion.listaSubsanaciones.length>0">
+			<th>Nombre :</th>
+		  	<th>Descripción :</th>
+		  	<th>Tipo de Sustento :</th>
+		  	<th>Estado :</th>
+		  	<th>&nbsp;</th>
+		  </tr>
+		  <tr ng-show="observacion.listaSubsanaciones.length>0" ng-repeat="subsanacionItem in observacion.listaSubsanaciones">
+			<td>{{subsanacionItem.nombre}}</td>
+			<td>
+				<textarea name="descripcion" class="form-control input-sm" ng-model="subsanacionItem.descripcion"></textarea>
+			</td>
+			<td>
+				<input type="radio" ng-model="subsanacionItem.tipo_sustento" data-ng-value="'A'"> ADJUNTO
+				<input type="radio" ng-model="subsanacionItem.tipo_sustento" data-ng-value="'T'"> TEXTO
+				<span ng-show="subsanacionItem.tipo_sustento == 'A'"><br>
+					<alert type="danger" ng-show="listaDocumentos.length==0">Asocie a la tarea Adjuntos Fijos y Obligatorios</alert>
+					<select class="form-control input-sm" ng-model="subsanacionItem.cod_mae_documento_tarea" ng-show="listaDocumentos.length>0" tooltip="Solo Adjuntos de Tarea Fijos y Obligatorios" ng-options="documentos.cod_mae_documento_tarea as documentos.maeDocumento.nombre for documentos in listaDocumentos | orderBy: 'nombre'">
+						<option></option>
+					</select>
+				</span>
+			</td>
+			<td>
+				<input type="checkbox" ng-model="subsanacionItem.estado" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px">
+			</td>
+			<td><a class="btn btn-danger btn-sm" ng-click="eliminar($index)" tooltip="Eliminar Subsanacion"><i class="glyphicon glyphicon-remove"></i></a></td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+	<alert type="danger" ng-show="mensaje.length>0">{{mensaje}}</alert>
+</div>
+<div class="modal-footer">
+	<a class="btn btn-danger" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</a>
+	<a class="btn btn-info" ng-click="cancelar()"><i class="glyphicon glyphicon-remove-circle"></i> Cancelar</a>
+</div>

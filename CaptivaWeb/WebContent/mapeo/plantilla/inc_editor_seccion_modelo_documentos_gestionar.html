@@ -1,0 +1,53 @@
+<div class="modal-header">
+	<h3 class="modal-title">Gestionar Documentos</h3>
+</div>
+<div class="modal-body">
+	<div class="panel panel-default">
+	  <table class="table table-bordered table-striped">
+		<tbody>
+		  <tr>
+			<th colspan="4">Maestro Documento :</th>
+		  </tr>
+		  <tr>
+			<td colspan="3"><input type="text" autocomplete="off" name="atributo" class="form-control input-sm"
+					data-typeahead-editable="true" 
+					data-ng-model="meastroDocumento" 
+					data-typeahead="maeDocumento as maeDocumento.nombre for maeDocumento in maeDocumentos | filter:$viewValue | limitTo:8"
+				>
+			</td>
+			<td><a class="btn btn-info btn-sm" ng-click="agregarDocumento()" tooltip="Agregar Documento"><i class="glyphicon glyphicon-plus"></i></a></td>
+		  </tr>
+		  <tr ng-show="listaDocumentos.length>0">
+			<th colspan="4">Lista de Maestros Documentos Asociados :</th>
+		  </tr>
+		  <tr ng-show="listaDocumentos.length>0">
+			<th>Maestro Documento :</th>
+		  	<th>Tipo :</th>
+		  	<th>Estado :</th>
+		  	<th>&nbsp;</th>
+		  </tr>
+		  <tr ng-show="listaDocumentos.length>0" ng-repeat="documentoItem in listaDocumentos">
+			<td>{{documentoItem.maeDocumento.nombre}}</td>
+			<td>
+				<input type="radio" ng-model="documentoItem.tipo" data-ng-value="'F'"> FIJO
+				<input type="radio" ng-model="documentoItem.tipo" data-ng-value="'A'"> ADICIONAL
+				<span ng-show="documentoItem.tipo == 'F'"><br>
+					<strong>¿Es obligatorio?</strong><br>
+					<input type="radio" ng-model="documentoItem.es_obligatorio" data-ng-value="1"> Si
+					<input type="radio" ng-model="documentoItem.es_obligatorio" data-ng-value="0"> No
+				</span>
+			</td>
+			<td>
+				<input type="checkbox" ng-model="documentoItem.estado" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px">
+			</td>
+			<td><a class="btn btn-danger btn-sm" ng-click="eliminarDocumento($index)" tooltip="Eliminar Documento"><i class="glyphicon glyphicon-remove"></i></a></td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+	<alert type="danger" ng-show="mensaje.length>0">{{mensaje}}</alert>
+</div>
+<div class="modal-footer">
+	<a class="btn btn-danger" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</a>
+	<a class="btn btn-info" ng-click="cancelar()"><i class="glyphicon glyphicon-remove-circle"></i> Cancelar</a>
+</div>

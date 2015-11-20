@@ -1,0 +1,69 @@
+<div class="modal-header">
+	<h3 class="modal-title">Gestionar {{titulo}}</h3>
+</div>
+<div class="modal-body">
+	<div class="panel panel-default">
+	  <table class="table table-bordered table-striped">
+		<tbody>
+		  <tr>
+			<th colspan="4">Ingrese un nuevo Motivo (*) :</th>
+		  </tr>
+		  <tr>
+			<td colspan="3"><input type="text" ng-model="motivo" name="motivo" class="form-control input-sm"></td>
+			<td><a class="btn btn-info btn-sm" ng-click="agregar()" tooltip="Agregar Motivo"><i class="glyphicon glyphicon-plus"></i></a></td>
+		  </tr>
+		  <tr ng-show="listaMotivos.length>0">
+			<th colspan="4">Lista de Motivos :</th>
+		  </tr>
+		  <tr ng-show="listaMotivos.length>0">
+			<th>Motivo :</th>
+			<th>Descripción :</th>
+			<th>Estado :</th>
+			<th>&nbsp;</th>
+		  </tr>
+		  <tr ng-show="listaMotivos.length>0" ng-repeat="motivoItem in listaMotivos">
+			<td>{{motivoItem.nombre}}</td>
+			<td>
+				<textarea name="descripcion" class="form-control input-sm" ng-model="motivoItem.descripcion"></textarea>
+			</td>
+			<td>
+				<input type="checkbox" ng-model="motivoItem.estado" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px">
+			</td>
+			<td><a class="btn btn-danger btn-sm" ng-click="eliminar($index)" tooltip="Eliminar Motivo"><i class="glyphicon glyphicon-remove"></i></a></td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+	<div class="panel panel-default">
+	  <table class="table table-bordered table-striped">
+		<tbody>
+		  <tr>
+			<th>Atributo :</th>
+			<td>
+				<input type="text" autocomplete="off" name="atributo" class="form-control input-sm"
+					data-typeahead-editable="true" 
+					data-ng-model="atributo" 
+					data-typeahead="atributoConsulta as atributoConsulta.atr_nombre for atributoConsulta in atributosConsulta | filter:$viewValue | limitTo:8"
+				>
+			</td>
+			<td><a class="btn btn-info btn-sm" ng-click="agregarAtributo()" tooltip="Agregar Atributo"><i class="glyphicon glyphicon-plus"></i></a></td>
+		  </tr>
+		  <tr ng-show="listaAtributos.length>0">
+			<th>Lista de Atributos :</th>
+		  	<th>Valor por omisión :</th>
+		  	<th>&nbsp;</th>
+		  </tr>
+		  <tr ng-show="listaAtributos.length>0" ng-repeat="atributoItem in listaAtributos">
+			<td>{{atributoItem.web_etiqueta}} <br><span class="referenciaClase">({{atributoItem.cla_nombre}})</span></td>
+			<td><input type="text" ng-model="atributoItem.val_omision" class="form-control input-sm"></td>
+			<td><a class="btn btn-danger btn-sm" ng-click="eliminarAtributo($index)" tooltip="Eliminar Atributo"><i class="glyphicon glyphicon-remove"></i></a></td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+	<alert type="danger" ng-show="mensaje.length>0">{{mensaje}}</alert>
+</div>
+<div class="modal-footer">
+	<a class="btn btn-danger" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</a>
+	<a class="btn btn-info" ng-click="cancelar()"><i class="glyphicon glyphicon-remove-circle"></i> Cancelar</a>
+</div>

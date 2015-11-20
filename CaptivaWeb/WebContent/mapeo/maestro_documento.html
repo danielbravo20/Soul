@@ -1,0 +1,73 @@
+<script type="text/javascript" src="controlador/maestro_documento.js"></script>
+<div ng-controller="maestro_documento" style="height: 30px; padding-top: 5px;">
+	<div class="row">
+		<div class="col-md-6 show-grid">
+			<div class="panel panel-default">
+			  <div class="panel-heading"><strong>Listado de Documentos Maestros</strong></div>
+			  <table class="table">
+				<thead>
+				  <tr>
+					<th>Código</th>
+					<th>Documento</th>
+					<th>Estado</th>
+					<th>Opción</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr ng-repeat="documento in data.MAE_DOCUMENTO">
+					<td>{{documento.cod_mae_documento}}</td>
+					<td>{{documento.nombre}}</td>
+					<td>
+						<span ng-show="documento.estado=='1'">ACTIVO</span>
+						<span ng-show="documento.estado=='0'">INACTIVO</span>
+					</td>
+					<td align="right">
+						<a class="btn btn-danger btn-sm" ng-click="eliminar(documento.cod_mae_documento)" href=""><i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;
+						<a class="btn btn-primary btn-sm" ng-click="editarCargar(documento.cod_mae_documento)" href=""><i class="glyphicon glyphicon-pencil"></i></a>
+					</td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+			<pagination total-items="pag.total" ng-model="pag.actual" max-size="pag.max" class="pagination-sm" boundary-links="true" items-per-page="pag.itemxPagina" style="margin: 0px 0;"></pagination>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+			  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
+			  <form name="FRM_DOC">
+				  <table class="table">
+					<tbody>
+					  <tr>
+						<th>Código (*) :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'><input type="text" name="DOC_cod_mae_documento" ng-model="cargado.DOC_cod_mae_documento" class="form-control input-sm" ng-disabled="esEdicion" ng-required="!esEdicion"></td>
+					  </tr>
+					  <tr>
+						<th>Nombre (*) :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'><input type="text" name="DOC_nombre" class="form-control input-sm" ng-model="cargado.DOC_nombre" required></td>
+					  </tr>
+					  <tr>
+						<th>Descripción :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'><textarea name="DOC_descripcion" class="form-control input-sm" ng-model="cargado.DOC_descripcion"></textarea></td>
+					  </tr>
+					  <tr>
+						<th>Formatos (*) :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'><input type="text" name="DOC_formatos" class="form-control input-sm" ng-model="cargado.DOC_formatos" required></td>
+					  </tr>
+					  <tr>
+						<th>Estado (*) :</th>
+						<td>
+							<input type="radio" ng-model="cargado.DOC_estado" data-ng-value="1"> Activo
+							<input type="radio" ng-model="cargado.DOC_estado" data-ng-value="0"> Inactivo
+						</td>
+					  </tr>
+					  <tr>
+						<td><button type="button" class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">Guardar</span><span ng-show="!esEdicion">Registrar</span></button></td>
+						<td><button type="button" class="btn btn-primary btn-sm" ng-click="instanciar()" ng-show="esEdicion"><i class="glyphicon glyphicon-plus"></i> Nuevo</button></td>
+					  </tr>
+					</tbody>
+				  </table>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>

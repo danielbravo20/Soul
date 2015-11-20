@@ -1,3 +1,18 @@
 <div class="well" style=" padding: 10px;  margin-bottom: 0px; ">
-	<a class="btn btn-info btn-sm"><i class="glyphicon glyphicon-chevron-left"></i> ATRAS</a>
+	<a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-ok-circle"></i> COMPLETAR</a>
+	<a class="btn btn-warning btn-sm" ng-show="editor.observacion.tipoObservar"><i class="glyphicon glyphicon-exclamation-sign"></i> OBSERVAR</a>
+	<a class="btn btn-primary btn-sm" ng-show="accion.grabar"><i class="glyphicon glyphicon-floppy-save"></i> GRABAR</a>
+	<a class="btn btn-danger btn-sm" ng-show="accion.cancelar.activo" ng-click="accion.cancelar.abrirModal()">
+		<i class="glyphicon glyphicon-remove-circle"></i> 
+		CANCELAR 
+		<i ng-show="accion.cancelar.activo==true && accion.cancelar.listaMotivos.length==0 && editor.esEdicion==true" class="glyphicon glyphicon-warning-sign"></i>
+		<span ng-show="accion.cancelar.listaMotivos.length>0 && editor.esEdicion==true">({{accion.cancelar.listaMotivos.length}})</span>
+	</a>
+	<a class="btn btn-danger btn-sm" ng-show="accion.rechazo.activo" ng-click="accion.rechazo.abrirModal()">
+		<i class="glyphicon glyphicon-trash"></i> 
+		RECHAZAR
+		<i ng-show="accion.rechazo.activo==true && accion.rechazo.listaMotivos.length==0 && editor.esEdicion==true" class="glyphicon glyphicon-warning-sign"></i>
+		<span ng-show="accion.rechazo.listaMotivos.length>0 && editor.esEdicion==true">({{accion.rechazo.listaMotivos.length}})</span>
+	</a>
+	<a class="btn btn-info btn-sm"><i class="glyphicon glyphicon-chevron-left"></i> ATRAS</a> 
 </div>

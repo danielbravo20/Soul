@@ -1,9 +1,104 @@
-﻿mapeo.registerCtrl('editor', function($scope, $modal, ajax, util) {
+﻿mapeo.registerCtrl('editor', function($scope, $modal, $filter, ajax, util) {
 	
 	angular.extend($scope.$parent.$parent.editor,{
 		esEdicion : true,
 		fechaInicio : new Date(),
-		url_atributo_tipo : "plantilla/inc_editor_atributo_"+$scope.editor.atributo_tipo+".html" // detallado | sololectura
+		url_atributo_tipo : "plantilla/inc_editor_atributo_"+$scope.editor.atributo_tipo+".html", // detallado | sololectura
+		documento : {
+			listaDocumentos : [],
+			gestionar : function(){
+				var modalInstance = $modal.open({
+					animation: true,
+					templateUrl: "plantilla/inc_editor_seccion_modelo_documentos_gestionar.html",
+					controller: 'inc_editor_seccion_modelo_documentos_gestionar',
+					resolve: {
+						config : function(){
+							return {
+								guardar : function(listaDocumentos){
+									$scope.editor.documento.listaDocumentos = listaDocumentos;
+								},
+								cargarMaeDocumentos : function(){
+									return $scope.data.MAE_DOCUMENTO;
+								},
+								cargar : function(){
+									return $scope.editor.documento.listaDocumentos;
+								},
+								cargarObservaciones : function(){
+									return $scope.editor.observacion.listaObservacion;
+								}
+							};
+						}
+					}
+				});
+				modalInstance.result.then(function(){
+				});
+				
+			}
+		},
+		observacion : {
+			listaObservacion : [],
+			gestionarTipoObservacion : function(){
+				var modalInstance = $modal.open({
+					animation: true,
+					templateUrl: "plantilla/inc_editor_seccion_modelo_observacion_tipoobservacion.html",
+					controller: 'inc_editor_seccion_modelo_observacion_tipoobservacion',
+					resolve: {
+						config : function(){
+							return {
+								guardar : function(listaObservacion){
+									$scope.editor.observacion.listaObservacion = listaObservacion;
+									$scope.editor.observacion.contarSubsanaciones();
+								},
+								cargar : function(){
+									return $scope.editor.observacion.listaObservacion;
+								}
+							};
+						}
+					}
+				});
+				modalInstance.result.then(function(){
+				});
+				
+			},
+			subsanacionesAgregadas : 0,
+			contarSubsanaciones : function(){
+				var totalSubsanaciones = 0;
+				for(var i = 0 ; i < $scope.editor.observacion.listaObservacion.length; i++){
+					if(
+						$scope.editor.observacion.listaObservacion[i].listaSubsanaciones &&
+						$scope.editor.observacion.listaObservacion[i].listaSubsanaciones.length>0
+					){
+						totalSubsanaciones++;
+					}
+				}
+				$scope.editor.observacion.subsanacionesAgregadas = totalSubsanaciones;
+			},
+			gestionarTipoSubsanacion : function(){
+				var modalInstance = $modal.open({
+					animation: true,
+					templateUrl: "plantilla/inc_editor_seccion_modelo_observacion_tiposubsanacion.html",
+					controller: 'inc_editor_seccion_modelo_observacion_tiposubsanacion',
+					resolve: {
+						config : function(){
+							return {
+								guardar : function(listaObservacion){
+									$scope.editor.observacion.listaObservacion = listaObservacion;
+									$scope.editor.observacion.contarSubsanaciones();
+								},
+								cargar : function(){
+									return $scope.editor.observacion.listaObservacion;
+								},
+								cargarDocumentos : function(){
+									return $filter('filter')($scope.editor.documento.listaDocumentos, {tipo : "F",es_obligatorio : "1"});
+								}
+							};
+						}
+					}
+				});
+				modalInstance.result.then(function(){
+				});
+			}
+		}
 	});
 	
 	$scope.$watch('editor.tipoVista', function(newValue, oldValue) {
@@ -318,6 +413,54 @@
 		}
 	};
 	
+	// WIDGETS
+	
+	$scope.$watch('editor.seccionHistorial', function(newValue, oldValue) {
+		if(newValue != oldValue){
+			 if(newValue){
+				 $scope.seccion.agregarWidget("HIS");
+			 } else {
+				 $scope.seccion.quitarWidget("HIS");
+			 }
+		}
+	});
+	$scope.$watch('editor.seccionDocumentos', function(newValue, oldValue) {
+		if(newValue != oldValue){
+			 if(newValue){
+				 $scope.seccion.agregarWidget("DOC");
+			 } else {
+				 $scope.seccion.quitarWidget("DOC");
+			 }
+		}
+	});
+	$scope.$watch('editor.seccionObservaciones', function(newValue, oldValue) {
+		if(newValue != oldValue){
+			 if(newValue){
+				 $scope.seccion.agregarWidget("OBS");
+			 } else {
+				 $scope.seccion.quitarWidget("OBS");
+			 }
+		}
+	});
+	
+	$scope.widget = {
+		widgetNombre : {
+			"HIS" : "Historial de Tareas",
+			"DOC" : "Documentos",
+			"OBS" : "Observaciones y Subsanaciones"
+		},
+		widgetRadios : {
+			"HIS" : "seccionHistorial",
+			"DOC" : "seccionDocumentos",
+			"OBS" : "seccionObservaciones"
+		},
+		widgetUrl : {
+			"HIS" : "plantilla/inc_editor_seccion_modelo_historial.html",
+			"DOC" : "plantilla/inc_editor_seccion_modelo_documentos.html",
+			"OBS" : "plantilla/inc_editor_seccion_modelo_observaciones.html"
+		}
+	};
+	
 });
 
 mapeo.registerCtrl('modal_agregarPlantilla', function ($scope, $modalInstance, ajax, config) {
@@ -394,6 +537,167 @@ mapeo.registerCtrl('modal_agregarPlantilla', function ($scope, $modalInstance, a
 				}
 			});
 		};
+	};
+	
+});
+
+mapeo.registerCtrl('inc_editor_seccion_modelo_documentos_gestionar', function ($scope, $modalInstance, config) {
+
+	$scope.maeDocumentos = angular.copy(config.cargarMaeDocumentos());
+
+	$scope.listaDocumentos = angular.copy(config.cargar());
+	$scope.agregarDocumento = function(){
+		$scope.mensaje = "";
+		if(typeof($scope.meastroDocumento)!="object"){
+			$scope.mensaje = "Seleccione el documento corréctamente";
+			return;
+		}
+		for(var i = 0;i < $scope.listaDocumentos.length; i++){
+			if($scope.listaDocumentos[i].cod_mae_documento == $scope.meastroDocumento.cod_mae_documento){
+				$scope.mensaje = "Documento repetido";
+				return;
+			}
+		}
+		$scope.listaDocumentos.push({
+			maeDocumento : $scope.meastroDocumento,
+			tipo : "F",
+			es_obligatorio : "1",
+			estado : "1"
+		});
+		delete $scope.meastroDocumento;
+	};
+	$scope.eliminarDocumento = function(index){
+		var objObservaciones = config.cargarObservaciones();
+		for(var i = 0;i < objObservaciones.length; i++){
+			var obse = objObservaciones[i];
+			for(var e = 0;e < obse.listaSubsanaciones.length; e++){
+				var subsa = obse.listaSubsanaciones[e];
+				if(subsa.cod_mae_documento_tarea == $scope.listaDocumentos[index].cod_mae_documento_tarea){
+					if(confirm("El documento se encuentra asociado a subsanaciones, desea eliminarlo de todas maneras?")){
+						$scope.listaDocumentos.splice(index,1);
+						delete subsa.cod_mae_documento_tarea;
+						break;
+					} else {
+						$scope.$apply();
+						return;
+					}
+				}
+			}
+		}
+		$scope.listaDocumentos.splice(index,1);
+	};
+	
+	$scope.guardar = function(){
+		if($scope.listaDocumentos.length==0){
+			$scope.mensaje = "Debe ingresar por lo menos un documento";
+			return;
+		}
+		for(var i = 0;i < $scope.listaDocumentos.length; i++){
+			$scope.listaDocumentos[i].cod_mae_documento_tarea = i+1;
+		}
+		config.guardar($scope.listaDocumentos);
+		$modalInstance.close();
+	};
+	$scope.cancelar = function(){
+		$modalInstance.close();
+	};
+	
+});
+
+mapeo.registerCtrl('inc_editor_seccion_modelo_observacion_tipoobservacion', function ($scope, $modalInstance, config) {
+
+	$scope.listaObservacion = angular.copy(config.cargar());
+	$scope.agregar = function(){
+		$scope.mensaje = "";
+		if(!($scope.observacion && $scope.observacion.nombre.length!=0)){
+			$scope.mensaje = "Ingrese una observación correcta";
+			return;
+		}
+		for(var i = 0;i < $scope.listaObservacion.length; i++){
+			if($scope.listaObservacion[i].nombre == $scope.observacion.nombre){
+				$scope.mensaje = "Observación repetida";
+				return;
+			}
+		}
+		$scope.observacion.estado = "1";
+		$scope.listaObservacion.push($scope.observacion);
+		delete $scope.observacion;
+	};
+	$scope.eliminar = function(index){
+		$scope.listaObservacion.splice(index,1);
+	};
+	
+	$scope.guardar = function(){
+		if($scope.listaObservacion.length==0){
+			$scope.mensaje = "Debe ingresar por lo menos una observación";
+			return;
+		}
+		config.guardar($scope.listaObservacion);
+		$modalInstance.close();
+	};
+	$scope.cancelar = function(){
+		$modalInstance.close();
+	};
+	
+});
+
+mapeo.registerCtrl('inc_editor_seccion_modelo_observacion_tiposubsanacion', function ($scope, $modalInstance, config) {
+
+	$scope.listaObservacion = angular.copy(config.cargar()); // listaSubsanaciones
+	$scope.listaDocumentos = angular.copy(config.cargarDocumentos());
+	$scope.agregar = function(){
+		if(!$scope.observacion.listaSubsanaciones){
+			$scope.observacion.listaSubsanaciones = [];
+		}
+		$scope.mensaje = "";
+		if(!($scope.subsanacion && $scope.subsanacion.nombre.length!=0)){
+			$scope.mensaje = "Ingrese una subsanación correcta";
+			return;
+		}
+		for(var i = 0;i < $scope.observacion.listaSubsanaciones.length; i++){
+			if($scope.observacion.listaSubsanaciones[i].nombre == $scope.subsanacion.nombre){
+				$scope.mensaje = "Subsanación repetida";
+				return;
+			}
+		}
+		$scope.subsanacion.estado = "1";
+		$scope.subsanacion.tipo_sustento = "T";
+		$scope.observacion.listaSubsanaciones.push($scope.subsanacion);
+		delete $scope.subsanacion;
+	};
+	$scope.eliminar = function(index){
+		$scope.observacion.listaSubsanaciones.splice(index,1);
+	};
+	
+	$scope.limpiarSubsanacion = function(){
+		delete $scope.subsanacion;
+	};
+	$scope.guardar = function(){
+		var totalSubsana = 0;
+		for(var i = 0;i < $scope.listaObservacion.length; i++){
+			if($scope.listaObservacion[i].listaSubsanaciones && $scope.listaObservacion[i].listaSubsanaciones.length>0){
+				totalSubsana++;
+			}
+		}
+		if(totalSubsana!=$scope.listaObservacion.length){
+			$scope.mensaje = "Debe registrar todas las subsanaciones por observación";
+			return;
+		}
+		for(var i = 0;i < $scope.listaObservacion.length; i++){
+			var obse = $scope.listaObservacion[i];
+			for(var e = 0;e < obse.listaSubsanaciones.length; e++){
+				var subsa = obse.listaSubsanaciones[e];
+				if(subsa.tipo_sustento == "A" && !subsa.cod_mae_documento_tarea){
+					$scope.mensaje = "Debe asociar el adjunto obligatorio para la subsanación \""+subsa.nombre+"\" del adjunto \""+obse.nombre+"\"";
+					return;
+				}
+			}
+		}
+		config.guardar($scope.listaObservacion);
+		$modalInstance.close();
+	};
+	$scope.cancelar = function(){
+		$modalInstance.close();
 	};
 	
 });

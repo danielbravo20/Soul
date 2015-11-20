@@ -1,0 +1,43 @@
+<div class="modal-header">
+	<h3 class="modal-title">Gestionar Tipos de Observación</h3>
+</div>
+<div class="modal-body">
+	<div class="panel panel-default">
+	  <table class="table table-bordered table-striped">
+		<tbody>
+		  <tr>
+			<th colspan="4">Ingrese una nueva observación (*) :</th>
+		  </tr>
+		  <tr>
+			<td colspan="3"><input type="text" name="nombre" class="form-control input-sm" ng-model="observacion.nombre">
+			</td>
+			<td><a class="btn btn-info btn-sm" ng-click="agregar()" tooltip="Agregar Observación"><i class="glyphicon glyphicon-plus"></i></a></td>
+		  </tr>
+		  <tr ng-show="listaObservacion.length>0">
+			<th colspan="4">Listado :</th>
+		  </tr>
+		  <tr ng-show="listaObservacion.length>0">
+			<th>Nombre :</th>
+		  	<th>Descripción :</th>
+		  	<th>Estado :</th>
+		  	<th>&nbsp;</th>
+		  </tr>
+		  <tr ng-show="listaObservacion.length>0" ng-repeat="observacionItem in listaObservacion">
+			<td>{{observacionItem.nombre}}</td>
+			<td>
+				<textarea name="descripcion" class="form-control input-sm" ng-model="observacionItem.descripcion"></textarea>
+			</td>
+			<td>
+				<input type="checkbox" ng-model="observacionItem.estado" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px">
+			</td>
+			<td><a class="btn btn-danger btn-sm" ng-click="eliminar($index)" tooltip="Eliminar Observación"><i class="glyphicon glyphicon-remove"></i></a></td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+	<alert type="danger" ng-show="mensaje.length>0">{{mensaje}}</alert>
+</div>
+<div class="modal-footer">
+	<a class="btn btn-danger" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</a>
+	<a class="btn btn-info" ng-click="cancelar()"><i class="glyphicon glyphicon-remove-circle"></i> Cancelar</a>
+</div>
