@@ -115,6 +115,11 @@ public class GeneralSQLCreateSoul extends MultipleBaseConstructor{
 			}
 		}
 		
+		//Si la tabla esta asociado a la clase padre, debe tener el campo COD_PROCESO
+		if(tabla.getClaseBean()!=null && tabla.getClaseBean().getNivel()==1){
+			buffer.append("\t\tcodigo_proceso bigint NOT NULL,\r\n");
+		}
+		
 		for (int i = 0; i < tabla.getCamposSQL().size(); i++) {
 			CampoSQLBean campoSQL = tabla.getCamposSQL().get(i);
 			if(campoSQL.isTieneFuncion()==false && campoSQL.isFlgPK()==false){

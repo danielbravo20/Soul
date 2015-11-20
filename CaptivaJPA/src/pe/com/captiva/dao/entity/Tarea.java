@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 12/11/2015 12:28:21 PM by Hibernate Tools 4.3.1
+// Generated 19/11/2015 03:54:12 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,6 +40,7 @@ public class Tarea implements java.io.Serializable {
 	private Character tipoVista;
 	private Set<TareaAtrCompletar> tareaAtrCompletars = new HashSet<TareaAtrCompletar>(
 			0);
+	private Set<Proceso> procesos = new HashSet<Proceso>(0);
 	private Set<TareaAtrCancelar> tareaAtrCancelars = new HashSet<TareaAtrCancelar>(
 			0);
 	private Set<Rol> rols = new HashSet<Rol>(0);
@@ -80,8 +81,8 @@ public class Tarea implements java.io.Serializable {
 			char webAccGrabar, char webAccCancelar, char webAccRechazar,
 			char webAccObservar, int webTieRojo, int webTieAmarillo,
 			Character tipoVista, Set<TareaAtrCompletar> tareaAtrCompletars,
-			Set<TareaAtrCancelar> tareaAtrCancelars, Set<Rol> rols,
-			Set<Tarea> tareasForCodTareaObservado,
+			Set<Proceso> procesos, Set<TareaAtrCancelar> tareaAtrCancelars,
+			Set<Rol> rols, Set<Tarea> tareasForCodTareaObservado,
 			Set<Tarea> tareasForCodTareaSiguiente,
 			Set<TareaAtrRechazar> tareaAtrRechazars,
 			Set<TareaAtrObservar> tareaAtrObservars, Set<Rol> rols_1) {
@@ -102,6 +103,7 @@ public class Tarea implements java.io.Serializable {
 		this.webTieAmarillo = webTieAmarillo;
 		this.tipoVista = tipoVista;
 		this.tareaAtrCompletars = tareaAtrCompletars;
+		this.procesos = procesos;
 		this.tareaAtrCancelars = tareaAtrCancelars;
 		this.rols = rols;
 		this.tareasForCodTareaObservado = tareasForCodTareaObservado;
@@ -268,6 +270,15 @@ public class Tarea implements java.io.Serializable {
 
 	public void setTareaAtrCompletars(Set<TareaAtrCompletar> tareaAtrCompletars) {
 		this.tareaAtrCompletars = tareaAtrCompletars;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tarea")
+	public Set<Proceso> getProcesos() {
+		return this.procesos;
+	}
+
+	public void setProcesos(Set<Proceso> procesos) {
+		this.procesos = procesos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tarea")

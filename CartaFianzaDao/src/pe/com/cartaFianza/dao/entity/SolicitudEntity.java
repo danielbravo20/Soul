@@ -5,10 +5,10 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Table;
 
 @Entity
@@ -17,19 +17,27 @@ public class SolicitudEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private java.util.Date vigencia;
-	private Long codigoSolicitud;
+	private Long codigoProceso;
 	private java.math.BigDecimal monto;
+	private Long codigoSolicitud;
 	private String evento;
+	private java.util.Date vigencia;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "vigencia" ,nullable = true ,length = 13 )
-	public java.util.Date getVigencia(){
-		return vigencia;
+	@Column(name = "codigo_proceso" ,unique = true ,nullable = false )
+	public Long getCodigoProceso() {
+		return codigoProceso;
+	}
+	public void setCodigoProceso(Long codigoProceso) {
+		this.codigoProceso = codigoProceso;
 	}
 
-	public void setVigencia(java.util.Date vigencia) {
-		this.vigencia = vigencia;
+	@Column(name = "monto" ,nullable = true ,precision = 12, scale = 3 )
+	public java.math.BigDecimal getMonto(){
+		return monto;
+	}
+
+	public void setMonto(java.math.BigDecimal monto) {
+		this.monto = monto;
 	}
 
 	@Id
@@ -44,15 +52,6 @@ public class SolicitudEntity implements Serializable{
 		this.codigoSolicitud = codigoSolicitud;
 	}
 
-	@Column(name = "monto" ,nullable = true ,precision = 12, scale = 3 )
-	public java.math.BigDecimal getMonto(){
-		return monto;
-	}
-
-	public void setMonto(java.math.BigDecimal monto) {
-		this.monto = monto;
-	}
-
 	@Column(name = "evento" ,nullable = true ,length = 3 )
 	public String getEvento(){
 		return evento;
@@ -60,6 +59,16 @@ public class SolicitudEntity implements Serializable{
 
 	public void setEvento(String evento) {
 		this.evento = evento;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "vigencia" ,nullable = true ,length = 13 )
+	public java.util.Date getVigencia(){
+		return vigencia;
+	}
+
+	public void setVigencia(java.util.Date vigencia) {
+		this.vigencia = vigencia;
 	}
 
 }

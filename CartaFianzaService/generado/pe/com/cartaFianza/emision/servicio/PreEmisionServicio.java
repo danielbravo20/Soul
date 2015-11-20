@@ -43,16 +43,34 @@ public abstract class PreEmisionServicio extends BaseProcesoServicioImpl impleme
 	}
 
 	public Proceso registrarOperacion(Proceso proceso, UsuarioPortal usuario, Object objeto) throws Exception {
-		emisionDaoLocal.registrar((Solicitud)objeto);
+		Solicitud solicitud = (Solicitud)objeto;
+		solicitud.setCodigoProceso(proceso.getCodigoProceso());
+		emisionDaoLocal.registrar(solicitud);
 		return proceso;
 	}
 	public TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{
-		return null;
+		TareaPlantilla plantilla = new TareaPlantilla();
+		plantilla.setCodigoTareaPlantilla(1);
+		plantilla.setNombre("Completar Solicitud");
+		plantilla.setAleas("CompletarSolicitud");
+		plantilla.setEstado(1);
+		plantilla.setOrden(1);
+		plantilla.setPrioridad(1);
+		plantilla.setVersion("v1.0.0");
+		return plantilla;
 	}
 
 	@Override
 	public String definirProximoDueno(Proceso proceso) throws Exception {
 		return null;
+	}
+
+	public Solicitud accionVerResumen(UsuarioPortal usuarioPortal, Solicitud solicitud) throws Exception {
+		return emisionDaoLocal.verResumen(solicitud);
+	}
+
+	public Solicitud accionVerDetalle(UsuarioPortal usuarioPortal, Solicitud solicitud) throws Exception {
+		return emisionDaoLocal.verDetalle(solicitud);
 	}
 
 }

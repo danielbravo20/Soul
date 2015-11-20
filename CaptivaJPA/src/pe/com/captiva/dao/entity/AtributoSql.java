@@ -1,11 +1,10 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 12/11/2015 12:28:21 PM by Hibernate Tools 4.3.1
+// Generated 19/11/2015 03:54:12 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;

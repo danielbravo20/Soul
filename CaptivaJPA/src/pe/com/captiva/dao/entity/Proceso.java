@@ -1,6 +1,6 @@
 package pe.com.captiva.dao.entity;
 
-// Generated 12/11/2015 12:28:21 PM by Hibernate Tools 4.3.1
+// Generated 19/11/2015 03:54:12 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +26,7 @@ public class Proceso implements java.io.Serializable {
 	private Consulta consultaByCodConResumen;
 	private Consulta consultaByCodConDetalle;
 	private Proyecto proyecto;
+	private Tarea tarea;
 	private String nombre;
 	private String javClase;
 	private String javDatasource;
@@ -50,13 +51,15 @@ public class Proceso implements java.io.Serializable {
 	}
 
 	public Proceso(int codProceso, Consulta consultaByCodConResumen,
-			Consulta consultaByCodConDetalle, Proyecto proyecto, String nombre,
-			String javClase, String javDatasource, String webDetalleTipovista,
-			Set<ProcesoInicio> procesoInicios, Set<Rol> rols, Set<Tarea> tareas) {
+			Consulta consultaByCodConDetalle, Proyecto proyecto, Tarea tarea,
+			String nombre, String javClase, String javDatasource,
+			String webDetalleTipovista, Set<ProcesoInicio> procesoInicios,
+			Set<Rol> rols, Set<Tarea> tareas) {
 		this.codProceso = codProceso;
 		this.consultaByCodConResumen = consultaByCodConResumen;
 		this.consultaByCodConDetalle = consultaByCodConDetalle;
 		this.proyecto = proyecto;
+		this.tarea = tarea;
 		this.nombre = nombre;
 		this.javClase = javClase;
 		this.javDatasource = javDatasource;
@@ -104,6 +107,16 @@ public class Proceso implements java.io.Serializable {
 
 	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_tarea")
+	public Tarea getTarea() {
+		return this.tarea;
+	}
+
+	public void setTarea(Tarea tarea) {
+		this.tarea = tarea;
 	}
 
 	@Column(name = "nombre", nullable = false, length = 120)
