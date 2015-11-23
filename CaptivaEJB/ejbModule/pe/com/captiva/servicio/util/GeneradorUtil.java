@@ -1,8 +1,5 @@
 package pe.com.captiva.servicio.util;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import pe.com.captiva.bean.AtributoBean;
 import pe.com.captiva.bean.AtributoProceso;
 import pe.com.captiva.bean.CampoSQLBean;
