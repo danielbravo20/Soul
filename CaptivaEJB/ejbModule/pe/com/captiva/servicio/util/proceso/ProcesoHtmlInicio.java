@@ -3,6 +3,7 @@ package pe.com.captiva.servicio.util.proceso;
 import java.util.ArrayList;
 import java.util.List;
 
+import pe.com.captiva.bean.AtributoProceso;
 import pe.com.captiva.bean.ProcesoBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.servicio.util.Componente;
@@ -45,33 +46,29 @@ public class ProcesoHtmlInicio extends MultipleBaseConstructor{
 		buffer.append("\t\t\t<table class=\"table table-striped\">\r\n");
 		buffer.append("\t\t\t\t<tbody>\r\n");
 		
-		buffer.append("\t\t\t\t\t<tr>\r\n");
-		buffer.append("\t\t\t\t\t\t<th><span class=\"frm_requerido\">(*)</span> Tipo de Fianza :</th>\r\n");
-		buffer.append("\t\t\t\t\t\t<td class=\"form-group\" show-errors='{showSuccess: true}'>\r\n");
-		buffer.append("\t\t\t\t\t\t\t<select name=\"tipoBusqueda\" ng-model=\"baseIPConfig.data.tipoFianza\" class=\"form-control input-sm\" required>\r\n");
-		buffer.append("\t\t\t\t\t\t\t\t<option value=\"LIC\">LICITACION</option>\r\n");
-		buffer.append("\t\t\t\t\t\t\t\t<option value=\"REQ\">REQUERIMIENTO</option>\r\n");	
-		buffer.append("\t\t\t\t\t\t\t</select>\r\n");
-		buffer.append("\t\t\t\t\t\t\t<p class=\"help-block\" ng-if=\"frm_iniciarproceso.tipoBusqueda.$error.required\">Seleccione un valor correcto</p>\r\n");
-		buffer.append("\t\t\t\t\t\t</td>\r\n");
-		buffer.append("\t\t\t\t\t</tr>\r\n");
-		
-		buffer.append("\t\t\t\t\t<tr>\r\n");
-		buffer.append("\t\t\t\t\t\t<th><span class=\"frm_requerido\">(*)</span> Monto :</th>\r\n");
-		buffer.append("\t\t\t\t\t\t<td class=\"form-inline\">\r\n");
-		buffer.append("\t\t\t\t\t\t<span class=\"form-group\" show-errors='{showSuccess: true}'>\r\n");
-		buffer.append("\t\t\t\t\t\t\t<select name=\"monedaFianza\" ng-model=\"baseIPConfig.data.monedaFianza\" class=\"form-control input-sm\" required>\r\n");
-		buffer.append("\t\t\t\t\t\t\t\t<option value=\"USD\">DÓLARES AMERICANOS</option>\r\n");
-		buffer.append("\t\t\t\t\t\t\t\t<option value=\"PEN\">NUEVOS SOLES</option>\r\n");
-		buffer.append("\t\t\t\t\t\t\t</select>\r\n");
-		buffer.append("\t\t\t\t\t\t\t<p class=\"help-block\" ng-if=\"frm_iniciarproceso.monedaFianza.$error.required\">Seleccione un valor correcto</p>\r\n");
-		buffer.append("\t\t\t\t\t\t</span>\r\n");
-		buffer.append("\t\t\t\t\t\t<span class=\"form-group\" show-errors='{showSuccess: true}'>\r\n");
-		buffer.append("\t\t\t\t\t\t\t<input type=\"number\" name=\"montoFianza\" ng-model=\"baseIPConfig.data.montoFianza\" class=\"form-control input-sm\" required>\r\n");
-		buffer.append("\t\t\t\t\t\t\t<p class=\"help-block\" ng-if=\"frm_iniciarproceso.montoFianza.$error.required\">Ingrese un valor correcto</p>\r\n");
-		buffer.append("\t\t\t\t\t\t</span>\r\n");
-		buffer.append("\t\t\t\t\t</td>\r\n");
-		buffer.append("\t\t\t\t</tr>\r\n");
+		List<AtributoProceso> atributoProcesos = procesoBean.getAtributosEntrada();
+		for (AtributoProceso atributoProceso : atributoProcesos) {
+			
+			buffer.append("\t\t\t\t\t<tr>\r\n");
+			if(atributoProceso.isWebFlgRequerido()){
+				buffer.append("\t\t\t\t\t\t<th><span class=\"frm_requerido\">(*)</span> "+atributoProceso.getWebEtiqueta()+"</th>\r\n");
+			}else{
+				buffer.append("\t\t\t\t\t\t<th> "+atributoProceso.getWebEtiqueta()+"</th>\r\n");
+			}
+			buffer.append("\t\t\t\t\t\t<td class=\"form-group\" show-errors='{showSuccess: true}'>\r\n");
+			if(atributoProceso.isWebFlgRequerido()){
+				buffer.append("\t\t\t\t\t\t\t<input type=\"number\" name=\""+atributoProceso.getWebNombre()+"\" ng-model=\"baseIPConfig.data."+atributoProceso.getWebNombre()+"\" class=\"form-control input-sm\" required>\r\n");
+				buffer.append("\t\t\t\t\t\t\t<p class=\"help-block\" ng-if=\"frm_iniciarproceso."+atributoProceso.getWebNombre()+".$error.required\">"+atributoProceso.getWebMensajeValidacion()+"</p>\r\n");
+			}else{
+				buffer.append("\t\t\t\t\t\t\t<input type=\"number\" name=\""+atributoProceso.getWebNombre()+"\" ng-model=\"baseIPConfig.data."+atributoProceso.getWebNombre()+"\" class=\"form-control input-sm\" >\r\n");
+			}
+			
+			buffer.append("\t\t\t\t\t\t</span>\r\n");
+			
+			buffer.append("\t\t\t\t\t\t</td>\r\n");
+			buffer.append("\t\t\t\t\t</tr>\r\n");
+			
+		}
 		
 		buffer.append("\t\t\t</tbody>\r\n");
 		buffer.append("\t\t</table>\r\n");

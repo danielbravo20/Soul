@@ -171,12 +171,15 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 			atributoProceso.setNombre(procesoInicio.getAtributo().getNombre());
 			atributoProceso.setTipo(procesoInicio.getAtributo().getTipo());
 			atributoProceso.setValorOmision(procesoInicio.getValOmision());
-			if(procesoInicio.getWebRequerido()=='1'){
-				atributoProceso.setWebFlgValidacion(true);
-			}
-			atributoProceso.setWebNombre(procesoInicio.getAtributo().getWebNombre());
 			atributoProceso.setClase(parseClaseBeanSimple(procesoInicio.getAtributo().getClase()));
 			atributoProceso.setCampoSQLBean(parseCampoSQLBeanSimple(procesoInicio.getAtributo().getAtributoSql()));
+			
+			atributoProceso.setWebNombre(procesoInicio.getAtributo().getWebNombre());
+			atributoProceso.setWebEtiqueta(procesoInicio.getWebEtiqueta());
+			atributoProceso.setWebMensajeValidacion(procesoInicio.getWebMensajeValidacion());
+			if(procesoInicio.getWebRequerido()=='1'){
+				atributoProceso.setWebFlgRequerido(true);
+			}
 		}
 		return atributoProceso;
     }

@@ -34,10 +34,10 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 			List<SolicitudEntity> solicitudEntitys = buscarRegistros(consulta, "parametro", solicitud.getCodigoProceso());
 			if(solicitudEntitys!=null){
 				SolicitudEntity solicitudEntity = solicitudEntitys.get(0);
-				solicitud.setMonto(solicitudEntity.getMonto());
-				solicitud.setVigencia(solicitudEntity.getVigencia());
 				solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
 				solicitud.setEvento(solicitudEntity.getEvento());
+				solicitud.setVigencia(solicitudEntity.getVigencia());
+				solicitud.setMonto(solicitudEntity.getMonto());
 			}
 		}
 		return solicitud;

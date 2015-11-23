@@ -2,22 +2,18 @@ package pe.com.captiva.bean;
 
 public class AtributoProceso extends AtributoBean{
 
-	private int codigoProyecto;
-	private int codigoProceso;
-	private boolean bpmFlgEntrada;
-	private String bpmObjetoReferencia;
-	private boolean bpmFlgPIID;
-	private boolean webFlgReferencia;
-	private boolean webFlgValidacion;
-	private String webMensajeValidacion;
-	private String valorOmision;
-	private boolean webFlgRequerido;
-	private String webNombreCatalogoCombo;
-	private boolean sqlFlgAutogenerado;
-	private String sqlNombreSecuencial;
-	private String bpmObjeto;
-	private String bpmTipo;
-	private String bpmNombre;
+	private static final long serialVersionUID = 1L;
+	
+	private int 		codigoProyecto;
+	private int 		codigoProceso;
+	
+	private boolean 	webFlgRequerido;
+	private String 		webMensajeValidacion;
+	private String 		webNombreCatalogoCombo;
+	private String 		webEtiqueta;
+	
+	private String 		valorOmision;
+	
 	private CampoSQLProcesoBean campoSQLProceso;
 	private ClaseBean clase;
 	
@@ -32,36 +28,6 @@ public class AtributoProceso extends AtributoBean{
 	}
 	public void setCodigoProceso(int codigoProceso) {
 		this.codigoProceso = codigoProceso;
-	}
-	public boolean isBpmFlgEntrada() {
-		return bpmFlgEntrada;
-	}
-	public void setBpmFlgEntrada(boolean bpmFlgEntrada) {
-		this.bpmFlgEntrada = bpmFlgEntrada;
-	}
-	public String getBpmObjetoReferencia() {
-		return bpmObjetoReferencia;
-	}
-	public void setBpmObjetoReferencia(String bpmObjetoReferencia) {
-		this.bpmObjetoReferencia = bpmObjetoReferencia;
-	}
-	public boolean isBpmFlgPIID() {
-		return bpmFlgPIID;
-	}
-	public void setBpmFlgPIID(boolean bpmFlgPIID) {
-		this.bpmFlgPIID = bpmFlgPIID;
-	}
-	public boolean isWebFlgReferencia() {
-		return webFlgReferencia;
-	}
-	public void setWebFlgReferencia(boolean webFlgReferencia) {
-		this.webFlgReferencia = webFlgReferencia;
-	}
-	public boolean isWebFlgValidacion() {
-		return webFlgValidacion;
-	}
-	public void setWebFlgValidacion(boolean webFlgValidacion) {
-		this.webFlgValidacion = webFlgValidacion;
 	}
 	public String getWebMensajeValidacion() {
 		return webMensajeValidacion;
@@ -81,37 +47,7 @@ public class AtributoProceso extends AtributoBean{
 	public void setWebNombreCatalogoCombo(String webNombreCatalogoCombo) {
 		this.webNombreCatalogoCombo = webNombreCatalogoCombo;
 	}
-	public String getSqlNombreSecuencial() {
-		return sqlNombreSecuencial;
-	}
-	public void setSqlNombreSecuencial(String sqlNombreSecuencial) {
-		this.sqlNombreSecuencial = sqlNombreSecuencial;
-	}
-	public boolean isSqlFlgAutogenerado() {
-		return sqlFlgAutogenerado;
-	}
-	public void setSqlFlgAutogenerado(boolean sqlFlgAutogenerado) {
-		this.sqlFlgAutogenerado = sqlFlgAutogenerado;
-	}
 	
-	public String getBpmObjeto() {
-		return bpmObjeto;
-	}
-	public void setBpmObjeto(String bpmObjeto) {
-		this.bpmObjeto = bpmObjeto;
-	}
-	public String getBpmTipo() {
-		return bpmTipo;
-	}
-	public void setBpmTipo(String bpmTipo) {
-		this.bpmTipo = bpmTipo;
-	}
-	public String getBpmNombre() {
-		return bpmNombre;
-	}
-	public void setBpmNombre(String bpmNombre) {
-		this.bpmNombre = bpmNombre;
-	}
 	public CampoSQLProcesoBean getCampoSQLProceso() {
 		return campoSQLProceso;
 	}
@@ -133,12 +69,6 @@ public class AtributoProceso extends AtributoBean{
 		return false;
 	}	
 	
-	public boolean isProcesoTieneObjeto(){
-		if(this.bpmObjetoReferencia!=null && this.bpmObjetoReferencia.length()>0){
-			return true;
-		}
-		return false;
-	}
 	public ClaseBean getClase() {
 		return clase;
 	}
@@ -150,6 +80,12 @@ public class AtributoProceso extends AtributoBean{
 	}
 	public void setValorOmision(String valorOmision) {
 		this.valorOmision = valorOmision;
+	}
+	public String getWebEtiqueta() {
+		return webEtiqueta;
+	}
+	public void setWebEtiqueta(String webEtiqueta) {
+		this.webEtiqueta = webEtiqueta;
 	}
 	
 }

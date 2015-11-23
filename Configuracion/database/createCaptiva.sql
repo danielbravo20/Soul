@@ -769,8 +769,8 @@ CREATE TABLE soul.mae_documento_tarea(
  cod_tarea Integer NOT NULL,
  cod_mae_documento_tarea Integer NOT NULL,
  cod_mae_documento Integer NOT NULL,
- tipo Character(1) NOT NULL
- es_obligatorio Character(1) DEFAULT '0'::bpchar NOT NULL
+ tipo Character(1) NOT NULL,
+ es_obligatorio Character(1) DEFAULT '0'::bpchar NOT NULL,
  estado Character(1) DEFAULT '0'::bpchar NOT NULL
 )
 ;

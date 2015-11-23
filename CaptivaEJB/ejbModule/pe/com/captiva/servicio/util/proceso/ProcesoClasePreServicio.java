@@ -90,7 +90,7 @@ public class ProcesoClasePreServicio extends MultipleBaseConstructor{
 		buffer.append("\tpublic Proceso registrarOperacion(Proceso proceso, UsuarioPortal usuario, Object objeto) throws Exception {\r\n");
 		buffer.append("\t\t"+nombreClasePadre+" "+objetoClasePadre+" = ("+nombreClasePadre+")objeto;\r\n");
 		buffer.append("\t\t"+objetoClasePadre+".setCodigoProceso(proceso.getCodigoProceso());\r\n");
-		buffer.append("\t\t"+procesoBean.getClase().toLowerCase()+"DaoLocal.registrar("+objetoClasePadre+");\r\n");
+		buffer.append("\t\tproceso.setObjeto("+procesoBean.getClase().toLowerCase()+"DaoLocal.registrar("+objetoClasePadre+"));\r\n");
 		buffer.append("\t\treturn proceso;\r\n");
 		buffer.append("\t}\r\n");
 			
