@@ -18,10 +18,10 @@ public class SolicitudEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Long codigoProceso;
-	private java.math.BigDecimal monto;
 	private Long codigoSolicitud;
-	private String evento;
+	private java.math.BigDecimal monto;
 	private java.util.Date vigencia;
+	private String evento;
 
 	@Column(name = "codigo_proceso" ,unique = true ,nullable = false )
 	public Long getCodigoProceso() {
@@ -29,15 +29,6 @@ public class SolicitudEntity implements Serializable{
 	}
 	public void setCodigoProceso(Long codigoProceso) {
 		this.codigoProceso = codigoProceso;
-	}
-
-	@Column(name = "monto" ,nullable = true ,precision = 12, scale = 3 )
-	public java.math.BigDecimal getMonto(){
-		return monto;
-	}
-
-	public void setMonto(java.math.BigDecimal monto) {
-		this.monto = monto;
 	}
 
 	@Id
@@ -52,13 +43,13 @@ public class SolicitudEntity implements Serializable{
 		this.codigoSolicitud = codigoSolicitud;
 	}
 
-	@Column(name = "evento" ,nullable = true ,length = 3 )
-	public String getEvento(){
-		return evento;
+	@Column(name = "monto" ,nullable = true ,precision = 12, scale = 3 )
+	public java.math.BigDecimal getMonto(){
+		return monto;
 	}
 
-	public void setEvento(String evento) {
-		this.evento = evento;
+	public void setMonto(java.math.BigDecimal monto) {
+		this.monto = monto;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -69,6 +60,15 @@ public class SolicitudEntity implements Serializable{
 
 	public void setVigencia(java.util.Date vigencia) {
 		this.vigencia = vigencia;
+	}
+
+	@Column(name = "evento" ,nullable = true ,length = 3 )
+	public String getEvento(){
+		return evento;
+	}
+
+	public void setEvento(String evento) {
+		this.evento = evento;
 	}
 
 }

@@ -45,7 +45,7 @@ public abstract class PreEmisionServicio extends BaseProcesoServicioImpl impleme
 	public Proceso registrarOperacion(Proceso proceso, UsuarioPortal usuario, Object objeto) throws Exception {
 		Solicitud solicitud = (Solicitud)objeto;
 		solicitud.setCodigoProceso(proceso.getCodigoProceso());
-		emisionDaoLocal.registrar(solicitud);
+		proceso.setObjeto(emisionDaoLocal.registrar(solicitud));
 		return proceso;
 	}
 	public TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{

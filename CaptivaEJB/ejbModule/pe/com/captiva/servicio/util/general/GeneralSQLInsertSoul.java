@@ -59,13 +59,13 @@ public class GeneralSQLInsertSoul extends MultipleBaseConstructor{
 		buffer.append("\n\r");
 		for (int x = 0; x < procesos.size(); x++) {
 			ProcesoBean procesoBean = procesos.get(x);
-			buffer.append(insertPotencialDueno(procesoBean));
+			buffer.append(insertAdministradorTarea(procesoBean));
 		}
 		
 		buffer.append("\n\r");
 		for (int x = 0; x < procesos.size(); x++) {
 			ProcesoBean procesoBean = procesos.get(x);
-			buffer.append(insertAdministradorTarea(procesoBean));
+			buffer.append(insertDuenoPotencialTarea(procesoBean));
 		}
 		
 		return buffer;
@@ -95,21 +95,6 @@ public class GeneralSQLInsertSoul extends MultipleBaseConstructor{
 		return stringBuffer.toString();
 	}
 	
-	public String insertPotencialDueno(ProcesoBean procesoBean){
-		StringBuffer stringBuffer = new StringBuffer();
-		List<TareaBean> tareas = procesoBean.getTareas();
-		for (int x = 0; x < tareas.size(); x++) {
-			TareaBean tareaBean = tareas.get(x);
-			List<RolBean> rolesBean = tareaBean.getRolesPotencial();
-			for (int y = 0; y < rolesBean.size(); y++) {
-				RolBean rolBean = rolesBean.get(y);
-				stringBuffer.append("insert into proceso.potencial_dueno(codigo_tarea_plantilla, codigo_rol) values ("+tareaBean.getCodigo()+", '"+rolBean.getRol()+"');\r\n");
-			}
-			
-		}
-		return stringBuffer.toString();
-	}
-	
 	public String insertAdministradorTarea(ProcesoBean procesoBean){
 		StringBuffer stringBuffer = new StringBuffer();
 		List<TareaBean> tareas = procesoBean.getTareas();
@@ -119,6 +104,21 @@ public class GeneralSQLInsertSoul extends MultipleBaseConstructor{
 			for (int y = 0; y < rolesBean.size(); y++) {
 				RolBean rolBean = rolesBean.get(y);
 				stringBuffer.append("insert into proceso.administrador_tarea(codigo_tarea_plantilla, codigo_rol) values ("+tareaBean.getCodigo()+", '"+rolBean.getRol()+"');\r\n");
+			}
+			
+		}
+		return stringBuffer.toString();
+	}
+	
+	public String insertDuenoPotencialTarea(ProcesoBean procesoBean){
+		StringBuffer stringBuffer = new StringBuffer();
+		List<TareaBean> tareas = procesoBean.getTareas();
+		for (int x = 0; x < tareas.size(); x++) {
+			TareaBean tareaBean = tareas.get(x);
+			List<RolBean> rolesBean = tareaBean.getRolesPotencial();
+			for (int y = 0; y < rolesBean.size(); y++) {
+				RolBean rolBean = rolesBean.get(y);
+				stringBuffer.append("insert into proceso.potencial_dueno(codigo_tarea_plantilla, codigo_rol) values ("+tareaBean.getCodigo()+", '"+rolBean.getRol()+"');\r\n");
 			}
 			
 		}

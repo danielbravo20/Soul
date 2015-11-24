@@ -18,7 +18,7 @@ public abstract class BaseProcesoServicioImpl implements BaseProcesoServicioLoca
 		proceso = registrarOperacion(proceso, usuario, objeto);
 		TareaPlantilla tareaPlantilla = definirProximaTarea(proceso);
 		if(tareaPlantilla!=null){
-			tareaServiceLocal.crearTarea(tareaPlantilla, proceso, definirProximoDueno(proceso));
+			proceso.setTarea(tareaServiceLocal.crearTarea(tareaPlantilla, proceso, definirProximoDueno(proceso)));
 		}
 		return proceso;
 	}

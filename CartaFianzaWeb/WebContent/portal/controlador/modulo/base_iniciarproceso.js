@@ -48,7 +48,7 @@ portal.registerCtrl('base_iniciarproceso', function($scope, $modal, hostname, aj
 			resolve: {
 				config : function(){
 					return {
-						esDueno : (objTarea.dueno == $scope.data.usuario)?true:false,
+						esDueno : (objProceso.tarea && (objProceso.tarea.dueno == $scope.data.usuario))?true:false,
 						trabajar : function(){
 							$scope.trabajar(objTarea);
 						}

@@ -1,0 +1,19 @@
+<script type="text/javascript" src="/CartaFianzaWeb/portal/procesos/emision/proceso/preControlador/pre_iniciarproceso.js"></script>
+<script type="text/javascript" src="/CartaFianzaWeb/portal/procesos/emision/proceso/controlador/iniciarproceso.js"></script>
+<div ng-controller="pre_iniciarproceso" class="panel panel-default">
+	<div ng-controller="iniciarproceso">
+		<div class="panel-heading"><strong>Datos Principales</strong></div>
+			<table class="table table-striped">
+				<tbody>
+					<tr>
+						<th><span class="frm_requerido">(*)</span> Monto:</th>
+						<td class="form-group" show-errors='{showSuccess: true}'>
+							<input type="number" name="solicitud.monto" ng-model="baseIPConfig.data.solicitud.monto" class="form-control input-sm" required>
+							<p class="help-block" ng-if="frm_iniciarproceso.solicitud.monto.$error.required">Por favor ingrese el monto</p>
+						</span>
+						</td>
+					</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

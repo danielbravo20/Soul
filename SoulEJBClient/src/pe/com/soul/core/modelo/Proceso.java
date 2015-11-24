@@ -19,6 +19,8 @@ public class Proceso extends BaseBean{
 	private Date fechaCreacion;
 	private Date fechaTermino;
 	private String creador;
+	private Tarea tarea;
+	private Object objeto;
 	
 	public long getCodigoProceso() {
 		return codigoProceso;
@@ -75,6 +77,17 @@ public class Proceso extends BaseBean{
 	public void setCreador(String creador) {
 		this.creador = creador;
 	}
-
+	public Object getObjeto() {
+		return objeto;
+	}
+	public void setObjeto(Object objeto) {
+		this.objeto = objeto;
+	}
+	public Tarea getTarea() {
+		return tarea;
+	}
+	public void setTarea(Tarea tarea) {
+		this.tarea = tarea;
+	}
 
 }
