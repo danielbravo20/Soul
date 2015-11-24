@@ -35,6 +35,33 @@
 		</tbody>
 	  </table>
 	</div>
+	<div class="panel panel-default">
+	  <table class="table table-bordered table-striped">
+		<tbody>
+		  <tr>
+			<th>Atributo :</th>
+			<td>
+				<input type="text" autocomplete="off" name="atributo" class="form-control input-sm"
+					data-typeahead-editable="true" 
+					data-ng-model="atributo" 
+					data-typeahead="atributoConsulta as atributoConsulta.atr_nombre for atributoConsulta in atributosConsulta | filter:$viewValue | limitTo:8"
+				>
+			</td>
+			<td><a class="btn btn-info btn-sm" ng-click="agregarAtributo()" tooltip="Agregar Atributo"><i class="glyphicon glyphicon-plus"></i></a></td>
+		  </tr>
+		  <tr ng-show="listaAtributos.length>0">
+			<th>Lista de Atributos :</th>
+		  	<th>Valor por omisión :</th>
+		  	<th>&nbsp;</th>
+		  </tr>
+		  <tr ng-show="listaAtributos.length>0" ng-repeat="atributoItem in listaAtributos">
+			<td>{{atributoItem.web_etiqueta}} <br><span class="referenciaClase">({{atributoItem.cla_nombre}})</span></td>
+			<td><input type="text" ng-model="atributoItem.val_omision" class="form-control input-sm"></td>
+			<td><a class="btn btn-danger btn-sm" ng-click="eliminarAtributo($index)" tooltip="Eliminar Atributo"><i class="glyphicon glyphicon-remove"></i></a></td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
 	<alert type="danger" ng-show="mensaje.length>0">{{mensaje}}</alert>
 </div>
 <div class="modal-footer">

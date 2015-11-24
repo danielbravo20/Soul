@@ -24,6 +24,37 @@
 	<alert type="danger" ng-show="editor.esEdicion==true && editor.seccionObservaciones==true && editor.observacion.tipoObservar==true && editor.observacion.subsanacionesAgregadas!=editor.observacion.listaObservacion.length">Pendiente registrar Subsanaciones de Observación</alert>
 	<table style="width: 100%;">
 		<tr>
+			<td colspan="2" ng-show="editor.esEdicion">
+				<div class="panel panel-default">
+				  <table class="table table-bordered table-striped">
+					<tbody>
+					  <tr>
+						<th>Atributo :</th>
+						<td>
+							<input type="text" autocomplete="off" name="atributo" class="form-control input-sm"
+								data-typeahead-editable="true" 
+								data-ng-model="accion.tarea.atributo" 
+								data-typeahead="atributoConsulta as atributoConsulta.atr_nombre for atributoConsulta in consulta.atributos | filter:$viewValue | limitTo:8"
+							>
+						</td>
+						<td><a class="btn btn-info btn-sm" ng-click="accion.tarea.agregarAtributo()" tooltip="Agregar Atributo"><i class="glyphicon glyphicon-plus"></i></a></td>
+					  </tr>
+					  <tr ng-show="accion.tarea.listaAtributos.length>0">
+						<th>Lista de Atributos :</th>
+					  	<th>Valor por omisión :</th>
+					  	<th>&nbsp;</th>
+					  </tr>
+					  <tr ng-show="accion.tarea.listaAtributos.length>0" ng-repeat="atributoItem in accion.tarea.listaAtributos">
+						<td>{{atributoItem.web_etiqueta}} <br><span class="referenciaClase">({{atributoItem.cla_nombre}})</span></td>
+						<td><input type="text" ng-model="atributoItem.val_omision" class="form-control input-sm"></td>
+						<td><a class="btn btn-danger btn-sm" ng-click="accion.tarea.eliminarAtributo($index)" tooltip="Eliminar Atributo"><i class="glyphicon glyphicon-remove"></i></a></td>
+					  </tr>
+					</tbody>
+				  </table>
+				</div>
+			</td>
+		</tr>
+		<tr>
 			<td width="20%" style="border: 1px solid #ccc; padding: 5px;" valign="top" ng-show="editor.esEdicion">
 				<div>
 					<accordion close-others="false">
@@ -78,7 +109,7 @@
 							        			</div>
 											</td>
 										</tr>
-										<tr ng-show="editor.observacion.tipoObservar">
+										<tr ng-show="editor.seccionObservaciones && editor.observacion.tipoObservar">
 											<td>
 						        				<strong>Como observación :</strong><br>
 						        				<strong>Tarea a Observar :</strong><br>
@@ -99,7 +130,7 @@
 												</a>
 											</td>
 										</tr>
-										<tr ng-show="editor.observacion.tipoSubsanar">
+										<tr ng-show="editor.seccionObservaciones && editor.observacion.tipoSubsanar">
 											<td>
 												<strong>Como Subsanación :</strong>
 											</td>
@@ -125,7 +156,7 @@
 								        ng-class="{'selected': consulta.seleccionado === item}"
 								    >
 								        {{item.nombre}} <span class="referenciaClase">({{item.cla_nombre}})</span>
-								        <div class="tipoAtributo" title="{{item.web_tipo}}">({{tipoClase[item.web_tipo]}})</div>
+								        <div class="tipoAtributo" title="{{item.web_tipo}}">({{editor.tipoClase[item.web_tipo]}})</div>
 								    </li>
 								</ul>
 							</div>

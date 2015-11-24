@@ -50,10 +50,10 @@
 			$scope.pag.total = $scope.data.TAREA.length;
 			/*DUMMY */
 			if(getParametro.accion && getParametro.accion=="gestionarResumen"){
-				$scope.gestionarResumen("1");
+				$scope.gestionarResumen("2");
 			}
 			if(getParametro.accion && getParametro.accion=="gestionarAccion"){
-				$scope.gestionarAccion("1");
+				$scope.gestionarAccion("2");
 			}
 		});
 	};

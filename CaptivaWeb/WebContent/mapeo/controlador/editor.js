@@ -1,8 +1,21 @@
 ﻿mapeo.registerCtrl('editor', function($scope, $modal, $filter, ajax, util) {
 	
+	$scope.tipoClase = {
+		"Integer" : "I",
+		"Long" : "L",
+		"long" : "l",
+		"String" : "S",
+		"boolean" : "b",
+		"java.math.BigDecimal" : "B",
+		"java.util.Date" : "D",
+		"java.sql.Date" : "D",
+		"java.sql.Timestamp" : "T"
+	};
+	
 	angular.extend($scope.$parent.$parent.editor,{
 		esEdicion : true,
 		fechaInicio : new Date(),
+		tipoClase : $scope.tipoClase,
 		url_atributo_tipo : "plantilla/inc_editor_atributo_"+$scope.editor.atributo_tipo+".html", // detallado | sololectura
 		documento : {
 			listaDocumentos : [],
@@ -37,6 +50,7 @@
 		},
 		observacion : {
 			listaObservacion : [],
+			listaAtributos : [],
 			gestionarTipoObservacion : function(){
 				var modalInstance = $modal.open({
 					animation: true,
@@ -45,8 +59,15 @@
 					resolve: {
 						config : function(){
 							return {
-								guardar : function(listaObservacion){
+								cargarAtributosConsulta : function(){
+									return $scope.consulta.atributos;
+								},
+								cargarAtributos : function(){
+									return $scope.editor.observacion.listaAtributos;
+								},
+								guardar : function(listaObservacion,listaAtributos){
 									$scope.editor.observacion.listaObservacion = listaObservacion;
+									$scope.editor.observacion.listaAtributos = listaAtributos;
 									$scope.editor.observacion.contarSubsanaciones();
 								},
 								cargar : function(){
@@ -98,6 +119,267 @@
 				modalInstance.result.then(function(){
 				});
 			}
+		},
+		seccion : {
+			index_codSeccion : {},
+			getSecciones : function(){
+				
+				var secciones = {};
+					secciones.lista = [];
+					secciones.plantillas = [];
+
+				for(var e = 0;e < $scope.seccion.lista.length;e++){
+					
+					var objSeccion = {};
+					
+					var seccionItem = $scope.seccion.lista[e];
+					
+					var codSeccion = "";
+					if(seccionItem.plantilla && seccionItem.plantilla=="1"){
+						
+						if(seccionItem.cod_seccion_padre){
+							codSeccion = seccionItem.cod_seccion_padre;
+						} else {
+							codSeccion = new Date().getTime();
+							secciones.plantillas.push({
+								cod_seccion : codSeccion,
+								tipo 		: "P",
+								nombre 		: seccionItem.nombre
+							});
+						}
+						$scope.editor.seccion.index_codSeccion[e] = codSeccion;
+						objSeccion.cod_seccion_padre = codSeccion;
+					}
+					
+					objSeccion.tipo = (seccionItem.plantilla && seccionItem.plantilla=="1")?"A":seccionItem.tipo;
+					
+					if(seccionItem.tipo_widget){
+						objSeccion.tipo_widget = seccionItem.tipo_widget;
+					}
+					
+					if(!((seccionItem.tipo && seccionItem.tipo=="W") || (seccionItem.plantilla && seccionItem.plantilla=="1"))){
+						objSeccion.nombre = seccionItem.nombre;
+					}
+					
+					if(!((seccionItem.tipo && seccionItem.tipo=="W") || seccionItem.cod_seccion_padre)){
+						
+						if(seccionItem.subSeccion.lista.length==0){
+							$scope.agregarAlerta("danger","Debes registrar por lo menos una Sub sección en la sección Nro "+(e+1));
+							return false;
+						}
+						
+					}
+					
+					secciones.lista.push(objSeccion);
+					
+				}
+				
+				return secciones;
+			},
+			index_seccion : {},
+			index_seccionPadre : {},
+			setSecciones : function(secciones){
+				$scope.seccion.lista = [];
+				for(var i = 0;i < secciones.length; i++){
+					var seccionItem = secciones[i];
+					
+					$scope.editor.seccion.index_seccion[seccionItem.cod_seccion] = i;
+					
+					if(seccionItem.tipo=="W"){
+						$scope.seccion.agregarWidget(seccionItem.tipo_widget);
+					} else {
+						$scope.seccion.lista.push({
+							nombre : seccionItem.nombre,
+							tipo : seccionItem.tipo,
+							activo : true,
+							plantilla : (seccionItem.tipo=="A")?"1":"0",
+							cod_seccion_padre : seccionItem.cod_seccion_padre,
+							subSeccion : {
+								lista : []
+							}
+						});
+					}
+					if(seccionItem.tipo=="A"){
+						$scope.editor.seccion.index_seccionPadre[seccionItem.cod_seccion_padre] = i;
+					}
+				}
+			},
+			setSeccionesPlantillas : function(plantilla){
+				for(var i = 0; i < plantilla.length ; i++){
+					var indexSeccion = $scope.editor.seccion.index_seccionPadre[plantilla[i].cod_seccion];
+					$scope.seccion.lista[indexSeccion].nombre = plantilla[i].nombre;
+				}
+			},
+			getSubSecciones : function(){
+				var subsecciones = [];
+				for(var e = 0;e < $scope.seccion.lista.length;e++){
+					var seccionItem = $scope.seccion.lista[e];
+					if(!((seccionItem.tipo && seccionItem.tipo=="W") || seccionItem.cod_seccion_padre)){
+						for(var i = 0;i<seccionItem.subSeccion.lista.length;i++){
+							if(seccionItem.subSeccion.lista[i].atributo.lista.length==0){
+								$scope.agregarAlerta("danger","Debes registrar por lo menos un atributo en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
+								return false;
+							}
+							subsecciones.push({
+								plantilla : seccionItem.plantilla,
+								cod_seccion : (seccionItem.plantilla && seccionItem.plantilla=="1")?$scope.editor.seccion.index_codSeccion[e]:(e+1),
+								cod_sub_seccion : (i+1),
+								nombre : seccionItem.subSeccion.lista[i].nombre
+							})
+						}
+					}
+				}
+				return subsecciones;
+			},
+			index_subSeccion : {},
+			index_subSeccionPadre : {},
+			setSubSecciones : function(subSecciones){
+				for(var i = 0;i < subSecciones.length; i++){
+					var subSeccionItem = subSecciones[i];
+					if(!$scope.editor.seccion.index_subSeccion[subSeccionItem.cod_seccion]){
+						$scope.editor.seccion.index_subSeccion[subSeccionItem.cod_seccion] = {};
+					}
+					
+					var index_seccion = $scope.editor.seccion.index_seccion[subSeccionItem.cod_seccion];
+					$scope.editor.seccion.index_subSeccion[subSeccionItem.cod_seccion][subSeccionItem.cod_sub_seccion] = $scope.seccion.lista[index_seccion].subSeccion.lista.length;
+					$scope.seccion.lista[index_seccion].subSeccion.lista.push({
+						nombre : subSeccionItem.nombre,
+						atributo : {
+							selected : null,
+							lista : []
+						}
+					});
+				}
+			},
+			index_subSeccionPadre : {},
+			setSubSeccionesPlantillas : function(subSecciones){
+				for(var e = 0; e < subSecciones.length ; e++){
+					var subSeccionItem = subSecciones[e];
+					var indexSeccion = $scope.editor.seccion.index_seccionPadre[subSeccionItem.cod_seccion];
+					
+					if(!$scope.editor.seccion.index_subSeccionPadre[subSeccionItem.cod_seccion]){
+						$scope.editor.seccion.index_subSeccionPadre[subSeccionItem.cod_seccion] = {};
+					}
+					$scope.editor.seccion.index_subSeccionPadre[subSeccionItem.cod_seccion][subSeccionItem.cod_sub_seccion] = $scope.seccion.lista[indexSeccion].subSeccion.lista.length;
+					$scope.seccion.lista[indexSeccion].subSeccion.lista.push({
+						nombre : subSeccionItem.nombre,
+						atributo : {
+							selected : null,
+							lista : []
+						}
+					});
+				}
+			},
+			getAtributos : function(atributos){
+				
+				for(var e = 0;e < $scope.seccion.lista.length;e++){
+					
+					var seccionItem = $scope.seccion.lista[e];
+					
+					if(!((seccionItem.tipo && seccionItem.tipo=="W") || seccionItem.cod_seccion_padre)){
+						
+						for(var i = 0;i<$scope.seccion.lista[e].subSeccion.lista.length;i++){
+							
+							var atributosdeSubseccion = $scope.seccion.lista[e].subSeccion.lista[i].atributo.lista;
+							
+							for(var o = 0;o<atributosdeSubseccion.length;o++){
+								var atributoItem = atributosdeSubseccion[o];
+			
+								if(!(atributoItem.web_etiqueta && atributoItem.web_etiqueta.length!=0)){
+									atributoItem.inf_error = "Falta registrar etiqueta";
+									$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
+									return false;
+								}
+								
+								if(!(atributoItem.web_tipo_campo && atributoItem.web_tipo_campo.length!=0)){
+									atributoItem.inf_error = "Falta seleccionar tipo de campo";
+									$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
+									return false;
+								}
+								
+								if(atributoItem.web_tipo_campo=="E" && !(atributoItem.web_tipo_lista && atributoItem.web_tipo_lista.length!=0)){
+									atributoItem.inf_error = "Falta seleccionar el tipo de lista desplegable";
+									$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
+									return false;
+								}
+								
+								if(atributoItem.web_tipo_campo=="E" && atributoItem.web_tipo_lista=="C" && !(atributoItem.web_catalogo && atributoItem.web_catalogo.length!=0)){
+									atributoItem.inf_error = "Falta seleccionar el tipo de catálogo";
+									$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
+									return false;
+								}
+								
+								if(atributoItem.web_requerido=="1" && !(atributoItem.web_mensaje_validacion && atributoItem.web_mensaje_validacion.length!=0)){
+									atributoItem.inf_error = "Falta mensaje de validación";
+									$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
+									return false;
+								}
+								
+								atributoItem.inf_error = "";
+								
+								atributos.push({
+									plantilla 				: seccionItem.plantilla,
+									cod_seccion 			: (seccionItem.plantilla && seccionItem.plantilla=="1")?$scope.editor.seccion.index_codSeccion[e]:(e+1),
+									cod_sub_seccion 		: (i+1),
+									cod_tarea_accion 		: (o+1),
+									cod_atributo 			: atributoItem.cod_atributo,
+									cod_tipo_accion			: 'C',
+									web_etiqueta 			: atributoItem.web_etiqueta,
+									web_tipo 				: atributoItem.web_tipo,
+									web_tipo_campo 			: atributoItem.web_tipo_campo,
+									web_tipo_lista			: atributoItem.web_tipo_lista,
+									web_catalogo 			: atributoItem.web_catalogo,
+									web_requerido 			: atributoItem.web_requerido,
+									web_mensaje_validacion 	: atributoItem.web_mensaje_validacion
+								});
+								
+							}
+			
+						}
+						
+					}
+					
+				}
+				
+				return true;
+				
+			},
+			setAtributos : function(atributos){
+				for(var i = 0;i < atributos.length; i++){
+					var atributoItem = atributos[i];
+					if(atributoItem.cod_seccion!='0'){
+						var indexSeccion = $scope.editor.seccion.index_seccion[atributoItem.cod_seccion];
+						if($scope.editor.seccion.index_subSeccion[atributoItem.cod_seccion]){
+							var indexSubseccion = $scope.editor.seccion.index_subSeccion[atributoItem.cod_seccion][atributoItem.cod_sub_seccion];
+						}
+						var atributoConsulta = $scope.consulta.atributos[$scope.consulta.atributosId[atributoItem.cod_atributo]];
+						
+						$scope.seccion.lista[indexSeccion].subSeccion.lista[indexSubseccion].atributo.lista.push(angular.extend({},atributoItem,{
+							cla_nombre : atributoConsulta.cla_nombre,
+							atr_nombre : atributoConsulta.nombre,
+							sql_longitud : atributoConsulta.sql_longitud,
+							sql_precision : atributoConsulta.sql_precision
+						}));
+					}
+				}
+			},
+			setAtributosPlantillas : function(atributos){
+				for(var i = 0;i < atributos.length; i++){
+					var atributoItem = atributos[i];
+					var indexSeccion = $scope.editor.seccion.index_seccionPadre[atributoItem.cod_seccion];
+					if($scope.editor.seccion.index_subSeccionPadre[atributoItem.cod_seccion]){
+						var indexSubseccion = $scope.editor.seccion.index_subSeccionPadre[atributoItem.cod_seccion][atributoItem.cod_sub_seccion];
+					}
+					var atributoConsulta = $scope.consulta.atributos[$scope.consulta.atributosId[atributoItem.cod_atributo]];
+					
+					$scope.seccion.lista[indexSeccion].subSeccion.lista[indexSubseccion].atributo.lista.push(angular.extend({},atributoItem,{
+						cla_nombre : atributoConsulta.cla_nombre,
+						atr_nombre : atributoConsulta.nombre,
+						sql_longitud : atributoConsulta.sql_longitud,
+						sql_precision : atributoConsulta.sql_precision
+					}));
+				}
+			}
 		}
 	});
 	
@@ -110,18 +392,6 @@
 			}
 		}
 	});
-	
-	$scope.tipoClase = {
-		"Integer" : "I",
-		"Long" : "L",
-		"long" : "l",
-		"String" : "S",
-		"boolean" : "b",
-		"java.math.BigDecimal" : "B",
-		"java.util.Date" : "D",
-		"java.sql.Date" : "D",
-		"java.sql.Timestamp" : "T"
-	};
 	
 	var tipoCampo_Integer = [
          {
@@ -218,6 +488,9 @@
 			});
 			$scope.seccion.lista[eid-1].activo = true;
 		},
+		cargar : function(lista){
+			
+		},
 		agregarWidget : function(widget){
 			for(var i = 0; i< $scope.seccion.lista.length;i++){
 				if($scope.seccion.lista[i].tipo=="W" && $scope.seccion.lista[i].tipo_widget == widget){
@@ -281,16 +554,35 @@
 			$scope.seccion.actual = nroIndex + 1;
 		},
 		buscarPlantilla : function(){
+			if($scope.accion && $scope.accion.plantilla && $scope.accion.plantilla.cargarModal){
+				$scope.accion.plantilla.cargarModal(function(){
+					$scope.seccion.cargarModalPlantilla();
+				})
+			} else {
+				$scope.seccion.cargarModalPlantilla();
+			}
+		},
+		cargarModalPlantilla : function(){
 			if($scope.seccion.lista.length>0){
 				$scope.seccion.lista[0].activo = true;
 			}
 			var modalInstance = $modal.open({
 				animation: true,
-				templateUrl: 'modal_agregarPlantilla.html',
-				controller: 'modal_agregarPlantilla',
+				templateUrl: 'plantilla/inc_editor_seccion_agregarplantilla.html',
+				controller: 'inc_editor_seccion_agregarplantilla',
 				resolve: {
 					config : function(){
 						return {
+							accionAgregar : function(idPlantilla,call){
+								for(var i = 0;i<$scope.seccion.lista.length;i++){
+									if($scope.seccion.lista[i].cod_seccion_padre == idPlantilla){
+										$scope.agregarAlerta("danger","Ya se tiene asociado la plantilla seleccionada");
+										call();
+										return;
+									}
+								}
+								$scope.accion.plantilla.agregar(idPlantilla,call,$scope.seccion.lista.length+1);
+							},
 							accionEliminar : function(idPlantilla){
 								for(var i = 0;i<$scope.seccion.lista.length;i++){
 									if($scope.seccion.lista[i].cod_seccion_padre == idPlantilla){
@@ -298,7 +590,11 @@
 										break;
 									}
 								}
-							}
+								$scope.agregarAlerta("success","Atributo eliminado correctamente");
+							},
+							consultaPlantillas : $scope.accion.plantilla.consulta,
+							eliminarPlantilla : $scope.accion.plantilla.eliminar,
+							vistaPrevia : $scope.accion.plantilla.vistaPrevia
 						};
 					}
 				}
@@ -417,29 +713,35 @@
 	
 	$scope.$watch('editor.seccionHistorial', function(newValue, oldValue) {
 		if(newValue != oldValue){
-			 if(newValue){
-				 $scope.seccion.agregarWidget("HIS");
-			 } else {
-				 $scope.seccion.quitarWidget("HIS");
-			 }
+			if(!$scope.editor.procesoInstanciar){
+				 if(newValue){
+					 $scope.seccion.agregarWidget("HIS");
+				 } else {
+					 $scope.seccion.quitarWidget("HIS");
+				 }
+			}
 		}
 	});
 	$scope.$watch('editor.seccionDocumentos', function(newValue, oldValue) {
 		if(newValue != oldValue){
-			 if(newValue){
-				 $scope.seccion.agregarWidget("DOC");
-			 } else {
-				 $scope.seccion.quitarWidget("DOC");
-			 }
+			if(!$scope.editor.procesoInstanciar){
+				 if(newValue){
+					 $scope.seccion.agregarWidget("DOC");
+				 } else {
+					 $scope.seccion.quitarWidget("DOC");
+				 }
+			}
 		}
 	});
 	$scope.$watch('editor.seccionObservaciones', function(newValue, oldValue) {
 		if(newValue != oldValue){
-			 if(newValue){
-				 $scope.seccion.agregarWidget("OBS");
-			 } else {
-				 $scope.seccion.quitarWidget("OBS");
-			 }
+			if(!$scope.editor.procesoInstanciar){
+				 if(newValue){
+					 $scope.seccion.agregarWidget("OBS");
+				 } else {
+					 $scope.seccion.quitarWidget("OBS");
+				 }
+			}
 		}
 	});
 	
@@ -463,12 +765,14 @@
 	
 });
 
-mapeo.registerCtrl('modal_agregarPlantilla', function ($scope, $modalInstance, ajax, config) {
+mapeo.registerCtrl('inc_editor_seccion_agregarplantilla', function ($scope, $modalInstance, ajax, config) {
 
 	$scope.listaPlantillas = [];
 	
 	$scope.Agregar = function(){
-		$modalInstance.close();
+		config.accionAgregar($scope.idPlantilla,function(){
+			$modalInstance.close();
+		});
 	};
 	
 	$scope.Cancelar = function(){
@@ -476,29 +780,19 @@ mapeo.registerCtrl('modal_agregarPlantilla', function ($scope, $modalInstance, a
 	};
 	
 	var cargarPlantillas = function(){
-		ajax.jpo({
-			paquete : "modulo",
-			clase : "Tarea",
-			metodo : "listarAccion",
-			TSE_W_TIPO : 'P',
-			TSU_W_COD_SECCION : "-1",
-			TAC_W_COD_SECCION : "-1"
-		},function(respuesta){
+		ajax.jpo(config.consultaPlantillas,function(respuesta){
 			$scope.listaPlantillas = respuesta.SECCION;
 		});
 	};
 	
 	cargarPlantillas();
-	
+
 	$scope.vistaPrevia = function(){
-		ajax.jpo({
-			paquete : "modulo",
-			clase : "Tarea",
-			metodo : "listarAccion",
-			TSE_W_COD_SECCION : $scope.idPlantilla,
-			TSU_W_COD_SECCION : $scope.idPlantilla,
-			TAC_W_COD_SECCION : $scope.idPlantilla
-		},function(respuesta){
+		ajax.jpo(angular.extend({},config.vistaPrevia,{
+			ATR_W_COD_SECCION : $scope.idPlantilla,
+			SUB_W_COD_SECCION : $scope.idPlantilla,
+			SEC_W_COD_SECCION : $scope.idPlantilla
+		}),function(respuesta){
 			$scope.subSeccionLista = [];
 			var indexSubSeccion = {};
 			for(var i = 0; i < respuesta.SUB_SECCION.length ; i++){
@@ -510,7 +804,6 @@ mapeo.registerCtrl('modal_agregarPlantilla', function ($scope, $modalInstance, a
 					}
 				});
 			}
-
 			for(var i = 0;i < respuesta.ATRIBUTO.length; i++){
 				var atributoItem = respuesta.ATRIBUTO[i];
 				$scope.subSeccionLista[indexSubSeccion[atributoItem.cod_sub_seccion]].atributo.lista.push({
@@ -522,17 +815,13 @@ mapeo.registerCtrl('modal_agregarPlantilla', function ($scope, $modalInstance, a
 	
 	$scope.eliminar = function(){
 		if(confirm("Desea eliminar la plantilla seleccionada?")){
-			ajax.jpo({
-				paquete : "modulo",
-				clase : "Tarea",
-				metodo : 'eliminarAccion',
-				TSE_W_COD_SECCION : $scope.idPlantilla,
-				TSU_W_COD_SECCION : $scope.idPlantilla,
-				TAC_W_COD_SECCION : $scope.idPlantilla
-			},function(respuesta){
+			ajax.jpo(angular.extend({},config.eliminarPlantilla,{
+				ATR_W_COD_SECCION : $scope.idPlantilla,
+				SUB_W_COD_SECCION : $scope.idPlantilla,
+				SEC_W_COD_SECCION : $scope.idPlantilla
+			}),function(respuesta){
 				if(respuesta){
-					editor.accionEliminar($scope.idPlantilla);
-					alert("atributo eliminado correctamente");
+					config.accionEliminar($scope.idPlantilla);
 					$modalInstance.close();
 				}
 			});
@@ -621,12 +910,38 @@ mapeo.registerCtrl('inc_editor_seccion_modelo_observacion_tipoobservacion', func
 		$scope.listaObservacion.splice(index,1);
 	};
 	
+	$scope.atributosConsulta = angular.copy(config.cargarAtributosConsulta());
+	
+	$scope.listaAtributos = angular.copy(config.cargarAtributos());
+	$scope.agregarAtributo = function(){
+		$scope.mensaje = "";
+		if(typeof($scope.atributo)!="object"){
+			$scope.mensaje = "Seleccione el atributo corréctamente";
+			return;
+		}
+		for(var i = 0;i < $scope.listaAtributos.length; i++){
+			if($scope.listaAtributos[i].cod_atributo == $scope.atributo.cod_atributo){
+				$scope.mensaje = "Atributo repetido";
+				return;
+			}
+		}
+		$scope.listaAtributos.push({
+			cod_atributo : $scope.atributo.cod_atributo,
+			web_etiqueta : $scope.atributo.web_etiqueta,
+			cla_nombre : $scope.atributo.cla_nombre
+		});
+		delete $scope.atributo;
+	};
+	$scope.eliminarAtributo = function(index){
+		$scope.listaAtributos.splice(index,1);
+	};
+	
 	$scope.guardar = function(){
 		if($scope.listaObservacion.length==0){
 			$scope.mensaje = "Debe ingresar por lo menos una observación";
 			return;
 		}
-		config.guardar($scope.listaObservacion);
+		config.guardar($scope.listaObservacion,$scope.listaAtributos);
 		$modalInstance.close();
 	};
 	$scope.cancelar = function(){

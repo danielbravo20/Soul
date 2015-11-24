@@ -37,7 +37,7 @@ var jsJPO = function(pre){
 				objetoSalida[this.pre+"_W_"+campo] = this.condicion[campo];
 			}
 		}
-		if(this.dataMultiple){
+		if(this.dataMultiple){debugger;
 			for(var i = 0; i < this.dataMultiple.length; i++){
 				if(this.dataMultiplePersonalizado){
 					this.dataMultiple[i] = this.dataMultiplePersonalizado(this.dataMultiple[i], i);

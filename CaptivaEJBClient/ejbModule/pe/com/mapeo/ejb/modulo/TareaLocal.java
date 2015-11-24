@@ -31,4 +31,10 @@ public interface TareaLocal extends GestionLocal {
 	
 	Object listarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
+	Object agregarSeccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
+	Object listarSeccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
+	Object eliminarSeccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
 }

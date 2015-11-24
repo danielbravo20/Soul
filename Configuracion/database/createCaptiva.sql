@@ -416,6 +416,9 @@ CREATE TABLE soul.tarea(
  web_acc_cancelar Character(1) DEFAULT '0'::bpchar NOT NULL,
  web_acc_rechazar Character(1) DEFAULT '0'::bpchar NOT NULL,
  web_acc_observar Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_acc_subsanar Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_wid_documento Character(1) DEFAULT '0'::bpchar NOT NULL,
+ web_wid_historial Character(1) DEFAULT '0'::bpchar NOT NULL,
  web_tie_rojo Integer NOT NULL,
  web_tie_amarillo Integer NOT NULL,
  web_plantilla_resumen Character varying(20)
@@ -769,8 +772,8 @@ CREATE TABLE soul.mae_documento_tarea(
  cod_tarea Integer NOT NULL,
  cod_mae_documento_tarea Integer NOT NULL,
  cod_mae_documento Integer NOT NULL,
- tipo Character(1) NOT NULL
- es_obligatorio Character(1) DEFAULT '0'::bpchar NOT NULL
+ tipo Character(1) NOT NULL,
+ es_obligatorio Character(1) DEFAULT '0'::bpchar NOT NULL,
  estado Character(1) DEFAULT '0'::bpchar NOT NULL
 )
 ;
@@ -817,3 +820,46 @@ CREATE TABLE soul.mae_subsanacion(
 ALTER TABLE soul.mae_subsanacion ADD CONSTRAINT mae_subsanacion_pk PRIMARY KEY (cod_proyecto,cod_tarea,cod_mae_observacion, cod_mae_subsanacion)
 ;
 
+CREATE TABLE soul.tarea_accion
+(
+  cod_tarea integer,
+  cod_seccion character varying(20) NOT NULL,
+  cod_sub_seccion integer,
+  cod_tarea_accion integer NOT NULL,
+  cod_tipo_accion Character(1) NOT NULL,
+  cod_atributo Integer NOT NULL,
+  web_etiqueta Character varying(255),
+  web_tipo Character varying(60),
+  web_tipo_campo Character(1),
+  web_tipo_lista Character(1),
+  web_catalogo Character varying(60),
+  web_requerido Character(1) DEFAULT '0'::bpchar NOT NULL,
+  web_mensaje_validacion Character varying(255),
+  val_omision Character varying(255)
+)
+;
+
+-- Table: soul.tarea_accion_seccion
+
+-- DROP TABLE soul.tarea_accion_seccion;
+
+CREATE TABLE soul.tarea_accion_seccion(
+  cod_tarea integer,
+  cod_seccion character varying(20) NOT NULL,
+  tipo character(1) NOT NULL,
+  tipo_widget character varying(20),
+  nombre character varying(100),
+  cod_seccion_padre character varying(20)
+)
+;
+
+-- Table: soul.tarea_accion_sub_seccion
+
+-- DROP TABLE soul.tarea_accion_sub_seccion;
+
+CREATE TABLE soul.tarea_accion_sub_seccion(
+  cod_tarea integer,
+  cod_seccion character varying(20) NOT NULL,
+  cod_sub_seccion integer NOT NULL,
+  nombre character varying(100) NOT NULL
+);
