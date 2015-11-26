@@ -3,4 +3,4 @@ JBOSS DEVELOPER : jboss-devstudio-8.1.0.GA-installer-eap.jar
 JAVA JDK : jdk-8u60-windows-x64.exe
 JBOSS SERVER : jboss-eap-6.4.0-installer.jar
 JBOSS: Version: 8.1.0.GA
-BDs : postgresql-9.4.4-3-windows-x64.exe 
+BDs : postgresql-9.4.4-3-windows-x64.exe  
