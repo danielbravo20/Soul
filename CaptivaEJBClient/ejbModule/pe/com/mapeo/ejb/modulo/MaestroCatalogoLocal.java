@@ -7,14 +7,14 @@ import pe.com.mapeo.dao.Jpo;
 import pe.com.mapeo.ejb.controller.GestionLocal;
 
 @Local
-public interface MantenimientoLocal extends GestionLocal {
+public interface MaestroCatalogoLocal  extends GestionLocal {
 
-	public Object registrar(Jpo jpo,HttpServletRequest request,HttpServletResponse response) throws Exception;
+	public Object listar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 	public Object eliminar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
-	public Object editarCargar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
-	
 	public Object editar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
+	public Object registrar(Jpo jpo,HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 }

@@ -19,15 +19,7 @@ public interface TareaLocal extends GestionLocal {
 	
 	Object listar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
-	Object registrarResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
-	
-	Object listarResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
-	
-	Object eliminarPlantilla(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
-	
 	Object registrarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
-	
-	//Object eliminarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 	Object listarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
@@ -36,5 +28,21 @@ public interface TareaLocal extends GestionLocal {
 	Object listarSeccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 	Object eliminarSeccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
+	// PLANTILLA RESUMEN
+	
+	Object registrarPlantillaResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
+	Object editarPlantillaResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
+	Object eliminarPlantillaResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
+	Object listarPlantillaResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
+	// RESUMEN
+	
+	Object registrarResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	
+	Object listarResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 }

@@ -122,6 +122,11 @@
 			$scope.cargado.FLG_sql = false;
 			$scope.cargado.FLG_sqlEsEdicion = false;
 			if(Object.size(respuesta.ATRIBUTO_SQL)>0){
+				if(util.getObjeto($scope.data.TABLA,{cod_tabla : respuesta.ATRIBUTO_SQL.cod_tabla}).es_mantenimiento=='1'){
+					$scope.sql_esMantenimiento = '1';
+				} else {
+					$scope.sql_esMantenimiento = '0';
+				}
 				util.jpoCargar($scope.cargado,respuesta.ATRIBUTO_SQL,"ADB");
 				$scope.cargado.FLG_sql = true;
 				$scope.cargado.FLG_sqlEsEdicion = true;

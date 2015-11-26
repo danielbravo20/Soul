@@ -53,21 +53,18 @@ public class Principal extends GestionBase implements PrincipalLocal {
 		
 		// COD_PROYECTO
 		listados.put("ROL", jpo.tabla("ROL","LIB").seleccionar("*"));
-		//listados.put("ESQUEMA", jpo.tabla("ESQUEMA","LIB").seleccionar("*"));
 		listados.put("DATASOURCE", jpo.tabla("DATASOURCE","LIB").seleccionar("*"));
-		//listados.put("CONFIGURACION", jpo.tabla("CONFIGURACION","LIB").obtener("*"));
 		listados.put("CLASE", jpo.tabla("CLASE","LIB").seleccionar("*"));
 		listados.put("PROCESO", jpo.tabla("PROCESO","LIB").seleccionar("*"));
 		listados.put("TABLA", jpo.tabla("TABLA","LIB").seleccionar("*"));
-		//listados.put("OBJ_BPM", jpo.tabla("OBJ_BPM","LIB").seleccionar("*"));
 		listados.put("CONSULTA", jpo.tabla("CONSULTA","LIB").seleccionar("*"));
-		listados.put("MANTENIMIENTO", jpo.tabla("MANTENIMIENTO","LIB").seleccionar("*"));
 		listados.put("MAE_DOCUMENTO", jpo.tabla("mae_documento","LIB").seleccionar("*"));
+		listados.put("MAE_CATALOGO_PADRE", jpo.tabla("mae_catalogo","LIB").donde(" AND cabecera = '1'").seleccionar("*"));
+		listados.put("MAE_CATALOGO", jpo.tabla("mae_catalogo","LIB").seleccionar("*"));
 		
 		// COD_PROYECTO y COD_VERSION
 		// COD_PROYECTO y COD_USUARIO
 		listados.put("EQUIPO", jpo.tabla("EQUIPO","LIC").obtener("*"));
-		listados.put("CATALOGO", jpo.tabla("CATALOGO","LIB").donde(" AND cabecera = '1'").seleccionar("*"));
 		
 		// SIN CONDICIONES
 		//listados.put("MAE_UNI_NEGOCIO", jpo.tabla("MAE_UNI_NEGOCIO").seleccionar("*"));

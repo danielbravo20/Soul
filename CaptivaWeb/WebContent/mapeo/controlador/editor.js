@@ -291,47 +291,55 @@
 									return false;
 								}
 								
-								if(!(atributoItem.web_tipo_campo && atributoItem.web_tipo_campo.length!=0)){
-									atributoItem.inf_error = "Falta seleccionar tipo de campo";
-									$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
-									return false;
-								}
-								
-								if(atributoItem.web_tipo_campo=="E" && !(atributoItem.web_tipo_lista && atributoItem.web_tipo_lista.length!=0)){
-									atributoItem.inf_error = "Falta seleccionar el tipo de lista desplegable";
-									$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
-									return false;
-								}
-								
-								if(atributoItem.web_tipo_campo=="E" && atributoItem.web_tipo_lista=="C" && !(atributoItem.web_catalogo && atributoItem.web_catalogo.length!=0)){
-									atributoItem.inf_error = "Falta seleccionar el tipo de catálogo";
-									$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
-									return false;
-								}
-								
-								if(atributoItem.web_requerido=="1" && !(atributoItem.web_mensaje_validacion && atributoItem.web_mensaje_validacion.length!=0)){
-									atributoItem.inf_error = "Falta mensaje de validación";
-									$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
-									return false;
+								if($scope.editor.atributo_tipo!="sololectura"){
+									if(!(atributoItem.web_tipo_campo && atributoItem.web_tipo_campo.length!=0)){
+										atributoItem.inf_error = "Falta seleccionar tipo de campo";
+										$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
+										return false;
+									}
+									
+									if(atributoItem.web_tipo_campo=="E" && !(atributoItem.web_tipo_lista && atributoItem.web_tipo_lista.length!=0)){
+										atributoItem.inf_error = "Falta seleccionar el tipo de lista desplegable";
+										$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
+										return false;
+									}
+									
+									if(atributoItem.web_tipo_campo=="E" && atributoItem.web_tipo_lista=="C" && !(atributoItem.web_catalogo && atributoItem.web_catalogo.length!=0)){
+										atributoItem.inf_error = "Falta seleccionar el tipo de catálogo";
+										$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
+										return false;
+									}
+									
+									if(atributoItem.web_requerido=="1" && !(atributoItem.web_mensaje_validacion && atributoItem.web_mensaje_validacion.length!=0)){
+										atributoItem.inf_error = "Falta mensaje de validación";
+										$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
+										return false;
+									}
 								}
 								
 								atributoItem.inf_error = "";
 								
-								atributos.push({
+								var nuevoAtributo = {
 									plantilla 				: seccionItem.plantilla,
 									cod_seccion 			: (seccionItem.plantilla && seccionItem.plantilla=="1")?$scope.editor.seccion.index_codSeccion[e]:(e+1),
 									cod_sub_seccion 		: (i+1),
-									cod_tarea_accion 		: (o+1),
 									cod_atributo 			: atributoItem.cod_atributo,
-									cod_tipo_accion			: 'C',
-									web_etiqueta 			: atributoItem.web_etiqueta,
-									web_tipo 				: atributoItem.web_tipo,
-									web_tipo_campo 			: atributoItem.web_tipo_campo,
-									web_tipo_lista			: atributoItem.web_tipo_lista,
-									web_catalogo 			: atributoItem.web_catalogo,
-									web_requerido 			: atributoItem.web_requerido,
-									web_mensaje_validacion 	: atributoItem.web_mensaje_validacion
-								});
+									web_etiqueta 			: atributoItem.web_etiqueta
+								};
+								
+								if($scope.editor.atributo_tipo!="sololectura"){
+									nuevoAtributo.cod_tipo_accion 		= 'C';
+									nuevoAtributo.web_tipo 		 		= atributoItem.web_tipo;
+									nuevoAtributo.web_tipo_campo 		= atributoItem.web_tipo_campo;
+									nuevoAtributo.web_tipo_lista 		= atributoItem.web_tipo_lista;
+									nuevoAtributo.web_catalogo 			= atributoItem.web_catalogo;
+									nuevoAtributo.web_requerido 		= atributoItem.web_requerido;
+									nuevoAtributo.web_mensaje_validacion= atributoItem.web_mensaje_validacion;
+								}
+								
+								nuevoAtributo[$scope.editor.atributo_codElemento] = (o+1);
+								
+								atributos.push(nuevoAtributo);
 								
 							}
 			

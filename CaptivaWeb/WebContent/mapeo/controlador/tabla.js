@@ -63,10 +63,8 @@
 		$scope.esEdicion = true;
 		util.jpoCargar($scope.cargado,util.getObjeto($scope.data.TABLA,{cod_tabla : cod_tabla}),"TAB");
 	};
-	
-	$scope.guardar = function(){
-		$scope.$broadcast('show-errors-check-validity');
-		if ($scope.FRM_TABLA.$invalid) { return; }
+		
+	var _guardar = function(){
 		if($scope.esEdicion){
 			$scope.cargado.metodo = "editar";
 			$scope.cargado.TAB_W_cod_tabla = $scope.cargado.TAB_cod_tabla;			// WHERE-------
@@ -80,6 +78,17 @@
 				$scope.agregarAlerta("success","Creado corréctamente");
 				$scope.instanciar(true);
 			});
+		}
+	};
+	
+	$scope.guardar = function(){
+		$scope.$broadcast('show-errors-check-validity');
+		if ($scope.FRM_TABLA.$invalid) { return; }
+		if($scope.cargado.TAB_es_mantenimiento=="0"){
+			$scope.cargado.TAB_flg_mantenimiento_eliminar = '0';
+			$scope.borrarRoles($scope.cargado.TAB_cod_tabla,"tabla_mantenimiento_rol","cod_tabla",_guardar);
+		} else {
+			_guardar();
 		}
 	};
 	
@@ -125,5 +134,8 @@
 		}
 	});
 	
+	$scope.gestionarRoles = function(){
+		$scope.asociarRoles($scope.cargado.TAB_cod_tabla,"ROLES DE MANTENIMIENTO DE LA TABLA '"+$scope.cargado.TAB_nombre+"'","tabla_mantenimiento_rol","cod_tabla");
+	};
 	
 });

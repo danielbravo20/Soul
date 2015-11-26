@@ -1,4 +1,4 @@
-﻿mapeo.registerCtrl('proyectocargado', function($scope, $modal) {
+﻿mapeo.registerCtrl('proyectocargado', function($scope, $modal, ajax) {
 	
 	$scope.tabs = {
 		unoALaVes : true,
@@ -51,19 +51,7 @@
 				nombre : "MAESTRO",
 				activo : false,
 				url : 'maestro.html'
-			}/*,
-			{
-				id : "mantenimiento",
-				nombre : "Mantenimientos",
-				activo : false,
-				url : 'mantenimiento.html'
-			},
-			{
-				id : "reporte",
-				nombre : "Reportes",
-				activo : false,
-				url : 'reporte.html'
-			}*/
+			}
 		]
 	};
 	
@@ -97,7 +85,11 @@
 			tipoCargado = true;
 		}
 		if(tipoCargado){
-			$scope.$apply();
+			try {
+				$scope.$apply();
+			} catch (e) {
+				// TODO: handle exception
+			}
 		}
 	};
 	
@@ -125,8 +117,28 @@
 			modal.result.then(function(){
 				//$scope.instanciar();
 			});
-	}
+	};
 	
+	$scope.borrarRoles = function(cod_tabla,tabla,atributo,call){
+
+		var param = {
+			paquete 			: "modulo", 
+			clase 				: "Rol",
+			metodo 				: "registrarRolxEntidad",
+			tabla 				: tabla
+		};
+		
+			param["ROL_W_"+atributo] = cod_tabla;
+		
+		ajax.jpo(param,function(respuesta){
+			if(respuesta){
+				if(call){
+					call();
+				}
+			}
+		});
+		
+	};
 	
 });
 

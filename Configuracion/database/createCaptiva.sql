@@ -47,7 +47,9 @@ CREATE TABLE soul.atributo_sql(
  fn_bus_catalogo Character varying(50),
  val_defecto Character varying(120),
  fk_campo Integer,
- sequencial Character varying(120)
+ sequencial Character varying(120),
+ flg_mantenimiento_listar Character(1) DEFAULT '0'::bpchar NOT NULL,
+ flg_mantenimiento_filtrar Character(1) DEFAULT '0'::bpchar NOT NULL
 )
 ;
 
@@ -103,7 +105,9 @@ ALTER TABLE soul.clase ADD CONSTRAINT clase_pk PRIMARY KEY (cod_clase)
 CREATE TABLE soul.consulta(
  cod_consulta Integer NOT NULL,
  cod_proyecto Integer NOT NULL,
- nombre Character varying(120) DEFAULT ''::character varying NOT NULL
+ nombre Character varying(120) DEFAULT ''::character varying NOT NULL,
+ es_reporte Character(1) DEFAULT '0'::bpchar NOT NULL,
+ nombre_reporte Character varying(120)
 )
 ;
 
@@ -118,7 +122,9 @@ CREATE TABLE soul.consulta_atributo(
  cod_consulta Integer NOT NULL,
  cod_atributo Integer NOT NULL,
  flg_condicion Character(1) DEFAULT '0'::bpchar NOT NULL,
- cod_tabla Integer DEFAULT 0 NOT NULL
+ cod_tabla Integer DEFAULT 0 NOT NULL,
+ flg_reporte_rastrear Character(1) DEFAULT '0'::bpchar NOT NULL,
+ flg_reporte_busqueda Character(1) DEFAULT '0'::bpchar NOT NULL
 )
 ;
 
@@ -177,68 +183,6 @@ CREATE TABLE soul.equipo(
 -- Add keys for table soul.equipo
 
 ALTER TABLE soul.equipo ADD CONSTRAINT Key1 PRIMARY KEY (cod_proyecto,cod_usuario)
-;
-
--- Table soul.mantenimiento
-
-CREATE TABLE soul.mantenimiento(
- cod_mantenimiento Character varying(80) NOT NULL,
- cod_proyecto Integer,
- nombre Character varying(100) NOT NULL,
- descripcion Character varying(255),
- cod_esquema Character varying(100) NOT NULL,
- cod_datasource Character varying(100) NOT NULL
-)
-;
-
--- Create indexes for table soul.mantenimiento
-
-CREATE INDEX ix_relationship38 ON soul.mantenimiento (cod_proyecto)
-;
-
--- Add keys for table soul.mantenimiento
-
-ALTER TABLE soul.mantenimiento ADD CONSTRAINT sql150717091917330 PRIMARY KEY (cod_mantenimiento)
-;
-
--- Table soul.mantenimiento_atributo
-
-CREATE TABLE soul.mantenimiento_atributo(
- cod_atributo Integer NOT NULL,
- cod_mantenimiento Character varying(80),
- nombre Character varying(50) NOT NULL,
- tipo_dato Character varying(50) NOT NULL,
- longitud Integer,
- precision Integer,
- es_llave_primaria Character(1),
- es_listado Character(1),
- es_busqueda Character(1),
- es_obligatorio Character(1),
- descripcion Character varying(255)
-)
-;
-
--- Create indexes for table soul.mantenimiento_atributo
-
-CREATE INDEX ix_relationship37 ON soul.mantenimiento_atributo (cod_mantenimiento)
-;
-
--- Add keys for table soul.mantenimiento_atributo
-
-ALTER TABLE soul.mantenimiento_atributo ADD CONSTRAINT sql150721084249850 PRIMARY KEY (cod_atributo)
-;
-
--- Table soul.mantenimiento_rol
-
-CREATE TABLE soul.mantenimiento_rol(
- cod_rol Character varying(120) NOT NULL,
- cod_mantenimiento Character varying(80) NOT NULL
-)
-;
-
--- Add keys for table soul.mantenimiento_rol
-
-ALTER TABLE soul.mantenimiento_rol ADD CONSTRAINT sql150721084032400 PRIMARY KEY (cod_rol,cod_mantenimiento)
 ;
 
 -- Table soul.proceso
@@ -390,7 +334,9 @@ CREATE TABLE soul.tabla(
  cod_tabla Integer NOT NULL,
  esquema Character varying(50) NOT NULL,
  nombre Character varying(50) NOT NULL,
- cod_proyecto Integer NOT NULL
+ cod_proyecto Integer NOT NULL,
+ es_mantenimiento Character(1) DEFAULT '0'::bpchar NOT NULL,
+ flg_mantenimiento_eliminar Character(1) DEFAULT '0'::bpchar NOT NULL
 )
 ;
 
@@ -692,6 +638,66 @@ CREATE TABLE soul.tarea_resumen_plantilla (
  )
 ;
 
+-- Table: soul.tarea_resumen_plantilla_sub_seccion
+
+-- DROP TABLE soul.tarea_resumen_plantilla_sub_seccion;
+
+CREATE TABLE soul.tarea_resumen_plantilla_sub_seccion
+(
+  cod_plantilla character varying(20) NOT NULL,
+  cod_sub_seccion integer NOT NULL,
+  nombre character varying(100) NOT NULL
+);
+
+ALTER TABLE soul.tarea_resumen_plantilla_sub_seccion ADD CONSTRAINT tarea_resumen_plantilla_sub_seccion_pk PRIMARY KEY (cod_plantilla,cod_sub_seccion)
+;
+
+-- Table: soul.tarea_resumen_plantilla_atributo
+
+-- DROP TABLE soul.tarea_resumen_plantilla_atributo;
+
+CREATE TABLE soul.tarea_resumen_plantilla_atributo
+(
+  cod_plantilla character varying(20) NOT NULL,
+  cod_sub_seccion integer NOT NULL,
+  cod_tarea_resumen_plantilla_atributo integer NOT NULL,
+  cod_atributo integer NOT NULL,
+  web_etiqueta character varying(255) NOT NULL
+);
+
+ALTER TABLE soul.tarea_resumen_plantilla_atributo ADD CONSTRAINT tarea_resumen_plantilla_atributo_pk PRIMARY KEY (cod_plantilla,cod_sub_seccion,cod_tarea_resumen_plantilla_atributo)
+;
+
+-- Table: soul.tarea_resumen
+
+-- DROP TABLE soul.tarea_resumen;
+
+CREATE TABLE soul.tarea_resumen
+(
+  cod_tarea integer NOT NULL,,
+  cod_sub_seccion integer NOT NULL,
+  cod_tarea_resumen integer NOT NULL,
+  cod_atributo integer NOT NULL,
+  web_etiqueta character varying(255) NOT NULL
+);
+
+ALTER TABLE soul.tarea_resumen ADD CONSTRAINT tarea_resumen_pk PRIMARY KEY (cod_tarea,cod_sub_seccion,cod_tarea_resumen)
+;
+
+-- Table: soul.tarea_resumen_sub_seccion
+
+-- DROP TABLE soul.tarea_resumen_sub_seccion;
+
+CREATE TABLE soul.tarea_resumen_sub_seccion
+(
+  cod_tarea integer NOT NULL,
+  cod_sub_seccion integer NOT NULL,
+  nombre character varying(100) NOT NULL
+);
+
+ALTER TABLE soul.tarea_resumen_sub_seccion ADD CONSTRAINT tarea_resumen_sub_seccion_pk PRIMARY KEY (cod_tarea,cod_sub_seccion)
+;
+
 -- Table soul.tarea_resumen_sub_seccion
 
 CREATE TABLE soul.tarea_resumen_sub_seccion(
@@ -863,3 +869,47 @@ CREATE TABLE soul.tarea_accion_sub_seccion(
   cod_sub_seccion integer NOT NULL,
   nombre character varying(100) NOT NULL
 );
+
+-- Table: soul.mae_catalogo
+
+-- DROP TABLE soul.mae_catalogo;
+
+CREATE TABLE soul.mae_catalogo
+(
+  cod_proyecto integer,
+  cod_catalogo character varying(50) NOT NULL,
+  cod_atributo character varying(50) NOT NULL,
+  valor_1 character varying(100),
+  valor_2 character varying(100),
+  descripcion character varying(100),
+  lim_cod_atributo integer,
+  lim_valor_1 integer,
+  lim_valor_2 integer,
+  cabecera character(1) NOT NULL,
+  CONSTRAINT mae_catalogo_pk PRIMARY KEY (cod_catalogo, cod_atributo),
+  CONSTRAINT mae_catalogo_fk FOREIGN KEY (cod_proyecto)
+      REFERENCES soul.proyecto (cod_proyecto) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+-- Table: soul.tabla_mantenimiento_rol
+
+-- DROP TABLE soul.tabla_mantenimiento_rol;
+
+CREATE TABLE soul.tabla_mantenimiento_rol(
+  cod_tabla Integer NOT NULL,
+  cod_rol character varying(120) NOT NULL
+);
+
+ALTER TABLE soul.tabla_mantenimiento_rol ADD CONSTRAINT tabla_mantenimiento_rol_pk PRIMARY KEY (cod_tabla,cod_rol)
+;
+
+-- DROP TABLE soul.consulta_reporte_rol;
+
+CREATE TABLE soul.consulta_reporte_rol(
+  cod_consulta Integer NOT NULL,
+  cod_rol character varying(120) NOT NULL
+);
+
+ALTER TABLE soul.consulta_reporte_rol ADD CONSTRAINT consulta_reporte_rol_pk PRIMARY KEY (cod_consulta,cod_rol)
+;

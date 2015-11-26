@@ -2,7 +2,9 @@
 
 	// EDITOR ----------------------------------
 	$scope.editor = {
-		atributo_tipo : "detallado"
+		fechaInicio : new Date(),
+		atributo_tipo : "detallado",
+		atributo_codElemento : "cod_tarea_accion"
 	};
 	// EDITOR ----------------------------------
 	

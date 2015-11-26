@@ -1,12 +1,81 @@
-﻿mapeo.registerCtrl('procesogestionardetalle', function($scope, $modal, ajax, util) {
+﻿mapeo.registerCtrl('procesogestionardetalle', function($scope, $filter, ajax, util) {
 
 	// EDITOR ----------------------------------
 	$scope.editor = {
-		atributo_tipo : "sololectura"
+		fechaInicio : new Date(),
+		atributo_tipo : "sololectura",
+		atributo_codElemento : "cod_proceso_detalle"
 	}
 	// EDITOR ----------------------------------
 	
-	func.consulta($scope, ajax, $scope.data.PROCESO_CARGADO.cod_proyecto, $scope.data.PROCESO_CARGADO.cod_con_detalle);
+	var condicion = {
+		cod_proyecto : $scope.data.PROYECTO.cod_proyecto,
+		cod_proceso : $scope.data.PROCESO_CARGADO.cod_proceso
+	};
+	
+	var Tproceso = new jsJPO("PRO");
+		Tproceso.donde({
+			cod_proceso : $scope.data.PROCESO_CARGADO.cod_proceso
+		});
+	
+	var Tseccion = new jsJPO("SEC");
+		Tseccion.donde({
+			cod_proceso : $scope.data.PROCESO_CARGADO.cod_proceso
+		});
+		
+	var TsubSeccion = new jsJPO("SUB");
+		TsubSeccion.donde({
+			cod_proceso : $scope.data.PROCESO_CARGADO.cod_proceso
+		});
+		
+	var Tatributos = new jsJPO("ATR");
+		Tatributos.donde({
+			cod_proceso : $scope.data.PROCESO_CARGADO.cod_proceso
+		});
+	
+	func.consulta($scope, ajax, $scope.data.PROYECTO.cod_proyecto, $scope.data.PROCESO_CARGADO.cod_con_detalle);
+	
+	$scope.accion = {
+		plantilla : {
+			cargarModal : function(call){
+				$scope.registrarInicio(call);
+			},
+			agregar : function(idPlantilla,call,cod_seccion){
+				ajax.jpo({
+					paquete : "modulo",
+					clase : "Proceso",
+					metodo : "agregarSeccion",
+					SEC_cod_proceso : $scope.data.PROCESO_CARGADO.cod_proceso,
+					SEC_cod_seccion : cod_seccion,
+					SEC_tipo : "A",
+					SEC_cod_seccion_padre : idPlantilla,
+				},function(respuesta){
+					if(respuesta){
+						if(call){
+							$scope.listar();
+							call();
+						}
+					}
+				});
+			},
+			consulta : {
+				paquete : "modulo",
+				clase : "Proceso",
+				metodo : "listarDetalle",
+				SEC_W_tipo : 'P'
+			},
+			eliminar : {
+				paquete : "modulo",
+				clase : "Proceso",
+				metodo : 'eliminarDetalle'
+			},
+			vistaPrevia : {
+				paquete : "modulo",
+				clase : "Proceso",
+				metodo : "listarDetalle"
+			}
+		}
+	};
 	
 	var detalle = {
 		index_seccion : {},
@@ -129,200 +198,124 @@
 			}
 		}
 	};
+
+	var cargarInstanciar = function(){
+		var proceso =  $scope.data.PROCESO_CARGADO;
+		$scope.editor.tipoVista = proceso.web_detalle_tipovista;
+	};
 	
 	$scope.instanciar = function(vaAListar){
 		$scope.cargado = { paquete : "modulo", clase : "Proceso"};
-
-		$scope.cargado["PRO_W_cod_proceso"] = $scope.data.PROCESO_CARGADO.cod_proceso;
-		$scope.cargado["PDS_W_cod_proceso"] = $scope.data.PROCESO_CARGADO.cod_proceso;
-		$scope.cargado["PDB_W_cod_proceso"] = $scope.data.PROCESO_CARGADO.cod_proceso;
-		$scope.cargado["PDA_W_cod_proceso"] = $scope.data.PROCESO_CARGADO.cod_proceso;
-
-		if(!(typeof(vaAListar)!="undefined" && vaAListar==false)){
-			$scope.consulta.tablas = [];
-			$scope.consulta.atributos = [];
-			$scope.consulta.atributosId = [];
-
-			if($scope.data.PROCESO_CARGADO.web_detalle_tipovista){
-				$scope.editor.tipoVista = $scope.data.PROCESO_CARGADO.web_detalle_tipovista;
+		$scope.consulta.cargar(function(){
+			if(!(typeof(vaAListar)=="boolean" && vaAListar==false)){
+				$scope.listar();
+			} else {
+				cargarInstanciar();
 			}
+		});
+	};
+	
+	$scope.listar = function(){
+		Tseccion.agregar($scope.cargado);
+		TsubSeccion.agregar($scope.cargado);
+		Tatributos.agregar($scope.cargado);
+		$scope.cargado.metodo = "listarDetalle";
+		ajax.jpo($scope.cargado,function(respuesta){
+
+			$scope.data.PROCESO = respuesta.PROCESO;
+			$scope.data.PROCESO_CARGADO = $filter('filter')(respuesta.PROCESO, {cod_proceso : condicion.cod_proceso})[0];
 			
-			$scope.consulta.cargar(function(){
-				//detalle.cargar();
-			});
-		}
-	};
-	
-	$scope.$watch('editor.seccionHistorial', function(newValue, oldValue) {
-		if(newValue != oldValue){
-			 if(newValue=="1"){
-				 $scope.seccion.agregarWidget("HIS");
-			 } else {
-				 $scope.seccion.quitarWidget("HIS");
-			 }
-		}
-	});
-	$scope.$watch('editor.seccionDocumentos', function(newValue, oldValue) {
-		if(newValue != oldValue){
-			 if(newValue=="1"){
-				 $scope.seccion.agregarWidget("DOC");
-			 } else {
-				 $scope.seccion.quitarWidget("DOC");
-			 }
-		}
-	});
-	$scope.$watch('editor.seccionObservaciones', function(newValue, oldValue) {
-		if(newValue != oldValue){
-			 if(newValue=="1"){
-				 $scope.seccion.agregarWidget("OBS");
-			 } else {
-				 $scope.seccion.quitarWidget("OBS");
-			 }
-		}
-	});
-	
-	$scope.widget = {
-		widgetNombre : {
-			"HIS" : "Historial de Tareas",
-			"DOC" : "Documentos",
-			"OBS" : "Observaciones y Subsanaciones"
-		},
-		widgetRadios : {
-			"HIS" : "seccionHistorial",
-			"DOC" : "seccionDocumentos",
-			"OBS" : "seccionObservaciones"
-		},
-		widgetUrl : {
-			"HIS" : "plantilla/inc_modelo_historialtareas.html",
-			"DOC" : "plantilla/inc_modelo_documentos.html",
-			"OBS" : "plantilla/inc_modelo_observaciones.html"
-		}
-	};
-	
-	$scope.interno = {
-		lista : [],
-		agregar : function(){
-			$scope.interno.lista.push({
-				cla_nombre : $scope.interno.nuevoAtributo.cla_nombre,
-				atr_nombre : $scope.interno.nuevoAtributo.nombre
-			});
-			delete $scope.interno.nuevoAtributo;
-		},
-		nuevo : function(){
+			cargarInstanciar();
 			
-		},
-		eliminar : function(index){
-			$scope.interno.lista.splice(index,1);
-		}
+			if(respuesta.SECCION.length>0){
+				$scope.editor.seccion.setSecciones(respuesta.SECCION);
+			}
+			if(respuesta.SECCION_PLANTILLA && respuesta.SECCION_PLANTILLA.length>0){
+				$scope.editor.seccion.setSeccionesPlantillas(respuesta.SECCION_PLANTILLA);
+			}
+			if(respuesta.SUB_SECCION.length>0){
+				$scope.editor.seccion.setSubSecciones(respuesta.SUB_SECCION);
+			}
+			if(respuesta.SUB_SECCION_PLANTILLA && respuesta.SUB_SECCION_PLANTILLA.length>0){
+				$scope.editor.seccion.setSubSeccionesPlantillas(respuesta.SUB_SECCION_PLANTILLA);
+			}
+			if(respuesta.ATRIBUTO.length>0){
+				$scope.editor.seccion.setAtributos(respuesta.ATRIBUTO);
+			} 
+			if(respuesta.ATRIBUTO_PLANTILLA && respuesta.ATRIBUTO_PLANTILLA.length>0){
+				$scope.editor.seccion.setAtributosPlantillas(respuesta.ATRIBUTO_PLANTILLA);
+			}
+		});
 	};
 	
-	var validarRegistro = function(){
+	var cargarRegistro = function(){
 		
-		var i_cont = 1;
-		var o_cont = 1;
+		Tproceso.registrar({
+			web_detalle_tipovista : $scope.editor.tipoVista
+		});
+		Tproceso.agregar($scope.cargado);
 		
-		if($scope.seccion.lista.length==0){
-			$scope.agregarAlerta("danger","Debes registrar por lo menos una sección");
+		var secciones = $scope.editor.seccion.getSecciones();
+		if(secciones){
+			Tseccion.correlativo("cod_seccion");
+			Tseccion.registrarMultiple(secciones.lista);
+			Tseccion.registrarMultipleAdicional({
+				cod_proceso : condicion.cod_proceso
+			});
+			Tseccion.agregar($scope.cargado);
+			
+			var TseccionAdd = new jsJPO("SEA");
+				TseccionAdd.registrarMultiple(secciones.plantillas);
+				TseccionAdd.agregar($scope.cargado);
+
+		} else {
 			return false;
 		}
-			
-		var eAd = $scope.seccion.lista.length+1;
-		for(var e = 0;e < $scope.seccion.lista.length;e++){
-			
-			var seccionItem = $scope.seccion.lista[e];
-			
-			var codSeccion = "";
-			if(seccionItem.plantilla && seccionItem.plantilla=="1"){
-				
-				if(seccionItem.cod_seccion_padre){
-					codSeccion = seccionItem.cod_seccion_padre;
-				} else {
-					codSeccion = new Date().getTime();
-					$scope.cargado["PDS_M_"+(eAd)+"_cod_seccion"] = codSeccion;
-					$scope.cargado["PDS_M_"+(eAd)+"_tipo"] = "P"; // Plantilla
-					$scope.cargado["PDS_M_"+(eAd)+"_nombre"] = seccionItem.nombre;
-					eAd++;
+		
+		var SubSecciones = $scope.editor.seccion.getSubSecciones();
+		if(SubSecciones){
+			TsubSeccion.registrarMultiple(SubSecciones);
+			TsubSeccion.registrarMultiplePersonalizado(function(item){
+				if(!(item.plantilla && item.plantilla=="1")){
+					item.cod_proceso = condicion.cod_proceso;
 				}
-
-				$scope.cargado["PDS_M_"+(e+1)+"_cod_seccion_padre"] = codSeccion;
-			}
-			
-			$scope.cargado["PDS_M_"+(e+1)+"_cod_proceso"] = $scope.data.PROCESO_CARGADO.cod_proceso;
-			$scope.cargado["PDS_M_"+(e+1)+"_cod_seccion"] = (e+1);
-			$scope.cargado["PDS_M_"+(e+1)+"_tipo"] = (seccionItem.plantilla && seccionItem.plantilla=="1")?"A":seccionItem.tipo;
-			if(seccionItem.tipo_widget){
-				$scope.cargado["PDS_M_"+(e+1)+"_tipo_widget"] = seccionItem.tipo_widget;
-			}
-			
-			if(!((seccionItem.tipo && seccionItem.tipo=="W") || (seccionItem.plantilla && seccionItem.plantilla=="1"))){
-				$scope.cargado["PDS_M_"+(e+1)+"_nombre"] = seccionItem.nombre;
-			}
-			
-			if(!((seccionItem.tipo && seccionItem.tipo=="W") || seccionItem.cod_seccion_padre)){
-				
-				if(seccionItem.subSeccion.lista.length==0){
-					$scope.agregarAlerta("danger","Debes registrar por lo menos una Sub sección en la sección Nro "+(e+1));
-					return false;
-				}
-				
-				for(var i = 0;i<$scope.seccion.lista[e].subSeccion.lista.length;i++){
-					
-					var subSeccionItem = $scope.seccion.lista[e].subSeccion.lista[i];
-					var atributosdeSubseccion = $scope.seccion.lista[e].subSeccion.lista[i].atributo.lista;
-					
-					if(atributosdeSubseccion.length==0){
-						$scope.agregarAlerta("danger","Debes registrar por lo menos un atributo en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
-						return false;
-					}
-					for(var o = 0;o<atributosdeSubseccion.length;o++){
-						var atributoItem = atributosdeSubseccion[o];
-	
-						if(!(atributoItem.web_etiqueta && atributoItem.web_etiqueta.length!=0)){
-							atributoItem.inf_error = "Falta registrar etiqueta";
-							$scope.agregarAlerta("danger","Corregir los atributos pendientes en la Sub sección Nro "+(i+1)+", en la sección Nro "+(e+1));
-							return false;
-						}
-						atributoItem.inf_error = "";
-						
-						if(!(seccionItem.plantilla && seccionItem.plantilla=="1")){
-							$scope.cargado["PDA_M_"+(o_cont)+"_cod_proceso"] = $scope.data.PROCESO_CARGADO.cod_proceso;
-						}
-						$scope.cargado["PDA_M_"+(o_cont)+"_cod_seccion"] = (seccionItem.plantilla && seccionItem.plantilla=="1")?codSeccion:(e+1);
-						$scope.cargado["PDA_M_"+(o_cont)+"_cod_sub_seccion"] = (i+1);
-						$scope.cargado["PDA_M_"+(o_cont)+"_cod_proceso_detalle"] = (o+1);
-						$scope.cargado["PDA_M_"+(o_cont)+"_cod_atributo"] = atributoItem.cod_atributo;
-						$scope.cargado["PDA_M_"+(o_cont)+"_web_etiqueta"] = atributoItem.web_etiqueta;
-						
-						o_cont++;
-						
-					}
-	
-					// CARGAR DATOS DE SUB SECCION
-					if(!(seccionItem.plantilla && seccionItem.plantilla=="1")){
-						$scope.cargado["PDB_M_"+(i_cont)+"_cod_proceso"] = $scope.data.PROCESO_CARGADO.cod_proceso;
-					}
-					$scope.cargado["PDB_M_"+(i_cont)+"_cod_seccion"] = (seccionItem.plantilla && seccionItem.plantilla=="1")?codSeccion:(e+1);
-					$scope.cargado["PDB_M_"+(i_cont)+"_cod_sub_seccion"] = (i+1);
-					$scope.cargado["PDB_M_"+(i_cont)+"_nombre"] = subSeccionItem.nombre;
-					
-					i_cont++;
-	
-				}
-				
-			}
-			
+				delete item.plantilla;
+				return item;
+			});
+			TsubSeccion.agregar($scope.cargado);
+		} else {
+			return false;
 		}
 		
+		var atributos = [];
+
+			if(!$scope.editor.seccion.getAtributos(atributos)){
+				return false;
+			}
+			
+			Tatributos.registrarMultiple(atributos);
+			Tatributos.registrarMultiplePersonalizado(function(item){
+				if(!(item.plantilla && item.plantilla=="1")){
+					item.cod_proceso = condicion.cod_proceso;
+				}
+				delete item.plantilla;
+				return item;
+			});
+			Tatributos.agregar($scope.cargado);
+		
 		return true;
+		
 	};
 	
-	$scope.registrarInicio = function(){
-		if(validarRegistro()){
-			$scope.cargado["PRO_web_detalle_tipovista"] = $scope.editor.tipoVista;
+	$scope.registrarInicio = function(call){
+		if(cargarRegistro()){
 			$scope.cargado.metodo = "registrarDetalle";
 			ajax.jpo($scope.cargado,function(respuesta){
 				$scope.agregarAlerta("success","Registrado corréctamente");
 				$scope.instanciar(false);
+				if(call){
+					call();
+				}
 			});
 		}
 	};

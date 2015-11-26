@@ -6,10 +6,18 @@
 	  <table class="table">
 		<tbody>
 		  <tr>
-			<td><b>SELECCIONA UN PROCESO :</b></td>
-			<td><select class="form-control input-sm"
+			<td class="form-inline">
+				<div class="form-group">
+				    <label>SELECCIONA UN PROCESO :</label>
+				    <select class="form-control input-sm"
 						ng-model="cod_proceso"
-						ng-options="obj.cod_proceso as obj.nombre for obj in data.PROCESO | orderBy: 'nombre'"></select></td>
+						ng-options="obj.cod_proceso as obj.nombre for obj in data.PROCESO | orderBy: 'nombre'"></select>
+				</div>
+			</td>
+			<td align="right">
+				<a class="btn btn-info btn-sm" ng-disabled="true" ng-click="gestionarPlantillaAccion()"><i class="glyphicon glyphicon-cog"></i> PLANTILLAS DE ACCION</a>
+				<a class="btn btn-info btn-sm" ng-click="gestionarPlantillaResumen()"><i class="glyphicon glyphicon-cog"></i> PLANTILLAS DE RESUMEN</a>
+			</td>
 		  </tr>
 		</tbody>
 	  </table>

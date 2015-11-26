@@ -1,6 +1,17 @@
 <script type="text/javascript" src="controlador/proceso.js"></script>
 <div ng-controller="proceso" style="padding-top: 5px;">
 	<alert type="danger" ng-show="data.CONSULTA.length==0">Debes registrar "Consultas" antes de trabajar Procesos</alert>
+	<div class="panel panel-default" ng-show="vista === 'lista'">
+	  <table class="table">
+		<tbody>
+		  <tr>
+			<td align="right">
+				<a class="btn btn-info btn-sm" ng-disabled="true" ng-click="gestionarPlantillaDetalle()"><i class="glyphicon glyphicon-cog"></i> PLANTILLAS DE DETALLE</a>
+			</td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
 	<div class="show-grid" ng-show="vista === 'lista'">
 		<div class="panel panel-default">
 		  <div class="panel-heading"><strong>Listado de procesos</strong></div>

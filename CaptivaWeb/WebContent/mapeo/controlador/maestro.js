@@ -13,7 +13,7 @@
 			{
 				id : "documento",
 				nombre : "DOCUMENTO",
-				activo : true,
+				activo : false,
 				url : 'maestro_documento.html'
 			}
 		]

@@ -32,6 +32,9 @@
 		if(getParametro.accion && getParametro.accion=="gestionarAccion"){
 			$scope.cod_proceso = 1;
 		}
+		if(getParametro.accion && getParametro.accion=="gestionarConsultaResumen"){
+			$scope.gestionarPlantillaResumen();
+		}
 	};
 	
 	$scope.$watch("cod_proceso",function(oldVal,newVal){
@@ -142,6 +145,11 @@
 			p_titulo = "ROLES POTENCIALES DE TAREA '"+miTarea.nombre+"'";
 		}
 		$scope.asociarRoles(cod_tarea,p_titulo,p_tabla,"cod_tarea");
+	};
+	
+	$scope.gestionarPlantillaResumen = function(){
+		$scope.vista = "gestionar";
+		$scope.urlGestionar = "tarea_plantilla_resumen.html";
 	};
 	
 });

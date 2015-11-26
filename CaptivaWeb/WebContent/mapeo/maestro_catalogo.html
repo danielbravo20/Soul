@@ -1,4 +1,113 @@
-<script type="text/javascript" src="controlador/rol.js"></script>
-<div ng-controller="rol" style="height: 30px; padding-top: 5px;">
-	
+<script type="text/javascript" src="controlador/maestro_catalogo.js"></script>
+<div ng-controller="maestro_catalogo" style="height: 30px; padding-top: 5px;">
+	<div class="panel panel-default">
+	  <table class="table">
+		<tbody>
+		  <tr>
+			<td class="form-inline">
+				<div class="form-group">
+					<label>CATÁLOGOS PADRE :</label>
+					<select class="form-control input-sm"
+						ng-model="buscar.cod_catalogo"
+						ng-options="obj.cod_catalogo as obj.cod_catalogo for obj in data.MAE_CATALOGO_PADRE | orderBy: 'cod_catalogo'"></select>
+					<a ng-show="buscar.cod_catalogo" class="btn btn-danger btn-sm" ng-click="eliminarPadre()" href=""><i class="glyphicon glyphicon-trash"></i></a>
+					<a ng-show="buscar.cod_catalogo" class="btn btn-primary btn-sm" ng-click="editarCargar(buscar.cod_catalogo,buscar.cod_catalogo)" href=""><i class="glyphicon glyphicon-pencil"></i></a>
+				</div>
+			</td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+	<div class="row">
+		<div class="col-md-6 show-grid">
+			<div class="panel panel-default">
+			  <div class="panel-heading"><strong>Listado de Catálogos Hijos</strong></div>
+			  <table class="table">
+				<thead>
+				  <tr>
+					<th>Catálogo</th>
+					<th>Atributo</th>
+					<th>Descripción</th>
+					<th>Opción</th>
+					<th>&nbsp;</th>
+				  </tr> 
+				</thead>
+				<tbody>
+				  <tr ng-repeat="catalogo in data.MAE_CATALOGO | orderBy: 'cod_catalogo' | filter:buscar">
+					<td>{{catalogo.cod_catalogo}}</td>
+					<td>{{catalogo.cod_atributo}}</td>
+					<td>{{catalogo.valor_1}}</td>
+					<td>{{catalogo.descripcion}}</td>
+					<td align="right">
+						<a class="btn btn-danger btn-sm" ng-click="eliminar(catalogo.cod_catalogo,catalogo.cod_atributo)" href=""><i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;
+						<a class="btn btn-primary btn-sm" ng-click="editarCargar(catalogo.cod_catalogo,catalogo.cod_atributo)" href=""><i class="glyphicon glyphicon-pencil"></i></a>
+					</td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+			  <div class="panel-heading"><span ng-show="esEdicion">Editar</span><span ng-show="!esEdicion">Registrar</span></div>
+			  <form name="FRM_CAT">
+				  <table class="table">
+					<tbody>
+					  <tr>
+						<th>Tipo :</th>
+						<td>
+							<div class="btn-group">
+		       					<label class="btn btn-primary btn-sm" ng-model="cargado.CAT_cabecera" btn-radio="'1'" ng-disabled="esEdicion"> Catálogo Padre </label>
+		        				<label class="btn btn-primary btn-sm" ng-model="cargado.CAT_cabecera" btn-radio="'0'" ng-disabled="esEdicion"> Catálogo Hijo </label>
+		        			</div>
+						</td>
+					  </tr>
+					  <tr>
+						<th>Código Catálogo (*) :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'>
+							<input type="text" name="CAT_cod_catalogo" ng-show="cargado.CAT_cabecera=='1'" ng-model="cargado.CAT_cod_catalogo" class="form-control input-sm" ng-disabled="esEdicion" ng-required="!esEdicion && cargado.CAT_cabecera=='1'">
+							<select class="form-control input-sm" ng-show="cargado.CAT_cabecera=='0'"
+								ng-model="objCatalogo"
+								ng-options="obj as obj.cod_catalogo for obj in data.MAE_CATALOGO_PADRE | orderBy: 'cod_catalogo'" ng-disabled="esEdicion" ng-required="!esEdicion && cargado.CAT_cabecera=='0'">
+							</select>
+						</td>
+					  </tr>
+					  <tr ng-show="cargado.CAT_cabecera=='0'">
+						<th>Código Atributo (*) :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'><input type="text" name="CAT_cod_atributo" ng-disabled="esEdicion" ng-model="cargado.CAT_cod_atributo" class="form-control input-sm" ng-required="esEdicion && cargado.CAT_cabecera=='0'" maxima-longitud="{{objCatalogo.lim_cod_atributo}}"></td>
+					  </tr>
+					  <tr ng-show="cargado.CAT_cabecera=='0'">
+						<th>Valor 1 :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'><input type="text" name="CAT_valor_1" ng-model="cargado.CAT_valor_1" class="form-control input-sm" maxima-longitud="{{objCatalogo.lim_valor_1}}"></td>
+					  </tr>
+					  <tr ng-show="cargado.CAT_cabecera=='0'">
+						<th>Valor 2 :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'><input type="text" name="CAT_valor_2" ng-model="cargado.CAT_valor_2" class="form-control input-sm" maxima-longitud="{{objCatalogo.lim_valor_2}}"></td>
+					  </tr>
+					  <tr>
+						<th>Descripción :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'><textarea name="CAT_descripcion" class="form-control input-sm" ng-model="cargado.CAT_descripcion"></textarea></td>
+					  </tr>
+					  <tr ng-show="cargado.CAT_cabecera=='1'">
+						<th>Límite Código de Atributo (*) :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'><input type="number" name="CAT_lim_cod_atributo" ng-model="cargado.CAT_lim_cod_atributo" class="form-control input-sm" ng-required="cargado.CAT_cabecera=='1'"></td>
+					  </tr>
+					  <tr ng-show="cargado.CAT_cabecera=='1'">
+						<th>Límite Valor 1 (*) :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'><input type="number" name="CAT_lim_valor_1" ng-model="cargado.CAT_lim_valor_1" class="form-control input-sm" ng-required="cargado.CAT_cabecera=='1'"></td>
+					  </tr>
+					  <tr ng-show="cargado.CAT_cabecera=='1'">
+						<th>Límite Valor 2 (*) :</th>
+						<td class="form-group" show-errors='{showSuccess: true}'><input type="number" name="CAT_lim_valor_2" ng-model="cargado.CAT_lim_valor_2" class="form-control input-sm" ng-required="cargado.CAT_cabecera=='1'"></td>
+					  </tr>
+					  <tr>
+						<td><button type="button" class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">Guardar</span><span ng-show="!esEdicion">Registrar</span></button></td>
+						<td><button type="button" class="btn btn-primary btn-sm" ng-click="instanciar()" ng-show="esEdicion"><i class="glyphicon glyphicon-plus"></i> Nuevo</button></td>
+					  </tr>
+					</tbody>
+				  </table>
+			</form>
+			</div>
+		</div>
+	</div>
 </div>

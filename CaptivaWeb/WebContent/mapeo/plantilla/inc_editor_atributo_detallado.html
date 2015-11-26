@@ -29,7 +29,10 @@
 			<textarea ng-model="atributoItem.web_modelo" class="form-control input-sm" maxima-longitud="{{atributoItem.sql_longitud}}"></textarea>
 			<span class="textoAdicional">Caracteres escritos : <b>{{atributoItem.web_modelo.length}}</b> - Cantidad Máxima : <b>{{atributoItem.sql_longitud}}</b></span>
 		</span>
-		<span ng-show="tipoClase[atributoItem.web_tipo]=='S' && atributoItem.web_tipo_campo == 'E'"><select ng-model="atributoItem.web_modelo" class="form-control input-sm"></select></span>
+		<span ng-show="tipoClase[atributoItem.web_tipo]=='S' && atributoItem.web_tipo_campo == 'E'">
+			<select ng-show="atributoItem.web_tipo_lista=='C'" ng-model="atributoItem.web_modelo" ng-options="catalogo.cod_catalogo as catalogo.valor_1 for catalogo in data.MAE_CATALOGO | filter: {cod_catalogo: atributoItem.web_catalogo, cabecera : '0'}" class="form-control input-sm"></select>
+			<select ng-show="atributoItem.web_tipo_lista!='C'" ng-model="atributoItem.web_modelo" class="form-control input-sm"></select>
+		</span>
 		
 		<span ng-show="tipoClase[atributoItem.web_tipo]=='b' && atributoItem.web_tipo_campo == 'H'"><input type="checkbox" ng-model="atributoItem.web_modelo"></span>
 		

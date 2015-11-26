@@ -21,23 +21,28 @@
 				<div>
 					<accordion close-others="false">
 						<accordion-group is-open="true">
-							<accordion-heading>Vista</accordion-heading>
-							<div class="btn-group">
-						        <label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'H'"> Acordeon </label>
-						        <label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'V'"> Tabs </label>
-						    </div>
-						</accordion-group>
-					</accordion>
-					<accordion close-others="false">
-						<accordion-group is-open="true">
-							<accordion-heading>Widgets</accordion-heading>
+							<accordion-heading>Configuración</accordion-heading>
 							<table class="table">
 								<tbody>
-									<tr><td><input type="checkbox" ng-model="editor.seccionHistorial" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Historial de Tareas</td></tr>
-								  	<tr><td><input type="checkbox" ng-model="editor.seccionDocumentos" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Documentos</td></tr>
-								  	<tr><td><input type="checkbox" ng-model="editor.seccionObservaciones" class="form-control input-sm" style="width:30px" ng-true-value="'1'" ng-false-value="'0'"></td><td style="padding-top: 18px; font-weight: bold;">Observaciones</td></tr>
+									<tr>
+										<td><strong>Tipo de Vista :</strong><br>
+											<div class="btn-group">
+						        				<label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'H'"> Acordeon </label>
+						        				<label class="btn btn-primary btn-sm" ng-model="editor.tipoVista" btn-radio="'V'"> Tabs </label>
+						        			</div>
+										</td>
+									</tr>
+									<tr>
+										<td><strong>Widgets :</strong><br>
+											<div class="btn-group">
+						       					<label class="btn btn-primary btn-sm" ng-model="editor.seccionHistorial" btn-checkbox tooltip="Historial de Tareas"> <i class="glyphicon glyphicon-align-justify"></i> </label>
+						        				<label class="btn btn-primary btn-sm" ng-model="editor.seccionDocumentos" btn-checkbox tooltip="Documentos"> <i class="glyphicon glyphicon-download-alt"></i> </label>
+						        				<label class="btn btn-primary btn-sm" ng-model="editor.seccionObservaciones" btn-checkbox tooltip="Observaciones"> <i class="glyphicon glyphicon-comment"></i> </label>
+						        			</div>
+										</td>
+									</tr>
 								</tbody>
-							  </table>
+							</table>
 						</accordion-group>
 					</accordion>
 					<accordion close-others="false">

@@ -13,6 +13,7 @@ var jsJPO = function(pre){
 	};
 	this.data = function(data){
 		this.data = data;
+		return this;
 	};
 	this.correlativo = function(contador){
 		this.contador = contador;
@@ -37,7 +38,7 @@ var jsJPO = function(pre){
 				objetoSalida[this.pre+"_W_"+campo] = this.condicion[campo];
 			}
 		}
-		if(this.dataMultiple){debugger;
+		if(this.dataMultiple){
 			for(var i = 0; i < this.dataMultiple.length; i++){
 				if(this.dataMultiplePersonalizado){
 					this.dataMultiple[i] = this.dataMultiplePersonalizado(this.dataMultiple[i], i);

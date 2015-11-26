@@ -10,7 +10,7 @@
 		</div>
 		<div class="col-md-4">
 			<ol class="breadcrumb" style="text-align: right;">
-			  <li><a class="btn btn-primary btn-sm" ng-model="config.esEdicion" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">MODO EDITOR</a></li>
+			  <li><a class="btn btn-primary btn-sm" ng-model="editor.esEdicion" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">MODO EDITOR</a></li>
 			  <li><a class="btn btn-info btn-sm" ng-click="$parent.instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR TAREAS</a></li>
 			</ol>
 		</div>
@@ -18,7 +18,7 @@
 	<hr>
 	<table style="width: 100%;">
 		<tr>
-			<td width="20%" style="border: 1px solid #ccc; padding: 5px;" valign="top" ng-show="config.esEdicion">
+			<td width="20%" style="border: 1px solid #ccc; padding: 5px;" valign="top" ng-show="editor.esEdicion">
 				<div>
 					<accordion close-others="false">
 						<accordion-group is-open="true">
@@ -26,21 +26,11 @@
 							<div class="panel panel-default">
 								<table class="table">
 									<tr ng-repeat="plantillaItem in plantilla.lista">
-										<td colspan="2" width="70%">{{plantillaItem.nombre}}</td>
-										<td width="15%"><a class="btn btn-info btn-sm" ng-click="plantilla.cargar($index)" tooltip="Cargar Plantilla"><i class="glyphicon glyphicon-export"></i></a></td>
-										<td width="15%"><a class="btn btn-danger btn-sm" ng-click="plantilla.eliminar($index)" tooltip="Eliminar Plantilla"><i class="glyphicon glyphicon-remove"></i></a></td>
+										<td width="80%">{{plantillaItem.nombre}}</td>
+										<td width="20%"><a class="btn btn-info btn-sm" ng-click="plantilla.cargar(plantillaItem.cod_plantilla)" ng-disabled="plantilla.accion=='esPlantilla'" tooltip="Cargar Plantilla"><i class="glyphicon glyphicon-export"></i></a></td>
 									</tr>
-									<tr>
-										<td colspan="4" class="form-inline form-group">
-											<strong>MARCAR COMO PLANTILLA</strong><br>
-											<input type="checkbox" ng-model="config.esPlantilla" ng-true-value="true" ng-false-value="false" class="form-control input-sm" style="width:30px">
-											<input type="text" ng-model="config.nombrePlantilla" placeholder="Nombre de Plantilla" class="form-control input-sm" ng-disabled="!(config.esPlantilla=='1')">
-										</td>
-									</tr>
-									<tr ng-show="config.cargoPlantilla==true">
-										<td colspan="4">
-											<a class="btn btn-info btn-sm" ng-click="plantilla.clonar()" tooltip="Cargar Plantilla"><i class="glyphicon glyphicon-share"></i> CLONAR PLANTILLA</a>
-										</td>
+									<tr ng-show="plantilla.accion=='esPlantilla'">
+										<td colspan="2">Plantilla: <strong>{{plantilla.nombre}}</strong><br><a class="btn btn-info btn-sm" ng-click="plantilla.quitar()" tooltip="Quitar Plantilla"><i class="glyphicon glyphicon-remove"></i> QUITAR PLANTILLA</a></td>
 									</tr>
 								</table>
 							</div>
@@ -66,73 +56,47 @@
 								    </li>
 								</ul>
 							</div>
-							<a class="btn btn-primary btn-sm" ng-click="objAtributo.abrirListado()"><i class="glyphicon glyphicon-plus"></i></a>
 						</accordion-group>
 					</accordion>
 				</div>
 			</td>
 			<td width="80%" style="border: 1px solid #ccc; padding: 5px;" valign="top" class="simpleDemoB">
-				<div ng-include="'plantilla/inc_resumentarea_titulo.html'"></div>
 				<div class="panel panel-default">
 					<div class="simpleDemoB">
-						<div ng-repeat="subSeccionItem in subSeccion.lista" ng-init="subSeccionItem.index = $index">
-							<div class="filaTitulo">
-								&nbsp;&nbsp;
-								<i class="glyphicon glyphicon-list-alt"></i> 
-								{{subSeccionItem.nombre}}
-								<i class="glyphicon glyphicon-edit seccionEditar" 
-									ng-click="subSeccion.actual = $index" 
-									popover-template="'popover_resumen_subSeccion.html'" 
-									popover-title="Editar" 
-									popover-placement="right" style="color: brown;"
-									eid="subSeccionEditar_{{$index}}"
-									ng-show="config.esEdicion"></i>
-							</div>
-							<div ng-include="'tareagestionarresumen_atributo.html'"></div>
+						<div ng-include="'plantilla/inc_resumentarea_titulo.html'"></div>
+						<div ng-include="'plantilla/inc_editor_subseccion.html'" ng-show="plantilla.accion!='esPlantilla' || (plantilla.accion=='esPlantilla' && editor.esEdicion == false)"></div>
+						<div ng-repeat="subSeccionItem in seccionItem.subSeccion.lista" ng-show="plantilla.accion=='esPlantilla' && editor.esEdicion == true">
+							<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> {{subSeccionItem.nombre}}</div>
+							<ul dnd-list="subSeccionItem.atributo.lista">
+							    <li ng-repeat="atributoItem in subSeccionItem.atributo.lista"
+									dnd-disable-if="true"
+							        ng-class="{
+							        	'selected': subSeccionItem.atributo.actual === atributo, 
+							        	'AnchoExtendido': editor.esEdicion != true && (($index+1)%2 == 0 && subSeccionItem.atributo.lista[$index-1].web_tipo_campo=='A' || ($index+1)%2 != 0 && subSeccionItem.atributo.lista[$index+1].web_tipo_campo=='A'), 
+							        	'ModoEditor': editor.esEdicion == true, 
+							        	'ModoVisual': editor.esEdicion != true,
+							        	'ModoEditorDual': (editor.esEdicion == true && (subSeccionItem.atributo.lista.length-1 != $index || (($index+1)%2==0 && subSeccionItem.atributo.lista.length-1 == $index))), 
+							        	'ModoEditorTotal': (editor.esEdicion == true && ($index+1)%2!=0 && subSeccionItem.atributo.lista.length-1 == $index), 
+							        	'ModoVisualDual': (editor.esEdicion != true && (subSeccionItem.atributo.lista.length-1 != $index || (($index+1)%2==0 && subSeccionItem.atributo.lista.length-1 == $index))), 
+							        	'ModoVisualTotal': (editor.esEdicion != true && ($index+1)%2!=0 && subSeccionItem.atributo.lista.length-1 == $index)
+							        	}"
+							    >
+									<span>
+										{{atributoItem.web_etiqueta}} <em>({{atributoItem.cla_nombre}})</em>
+										<span class="referenciaClase"> (Solo Lectura)</span>
+									</span>
+							    </li>
+							</ul>
 						</div>
-						<div ng-show="!config.esEdicion">&nbsp;</div>
-						<div class="filaTitulo" ng-show="config.esEdicion">
-							&nbsp;&nbsp;
-							<a ng-click="subSeccion.agregar()"><i class="glyphicon glyphicon-plus"></i></a>
-						</div>
+						
+						<div ng-include="'plantilla/inc_resumentarea_botonera.html'"></div>
 					</div>
 				</div>
-				<div ng-include="'plantilla/inc_resumentarea_botonera.html'" ng-show="!config.esEdicion"></div>
 			</td>
 		</tr>
 	</table>
 	<hr>
-	<div class="well" style=" padding: 10px;  margin-bottom: 0px; " ng-show="config.esEdicion">
-		<a class="btn btn-success btn-sm" ng-click="registrarInicio()"><i class="glyphicon glyphicon-floppy-save"></i> REGISTRAR DATOS</a>
+	<div class="well" style=" padding: 10px;  margin-bottom: 0px; " ng-show="editor.esEdicion">
+		<a class="btn btn-success btn-sm" ng-click="plantilla.registrar()"><i class="glyphicon glyphicon-floppy-save"></i> REGISTRAR</a>
 	</div>
 </div>
-<script type="text/ng-template" id="popover_resumen_subSeccion.html">
-	<table style="border-collapse: separate; border-spacing: 5px;">
-		<tr>
-			<td colspan="4"> <input type="text" placeholder="{{subSeccionItem.nombre}}" class="form-control input-sm" style="width:100%" ng-model="subSeccionItem.nombre"></td>
-		</tr>
-		<tr>
-			<td><a class="btn btn-danger btn-sm" ng-click="subSeccion.eliminar()" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
-			<td><a class="btn btn-info btn-sm" ng-click="subSeccion.subir()" tooltip="Subir"><i class="glyphicon glyphicon-arrow-up"></i></a></td>
-			<td><a class="btn btn-info btn-sm" ng-click="subSeccion.bajar()" tooltip="Bajar"><i class="glyphicon glyphicon-arrow-down"></i></a></td>
-			<td><a class="btn btn-info btn-sm" ng-click="subSeccion.copiar()" tooltip="Copiar"><i class="glyphicon glyphicon-tags"></i></a></td>
-		</tr>
-	</table>
-</script>
-<script type="text/ng-template" id="popover_resumen_atributo.html">
-	<table style="border-collapse: separate; border-spacing: 5px;">
-		<tr>
-			<td colspan="4"><strong>ATRIBUTO {{atributoItem.atr_nombre}}.{{atributoItem.cla_nombre}}</strong></td>
-		</tr>
-		<tr>
-			<td>Etiqueta : </td>
-			<td colspan="3"><input type="text" class="form-control input-sm" style="width:100%" placeholder="{{atributoItem.web_etiqueta}}" ng-model="atributoItem.web_etiqueta"></td>
-		</tr>
-		<tr>
-			<td>Opciones : </td>
-			<td><a class="btn btn-danger btn-sm" ng-click="atributo.eliminar(subSeccionItem.index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a></td>
-			<td><a class="btn btn-info btn-sm" ng-click="atributo.bajar(subSeccionItem.index)" tooltip="Mover a la Izquierda"><i class="glyphicon glyphicon-arrow-left"></i></a></td>
-			<td><a class="btn btn-info btn-sm" ng-click="atributo.subir(subSeccionItem.index)" tooltip="Mover a la Derecha"><i class="glyphicon glyphicon-arrow-right"></i></a></td>
-		</tr>
-	</table>
-</script>

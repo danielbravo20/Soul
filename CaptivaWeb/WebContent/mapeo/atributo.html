@@ -183,6 +183,14 @@
 				<th>Valor por Defecto :</th>
 				<td><input type="text" ng-model="cargado.ADB_val_defecto" class="form-control input-sm"></td>
 			  </tr>
+			  <tr class="info" ng-show="cargado.FLG_sql && cargado.esDetallado && sql_esMantenimiento=='1'">
+				<th><strong>(MANTENIMIENTO)</strong> Mostrar en el Listado ? :</th>
+				<td><input type="checkbox" ng-model="cargado.ADB_flg_mantenimiento_listar" name="ADB_flg_mantenimiento_listar" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+			  </tr>
+			  <tr class="info" ng-show="cargado.FLG_sql && cargado.esDetallado && sql_esMantenimiento=='1'">
+				<th><strong>(MANTENIMIENTO)</strong> Asignar como Filtro de Búsqueda? :</th>
+				<td><input type="checkbox" ng-model="cargado.ADB_flg_mantenimiento_filtrar" name="ADB_flg_mantenimiento_filtrar" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+			  </tr>
 			  <tr>
 				<td colspan="2">
 					<a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">GUARDAR</span><span ng-show="!esEdicion">REGISTRAR</span></a>

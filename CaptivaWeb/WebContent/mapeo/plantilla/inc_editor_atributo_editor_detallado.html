@@ -24,6 +24,6 @@
 	<tr ng-show="atributoItem.web_tipo_campo == 'E'">
 		<td>Tipo de Lista : </td>
 		<td><input type="radio" ng-model="atributoItem.web_tipo_lista" value="C"> Catálogo</td>
-		<td colspan="3"><select ng-disabled="atributoItem.web_tipo_lista!='C'" class="form-control input-sm" ng-model="atributoItem.web_catalogo" ng-options="catalogo.cod_catalogo as catalogo.descripcion for catalogo in data.CATALOGO"></select></td>
+		<td colspan="3"><select ng-disabled="atributoItem.web_tipo_lista!='C'" class="form-control input-sm" ng-model="atributoItem.web_catalogo" ng-options="catalogo.cod_catalogo as catalogo.cod_catalogo for catalogo in data.MAE_CATALOGO_PADRE"></select></td>
 	</tr>
 </table>

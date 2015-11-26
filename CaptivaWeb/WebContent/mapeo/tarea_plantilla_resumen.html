@@ -1,0 +1,80 @@
+<script type="text/javascript" src="controlador/tarea_plantilla_resumen.js"></script>
+<div ng-controller="tarea_plantilla_resumen" style="padding-top: 5px;">
+	<div class="row">
+		<div class="col-md-8">
+			<ol class="breadcrumb">
+				<li>GESTIONAR PLANTILLAS DE RESUMEN</li>
+			</ol>
+		</div>
+		<div class="col-md-4">
+			<ol class="breadcrumb" style="text-align: right;">
+			  <li><a class="btn btn-primary btn-sm" ng-model="editor.esEdicion" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">MODO EDITOR</a></li>
+			  <li><a class="btn btn-info btn-sm" ng-click="$parent.instanciar()"><i class="glyphicon glyphicon-align-justify"></i> LISTAR TAREAS</a></li>
+			</ol>
+		</div>
+	</div>
+	<hr>
+	<table style="width: 100%;">
+		<tr>
+			<td width="20%" style="border: 1px solid #ccc; padding: 5px;" valign="top" ng-show="editor.esEdicion">
+				<div>
+					<accordion close-others="false">
+						<accordion-group is-open="true">
+							<accordion-heading>Plantillas</accordion-heading>
+							<div class="panel panel-default">
+								<table class="table">
+									<tr ng-repeat="plantillaItem in plantilla.lista">
+										<td width="80%">{{plantillaItem.nombre}}</td>
+										<td width="20%"><a class="btn btn-info btn-sm" ng-click="plantilla.cargar(plantillaItem.cod_plantilla)" tooltip="Cargar Plantilla"><i class="glyphicon glyphicon-export"></i></a></td>
+									</tr>
+								</table>
+							</div>
+						</accordion-group>
+						<accordion-group is-open="true">
+							<accordion-heading>Atributos</accordion-heading>
+							<select class="form-control input-sm" ng-model="cod_consulta" ng-options="consulta.cod_consulta as consulta.nombre for consulta in data.CONSULTA | orderBy: 'nombre'" ng-change="cambiarConsulta()">
+								<option></option>
+							</select>
+							<select class="form-control input-sm" ng-model="atrBuscar.cod_tabla" ng-options="tabla.cod_tabla as tabla.nombre for tabla in consulta.tablas | orderBy: 'nombre'">
+								<option></option>
+							</select>
+							<input type="text" ng-model="atrBuscar.nombre" placeholder="Nombre" class="form-control input-sm">
+							<div class="simpleDemo" style="max-height: 200px; overflow : auto; border: 1px solid #ccc;">
+								<ul dnd-list="consulta.atributos">
+							 	    <li ng-repeat="item in consulta.atributos | filter:atrBuscar"
+							 	    	dnd-draggable="item"
+								        dnd-effect-allowed="move"
+								        dnd-selected="consulta.seleccionado = item"
+								        dnd-allowed-types="['principal']"
+								        dnd-type="'atributos'"
+								        ng-class="{'selected': consulta.seleccionado === item}"
+								    >
+								        {{item.nombre}} <span class="referenciaClase">({{item.cla_nombre}})</span>
+								        <div class="tipoAtributo" title="{{item.web_tipo}}">({{tipoClase[item.web_tipo]}})</div>
+								    </li>
+								</ul>
+							</div>
+						</accordion-group>
+					</accordion>
+				</div>
+			</td>
+			<td width="80%" style="border: 1px solid #ccc; padding: 5px;" valign="top" class="simpleDemoB">
+				<div class="panel panel-default">
+					<div class="simpleDemoB">
+						<div class="form-group">
+						    <label>Nombre de Plantilla :</label>
+						    <input type="text" ng-model="plantilla.nombre" placeholder="Nombre" class="form-control input-sm">
+						</div>
+						<div ng-include="'plantilla/inc_editor_subseccion.html'"></div>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<hr>
+	<div class="well" style=" padding: 10px;  margin-bottom: 0px; " ng-show="editor.esEdicion">
+		<a class="btn btn-success btn-sm" ng-click="plantilla.registrar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="plantilla.accion=='registrar'">REGISTRAR PLANTILLA</span><span ng-show="plantilla.accion=='editar'">EDITAR PLANTILLA</span></a>
+		<a class="btn btn-info btn-sm" ng-click="plantilla.clonar()" tooltip="Cargar Plantilla" ng-show="plantilla.accion=='editar'"><i class="glyphicon glyphicon-share"></i> CLONAR PLANTILLA</a>
+		<a class="btn btn-danger btn-sm" ng-click="plantilla.eliminar()" tooltip="Eliminar Plantilla" ng-show="plantilla.accion=='editar'"><i class="glyphicon glyphicon-remove"></i> ELIMINAR PLANTILLA</a>
+	</div>
+</div>

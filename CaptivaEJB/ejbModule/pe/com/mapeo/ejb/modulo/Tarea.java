@@ -42,47 +42,7 @@ public class Tarea extends GestionBase implements TareaLocal {
 	public Object listar(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		return jpo.tabla("TAREA","TAR").seleccionar("*");
 	}
-	
-	public Object registrarResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		
-		pe.com.mapeo.dao.Tabla 	tarea_insuse = jpo.tabla("tarea_resumen_sub_seccion","TRS");
-		tarea_insuse.eliminar();
-		
-		pe.com.mapeo.dao.Tabla 	tarea_resume = jpo.tabla("tarea_resumen","TAR");
-		tarea_resume.eliminar();
-		
-		tarea_resume.registrarMultiple();
-		tarea_insuse.registrarMultiple();
-		
-		jpo.tabla("tarea","TAE").editar();
-		
-		String esPlantilla = request.getParameter("esPlantilla");
-		if(esPlantilla != null && esPlantilla.equals("true")){
-			pe.com.mapeo.dao.Tabla 	tarea_respla = jpo.tabla("tarea_resumen_plantilla","TRP");
-			tarea_respla.eliminar();
-			tarea_respla.registrar();
-		}
-
-		jpo.commitear();
-		return true;
-	}
-	
-	public Object listarResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		Map<String,Object> listados = new HashMap<String,Object>();
-			listados.put("SUB_SECCION", jpo.tabla("tarea_resumen_sub_seccion","TRS").ordenadoPor("cod_sub_seccion ASC").seleccionar("*"));
-			listados.put("RESUMEN", jpo.tabla("tarea_resumen","TAR").ordenadoPor("cod_sub_seccion ASC, cod_tarea_resumen ASC").seleccionar("*"));
-			listados.put("PLANTILLA", jpo.tabla("tarea_resumen_plantilla","TRP").ordenadoPor("nombre ASC").seleccionar("*"));
-		return listados;
-	}
-	
-	public Object eliminarPlantilla(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		jpo.tabla("tarea_resumen_plantilla","TRP").eliminar();
-		jpo.tabla("tarea_resumen_sub_seccion","TRP").eliminar();
-		jpo.tabla("tarea_resumen","TAR").eliminar();
-		jpo.commitear();
-		return true;
-	}
-	
 	public Object registrarAccion(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		
 		jpo.tabla("tarea","TAR").editar();
@@ -177,6 +137,86 @@ public class Tarea extends GestionBase implements TareaLocal {
 		jpo.tabla("tarea_accion_seccion","SEC").eliminar();
 		jpo.commitear();
 		return true;
+	}
+	
+	// PLANTILLA RESUMEN
+	
+	public Object registrarPlantillaResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		
+		jpo.tabla("tarea_resumen_plantilla","PLA").registrar();
+		jpo.tabla("tarea_resumen_plantilla_sub_seccion","SUB").registrarMultiple();
+		jpo.tabla("tarea_resumen_plantilla_atributo","ATR").registrarMultiple();
+			
+		jpo.commitear();
+		
+		return true;
+	}
+	
+	public Object editarPlantillaResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		
+		Tabla plantilla = jpo.tabla("tarea_resumen_plantilla","PLA");
+		Tabla sub_seccion = jpo.tabla("tarea_resumen_plantilla_sub_seccion","SUB");
+		Tabla atributo = jpo.tabla("tarea_resumen_plantilla_atributo","ATR");
+		
+		sub_seccion.eliminar();
+		atributo.eliminar();
+		
+		plantilla.editar();
+		sub_seccion.registrarMultiple();
+		atributo.registrarMultiple();
+		
+		jpo.commitear();
+		
+		return true;
+	}
+	
+	public Object eliminarPlantillaResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		
+		Tabla plantilla = jpo.tabla("tarea_resumen_plantilla","PLA");
+		Tabla sub_seccion = jpo.tabla("tarea_resumen_plantilla_sub_seccion","SUB");
+		Tabla atributo = jpo.tabla("tarea_resumen_plantilla_atributo","ATR");
+		
+		plantilla.eliminar();
+		sub_seccion.eliminar();
+		atributo.eliminar();
+		
+		jpo.commitear();
+		
+		return true;
+	}
+	
+	public Object listarPlantillaResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		Map<String,Object> listados = new HashMap<String,Object>();
+		listados.put("PLANTILLA", jpo.tabla("tarea_resumen_plantilla","PLA").ordenadoPor("nombre ASC").seleccionar("*"));
+		listados.put("SUB_SECCION", jpo.tabla("tarea_resumen_plantilla_sub_seccion","SUB").ordenadoPor("cod_sub_seccion ASC").seleccionar("*"));
+		listados.put("ATRIBUTO", jpo.tabla("tarea_resumen_plantilla_atributo","ATR").ordenadoPor("cod_sub_seccion ASC, cod_tarea_resumen_plantilla_atributo ASC").seleccionar("*"));
+		return listados;
+	}
+	
+	// RESUMEN
+	
+	public Object registrarResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		
+		Tabla sub_seccion = jpo.tabla("tarea_resumen_sub_seccion","SUB");
+		Tabla atributo = jpo.tabla("tarea_resumen","ATR");
+		
+		sub_seccion.eliminar();
+		atributo.eliminar();
+		
+		sub_seccion.registrarMultiple();
+		atributo.registrarMultiple();
+		
+		jpo.tabla("tarea","TAR").editar();
+		
+		jpo.commitear();
+		return true;
+	}
+	
+	public Object listarResumen(Jpo jpo, HttpServletRequest request,HttpServletResponse response) throws Exception {
+		Map<String,Object> listados = new HashMap<String,Object>();
+			listados.put("SUB_SECCION", jpo.tabla("tarea_resumen_sub_seccion","SUB").ordenadoPor("cod_sub_seccion ASC").seleccionar("*"));
+			listados.put("ATRIBUTO", jpo.tabla("tarea_resumen","ATR").ordenadoPor("cod_sub_seccion ASC, cod_tarea_resumen ASC").seleccionar("*"));
+		return listados;
 	}
 	
 }

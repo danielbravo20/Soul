@@ -9,7 +9,8 @@
 			  <tr>
 				<th><input type="text" ng-model="buscar.cod_consulta" placeholder="Código" class="form-control input-sm"></th>
 				<th><input type="text" ng-model="buscar.nombre" placeholder="Nombre" class="form-control input-sm"></th>
-				<th><input type="text" ng-model="buscar.sql_ale_sto_procedure" placeholder="Nombre SP" class="form-control input-sm"></th>
+				<th class="info">Es Reporte?</th>
+				<th class="info">Nombre Reporte</th>
 				<th align="right">Opción</th>
 			  </tr>
 			</thead>
@@ -17,7 +18,8 @@
 			  <tr ng-repeat="item in data.CONSULTA | orderBy: 'cod_consulta' | filter:buscar" ng-show="pag.get($index) == pag.actual">
 				<td>{{item.cod_consulta}}</td>
 				<td>{{item.nombre}}</td>
-				<td>{{item.sql_ale_sto_procedure}}</td>
+				<td class="info"><input type="checkbox" ng-model="item.es_reporte" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px" ng-disabled="true"></td>
+				<td class="info">{{item.nombre_reporte}}</td>
 				<td>
 					<a class="btn btn-danger btn-sm" ng-click="eliminar(item.cod_consulta)" tooltip="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
 					<a class="btn btn-primary btn-sm" ng-click="editarCargar(item.cod_consulta)" tooltip="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
@@ -46,6 +48,22 @@
 			  <tr>
 				<th>Nombre (*) :</th>
 				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CON_nombre" name="CON_nombre" class="form-control input-sm" required></td>
+			  </tr>
+			  <tr class="info">
+				<th>Generar Reporte ? :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'>
+					<input type="checkbox" ng-model="cargado.CON_es_reporte" name="CON_es_reporte" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px">
+				</td>
+			  </tr>
+			  <tr class="info" ng-show="cargado.CON_es_reporte=='1'">
+				<th>Reporte: Nombre (*) :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'><input type="text" ng-model="cargado.CON_nombre_reporte" name="CON_nombre_reporte" class="form-control input-sm" ng-required="cargado.CON_es_reporte=='1'"></td>
+			  </tr>
+			  <tr class="info" ng-show="cargado.CON_es_reporte=='1'">
+				<th>Reporte: Roles Asociados :</th>
+				<td>
+					<a class="btn btn-warning btn-sm" ng-click="gestionarRoles()" tooltip="Gestionar Roles de Reporte"><i class="glyphicon glyphicon-user"></i></a>
+				</td>
 			  </tr>
 			  <tr>
 				<th>Tablas :</th>
@@ -89,6 +107,8 @@
 						<th>Tabla</th>
 						<th>Atributo</th>
 						<th>Es condición</th>
+						<th class="info" ng-show="cargado.CON_es_reporte=='1'">Reporte: Restrear</th>
+						<th class="info" ng-show="cargado.CON_es_reporte=='1'">Reporte: Filtro</th>
 						<th>Opciones</th>
 					  </tr>
 					</thead>
@@ -98,6 +118,8 @@
 						<td>{{tablaId[consultaAtributo.cod_tabla].nombre}}</td>
 						<td>{{listaAtributosId[consultaAtributo.cod_tabla][consultaAtributo.cod_atributo].nombre}}</td>
 						<td><input type="checkbox" ng-model="consultaAtributo.flg_condicion" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+						<td class="info" ng-show="cargado.CON_es_reporte=='1'"><input type="checkbox" ng-model="consultaAtributo.flg_reporte_rastrear" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
+						<td class="info" ng-show="cargado.CON_es_reporte=='1'"><input type="checkbox" ng-model="consultaAtributo.flg_reporte_busqueda" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px"></td>
 						<td width="220px">
 							<a class="btn btn-primary btn-sm" ng-click="atributoEliminar($index)" tooltip="Eliminar"><i class="glyphicon glyphicon-minus"></i></a>&nbsp;&nbsp;
 						</td>

@@ -51,7 +51,13 @@
 					  </tr>
 					  <tr>
 						<th>Formatos (*) :</th>
-						<td class="form-group" show-errors='{showSuccess: true}'><input type="text" name="DOC_formatos" class="form-control input-sm" ng-model="cargado.DOC_formatos" required></td>
+						<td class="form-inline form-group">
+							<input type="text" class="form-control input-sm" ng-model="formatoNuevo">
+							<a class="btn btn-info btn-sm" ng-click="formatoAgregar()"><i class="glyphicon glyphicon-plus"></i> Agregar</a><br>
+							<a ng-repeat="formato in formatos" class="btn btn-default btn-sm" ng-click="quitarFormato($index)" style="margin: 3px;">
+								<i style="color: red" class="glyphicon glyphicon-minus"></i> {{formato}}
+							</a>
+						</td>
 					  </tr>
 					  <tr>
 						<th>Estado (*) :</th>
@@ -61,8 +67,8 @@
 						</td>
 					  </tr>
 					  <tr>
-						<td><button type="button" class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">Guardar</span><span ng-show="!esEdicion">Registrar</span></button></td>
-						<td><button type="button" class="btn btn-primary btn-sm" ng-click="instanciar()" ng-show="esEdicion"><i class="glyphicon glyphicon-plus"></i> Nuevo</button></td>
+						<td><a class="btn btn-success btn-sm" ng-click="guardar()"><i class="glyphicon glyphicon-floppy-save"></i> <span ng-show="esEdicion">Guardar</span><span ng-show="!esEdicion">Registrar</span></a></td>
+						<td><a class="btn btn-primary btn-sm" ng-click="instanciar()" ng-show="esEdicion"><i class="glyphicon glyphicon-plus"></i> Nuevo</a></td>
 					  </tr>
 					</tbody>
 				  </table>

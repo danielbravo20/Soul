@@ -53,12 +53,20 @@
 	
 	$scope.editarCargar = function(cod_mae_documento){
 		$scope.esEdicion = true;
-		util.jpoCargar($scope.cargado,util.getObjeto($scope.data.MAE_DOCUMENTO,{cod_mae_documento : cod_mae_documento}),"DOC");
+		var objDoc = util.getObjeto($scope.data.MAE_DOCUMENTO,{cod_mae_documento : cod_mae_documento});
+		util.jpoCargar($scope.cargado,objDoc,"DOC");
+		$scope.formatos = objDoc.formatos.split(",");
 	};
 	
 	$scope.guardar = function(){
 		$scope.$broadcast('show-errors-check-validity');
 		if ($scope.FRM_DOC.$invalid) { return; }
+		if($scope.formatos.length==0){
+			$scope.agregarAlerta("danger","Debe agregar por lo menos 1 formato");
+			return;
+		} else {
+			$scope.cargado.DOC_formatos = $scope.formatos.join(",");
+		}
 		if($scope.esEdicion){
 			$scope.cargado.metodo = "editar";
 			$scope.cargado.DOC_W_cod_mae_documento = $scope.cargado.DOC_cod_mae_documento;			// WHERE-------
@@ -82,5 +90,21 @@
 	});
 	
 	$scope.instanciar(true);
+	
+	$scope.formatos = [];
+	
+	$scope.formatoAgregar = function(){
+		for(var i = 0 ; i < $scope.formatos.length ; i++){
+			if($scope.formatos[i] == "."+$scope.formatoNuevo){
+				return;
+			};
+		}
+		$scope.formatos.push("."+$scope.formatoNuevo);
+		$scope.formatoNuevo = "";
+	};
+	
+	$scope.quitarFormato = function(index){
+		$scope.formatos.splice(index,1);
+	};
 	
 });

@@ -49,7 +49,24 @@
 				<th>Esquema (*) :</th>
 				<td class="form-group" show-errors='{showSuccess: true}'>
 					<input type="text" ng-model="cargado.TAB_esquema" name="TAB_esquema" class="form-control input-sm" required>
-						
+				</td>
+			  </tr>
+			  <tr class="info">
+				<th>Generar Mantenimiento ? :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'>
+					<input type="checkbox" ng-model="cargado.TAB_es_mantenimiento" name="TAB_es_mantenimiento" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px">
+				</td>
+			  </tr>
+			  <tr class="info" ng-show="cargado.TAB_es_mantenimiento=='1'">
+				<th>Mantenimiento: Accion Eliminar :</th>
+				<td class="form-group" show-errors='{showSuccess: true}'>
+					<input type="checkbox" ng-model="cargado.TAB_flg_mantenimiento_eliminar" name="TAB_flg_mantenimiento_eliminar" ng-true-value="'1'" ng-false-value="'0'" class="form-control input-sm" style="width:30px">
+				</td>
+			  </tr>
+			  <tr class="info" ng-show="cargado.TAB_es_mantenimiento=='1'">
+				<th>Mantenimiento: Roles Asociados :</th>
+				<td>
+					<a class="btn btn-warning btn-sm" ng-click="gestionarRoles()" tooltip="Gestionar Roles de Mantenimiento"><i class="glyphicon glyphicon-user"></i></a>
 				</td>
 			  </tr>
 			  <tr>

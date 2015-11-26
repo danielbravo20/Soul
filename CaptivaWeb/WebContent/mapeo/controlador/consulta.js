@@ -127,7 +127,26 @@
 			$scope.cargado["CAT_M_"+cont+"_cod_tabla"] = atributo.cod_tabla;
 			$scope.cargado["CAT_M_"+cont+"_cod_atributo"] = atributo.cod_atributo;
 			$scope.cargado["CAT_M_"+cont+"_flg_condicion"] = (atributo.flg_condicion)?atributo.flg_condicion:"0";
+			$scope.cargado["CAT_M_"+cont+"_flg_reporte_rastrear"] = atributo.flg_reporte_rastrear;
+			$scope.cargado["CAT_M_"+cont+"_flg_reporte_busqueda"] = atributo.flg_reporte_busqueda;
 			cont++;
+		}
+	};
+	
+	var _guardar = function(){
+		if($scope.esEdicion){
+			$scope.cargado.metodo = "editar";
+			$scope.cargado.CON_W_cod_consulta = $scope.cargado.CON_cod_consulta;			// WHERE-------
+			ajax.jpo($scope.cargado,function(respuesta){
+				$scope.agregarAlerta("success","Editado corréctamente");
+				$scope.instanciar(true);
+			});
+		} else {
+			$scope.cargado.metodo = "registrar";
+			ajax.jpo($scope.cargado,function(respuesta){
+				$scope.agregarAlerta("success","Creado corréctamente");
+				$scope.instanciar(true);
+			});
 		}
 	};
 	
@@ -136,19 +155,11 @@
 		if ($scope.FRM_CONSULTA.$invalid) { return; }
 		if(validarConsulta()){
 			cargarEnvio();
-			if($scope.esEdicion){
-				$scope.cargado.metodo = "editar";
-				$scope.cargado.CON_W_cod_consulta = $scope.cargado.CON_cod_consulta;			// WHERE-------
-				ajax.jpo($scope.cargado,function(respuesta){
-					$scope.agregarAlerta("success","Editado corréctamente");
-					$scope.instanciar(true);
-				});
+			if($scope.cargado.CON_es_reporte=="0"){
+				$scope.cargado.CON_nombre_reporte = '';
+				$scope.borrarRoles($scope.cargado.CON_cod_consulta,"consulta_reporte_rol","cod_consulta",_guardar);
 			} else {
-				$scope.cargado.metodo = "registrar";
-				ajax.jpo($scope.cargado,function(respuesta){
-					$scope.agregarAlerta("success","Creado corréctamente");
-					$scope.instanciar(true);
-				});
+				_guardar();
 			}
 		}
 	};
@@ -289,8 +300,8 @@
 		}
 	});
 	
-	$scope.cargarReplicar = function($index){
+	$scope.gestionarRoles = function(){
+		$scope.asociarRoles($scope.cargado.CON_cod_consulta,"ROLES DE REPORTE DE CONSULTA '"+$scope.cargado.CON_nombre+"'","consulta_reporte_rol","cod_consulta");
 	};
-	
 	
 });
