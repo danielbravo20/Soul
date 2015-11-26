@@ -1,7 +1,7 @@
 <script type="text/javascript" src="controlador/proyectogestionar.js"></script>
 <div ng-controller="proyectogestionar">
 	<div class="page-header"><h1>Proyectos</h1></div>
-	<div class="panel panel-default" ng-show="vista === 'lista'">
+	<div class="panel panel-default" ng-show="vista == 'lista'">
 	  <div class="panel-heading">Cartera de Proyectos</div>
 	  <table class="table">
 		<thead>
@@ -29,7 +29,7 @@
 		</tbody>
 	  </table>
 	</div>
-	<div class="panel panel-default" ng-show="vista === 'mantener'">
+	<div class="panel panel-default" ng-show="vista == 'mantener'">
 	  <div class="panel-heading">Nuevo Proyecto</div>
 	  <form name="FRM_PROYECTOGESTIONAR" novalidate>
 		  <table class="table">

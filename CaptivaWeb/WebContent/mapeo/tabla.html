@@ -81,6 +81,7 @@
 		</div>
 	</div>
 	<div ng-show="vista === 'atributos'">
+		<alert type="danger" ng-show="data.TABLA_ATRIBUTO.length==0">No se ha registrado ningún atributo, debe agregar atributos en la clase asociada</alert>
 		<div class="row">
 			<div class="col-md-10">
 				<ol class="breadcrumb">

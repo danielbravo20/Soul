@@ -1,13 +1,10 @@
 INSERT INTO soul.USUARIO(cod_usuario, clave, nombre, perfil, descripcion) VALUES ('david', 'a4a97ffc170ec7ab32b85b2129c69c50', 'David', 'PRO_MAN', 'David');
 INSERT INTO soul.USUARIO(cod_usuario, clave, nombre, perfil, descripcion) VALUES ('daniel','a4a97ffc170ec7ab32b85b2129c69c50', 'Daniel', 'PRO_MAN', 'Daniel');
-INSERT INTO soul.USUARIO(cod_usuario, clave, nombre, perfil, descripcion) VALUES ('edwin','a4a97ffc170ec7ab32b85b2129c69c50', 'edwin', 'PRO_MAN', 'Daniel');
-INSERT INTO soul.USUARIO(cod_usuario, clave, nombre, perfil, descripcion) VALUES ('LUIBRA','a4a97ffc170ec7ab32b85b2129c69c50', 'Daniel', 'PRO_MAN', 'Daniel');
 
 INSERT INTO soul.PROYECTO VALUES (1, 'Workflow de Carta Fianza', 'CartaFianza', 'pe.com.cartaFianza');
  
 INSERT INTO soul.EQUIPO(cod_proyecto, cod_usuario, es_responsable, carpeta_destino_workspace, carpeta_destino_parcial) VALUES (1, 'david', '1', 'D:\oscar\Compartido\generadoData', 'D:\oscar\Compartido\generadoData');
 INSERT INTO soul.EQUIPO(cod_proyecto, cod_usuario, es_responsable, carpeta_destino_workspace, carpeta_destino_parcial) VALUES (1, 'daniel', '1', 'E:\JBOSS\git\', 'E:\CF_Temporal\');
-INSERT INTO soul.EQUIPO(cod_proyecto, cod_usuario, es_responsable, carpeta_destino_workspace, carpeta_destino_parcial) VALUES (1, 'LUIBRA', '1', 'P:\git\Soul\', 'D:\IBM\jbdevstudio\soul\sql\');
 
 INSERT INTO soul.Rol (descripcion,estado,cod_rol,cod_proyecto) VALUES ('Analista','1','Analista','1');
 

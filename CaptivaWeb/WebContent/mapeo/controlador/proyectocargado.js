@@ -140,6 +140,16 @@
 		
 	};
 	
+	$scope.instanciar();
+	
+	$scope.cambiar = function(index){
+		$scope.tabs.actual = index + 1;
+		var ctrl = $scope.getControladorScope($scope.tabs.lista[index].id);
+		if(ctrl && ctrl.instanciar){
+			ctrl.instanciar();
+		}
+	}
+	
 });
 
 mapeo.registerCtrl('rol_modal_entidad', function ($scope, $modalInstance, ajax, config) {

@@ -356,7 +356,7 @@ CREATE TABLE soul.tarea(
  clase Character varying(255) NOT NULL,
  tipo_vista Character(1),
  cod_tarea_siguiente Integer,
- cod_tarea_observado Integer
+ cod_tarea_observado Integer,
  web_acc_completar Character(1) DEFAULT '1'::bpchar NOT NULL,
  web_acc_grabar Character(1) DEFAULT '1'::bpchar NOT NULL,
  web_acc_cancelar Character(1) DEFAULT '0'::bpchar NOT NULL,
@@ -532,18 +532,6 @@ ALTER TABLE soul.consulta_tabla ADD CONSTRAINT con_tabla_tabla_fk1 FOREIGN KEY (
 ALTER TABLE soul.datasource ADD CONSTRAINT relationship33 FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
-ALTER TABLE soul.mantenimiento ADD CONSTRAINT relationship38 FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION
-;
-
-ALTER TABLE soul.mantenimiento_atributo ADD CONSTRAINT relationship37 FOREIGN KEY (cod_mantenimiento) REFERENCES soul.mantenimiento (cod_mantenimiento) ON DELETE NO ACTION ON UPDATE NO ACTION
-;
-
-ALTER TABLE soul.mantenimiento_rol ADD CONSTRAINT relationship40 FOREIGN KEY (cod_mantenimiento) REFERENCES soul.mantenimiento (cod_mantenimiento) ON DELETE NO ACTION ON UPDATE NO ACTION
-;
-
-ALTER TABLE soul.mantenimiento_rol ADD CONSTRAINT relationship39 FOREIGN KEY (cod_rol) REFERENCES soul.rol (cod_rol) ON DELETE NO ACTION ON UPDATE NO ACTION
-;
-
 ALTER TABLE soul.proceso ADD CONSTRAINT proceso_consulta_fk FOREIGN KEY (cod_con_resumen) REFERENCES soul.consulta (cod_consulta) ON DELETE RESTRICT ON UPDATE NO ACTION
 ;
 
@@ -630,6 +618,22 @@ ALTER TABLE soul.tarea ADD CONSTRAINT Relationship41 FOREIGN KEY (cod_proceso) R
 ;
 
 
+-- Table: soul.tarea_resumen
+
+-- DROP TABLE soul.tarea_resumen;
+
+CREATE TABLE soul.tarea_resumen
+(
+  cod_tarea integer NOT NULL,
+  cod_sub_seccion integer NOT NULL,
+  cod_tarea_resumen integer NOT NULL,
+  cod_atributo integer NOT NULL,
+  web_etiqueta character varying(255) NOT NULL
+);
+
+ALTER TABLE soul.tarea_resumen ADD CONSTRAINT tarea_resumen_pk PRIMARY KEY (cod_tarea,cod_sub_seccion,cod_tarea_resumen)
+;
+
 -- Table soul.tarea_resumen_plantilla
 
 CREATE TABLE soul.tarea_resumen_plantilla (
@@ -668,22 +672,6 @@ CREATE TABLE soul.tarea_resumen_plantilla_atributo
 ALTER TABLE soul.tarea_resumen_plantilla_atributo ADD CONSTRAINT tarea_resumen_plantilla_atributo_pk PRIMARY KEY (cod_plantilla,cod_sub_seccion,cod_tarea_resumen_plantilla_atributo)
 ;
 
--- Table: soul.tarea_resumen
-
--- DROP TABLE soul.tarea_resumen;
-
-CREATE TABLE soul.tarea_resumen
-(
-  cod_tarea integer NOT NULL,,
-  cod_sub_seccion integer NOT NULL,
-  cod_tarea_resumen integer NOT NULL,
-  cod_atributo integer NOT NULL,
-  web_etiqueta character varying(255) NOT NULL
-);
-
-ALTER TABLE soul.tarea_resumen ADD CONSTRAINT tarea_resumen_pk PRIMARY KEY (cod_tarea,cod_sub_seccion,cod_tarea_resumen)
-;
-
 -- Table: soul.tarea_resumen_sub_seccion
 
 -- DROP TABLE soul.tarea_resumen_sub_seccion;
@@ -696,28 +684,6 @@ CREATE TABLE soul.tarea_resumen_sub_seccion
 );
 
 ALTER TABLE soul.tarea_resumen_sub_seccion ADD CONSTRAINT tarea_resumen_sub_seccion_pk PRIMARY KEY (cod_tarea,cod_sub_seccion)
-;
-
--- Table soul.tarea_resumen_sub_seccion
-
-CREATE TABLE soul.tarea_resumen_sub_seccion(
- cod_tarea Integer,
- cod_plantilla Character varying(20),
- cod_sub_seccion Integer NOT NULL,
- nombre Character varying(100) NOT NULL
- )
-;
-
--- Table soul.tarea_resumen
-
-CREATE TABLE soul.tarea_resumen(
- cod_tarea Integer,
- cod_plantilla Character varying(20),
- cod_sub_seccion Integer NOT NULL,
- cod_tarea_resumen Integer NOT NULL,
- cod_atributo Integer NOT NULL,
- web_etiqueta Character varying(255) NOT NULL
-)
 ;
 
 -- Table soul.mae_motivo_cancelar

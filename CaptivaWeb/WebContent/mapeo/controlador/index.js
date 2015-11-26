@@ -65,12 +65,14 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 			},function(respuesta){
 				angular.extend($scope.data, respuesta);
 				$scope.modulo = "proyectocargado";
+				$scope.moduloURL = 'proyectocargado.html';
 			});
 			
 		};
 		
 		$scope.cerrarTrabajarProyecto = function(){
 			$scope.data.PROYECTO = {esCargado : false};
+			$scope.moduloURL = 'proyectogestionar.html';
 			$scope.modulo = "proyectogestionar";
 		};
 		
@@ -94,7 +96,9 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 				if(getParametro.proyecto){
 					$scope.cargarTrabajarProyecto(respuesta.PROYECTOS[proyectoId[getParametro.proyecto]]);
 				} else {
+					$scope.moduloURL = 'proyectogestionar.html';
 					$scope.modulo = 'proyectogestionar';
+					
 					//$scope.getControladorScope("proyectogestionar").instanciar();
 				}
 				

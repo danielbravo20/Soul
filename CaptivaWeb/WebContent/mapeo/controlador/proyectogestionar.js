@@ -130,4 +130,6 @@
 		}
 	};
 	
+	$scope.instanciar();
+	
 });
