@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -18,8 +17,7 @@ public class MaeDocumentoTareaId implements java.io.Serializable {
 	public MaeDocumentoTareaId() {
 	}
 
-	public MaeDocumentoTareaId(int codProyecto, int codTarea,
-			int codMaeDocumentoTarea) {
+	public MaeDocumentoTareaId(int codProyecto, int codTarea, int codMaeDocumentoTarea) {
 		this.codProyecto = codProyecto;
 		this.codTarea = codTarea;
 		this.codMaeDocumentoTarea = codMaeDocumentoTarea;
@@ -61,10 +59,8 @@ public class MaeDocumentoTareaId implements java.io.Serializable {
 			return false;
 		MaeDocumentoTareaId castOther = (MaeDocumentoTareaId) other;
 
-		return (this.getCodProyecto() == castOther.getCodProyecto())
-				&& (this.getCodTarea() == castOther.getCodTarea())
-				&& (this.getCodMaeDocumentoTarea() == castOther
-						.getCodMaeDocumentoTarea());
+		return (this.getCodProyecto() == castOther.getCodProyecto()) && (this.getCodTarea() == castOther.getCodTarea())
+				&& (this.getCodMaeDocumentoTarea() == castOther.getCodMaeDocumentoTarea());
 	}
 
 	public int hashCode() {

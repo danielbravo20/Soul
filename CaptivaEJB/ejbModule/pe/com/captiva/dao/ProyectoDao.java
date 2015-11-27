@@ -17,6 +17,7 @@ import pe.com.captiva.bean.ConsultaBean;
 import pe.com.captiva.bean.ProcesoBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.bean.RolBean;
+import pe.com.captiva.bean.SubseccionProceso;
 import pe.com.captiva.bean.TablaBean;
 import pe.com.captiva.bean.TareaBean;
 import pe.com.captiva.dao.entity.Atributo;
@@ -26,6 +27,7 @@ import pe.com.captiva.dao.entity.Consulta;
 import pe.com.captiva.dao.entity.ConsultaAtributo;
 import pe.com.captiva.dao.entity.Proceso;
 import pe.com.captiva.dao.entity.ProcesoInicio;
+import pe.com.captiva.dao.entity.ProcesoInicioSubSeccion;
 import pe.com.captiva.dao.entity.Proyecto;
 import pe.com.captiva.dao.entity.Rol;
 import pe.com.captiva.dao.entity.Tabla;
@@ -131,6 +133,13 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 			}
     		procesoBean.setAtributosEntrada(atributoProcesoBeans);
     		
+    		Set<ProcesoInicioSubSeccion> procesoInicioSubSeccions = proceso.getProcesoInicioSubSeccions();
+    		Iterator<ProcesoInicioSubSeccion> procesoInicioSubSeccionsIterator = procesoInicioSubSeccions.iterator();
+    		List<SubseccionProceso> procesoInicioSubSeccionsBeans = new ArrayList<SubseccionProceso>();
+    		while (procesoInicioSubSeccionsIterator.hasNext()) {
+    			procesoInicioSubSeccionsBeans.add(parseSubseccionProcesoBean((ProcesoInicioSubSeccion) procesoInicioSubSeccionsIterator.next()));
+			}
+    		procesoBean.setSubseccionEntrada(procesoInicioSubSeccionsBeans);
     		
     		//consulta detalle del proceso
     		ConsultaBean consultaDetalleBean = new ConsultaBean();
@@ -168,20 +177,39 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     	AtributoProceso atributoProceso = null;
 		if(procesoInicio!=null){
 			atributoProceso = new AtributoProceso();
+			
+			atributoProceso.setCodSubSeccion(procesoInicio.getId().getCodSubSeccion());
+			atributoProceso.setCodProcesoInicio(procesoInicio.getId().getCodProcesoInicio());
+			atributoProceso.setCodigo(procesoInicio.getAtributo().getCodAtributo());
 			atributoProceso.setNombre(procesoInicio.getAtributo().getNombre());
 			atributoProceso.setTipo(procesoInicio.getAtributo().getTipo());
+			
+			atributoProceso.setWebEtiqueta(procesoInicio.getWebEtiqueta());
+			atributoProceso.setWebTipo(procesoInicio.getWebTipo());
+			atributoProceso.setWebTipoCampo(procesoInicio.getWebTipoCampo());
+			atributoProceso.setWebTipoLista(procesoInicio.getWebTipoLista());
+			atributoProceso.setWebCatalogo(procesoInicio.getWebCatalogo());
+			if(procesoInicio.getWebRequerido()=='1'){
+				atributoProceso.setFlgWebRequerido(true);
+			}
+			atributoProceso.setWebMensajeValidacion(procesoInicio.getWebMensajeValidacion());
 			atributoProceso.setValorOmision(procesoInicio.getValOmision());
 			atributoProceso.setClase(parseClaseBeanSimple(procesoInicio.getAtributo().getClase()));
 			atributoProceso.setCampoSQLBean(parseCampoSQLBeanSimple(procesoInicio.getAtributo().getAtributoSql()));
 			
-			atributoProceso.setWebNombre(procesoInicio.getAtributo().getWebNombre());
-			atributoProceso.setWebEtiqueta(procesoInicio.getWebEtiqueta());
-			atributoProceso.setWebMensajeValidacion(procesoInicio.getWebMensajeValidacion());
-			if(procesoInicio.getWebRequerido()=='1'){
-				atributoProceso.setWebFlgRequerido(true);
-			}
 		}
 		return atributoProceso;
+    }
+    
+    private SubseccionProceso parseSubseccionProcesoBean(ProcesoInicioSubSeccion subseccion){
+    	SubseccionProceso subseccionProceso = null;
+		if(subseccion!=null){
+			subseccionProceso = new SubseccionProceso();
+			subseccionProceso.setCodigoProceso(subseccion.getId().getCodProceso());
+			subseccionProceso.setCodigoSubseccion(subseccion.getId().getCodSubSeccion());
+			subseccionProceso.setNombre(subseccion.getNombre());
+		}
+		return subseccionProceso;
     }
     
     private ClaseBean parseClaseBeanSimple(Clase clase){

@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,9 +23,9 @@ public class Proyecto implements java.io.Serializable {
 	private String paquete;
 	private Set<Catalogo> catalogos = new HashSet<Catalogo>(0);
 	private Set<Equipo> equipos = new HashSet<Equipo>(0);
-	private Set<Mantenimiento> mantenimientos = new HashSet<Mantenimiento>(0);
 	private Set<Proceso> procesos = new HashSet<Proceso>(0);
 	private Set<Datasource> datasources = new HashSet<Datasource>(0);
+	private Set<MaeCatalogo> maeCatalogos = new HashSet<MaeCatalogo>(0);
 	private Set<Rol> rols = new HashSet<Rol>(0);
 	private Set<Consulta> consultas = new HashSet<Consulta>(0);
 	private Set<Tabla> tablas = new HashSet<Tabla>(0);
@@ -35,28 +34,25 @@ public class Proyecto implements java.io.Serializable {
 	public Proyecto() {
 	}
 
-	public Proyecto(int codProyecto, String nombre, String proyecto,
-			String paquete) {
+	public Proyecto(int codProyecto, String nombre, String proyecto, String paquete) {
 		this.codProyecto = codProyecto;
 		this.nombre = nombre;
 		this.proyecto = proyecto;
 		this.paquete = paquete;
 	}
 
-	public Proyecto(int codProyecto, String nombre, String proyecto,
-			String paquete, Set<Catalogo> catalogos, Set<Equipo> equipos,
-			Set<Mantenimiento> mantenimientos, Set<Proceso> procesos,
-			Set<Datasource> datasources, Set<Rol> rols,
-			Set<Consulta> consultas, Set<Tabla> tablas, Set<Clase> clases) {
+	public Proyecto(int codProyecto, String nombre, String proyecto, String paquete, Set<Catalogo> catalogos,
+			Set<Equipo> equipos, Set<Proceso> procesos, Set<Datasource> datasources, Set<MaeCatalogo> maeCatalogos,
+			Set<Rol> rols, Set<Consulta> consultas, Set<Tabla> tablas, Set<Clase> clases) {
 		this.codProyecto = codProyecto;
 		this.nombre = nombre;
 		this.proyecto = proyecto;
 		this.paquete = paquete;
 		this.catalogos = catalogos;
 		this.equipos = equipos;
-		this.mantenimientos = mantenimientos;
 		this.procesos = procesos;
 		this.datasources = datasources;
+		this.maeCatalogos = maeCatalogos;
 		this.rols = rols;
 		this.consultas = consultas;
 		this.tablas = tablas;
@@ -64,6 +60,7 @@ public class Proyecto implements java.io.Serializable {
 	}
 
 	@Id
+
 	@Column(name = "cod_proyecto", unique = true, nullable = false)
 	public int getCodProyecto() {
 		return this.codProyecto;
@@ -119,15 +116,6 @@ public class Proyecto implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")
-	public Set<Mantenimiento> getMantenimientos() {
-		return this.mantenimientos;
-	}
-
-	public void setMantenimientos(Set<Mantenimiento> mantenimientos) {
-		this.mantenimientos = mantenimientos;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")
 	public Set<Proceso> getProcesos() {
 		return this.procesos;
 	}
@@ -143,6 +131,15 @@ public class Proyecto implements java.io.Serializable {
 
 	public void setDatasources(Set<Datasource> datasources) {
 		this.datasources = datasources;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")
+	public Set<MaeCatalogo> getMaeCatalogos() {
+		return this.maeCatalogos;
+	}
+
+	public void setMaeCatalogos(Set<MaeCatalogo> maeCatalogos) {
+		this.maeCatalogos = maeCatalogos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")

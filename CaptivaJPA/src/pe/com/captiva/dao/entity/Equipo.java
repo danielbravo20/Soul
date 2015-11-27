@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -29,8 +28,7 @@ public class Equipo implements java.io.Serializable {
 	public Equipo() {
 	}
 
-	public Equipo(EquipoId id, Proyecto proyecto, Usuario usuario,
-			char esResponsable, String carpetaDestinoWorkspace,
+	public Equipo(EquipoId id, Proyecto proyecto, Usuario usuario, char esResponsable, String carpetaDestinoWorkspace,
 			String carpetaDestinoParcial) {
 		this.id = id;
 		this.proyecto = proyecto;
@@ -41,9 +39,10 @@ public class Equipo implements java.io.Serializable {
 	}
 
 	@EmbeddedId
+
 	@AttributeOverrides({
-			@AttributeOverride(name = "codProyecto", column = @Column(name = "cod_proyecto", nullable = false)),
-			@AttributeOverride(name = "codUsuario", column = @Column(name = "cod_usuario", nullable = false, length = 50)) })
+			@AttributeOverride(name = "codProyecto", column = @Column(name = "cod_proyecto", nullable = false) ),
+			@AttributeOverride(name = "codUsuario", column = @Column(name = "cod_usuario", nullable = false, length = 50) ) })
 	public EquipoId getId() {
 		return this.id;
 	}

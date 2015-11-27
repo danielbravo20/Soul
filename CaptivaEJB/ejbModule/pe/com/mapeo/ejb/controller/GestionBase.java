@@ -16,9 +16,9 @@ public abstract class GestionBase implements GestionLocal {
 		try {
 			method = this.getClass().getMethod(request.getParameter("metodo"), Jpo.class, HttpServletRequest.class, HttpServletResponse.class);
 		} catch (SecurityException e) {
-			throw new Exception("Acceso a un método protegido");
+			throw new Exception("Acceso a un mï¿½todo protegido");
 		} catch (NoSuchMethodException e) {
-			throw new Exception("Verifique el nombre del método: "+request.getParameter("metodo")); 
+			throw new Exception("Verifique el nombre del mï¿½todo: "+request.getParameter("metodo")); 
 		} catch (UnsupportedOperationException e) {
 			throw new Exception("Metodo incorrecto"); 
 		}
@@ -34,7 +34,7 @@ public abstract class GestionBase implements GestionLocal {
 			e.getCause().printStackTrace();
 			throw new Exception(e.getCause().getMessage()+" | ");
 		} finally {
-			System.out.println("finalizando");
+			//System.out.println("finalizando");
 			jpo.finalizar();
 		}
 	}

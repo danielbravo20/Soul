@@ -217,7 +217,7 @@ public class Jpo {
 		if(c != null){
 			if(!c.isClosed()){
 				c.close();
-				System.out.println("Desconectado corréctamente");
+				//System.out.println("Desconectado correctamente");
 			}
 		}
 	}

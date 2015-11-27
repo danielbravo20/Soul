@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -25,8 +24,7 @@ public class MaeDocumentoTarea implements java.io.Serializable {
 	public MaeDocumentoTarea() {
 	}
 
-	public MaeDocumentoTarea(MaeDocumentoTareaId id, int codMaeDocumento,
-			char tipo, char esObligatorio, char estado) {
+	public MaeDocumentoTarea(MaeDocumentoTareaId id, int codMaeDocumento, char tipo, char esObligatorio, char estado) {
 		this.id = id;
 		this.codMaeDocumento = codMaeDocumento;
 		this.tipo = tipo;
@@ -35,10 +33,11 @@ public class MaeDocumentoTarea implements java.io.Serializable {
 	}
 
 	@EmbeddedId
+
 	@AttributeOverrides({
-			@AttributeOverride(name = "codProyecto", column = @Column(name = "cod_proyecto", nullable = false)),
-			@AttributeOverride(name = "codTarea", column = @Column(name = "cod_tarea", nullable = false)),
-			@AttributeOverride(name = "codMaeDocumentoTarea", column = @Column(name = "cod_mae_documento_tarea", nullable = false)) })
+			@AttributeOverride(name = "codProyecto", column = @Column(name = "cod_proyecto", nullable = false) ),
+			@AttributeOverride(name = "codTarea", column = @Column(name = "cod_tarea", nullable = false) ),
+			@AttributeOverride(name = "codMaeDocumentoTarea", column = @Column(name = "cod_mae_documento_tarea", nullable = false) ) })
 	public MaeDocumentoTareaId getId() {
 		return this.id;
 	}

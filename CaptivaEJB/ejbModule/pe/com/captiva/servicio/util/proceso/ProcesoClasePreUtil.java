@@ -65,7 +65,7 @@ public class ProcesoClasePreUtil extends MultipleBaseConstructor{
 		for (int i = 0; i < atributos.size(); i++) {
 			AtributoProceso atributoProceso = atributos.get(i);
 			String tab = "\t\t";
-			if(atributoProceso.isWebFlgRequerido()){
+			if(atributoProceso.isFlgWebRequerido()){
 				String metodoValidacion = "";
 				if ("string".equals(atributoProceso.getTipo().toLowerCase())){
 					metodoValidacion = "ValidacionUtil.cadenaNoValidaRequestParameter";

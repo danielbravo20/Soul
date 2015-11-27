@@ -1,12 +1,14 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,26 +19,39 @@ import javax.persistence.Table;
 public class ProcesoInicioSubSeccion implements java.io.Serializable {
 
 	private ProcesoInicioSubSeccionId id;
+	private Proceso proceso;
 	private String nombre;
 
 	public ProcesoInicioSubSeccion() {
 	}
 
-	public ProcesoInicioSubSeccion(ProcesoInicioSubSeccionId id, String nombre) {
+	public ProcesoInicioSubSeccion(ProcesoInicioSubSeccionId id, Proceso proceso, String nombre) {
 		this.id = id;
+		this.proceso = proceso;
 		this.nombre = nombre;
 	}
 
 	@EmbeddedId
+
 	@AttributeOverrides({
-			@AttributeOverride(name = "codProceso", column = @Column(name = "cod_proceso", nullable = false)),
-			@AttributeOverride(name = "codSubSeccion", column = @Column(name = "cod_sub_seccion", nullable = false)) })
+			@AttributeOverride(name = "codProceso", column = @Column(name = "cod_proceso", nullable = false) ),
+			@AttributeOverride(name = "codSubSeccion", column = @Column(name = "cod_sub_seccion", nullable = false) ) })
 	public ProcesoInicioSubSeccionId getId() {
 		return this.id;
 	}
 
 	public void setId(ProcesoInicioSubSeccionId id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_proceso", nullable = false, insertable = false, updatable = false)
+	public Proceso getProceso() {
+		return this.proceso;
+	}
+
+	public void setProceso(Proceso proceso) {
+		this.proceso = proceso;
 	}
 
 	@Column(name = "nombre", nullable = false, length = 100)

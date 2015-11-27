@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -24,23 +23,28 @@ public class ConsultaAtributo implements java.io.Serializable {
 	private Consulta consulta;
 	private char flgCondicion;
 	private int codTabla;
+	private char flgReporteRastrear;
+	private char flgReporteBusqueda;
 
 	public ConsultaAtributo() {
 	}
 
-	public ConsultaAtributo(ConsultaAtributoId id, Atributo atributo,
-			Consulta consulta, char flgCondicion, int codTabla) {
+	public ConsultaAtributo(ConsultaAtributoId id, Atributo atributo, Consulta consulta, char flgCondicion,
+			int codTabla, char flgReporteRastrear, char flgReporteBusqueda) {
 		this.id = id;
 		this.atributo = atributo;
 		this.consulta = consulta;
 		this.flgCondicion = flgCondicion;
 		this.codTabla = codTabla;
+		this.flgReporteRastrear = flgReporteRastrear;
+		this.flgReporteBusqueda = flgReporteBusqueda;
 	}
 
 	@EmbeddedId
+
 	@AttributeOverrides({
-			@AttributeOverride(name = "codConsulta", column = @Column(name = "cod_consulta", nullable = false)),
-			@AttributeOverride(name = "codAtributo", column = @Column(name = "cod_atributo", nullable = false)) })
+			@AttributeOverride(name = "codConsulta", column = @Column(name = "cod_consulta", nullable = false) ),
+			@AttributeOverride(name = "codAtributo", column = @Column(name = "cod_atributo", nullable = false) ) })
 	public ConsultaAtributoId getId() {
 		return this.id;
 	}
@@ -85,6 +89,24 @@ public class ConsultaAtributo implements java.io.Serializable {
 
 	public void setCodTabla(int codTabla) {
 		this.codTabla = codTabla;
+	}
+
+	@Column(name = "flg_reporte_rastrear", nullable = false, length = 1)
+	public char getFlgReporteRastrear() {
+		return this.flgReporteRastrear;
+	}
+
+	public void setFlgReporteRastrear(char flgReporteRastrear) {
+		this.flgReporteRastrear = flgReporteRastrear;
+	}
+
+	@Column(name = "flg_reporte_busqueda", nullable = false, length = 1)
+	public char getFlgReporteBusqueda() {
+		return this.flgReporteBusqueda;
+	}
+
+	public void setFlgReporteBusqueda(char flgReporteBusqueda) {
+		this.flgReporteBusqueda = flgReporteBusqueda;
 	}
 
 }

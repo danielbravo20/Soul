@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -21,8 +20,8 @@ public class ProcesoDetalleId implements java.io.Serializable {
 	public ProcesoDetalleId() {
 	}
 
-	public ProcesoDetalleId(String codSeccion, int codSubSeccion,
-			int codProcesoDetalle, int codAtributo, String webEtiqueta) {
+	public ProcesoDetalleId(String codSeccion, int codSubSeccion, int codProcesoDetalle, int codAtributo,
+			String webEtiqueta) {
 		this.codSeccion = codSeccion;
 		this.codSubSeccion = codSubSeccion;
 		this.codProcesoDetalle = codProcesoDetalle;
@@ -30,9 +29,8 @@ public class ProcesoDetalleId implements java.io.Serializable {
 		this.webEtiqueta = webEtiqueta;
 	}
 
-	public ProcesoDetalleId(Integer codProceso, String codSeccion,
-			int codSubSeccion, int codProcesoDetalle, int codAtributo,
-			String webEtiqueta) {
+	public ProcesoDetalleId(Integer codProceso, String codSeccion, int codSubSeccion, int codProcesoDetalle,
+			int codAtributo, String webEtiqueta) {
 		this.codProceso = codProceso;
 		this.codSeccion = codSeccion;
 		this.codSubSeccion = codSubSeccion;
@@ -104,41 +102,27 @@ public class ProcesoDetalleId implements java.io.Serializable {
 			return false;
 		ProcesoDetalleId castOther = (ProcesoDetalleId) other;
 
-		return ((this.getCodProceso() == castOther.getCodProceso()) || (this
-				.getCodProceso() != null && castOther.getCodProceso() != null && this
-				.getCodProceso().equals(castOther.getCodProceso())))
-				&& ((this.getCodSeccion() == castOther.getCodSeccion()) || (this
-						.getCodSeccion() != null
-						&& castOther.getCodSeccion() != null && this
-						.getCodSeccion().equals(castOther.getCodSeccion())))
+		return ((this.getCodProceso() == castOther.getCodProceso()) || (this.getCodProceso() != null
+				&& castOther.getCodProceso() != null && this.getCodProceso().equals(castOther.getCodProceso())))
+				&& ((this.getCodSeccion() == castOther.getCodSeccion()) || (this.getCodSeccion() != null
+						&& castOther.getCodSeccion() != null && this.getCodSeccion().equals(castOther.getCodSeccion())))
 				&& (this.getCodSubSeccion() == castOther.getCodSubSeccion())
-				&& (this.getCodProcesoDetalle() == castOther
-						.getCodProcesoDetalle())
+				&& (this.getCodProcesoDetalle() == castOther.getCodProcesoDetalle())
 				&& (this.getCodAtributo() == castOther.getCodAtributo())
-				&& ((this.getWebEtiqueta() == castOther.getWebEtiqueta()) || (this
-						.getWebEtiqueta() != null
-						&& castOther.getWebEtiqueta() != null && this
-						.getWebEtiqueta().equals(castOther.getWebEtiqueta())));
+				&& ((this.getWebEtiqueta() == castOther.getWebEtiqueta())
+						|| (this.getWebEtiqueta() != null && castOther.getWebEtiqueta() != null
+								&& this.getWebEtiqueta().equals(castOther.getWebEtiqueta())));
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37
-				* result
-				+ (getCodProceso() == null ? 0 : this.getCodProceso()
-						.hashCode());
-		result = 37
-				* result
-				+ (getCodSeccion() == null ? 0 : this.getCodSeccion()
-						.hashCode());
+		result = 37 * result + (getCodProceso() == null ? 0 : this.getCodProceso().hashCode());
+		result = 37 * result + (getCodSeccion() == null ? 0 : this.getCodSeccion().hashCode());
 		result = 37 * result + this.getCodSubSeccion();
 		result = 37 * result + this.getCodProcesoDetalle();
 		result = 37 * result + this.getCodAtributo();
-		result = 37
-				* result
-				+ (getWebEtiqueta() == null ? 0 : this.getWebEtiqueta()
-						.hashCode());
+		result = 37 * result + (getWebEtiqueta() == null ? 0 : this.getWebEtiqueta().hashCode());
 		return result;
 	}
 

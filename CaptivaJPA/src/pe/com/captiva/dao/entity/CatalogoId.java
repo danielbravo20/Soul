@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -49,26 +48,18 @@ public class CatalogoId implements java.io.Serializable {
 			return false;
 		CatalogoId castOther = (CatalogoId) other;
 
-		return ((this.getCodCatalogo() == castOther.getCodCatalogo()) || (this
-				.getCodCatalogo() != null && castOther.getCodCatalogo() != null && this
-				.getCodCatalogo().equals(castOther.getCodCatalogo())))
-				&& ((this.getCodAtributo() == castOther.getCodAtributo()) || (this
-						.getCodAtributo() != null
-						&& castOther.getCodAtributo() != null && this
-						.getCodAtributo().equals(castOther.getCodAtributo())));
+		return ((this.getCodCatalogo() == castOther.getCodCatalogo()) || (this.getCodCatalogo() != null
+				&& castOther.getCodCatalogo() != null && this.getCodCatalogo().equals(castOther.getCodCatalogo())))
+				&& ((this.getCodAtributo() == castOther.getCodAtributo())
+						|| (this.getCodAtributo() != null && castOther.getCodAtributo() != null
+								&& this.getCodAtributo().equals(castOther.getCodAtributo())));
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37
-				* result
-				+ (getCodCatalogo() == null ? 0 : this.getCodCatalogo()
-						.hashCode());
-		result = 37
-				* result
-				+ (getCodAtributo() == null ? 0 : this.getCodAtributo()
-						.hashCode());
+		result = 37 * result + (getCodCatalogo() == null ? 0 : this.getCodCatalogo().hashCode());
+		result = 37 * result + (getCodAtributo() == null ? 0 : this.getCodAtributo().hashCode());
 		return result;
 	}
 

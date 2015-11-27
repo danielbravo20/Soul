@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -50,20 +49,16 @@ public class EquipoId implements java.io.Serializable {
 		EquipoId castOther = (EquipoId) other;
 
 		return (this.getCodProyecto() == castOther.getCodProyecto())
-				&& ((this.getCodUsuario() == castOther.getCodUsuario()) || (this
-						.getCodUsuario() != null
-						&& castOther.getCodUsuario() != null && this
-						.getCodUsuario().equals(castOther.getCodUsuario())));
+				&& ((this.getCodUsuario() == castOther.getCodUsuario())
+						|| (this.getCodUsuario() != null && castOther.getCodUsuario() != null
+								&& this.getCodUsuario().equals(castOther.getCodUsuario())));
 	}
 
 	public int hashCode() {
 		int result = 17;
 
 		result = 37 * result + this.getCodProyecto();
-		result = 37
-				* result
-				+ (getCodUsuario() == null ? 0 : this.getCodUsuario()
-						.hashCode());
+		result = 37 * result + (getCodUsuario() == null ? 0 : this.getCodUsuario().hashCode());
 		return result;
 	}
 

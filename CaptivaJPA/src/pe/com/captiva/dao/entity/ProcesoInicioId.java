@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -18,8 +17,7 @@ public class ProcesoInicioId implements java.io.Serializable {
 	public ProcesoInicioId() {
 	}
 
-	public ProcesoInicioId(int codProceso, int codSubSeccion,
-			int codProcesoInicio) {
+	public ProcesoInicioId(int codProceso, int codSubSeccion, int codProcesoInicio) {
 		this.codProceso = codProceso;
 		this.codSubSeccion = codSubSeccion;
 		this.codProcesoInicio = codProcesoInicio;
@@ -63,8 +61,7 @@ public class ProcesoInicioId implements java.io.Serializable {
 
 		return (this.getCodProceso() == castOther.getCodProceso())
 				&& (this.getCodSubSeccion() == castOther.getCodSubSeccion())
-				&& (this.getCodProcesoInicio() == castOther
-						.getCodProcesoInicio());
+				&& (this.getCodProcesoInicio() == castOther.getCodProcesoInicio());
 	}
 
 	public int hashCode() {

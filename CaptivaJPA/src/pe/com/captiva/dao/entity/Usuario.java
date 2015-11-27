@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,8 +34,8 @@ public class Usuario implements java.io.Serializable {
 		this.perfil = perfil;
 	}
 
-	public Usuario(String codUsuario, String clave, String nombre,
-			String perfil, String descripcion, Set<Equipo> equipos) {
+	public Usuario(String codUsuario, String clave, String nombre, String perfil, String descripcion,
+			Set<Equipo> equipos) {
 		this.codUsuario = codUsuario;
 		this.clave = clave;
 		this.nombre = nombre;
@@ -46,6 +45,7 @@ public class Usuario implements java.io.Serializable {
 	}
 
 	@Id
+
 	@Column(name = "cod_usuario", unique = true, nullable = false, length = 50)
 	public String getCodUsuario() {
 		return this.codUsuario;

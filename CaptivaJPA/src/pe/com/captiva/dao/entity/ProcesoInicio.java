@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -24,7 +23,7 @@ public class ProcesoInicio implements java.io.Serializable {
 	private Proceso proceso;
 	private String webEtiqueta;
 	private String webTipo;
-	private char webTipoCampo;
+	private Character webTipoCampo;
 	private Character webTipoLista;
 	private String webCatalogo;
 	private char webRequerido;
@@ -34,22 +33,16 @@ public class ProcesoInicio implements java.io.Serializable {
 	public ProcesoInicio() {
 	}
 
-	public ProcesoInicio(ProcesoInicioId id, Atributo atributo,
-			Proceso proceso, String webEtiqueta, String webTipo,
-			char webTipoCampo, char webRequerido) {
+	public ProcesoInicio(ProcesoInicioId id, Atributo atributo, Proceso proceso, char webRequerido) {
 		this.id = id;
 		this.atributo = atributo;
 		this.proceso = proceso;
-		this.webEtiqueta = webEtiqueta;
-		this.webTipo = webTipo;
-		this.webTipoCampo = webTipoCampo;
 		this.webRequerido = webRequerido;
 	}
 
-	public ProcesoInicio(ProcesoInicioId id, Atributo atributo,
-			Proceso proceso, String webEtiqueta, String webTipo,
-			char webTipoCampo, Character webTipoLista, String webCatalogo,
-			char webRequerido, String webMensajeValidacion, String valOmision) {
+	public ProcesoInicio(ProcesoInicioId id, Atributo atributo, Proceso proceso, String webEtiqueta, String webTipo,
+			Character webTipoCampo, Character webTipoLista, String webCatalogo, char webRequerido,
+			String webMensajeValidacion, String valOmision) {
 		this.id = id;
 		this.atributo = atributo;
 		this.proceso = proceso;
@@ -64,10 +57,11 @@ public class ProcesoInicio implements java.io.Serializable {
 	}
 
 	@EmbeddedId
+
 	@AttributeOverrides({
-			@AttributeOverride(name = "codProceso", column = @Column(name = "cod_proceso", nullable = false)),
-			@AttributeOverride(name = "codSubSeccion", column = @Column(name = "cod_sub_seccion", nullable = false)),
-			@AttributeOverride(name = "codProcesoInicio", column = @Column(name = "cod_proceso_inicio", nullable = false)) })
+			@AttributeOverride(name = "codProceso", column = @Column(name = "cod_proceso", nullable = false) ),
+			@AttributeOverride(name = "codSubSeccion", column = @Column(name = "cod_sub_seccion", nullable = false) ),
+			@AttributeOverride(name = "codProcesoInicio", column = @Column(name = "cod_proceso_inicio", nullable = false) ) })
 	public ProcesoInicioId getId() {
 		return this.id;
 	}
@@ -96,7 +90,7 @@ public class ProcesoInicio implements java.io.Serializable {
 		this.proceso = proceso;
 	}
 
-	@Column(name = "web_etiqueta", nullable = false)
+	@Column(name = "web_etiqueta")
 	public String getWebEtiqueta() {
 		return this.webEtiqueta;
 	}
@@ -105,7 +99,7 @@ public class ProcesoInicio implements java.io.Serializable {
 		this.webEtiqueta = webEtiqueta;
 	}
 
-	@Column(name = "web_tipo", nullable = false, length = 60)
+	@Column(name = "web_tipo", length = 60)
 	public String getWebTipo() {
 		return this.webTipo;
 	}
@@ -114,12 +108,12 @@ public class ProcesoInicio implements java.io.Serializable {
 		this.webTipo = webTipo;
 	}
 
-	@Column(name = "web_tipo_campo", nullable = false, length = 1)
-	public char getWebTipoCampo() {
+	@Column(name = "web_tipo_campo", length = 1)
+	public Character getWebTipoCampo() {
 		return this.webTipoCampo;
 	}
 
-	public void setWebTipoCampo(char webTipoCampo) {
+	public void setWebTipoCampo(Character webTipoCampo) {
 		this.webTipoCampo = webTipoCampo;
 	}
 

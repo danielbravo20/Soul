@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -29,8 +28,7 @@ public class ConsultaTabla implements java.io.Serializable {
 	public ConsultaTabla() {
 	}
 
-	public ConsultaTabla(ConsultaTablaId id, Consulta consulta,
-			Tabla tablaByCodTabla, char fk, char flgUnoMuchos) {
+	public ConsultaTabla(ConsultaTablaId id, Consulta consulta, Tabla tablaByCodTabla, char fk, char flgUnoMuchos) {
 		this.id = id;
 		this.consulta = consulta;
 		this.tablaByCodTabla = tablaByCodTabla;
@@ -38,9 +36,8 @@ public class ConsultaTabla implements java.io.Serializable {
 		this.flgUnoMuchos = flgUnoMuchos;
 	}
 
-	public ConsultaTabla(ConsultaTablaId id, Consulta consulta,
-			Tabla tablaByCodTabPadre, Tabla tablaByCodTabla, char fk,
-			char flgUnoMuchos) {
+	public ConsultaTabla(ConsultaTablaId id, Consulta consulta, Tabla tablaByCodTabPadre, Tabla tablaByCodTabla,
+			char fk, char flgUnoMuchos) {
 		this.id = id;
 		this.consulta = consulta;
 		this.tablaByCodTabPadre = tablaByCodTabPadre;
@@ -50,9 +47,10 @@ public class ConsultaTabla implements java.io.Serializable {
 	}
 
 	@EmbeddedId
+
 	@AttributeOverrides({
-			@AttributeOverride(name = "codConsulta", column = @Column(name = "cod_consulta", nullable = false)),
-			@AttributeOverride(name = "codTabla", column = @Column(name = "cod_tabla", nullable = false)) })
+			@AttributeOverride(name = "codConsulta", column = @Column(name = "cod_consulta", nullable = false) ),
+			@AttributeOverride(name = "codTabla", column = @Column(name = "cod_tabla", nullable = false) ) })
 	public ConsultaTablaId getId() {
 		return this.id;
 	}

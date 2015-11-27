@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,46 +23,40 @@ public class Atributo implements java.io.Serializable {
 	private int codAtributo;
 	private Clase clase;
 	private String nombre;
+	private String etiqueta;
 	private String tipo;
 	private char flgLista;
 	private String webNombre;
 	private String webFormato;
-	private Set<TareaAtrObservar> tareaAtrObservars = new HashSet<TareaAtrObservar>(
-			0);
-	private Set<TareaAtrCompletar> tareaAtrCompletars = new HashSet<TareaAtrCompletar>(
-			0);
+	private Set<TareaAtrObservar> tareaAtrObservars = new HashSet<TareaAtrObservar>(0);
+	private Set<TareaAtrCompletar> tareaAtrCompletars = new HashSet<TareaAtrCompletar>(0);
 	private Set<ProcesoInicio> procesoInicios = new HashSet<ProcesoInicio>(0);
-	private Set<TareaAtrCancelar> tareaAtrCancelars = new HashSet<TareaAtrCancelar>(
-			0);
-	private Set<TareaAtrRechazar> tareaAtrRechazars = new HashSet<TareaAtrRechazar>(
-			0);
+	private Set<TareaAtrCancelar> tareaAtrCancelars = new HashSet<TareaAtrCancelar>(0);
+	private Set<TareaAtrRechazar> tareaAtrRechazars = new HashSet<TareaAtrRechazar>(0);
 	private AtributoSql atributoSql;
-	private Set<ConsultaAtributo> consultaAtributos = new HashSet<ConsultaAtributo>(
-			0);
+	private Set<ConsultaAtributo> consultaAtributos = new HashSet<ConsultaAtributo>(0);
 
 	public Atributo() {
 	}
 
-	public Atributo(int codAtributo, Clase clase, String nombre, String tipo,
-			char flgLista) {
+	public Atributo(int codAtributo, Clase clase, String nombre, String etiqueta, String tipo, char flgLista) {
 		this.codAtributo = codAtributo;
 		this.clase = clase;
 		this.nombre = nombre;
+		this.etiqueta = etiqueta;
 		this.tipo = tipo;
 		this.flgLista = flgLista;
 	}
 
-	public Atributo(int codAtributo, Clase clase, String nombre, String tipo,
-			char flgLista, String webNombre, String webFormato,
-			Set<TareaAtrObservar> tareaAtrObservars,
-			Set<TareaAtrCompletar> tareaAtrCompletars,
-			Set<ProcesoInicio> procesoInicios,
-			Set<TareaAtrCancelar> tareaAtrCancelars,
-			Set<TareaAtrRechazar> tareaAtrRechazars, AtributoSql atributoSql,
+	public Atributo(int codAtributo, Clase clase, String nombre, String etiqueta, String tipo, char flgLista,
+			String webNombre, String webFormato, Set<TareaAtrObservar> tareaAtrObservars,
+			Set<TareaAtrCompletar> tareaAtrCompletars, Set<ProcesoInicio> procesoInicios,
+			Set<TareaAtrCancelar> tareaAtrCancelars, Set<TareaAtrRechazar> tareaAtrRechazars, AtributoSql atributoSql,
 			Set<ConsultaAtributo> consultaAtributos) {
 		this.codAtributo = codAtributo;
 		this.clase = clase;
 		this.nombre = nombre;
+		this.etiqueta = etiqueta;
 		this.tipo = tipo;
 		this.flgLista = flgLista;
 		this.webNombre = webNombre;
@@ -78,6 +71,7 @@ public class Atributo implements java.io.Serializable {
 	}
 
 	@Id
+
 	@Column(name = "cod_atributo", unique = true, nullable = false)
 	public int getCodAtributo() {
 		return this.codAtributo;
@@ -104,6 +98,15 @@ public class Atributo implements java.io.Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	@Column(name = "etiqueta", nullable = false)
+	public String getEtiqueta() {
+		return this.etiqueta;
+	}
+
+	public void setEtiqueta(String etiqueta) {
+		this.etiqueta = etiqueta;
 	}
 
 	@Column(name = "tipo", nullable = false)

@@ -11,6 +11,59 @@ CREATE SCHEMA soul AUTHORIZATION postgres
 
 -- Create tables section -------------------------------------------------
 
+-- Table soul.proyecto
+
+CREATE TABLE soul.proyecto(
+ cod_proyecto Integer NOT NULL,
+ nombre Character varying(120) NOT NULL,
+ proyecto Character varying(255) NOT NULL,
+ paquete Character varying(255) NOT NULL
+)
+;
+
+-- Add keys for table soul.proyecto
+
+ALTER TABLE soul.proyecto ADD CONSTRAINT proyecto_pk PRIMARY KEY (cod_proyecto)
+;
+
+-- Table soul.tabla
+
+CREATE TABLE soul.tabla(
+ cod_proyecto Integer NOT NULL,
+ cod_tabla Integer NOT NULL,
+ esquema Character varying(50) NOT NULL,
+ nombre Character varying(50) NOT NULL,
+ es_mantenimiento Character(1) DEFAULT '0'::bpchar NOT NULL,
+ flg_mantenimiento_eliminar Character(1) DEFAULT '0'::bpchar NOT NULL
+)
+;
+
+ALTER TABLE soul.tabla ADD CONSTRAINT tabla_pk PRIMARY KEY (cod_tabla)
+;
+
+ALTER TABLE soul.tabla ADD CONSTRAINT tabla_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
+
+-- Table soul.clase
+
+CREATE TABLE soul.clase(
+ cod_proyecto Integer NOT NULL,
+ cod_clase Integer NOT NULL,
+ nombre Character varying(120) NOT NULL,
+ nivel Integer,
+ cod_tabla Integer NULL
+)
+;
+
+ALTER TABLE soul.clase ADD CONSTRAINT clase_pk PRIMARY KEY (cod_clase)
+;
+
+ALTER TABLE soul.clase ADD CONSTRAINT clase_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE NO ACTION
+;
+
+ALTER TABLE soul.clase ADD CONSTRAINT clase_tabla_fk FOREIGN KEY (cod_tabla) REFERENCES soul.tabla (cod_tabla) ON DELETE RESTRICT ON UPDATE CASCADE
+;
+
 -- Table soul.atributo
 
 CREATE TABLE soul.atributo(
@@ -25,9 +78,10 @@ CREATE TABLE soul.atributo(
 )
 ;
 
--- Add keys for table soul.atributo
+ALTER TABLE soul.atributo ADD CONSTRAINT atributo_pk PRIMARY KEY (cod_atributo)
+;
 
-ALTER TABLE soul.atributo ADD CONSTRAINT objeto_pk PRIMARY KEY (cod_atributo)
+ALTER TABLE soul.atributo ADD CONSTRAINT objeto_clase_fk FOREIGN KEY (cod_clase) REFERENCES soul.clase (cod_clase) ON DELETE RESTRICT ON UPDATE NO ACTION
 ;
 
 -- Table soul.atributo_sql
@@ -53,9 +107,7 @@ CREATE TABLE soul.atributo_sql(
 )
 ;
 
--- Add keys for table soul.atributo_sql
-
-ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_sql_pk PRIMARY KEY (cod_atributo)
+ALTER TABLE soul.atributo_sql ADD CONSTRAINT atributo_sql_pk PRIMARY KEY (cod_atributo)
 ;
 
 -- Table soul.catalogo
@@ -84,21 +136,7 @@ CREATE INDEX ix_relationship29 ON soul.catalogo (cod_proyecto)
 ALTER TABLE soul.catalogo ADD CONSTRAINT catalogo_pk PRIMARY KEY (cod_catalogo,cod_atributo)
 ;
 
--- Table soul.clase
 
-CREATE TABLE soul.clase(
- cod_clase Integer NOT NULL,
- nombre Character varying(120) NOT NULL,
- cod_proyecto Integer NOT NULL,
- nivel Integer,
- cod_tabla Integer NULL
-)
-;
-
--- Add keys for table soul.clase
-
-ALTER TABLE soul.clase ADD CONSTRAINT clase_pk PRIMARY KEY (cod_clase)
-;
 
 -- Table soul.consulta
 
@@ -243,20 +281,6 @@ CREATE INDEX ix_proceso_proyecto_fk ON soul.proceso (cod_proyecto)
 ALTER TABLE soul.proceso ADD CONSTRAINT proceso_pk PRIMARY KEY (cod_proceso)
 ;
 
--- Table soul.proceso_inicio_sub_seccion
-
-CREATE TABLE soul.proceso_inicio_sub_seccion(
- cod_proceso Integer NOT NULL,
- cod_sub_seccion Integer NOT NULL,
- nombre Character varying(100) NOT NULL
- )
-;
-
--- Add keys for table soul.proceso_inicio_sub_seccion
-
-ALTER TABLE soul.proceso_inicio_sub_seccion ADD CONSTRAINT proceso_inicio_sub_seccion_pk PRIMARY KEY (cod_proceso,cod_sub_seccion)
-;
-
 -- Table soul.proceso_inicio
 
 CREATE TABLE soul.proceso_inicio(
@@ -280,6 +304,29 @@ CREATE TABLE soul.proceso_inicio(
 ALTER TABLE soul.proceso_inicio ADD CONSTRAINT proceso_inicio_atributo_pk PRIMARY KEY (cod_proceso,cod_sub_seccion,cod_proceso_inicio)
 ;
 
+ALTER TABLE soul.proceso_inicio ADD CONSTRAINT pro_ini_atributo_atributo_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE NO ACTION
+;
+
+ALTER TABLE soul.proceso_inicio ADD CONSTRAINT pro_ini_atributo_proceso_fk FOREIGN KEY (cod_proceso) REFERENCES soul.proceso (cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
+;
+
+-- Table soul.proceso_inicio_sub_seccion
+
+CREATE TABLE soul.proceso_inicio_sub_seccion(
+ cod_proceso Integer NOT NULL,
+ cod_sub_seccion Integer NOT NULL,
+ nombre Character varying(100) NOT NULL
+ )
+;
+
+-- Add keys for table soul.proceso_inicio_sub_seccion
+
+ALTER TABLE soul.proceso_inicio_sub_seccion ADD CONSTRAINT proceso_inicio_sub_seccion_pk PRIMARY KEY (cod_proceso,cod_sub_seccion)
+;
+
+ALTER TABLE soul.proceso_inicio_sub_seccion ADD CONSTRAINT proceso_inicio_sub_seccion_fk FOREIGN KEY (cod_proceso) REFERENCES soul.proceso (cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
+;
+
 -- Table soul.proceso_rol_potencial
 
 CREATE TABLE soul.proceso_rol_potencial(
@@ -291,21 +338,6 @@ CREATE TABLE soul.proceso_rol_potencial(
 -- Add keys for table soul.proceso_rol_potencial
 
 ALTER TABLE soul.proceso_rol_potencial ADD CONSTRAINT pk_proceso_rol_potencial PRIMARY KEY (cod_proceso,cod_rol)
-;
-
--- Table soul.proyecto
-
-CREATE TABLE soul.proyecto(
- cod_proyecto Integer NOT NULL,
- nombre Character varying(120) NOT NULL,
- proyecto Character varying(255) NOT NULL,
- paquete Character varying(255) NOT NULL
-)
-;
-
--- Add keys for table soul.proyecto
-
-ALTER TABLE soul.proyecto ADD CONSTRAINT proyecto_pk PRIMARY KEY (cod_proyecto)
 ;
 
 -- Table soul.rol
@@ -326,23 +358,6 @@ CREATE INDEX ix_relationship32 ON soul.rol (cod_proyecto)
 -- Add keys for table soul.rol
 
 ALTER TABLE soul.rol ADD CONSTRAINT sql150708145914240 PRIMARY KEY (cod_rol)
-;
-
--- Table soul.tabla
-
-CREATE TABLE soul.tabla(
- cod_tabla Integer NOT NULL,
- esquema Character varying(50) NOT NULL,
- nombre Character varying(50) NOT NULL,
- cod_proyecto Integer NOT NULL,
- es_mantenimiento Character(1) DEFAULT '0'::bpchar NOT NULL,
- flg_mantenimiento_eliminar Character(1) DEFAULT '0'::bpchar NOT NULL
-)
-;
-
--- Add keys for table soul.tabla
-
-ALTER TABLE soul.tabla ADD CONSTRAINT tabla_pk PRIMARY KEY (cod_tabla)
 ;
 
 -- Table soul.tarea
@@ -493,8 +508,7 @@ ALTER TABLE soul.tarea_rol_administrador ADD CONSTRAINT pk_tarea_rol_administrad
 
 -- Create relationships section ------------------------------------------------- 
 
-ALTER TABLE soul.atributo ADD CONSTRAINT objeto_clase_fk FOREIGN KEY (cod_clase) REFERENCES soul.clase (cod_clase) ON DELETE RESTRICT ON UPDATE NO ACTION
-;
+
 
 ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_sql_objeto_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE CASCADE
 ;
@@ -503,12 +517,6 @@ ALTER TABLE soul.atributo_sql ADD CONSTRAINT obj_atr_sql_tabla_fk FOREIGN KEY (c
 ;
 
 ALTER TABLE soul.catalogo ADD CONSTRAINT relationship29 FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION
-;
-
-ALTER TABLE soul.clase ADD CONSTRAINT clase_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE NO ACTION
-;
-
-ALTER TABLE soul.clase ADD CONSTRAINT clase_tabla_fk FOREIGN KEY (cod_tabla) REFERENCES soul.tabla (cod_tabla) ON DELETE RESTRICT ON UPDATE CASCADE
 ;
 
 ALTER TABLE soul.consulta ADD CONSTRAINT consulta_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE NO ACTION
@@ -544,17 +552,12 @@ ALTER TABLE soul.proceso ADD CONSTRAINT proceso_proyecto_fk FOREIGN KEY (cod_pro
 ALTER TABLE soul.proceso ADD CONSTRAINT proceso_tarea_fk FOREIGN KEY (cod_tarea) REFERENCES soul.tarea (cod_tarea) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
-ALTER TABLE soul.proceso_inicio ADD CONSTRAINT pro_ini_atributo_atributo_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE NO ACTION
-;
 
-ALTER TABLE soul.proceso_inicio ADD CONSTRAINT pro_ini_atributo_proceso_fk FOREIGN KEY (cod_proceso) REFERENCES soul.proceso (cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
-;
 
 ALTER TABLE soul.rol ADD CONSTRAINT relationship32 FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
 
-ALTER TABLE soul.tabla ADD CONSTRAINT tabla_proyecto_fk FOREIGN KEY (cod_proyecto) REFERENCES soul.proyecto (cod_proyecto) ON DELETE RESTRICT ON UPDATE NO ACTION
-;
+
 
 ALTER TABLE soul.tarea ADD CONSTRAINT tarea_consulta_fk FOREIGN KEY (cod_con_trabajar) REFERENCES soul.consulta (cod_consulta) ON DELETE RESTRICT ON UPDATE NO ACTION
 ;

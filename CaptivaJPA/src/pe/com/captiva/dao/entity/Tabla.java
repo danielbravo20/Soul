@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,31 +23,35 @@ public class Tabla implements java.io.Serializable {
 	private Proyecto proyecto;
 	private String esquema;
 	private String nombre;
-	private Set<ConsultaTabla> consultaTablasForCodTabPadre = new HashSet<ConsultaTabla>(
-			0);
+	private char esMantenimiento;
+	private char flgMantenimientoEliminar;
+	private Set<ConsultaTabla> consultaTablasForCodTabPadre = new HashSet<ConsultaTabla>(0);
 	private Set<AtributoSql> atributoSqls = new HashSet<AtributoSql>(0);
-	private Set<ConsultaTabla> consultaTablasForCodTabla = new HashSet<ConsultaTabla>(
-			0);
+	private Set<ConsultaTabla> consultaTablasForCodTabla = new HashSet<ConsultaTabla>(0);
 	private Set<Clase> clases = new HashSet<Clase>(0);
 
 	public Tabla() {
 	}
 
-	public Tabla(int codTabla, Proyecto proyecto, String esquema, String nombre) {
+	public Tabla(int codTabla, Proyecto proyecto, String esquema, String nombre, char esMantenimiento,
+			char flgMantenimientoEliminar) {
 		this.codTabla = codTabla;
 		this.proyecto = proyecto;
 		this.esquema = esquema;
 		this.nombre = nombre;
+		this.esMantenimiento = esMantenimiento;
+		this.flgMantenimientoEliminar = flgMantenimientoEliminar;
 	}
 
-	public Tabla(int codTabla, Proyecto proyecto, String esquema,
-			String nombre, Set<ConsultaTabla> consultaTablasForCodTabPadre,
-			Set<AtributoSql> atributoSqls,
-			Set<ConsultaTabla> consultaTablasForCodTabla, Set<Clase> clases) {
+	public Tabla(int codTabla, Proyecto proyecto, String esquema, String nombre, char esMantenimiento,
+			char flgMantenimientoEliminar, Set<ConsultaTabla> consultaTablasForCodTabPadre,
+			Set<AtributoSql> atributoSqls, Set<ConsultaTabla> consultaTablasForCodTabla, Set<Clase> clases) {
 		this.codTabla = codTabla;
 		this.proyecto = proyecto;
 		this.esquema = esquema;
 		this.nombre = nombre;
+		this.esMantenimiento = esMantenimiento;
+		this.flgMantenimientoEliminar = flgMantenimientoEliminar;
 		this.consultaTablasForCodTabPadre = consultaTablasForCodTabPadre;
 		this.atributoSqls = atributoSqls;
 		this.consultaTablasForCodTabla = consultaTablasForCodTabla;
@@ -56,6 +59,7 @@ public class Tabla implements java.io.Serializable {
 	}
 
 	@Id
+
 	@Column(name = "cod_tabla", unique = true, nullable = false)
 	public int getCodTabla() {
 		return this.codTabla;
@@ -93,13 +97,30 @@ public class Tabla implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
+	@Column(name = "es_mantenimiento", nullable = false, length = 1)
+	public char getEsMantenimiento() {
+		return this.esMantenimiento;
+	}
+
+	public void setEsMantenimiento(char esMantenimiento) {
+		this.esMantenimiento = esMantenimiento;
+	}
+
+	@Column(name = "flg_mantenimiento_eliminar", nullable = false, length = 1)
+	public char getFlgMantenimientoEliminar() {
+		return this.flgMantenimientoEliminar;
+	}
+
+	public void setFlgMantenimientoEliminar(char flgMantenimientoEliminar) {
+		this.flgMantenimientoEliminar = flgMantenimientoEliminar;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablaByCodTabPadre")
 	public Set<ConsultaTabla> getConsultaTablasForCodTabPadre() {
 		return this.consultaTablasForCodTabPadre;
 	}
 
-	public void setConsultaTablasForCodTabPadre(
-			Set<ConsultaTabla> consultaTablasForCodTabPadre) {
+	public void setConsultaTablasForCodTabPadre(Set<ConsultaTabla> consultaTablasForCodTabPadre) {
 		this.consultaTablasForCodTabPadre = consultaTablasForCodTabPadre;
 	}
 
@@ -117,8 +138,7 @@ public class Tabla implements java.io.Serializable {
 		return this.consultaTablasForCodTabla;
 	}
 
-	public void setConsultaTablasForCodTabla(
-			Set<ConsultaTabla> consultaTablasForCodTabla) {
+	public void setConsultaTablasForCodTabla(Set<ConsultaTabla> consultaTablasForCodTabla) {
 		this.consultaTablasForCodTabla = consultaTablasForCodTabla;
 	}
 

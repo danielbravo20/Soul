@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -26,13 +25,13 @@ public class ProcesoDetalleSeccion implements java.io.Serializable {
 	}
 
 	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "codProceso", column = @Column(name = "cod_proceso")),
-			@AttributeOverride(name = "codSeccion", column = @Column(name = "cod_seccion", nullable = false, length = 20)),
-			@AttributeOverride(name = "tipo", column = @Column(name = "tipo", nullable = false, length = 1)),
-			@AttributeOverride(name = "tipoWidget", column = @Column(name = "tipo_widget", length = 20)),
-			@AttributeOverride(name = "nombre", column = @Column(name = "nombre", length = 100)),
-			@AttributeOverride(name = "codSeccionPadre", column = @Column(name = "cod_seccion_padre", length = 20)) })
+
+	@AttributeOverrides({ @AttributeOverride(name = "codProceso", column = @Column(name = "cod_proceso") ),
+			@AttributeOverride(name = "codSeccion", column = @Column(name = "cod_seccion", nullable = false, length = 20) ),
+			@AttributeOverride(name = "tipo", column = @Column(name = "tipo", nullable = false, length = 1) ),
+			@AttributeOverride(name = "tipoWidget", column = @Column(name = "tipo_widget", length = 20) ),
+			@AttributeOverride(name = "nombre", column = @Column(name = "nombre", length = 100) ),
+			@AttributeOverride(name = "codSeccionPadre", column = @Column(name = "cod_seccion_padre", length = 20) ) })
 	public ProcesoDetalleSeccionId getId() {
 		return this.id;
 	}

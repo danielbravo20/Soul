@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -37,9 +36,8 @@ public class Catalogo implements java.io.Serializable {
 		this.cabecera = cabecera;
 	}
 
-	public Catalogo(CatalogoId id, Proyecto proyecto, String valor1,
-			String valor2, String descripcion, Integer limCodAtributo,
-			Integer limValor1, Integer limValor2, char cabecera) {
+	public Catalogo(CatalogoId id, Proyecto proyecto, String valor1, String valor2, String descripcion,
+			Integer limCodAtributo, Integer limValor1, Integer limValor2, char cabecera) {
 		this.id = id;
 		this.proyecto = proyecto;
 		this.valor1 = valor1;
@@ -52,9 +50,10 @@ public class Catalogo implements java.io.Serializable {
 	}
 
 	@EmbeddedId
+
 	@AttributeOverrides({
-			@AttributeOverride(name = "codCatalogo", column = @Column(name = "cod_catalogo", nullable = false, length = 50)),
-			@AttributeOverride(name = "codAtributo", column = @Column(name = "cod_atributo", nullable = false, length = 50)) })
+			@AttributeOverride(name = "codCatalogo", column = @Column(name = "cod_catalogo", nullable = false, length = 50) ),
+			@AttributeOverride(name = "codAtributo", column = @Column(name = "cod_atributo", nullable = false, length = 50) ) })
 	public CatalogoId getId() {
 		return this.id;
 	}

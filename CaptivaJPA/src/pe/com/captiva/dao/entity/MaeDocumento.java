@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -25,16 +24,14 @@ public class MaeDocumento implements java.io.Serializable {
 	public MaeDocumento() {
 	}
 
-	public MaeDocumento(MaeDocumentoId id, String nombre, String formatos,
-			char estado) {
+	public MaeDocumento(MaeDocumentoId id, String nombre, String formatos, char estado) {
 		this.id = id;
 		this.nombre = nombre;
 		this.formatos = formatos;
 		this.estado = estado;
 	}
 
-	public MaeDocumento(MaeDocumentoId id, String nombre, String descripcion,
-			String formatos, char estado) {
+	public MaeDocumento(MaeDocumentoId id, String nombre, String descripcion, String formatos, char estado) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -43,9 +40,10 @@ public class MaeDocumento implements java.io.Serializable {
 	}
 
 	@EmbeddedId
+
 	@AttributeOverrides({
-			@AttributeOverride(name = "codProyecto", column = @Column(name = "cod_proyecto", nullable = false)),
-			@AttributeOverride(name = "codMaeDocumento", column = @Column(name = "cod_mae_documento", nullable = false)) })
+			@AttributeOverride(name = "codProyecto", column = @Column(name = "cod_proyecto", nullable = false) ),
+			@AttributeOverride(name = "codMaeDocumento", column = @Column(name = "cod_mae_documento", nullable = false) ) })
 	public MaeDocumentoId getId() {
 		return this.id;
 	}

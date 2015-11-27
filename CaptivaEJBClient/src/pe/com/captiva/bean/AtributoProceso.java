@@ -4,15 +4,19 @@ public class AtributoProceso extends AtributoBean{
 
 	private static final long serialVersionUID = 1L;
 	
-	private int 		codigoProyecto;
-	private int 		codigoProceso;
+	private int codigoProyecto;
+	private int codigoProceso;
+	private int codSubSeccion;
+	private int codProcesoInicio;
 	
-	private boolean 	webFlgRequerido;
-	private String 		webMensajeValidacion;
-	private String 		webNombreCatalogoCombo;
-	private String 		webEtiqueta;
-	
-	private String 		valorOmision;
+	private String webEtiqueta;
+	private String webTipo;
+	private Character webTipoCampo;
+	private Character webTipoLista;
+	private String webCatalogo;
+	private boolean flgWebRequerido;
+	private String webMensajeValidacion;
+	private String valorOmision;
 	
 	private CampoSQLProcesoBean campoSQLProceso;
 	private ClaseBean clase;
@@ -29,25 +33,24 @@ public class AtributoProceso extends AtributoBean{
 	public void setCodigoProceso(int codigoProceso) {
 		this.codigoProceso = codigoProceso;
 	}
+	public int getCodSubSeccion() {
+		return codSubSeccion;
+	}
+	public void setCodSubSeccion(int codSubSeccion) {
+		this.codSubSeccion = codSubSeccion;
+	}
+	public int getCodProcesoInicio() {
+		return codProcesoInicio;
+	}
+	public void setCodProcesoInicio(int codProcesoInicio) {
+		this.codProcesoInicio = codProcesoInicio;
+	}
 	public String getWebMensajeValidacion() {
 		return webMensajeValidacion;
 	}
 	public void setWebMensajeValidacion(String webMensajeValidacion) {
 		this.webMensajeValidacion = webMensajeValidacion;
 	}
-	public boolean isWebFlgRequerido() {
-		return webFlgRequerido;
-	}
-	public void setWebFlgRequerido(boolean webFlgRequerido) {
-		this.webFlgRequerido = webFlgRequerido;
-	}
-	public String getWebNombreCatalogoCombo() {
-		return webNombreCatalogoCombo;
-	}
-	public void setWebNombreCatalogoCombo(String webNombreCatalogoCombo) {
-		this.webNombreCatalogoCombo = webNombreCatalogoCombo;
-	}
-	
 	public CampoSQLProcesoBean getCampoSQLProceso() {
 		return campoSQLProceso;
 	}
@@ -86,6 +89,36 @@ public class AtributoProceso extends AtributoBean{
 	}
 	public void setWebEtiqueta(String webEtiqueta) {
 		this.webEtiqueta = webEtiqueta;
+	}
+	public String getWebTipo() {
+		return webTipo;
+	}
+	public void setWebTipo(String webTipo) {
+		this.webTipo = webTipo;
+	}
+	public Character getWebTipoCampo() {
+		return webTipoCampo;
+	}
+	public void setWebTipoCampo(Character webTipoCampo) {
+		this.webTipoCampo = webTipoCampo;
+	}
+	public Character getWebTipoLista() {
+		return webTipoLista;
+	}
+	public void setWebTipoLista(Character webTipoLista) {
+		this.webTipoLista = webTipoLista;
+	}
+	public String getWebCatalogo() {
+		return webCatalogo;
+	}
+	public void setWebCatalogo(String webCatalogo) {
+		this.webCatalogo = webCatalogo;
+	}
+	public boolean isFlgWebRequerido() {
+		return flgWebRequerido;
+	}
+	public void setFlgWebRequerido(boolean flgWebRequerido) {
+		this.flgWebRequerido = flgWebRequerido;
 	}
 	
 }

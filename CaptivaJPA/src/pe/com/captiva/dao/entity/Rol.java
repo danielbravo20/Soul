@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -25,7 +23,6 @@ public class Rol implements java.io.Serializable {
 	private Proyecto proyecto;
 	private Character estado;
 	private String descripcion;
-	private Set<Mantenimiento> mantenimientos = new HashSet<Mantenimiento>(0);
 	private Set<Tarea> tareas = new HashSet<Tarea>(0);
 	private Set<Tarea> tareas_1 = new HashSet<Tarea>(0);
 	private Set<Proceso> procesos = new HashSet<Proceso>(0);
@@ -38,20 +35,19 @@ public class Rol implements java.io.Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Rol(String codRol, Proyecto proyecto, Character estado,
-			String descripcion, Set<Mantenimiento> mantenimientos,
-			Set<Tarea> tareas, Set<Tarea> tareas_1, Set<Proceso> procesos) {
+	public Rol(String codRol, Proyecto proyecto, Character estado, String descripcion, Set<Tarea> tareas,
+			Set<Tarea> tareas_1, Set<Proceso> procesos) {
 		this.codRol = codRol;
 		this.proyecto = proyecto;
 		this.estado = estado;
 		this.descripcion = descripcion;
-		this.mantenimientos = mantenimientos;
 		this.tareas = tareas;
 		this.tareas_1 = tareas_1;
 		this.procesos = procesos;
 	}
 
 	@Id
+
 	@Column(name = "cod_rol", unique = true, nullable = false, length = 120)
 	public String getCodRol() {
 		return this.codRol;
@@ -87,16 +83,6 @@ public class Rol implements java.io.Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "mantenimiento_rol", schema = "soul", joinColumns = { @JoinColumn(name = "cod_rol", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "cod_mantenimiento", nullable = false, updatable = false) })
-	public Set<Mantenimiento> getMantenimientos() {
-		return this.mantenimientos;
-	}
-
-	public void setMantenimientos(Set<Mantenimiento> mantenimientos) {
-		this.mantenimientos = mantenimientos;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rols")

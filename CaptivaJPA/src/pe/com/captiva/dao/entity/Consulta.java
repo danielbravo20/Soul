@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,8 +22,9 @@ public class Consulta implements java.io.Serializable {
 	private int codConsulta;
 	private Proyecto proyecto;
 	private String nombre;
-	private Set<ConsultaAtributo> consultaAtributos = new HashSet<ConsultaAtributo>(
-			0);
+	private char esReporte;
+	private String nombreReporte;
+	private Set<ConsultaAtributo> consultaAtributos = new HashSet<ConsultaAtributo>(0);
 	private Set<Tarea> tareasForCodConTrabajar = new HashSet<Tarea>(0);
 	private Set<Proceso> procesosForCodConResumen = new HashSet<Proceso>(0);
 	private Set<Proceso> procesosForCodConDetalle = new HashSet<Proceso>(0);
@@ -34,22 +34,22 @@ public class Consulta implements java.io.Serializable {
 	public Consulta() {
 	}
 
-	public Consulta(int codConsulta, Proyecto proyecto, String nombre) {
+	public Consulta(int codConsulta, Proyecto proyecto, String nombre, char esReporte) {
 		this.codConsulta = codConsulta;
 		this.proyecto = proyecto;
 		this.nombre = nombre;
+		this.esReporte = esReporte;
 	}
 
-	public Consulta(int codConsulta, Proyecto proyecto, String nombre,
-			Set<ConsultaAtributo> consultaAtributos,
-			Set<Tarea> tareasForCodConTrabajar,
-			Set<Proceso> procesosForCodConResumen,
-			Set<Proceso> procesosForCodConDetalle,
-			Set<ConsultaTabla> consultaTablas,
-			Set<Tarea> tareasForCodConCompletar) {
+	public Consulta(int codConsulta, Proyecto proyecto, String nombre, char esReporte, String nombreReporte,
+			Set<ConsultaAtributo> consultaAtributos, Set<Tarea> tareasForCodConTrabajar,
+			Set<Proceso> procesosForCodConResumen, Set<Proceso> procesosForCodConDetalle,
+			Set<ConsultaTabla> consultaTablas, Set<Tarea> tareasForCodConCompletar) {
 		this.codConsulta = codConsulta;
 		this.proyecto = proyecto;
 		this.nombre = nombre;
+		this.esReporte = esReporte;
+		this.nombreReporte = nombreReporte;
 		this.consultaAtributos = consultaAtributos;
 		this.tareasForCodConTrabajar = tareasForCodConTrabajar;
 		this.procesosForCodConResumen = procesosForCodConResumen;
@@ -59,6 +59,7 @@ public class Consulta implements java.io.Serializable {
 	}
 
 	@Id
+
 	@Column(name = "cod_consulta", unique = true, nullable = false)
 	public int getCodConsulta() {
 		return this.codConsulta;
@@ -87,6 +88,24 @@ public class Consulta implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
+	@Column(name = "es_reporte", nullable = false, length = 1)
+	public char getEsReporte() {
+		return this.esReporte;
+	}
+
+	public void setEsReporte(char esReporte) {
+		this.esReporte = esReporte;
+	}
+
+	@Column(name = "nombre_reporte", length = 120)
+	public String getNombreReporte() {
+		return this.nombreReporte;
+	}
+
+	public void setNombreReporte(String nombreReporte) {
+		this.nombreReporte = nombreReporte;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "consulta")
 	public Set<ConsultaAtributo> getConsultaAtributos() {
 		return this.consultaAtributos;
@@ -110,8 +129,7 @@ public class Consulta implements java.io.Serializable {
 		return this.procesosForCodConResumen;
 	}
 
-	public void setProcesosForCodConResumen(
-			Set<Proceso> procesosForCodConResumen) {
+	public void setProcesosForCodConResumen(Set<Proceso> procesosForCodConResumen) {
 		this.procesosForCodConResumen = procesosForCodConResumen;
 	}
 
@@ -120,8 +138,7 @@ public class Consulta implements java.io.Serializable {
 		return this.procesosForCodConDetalle;
 	}
 
-	public void setProcesosForCodConDetalle(
-			Set<Proceso> procesosForCodConDetalle) {
+	public void setProcesosForCodConDetalle(Set<Proceso> procesosForCodConDetalle) {
 		this.procesosForCodConDetalle = procesosForCodConDetalle;
 	}
 

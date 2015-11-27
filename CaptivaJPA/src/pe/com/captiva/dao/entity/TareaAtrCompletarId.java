@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -49,8 +48,7 @@ public class TareaAtrCompletarId implements java.io.Serializable {
 			return false;
 		TareaAtrCompletarId castOther = (TareaAtrCompletarId) other;
 
-		return (this.getCodTarea() == castOther.getCodTarea())
-				&& (this.getCodAtributo() == castOther.getCodAtributo());
+		return (this.getCodTarea() == castOther.getCodTarea()) && (this.getCodAtributo() == castOther.getCodAtributo());
 	}
 
 	public int hashCode() {

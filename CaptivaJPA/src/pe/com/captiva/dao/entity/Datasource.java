@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,8 +29,7 @@ public class Datasource implements java.io.Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Datasource(String codDatasource, Proyecto proyecto,
-			Character estado, String descripcion) {
+	public Datasource(String codDatasource, Proyecto proyecto, Character estado, String descripcion) {
 		this.codDatasource = codDatasource;
 		this.proyecto = proyecto;
 		this.estado = estado;
@@ -39,6 +37,7 @@ public class Datasource implements java.io.Serializable {
 	}
 
 	@Id
+
 	@Column(name = "cod_datasource", unique = true, nullable = false, length = 100)
 	public String getCodDatasource() {
 		return this.codDatasource;

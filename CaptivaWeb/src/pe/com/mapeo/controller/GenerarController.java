@@ -1,6 +1,7 @@
 package pe.com.mapeo.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import pe.com.captiva.servicio.FabricaSoulServiceLocal;
+import pe.com.mapeo.entidad.Respuesta;
 
 /**
  * Servlet implementation class GenerarController
@@ -44,10 +46,14 @@ public class GenerarController extends HttpServlet {
 		String usuario 			= request.getParameter("usuario");
 		String codigoProyecto 	= request.getParameter("codigoProyecto");
 		
+		PrintWriter retorno = response.getWriter();
+		
 		try {
 			fabricaSoulServiceLocal.crearProyecto(usuario, new Integer(codigoProyecto));
+			retorno.print("true");
 		} catch (Exception e) {
 			e.printStackTrace();
+			retorno.print(e.getMessage());
 		}
 	}
 	

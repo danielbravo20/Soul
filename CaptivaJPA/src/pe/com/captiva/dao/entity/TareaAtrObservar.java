@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -29,16 +28,14 @@ public class TareaAtrObservar implements java.io.Serializable {
 	public TareaAtrObservar() {
 	}
 
-	public TareaAtrObservar(TareaAtrObservarId id, Atributo atributo,
-			Tarea tarea, int codProceso) {
+	public TareaAtrObservar(TareaAtrObservarId id, Atributo atributo, Tarea tarea, int codProceso) {
 		this.id = id;
 		this.atributo = atributo;
 		this.tarea = tarea;
 		this.codProceso = codProceso;
 	}
 
-	public TareaAtrObservar(TareaAtrObservarId id, Atributo atributo,
-			Tarea tarea, int codProceso, String javValOmision,
+	public TareaAtrObservar(TareaAtrObservarId id, Atributo atributo, Tarea tarea, int codProceso, String javValOmision,
 			Character webFlgValidacion) {
 		this.id = id;
 		this.atributo = atributo;
@@ -49,9 +46,10 @@ public class TareaAtrObservar implements java.io.Serializable {
 	}
 
 	@EmbeddedId
+
 	@AttributeOverrides({
-			@AttributeOverride(name = "codTarea", column = @Column(name = "cod_tarea", nullable = false)),
-			@AttributeOverride(name = "codAtributo", column = @Column(name = "cod_atributo", nullable = false)) })
+			@AttributeOverride(name = "codTarea", column = @Column(name = "cod_tarea", nullable = false) ),
+			@AttributeOverride(name = "codAtributo", column = @Column(name = "cod_atributo", nullable = false) ) })
 	public TareaAtrObservarId getId() {
 		return this.id;
 	}

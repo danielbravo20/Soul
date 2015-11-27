@@ -154,20 +154,73 @@ var mapeo = angular.module('mapeo', ['core','ui.bootstrap', "dndLists"]);
 		};
 		
 		instanciar();
+		
+		$scope.generar = {
+			abrir : function(rapido){
+				if(typeof(rapido)=="undefined"){
+					rapido = false;
+				}
+				var modalInstance = $modal.open({
+					animation: true,
+					templateUrl: 'generar_modal.html',
+					controller: 'generar_modal',
+					resolve: {
+						config : function(){
+							return {
+								rapido : rapido,
+								USUARIO : $scope.data.USUARIO,
+								PROYECTO : $scope.data.PROYECTO
+							};
+						}
+					}
+				});
+					modalInstance.result.then(function(){
+					});
+			},
+			rapido : function(){
+				$scope.generar.abrir(true);
+			}
+		}
 				
 	});
 	
-	mapeo.controller('Modal_generar', function ($scope, $modalInstance, config) {
-
-		$scope.data = config.data;
+	mapeo.controller('generar_modal', function ($scope, $http, $modalInstance, $timeout, config, hostname) {
+		
+		$scope.generando = false;
+		$scope.generar = function(){
+			$scope.generando = true;
+			$scope.mensaje = "";
+			$scope.error = "";
+			$http({
+				url		: hostname+"generarController", 
+				method	: "GET",
+				params	: {
+					usuario : config.USUARIO.cod_usuario,
+					codigoProyecto : config.PROYECTO.cod_proyecto
+				}
+			}).success(function(respuesta) {
+				$scope.generando = false;
+				if(respuesta=="true"){
+					$scope.tipoMensaje = "success";
+					$scope.mensaje = "Generado corréctamente";
+					$timeout(function(){ 
+						$modalInstance.close();
+			        },2000);
+				} else {
+					$scope.tipoMensaje = "danger";
+					$scope.mensaje = "Ha ocurrido un problema";
+					$scope.error = respuesta;
+				}
+			});
+		};
 		
 		$scope.cancelar = function(){
 			$modalInstance.close();
 		};
 		
-		$scope.salir = function(){
-			$modalInstance.dismiss('cancel');
-		};
+		if(config.rapido){
+			$scope.generar();
+		}
 		
 	});
 	

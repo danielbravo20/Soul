@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -31,6 +31,7 @@ public class Proceso implements java.io.Serializable {
 	private String javClase;
 	private String javDatasource;
 	private String webDetalleTipovista;
+	private Set<ProcesoInicioSubSeccion> procesoInicioSubSeccions = new HashSet<ProcesoInicioSubSeccion>(0);
 	private Set<ProcesoInicio> procesoInicios = new HashSet<ProcesoInicio>(0);
 	private Set<Rol> rols = new HashSet<Rol>(0);
 	private Set<Tarea> tareas = new HashSet<Tarea>(0);
@@ -38,9 +39,8 @@ public class Proceso implements java.io.Serializable {
 	public Proceso() {
 	}
 
-	public Proceso(int codProceso, Consulta consultaByCodConResumen,
-			Consulta consultaByCodConDetalle, Proyecto proyecto, String nombre,
-			String javClase, String javDatasource) {
+	public Proceso(int codProceso, Consulta consultaByCodConResumen, Consulta consultaByCodConDetalle,
+			Proyecto proyecto, String nombre, String javClase, String javDatasource) {
 		this.codProceso = codProceso;
 		this.consultaByCodConResumen = consultaByCodConResumen;
 		this.consultaByCodConDetalle = consultaByCodConDetalle;
@@ -50,11 +50,10 @@ public class Proceso implements java.io.Serializable {
 		this.javDatasource = javDatasource;
 	}
 
-	public Proceso(int codProceso, Consulta consultaByCodConResumen,
-			Consulta consultaByCodConDetalle, Proyecto proyecto, Tarea tarea,
-			String nombre, String javClase, String javDatasource,
-			String webDetalleTipovista, Set<ProcesoInicio> procesoInicios,
-			Set<Rol> rols, Set<Tarea> tareas) {
+	public Proceso(int codProceso, Consulta consultaByCodConResumen, Consulta consultaByCodConDetalle,
+			Proyecto proyecto, Tarea tarea, String nombre, String javClase, String javDatasource,
+			String webDetalleTipovista, Set<ProcesoInicioSubSeccion> procesoInicioSubSeccions,
+			Set<ProcesoInicio> procesoInicios, Set<Rol> rols, Set<Tarea> tareas) {
 		this.codProceso = codProceso;
 		this.consultaByCodConResumen = consultaByCodConResumen;
 		this.consultaByCodConDetalle = consultaByCodConDetalle;
@@ -64,12 +63,14 @@ public class Proceso implements java.io.Serializable {
 		this.javClase = javClase;
 		this.javDatasource = javDatasource;
 		this.webDetalleTipovista = webDetalleTipovista;
+		this.procesoInicioSubSeccions = procesoInicioSubSeccions;
 		this.procesoInicios = procesoInicios;
 		this.rols = rols;
 		this.tareas = tareas;
 	}
 
 	@Id
+
 	@Column(name = "cod_proceso", unique = true, nullable = false)
 	public int getCodProceso() {
 		return this.codProceso;
@@ -156,6 +157,17 @@ public class Proceso implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
+	@OrderBy("id.codSubSeccion ASC")
+	public Set<ProcesoInicioSubSeccion> getProcesoInicioSubSeccions() {
+		return this.procesoInicioSubSeccions;
+	}
+
+	public void setProcesoInicioSubSeccions(Set<ProcesoInicioSubSeccion> procesoInicioSubSeccions) {
+		this.procesoInicioSubSeccions = procesoInicioSubSeccions;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
+	@OrderBy("id.codSubSeccion ASC,id.codProcesoInicio ASC")
 	public Set<ProcesoInicio> getProcesoInicios() {
 		return this.procesoInicios;
 	}
@@ -165,7 +177,9 @@ public class Proceso implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "proceso_rol_potencial", schema = "soul", joinColumns = { @JoinColumn(name = "cod_proceso", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "cod_rol", nullable = false, updatable = false) })
+	@JoinTable(name = "proceso_rol_potencial", schema = "soul", joinColumns = {
+			@JoinColumn(name = "cod_proceso", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "cod_rol", nullable = false, updatable = false) })
 	public Set<Rol> getRols() {
 		return this.rols;
 	}

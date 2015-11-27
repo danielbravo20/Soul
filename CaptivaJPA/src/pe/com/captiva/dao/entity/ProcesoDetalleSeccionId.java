@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -26,8 +25,8 @@ public class ProcesoDetalleSeccionId implements java.io.Serializable {
 		this.tipo = tipo;
 	}
 
-	public ProcesoDetalleSeccionId(Integer codProceso, String codSeccion,
-			char tipo, String tipoWidget, String nombre, String codSeccionPadre) {
+	public ProcesoDetalleSeccionId(Integer codProceso, String codSeccion, char tipo, String tipoWidget, String nombre,
+			String codSeccionPadre) {
 		this.codProceso = codProceso;
 		this.codSeccion = codSeccion;
 		this.tipo = tipo;
@@ -99,50 +98,29 @@ public class ProcesoDetalleSeccionId implements java.io.Serializable {
 			return false;
 		ProcesoDetalleSeccionId castOther = (ProcesoDetalleSeccionId) other;
 
-		return ((this.getCodProceso() == castOther.getCodProceso()) || (this
-				.getCodProceso() != null && castOther.getCodProceso() != null && this
-				.getCodProceso().equals(castOther.getCodProceso())))
-				&& ((this.getCodSeccion() == castOther.getCodSeccion()) || (this
-						.getCodSeccion() != null
-						&& castOther.getCodSeccion() != null && this
-						.getCodSeccion().equals(castOther.getCodSeccion())))
+		return ((this.getCodProceso() == castOther.getCodProceso()) || (this.getCodProceso() != null
+				&& castOther.getCodProceso() != null && this.getCodProceso().equals(castOther.getCodProceso())))
+				&& ((this.getCodSeccion() == castOther.getCodSeccion()) || (this.getCodSeccion() != null
+						&& castOther.getCodSeccion() != null && this.getCodSeccion().equals(castOther.getCodSeccion())))
 				&& (this.getTipo() == castOther.getTipo())
-				&& ((this.getTipoWidget() == castOther.getTipoWidget()) || (this
-						.getTipoWidget() != null
-						&& castOther.getTipoWidget() != null && this
-						.getTipoWidget().equals(castOther.getTipoWidget())))
-				&& ((this.getNombre() == castOther.getNombre()) || (this
-						.getNombre() != null && castOther.getNombre() != null && this
-						.getNombre().equals(castOther.getNombre())))
-				&& ((this.getCodSeccionPadre() == castOther
-						.getCodSeccionPadre()) || (this.getCodSeccionPadre() != null
-						&& castOther.getCodSeccionPadre() != null && this
-						.getCodSeccionPadre().equals(
-								castOther.getCodSeccionPadre())));
+				&& ((this.getTipoWidget() == castOther.getTipoWidget()) || (this.getTipoWidget() != null
+						&& castOther.getTipoWidget() != null && this.getTipoWidget().equals(castOther.getTipoWidget())))
+				&& ((this.getNombre() == castOther.getNombre()) || (this.getNombre() != null
+						&& castOther.getNombre() != null && this.getNombre().equals(castOther.getNombre())))
+				&& ((this.getCodSeccionPadre() == castOther.getCodSeccionPadre())
+						|| (this.getCodSeccionPadre() != null && castOther.getCodSeccionPadre() != null
+								&& this.getCodSeccionPadre().equals(castOther.getCodSeccionPadre())));
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37
-				* result
-				+ (getCodProceso() == null ? 0 : this.getCodProceso()
-						.hashCode());
-		result = 37
-				* result
-				+ (getCodSeccion() == null ? 0 : this.getCodSeccion()
-						.hashCode());
+		result = 37 * result + (getCodProceso() == null ? 0 : this.getCodProceso().hashCode());
+		result = 37 * result + (getCodSeccion() == null ? 0 : this.getCodSeccion().hashCode());
 		result = 37 * result + this.getTipo();
-		result = 37
-				* result
-				+ (getTipoWidget() == null ? 0 : this.getTipoWidget()
-						.hashCode());
-		result = 37 * result
-				+ (getNombre() == null ? 0 : this.getNombre().hashCode());
-		result = 37
-				* result
-				+ (getCodSeccionPadre() == null ? 0 : this.getCodSeccionPadre()
-						.hashCode());
+		result = 37 * result + (getTipoWidget() == null ? 0 : this.getTipoWidget().hashCode());
+		result = 37 * result + (getNombre() == null ? 0 : this.getNombre().hashCode());
+		result = 37 * result + (getCodSeccionPadre() == null ? 0 : this.getCodSeccionPadre().hashCode());
 		return result;
 	}
 

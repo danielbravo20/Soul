@@ -11,6 +11,7 @@ public class ProcesoBean {
 	private String clase;
 	private int actividadInicio;
 	private List<AtributoProceso> atributosEntrada;
+	private List<SubseccionProceso> subseccionEntrada;
 	private List<CampoSQLProcesoBean> camposSQLProceso;
 	private String datasource;
 	private ConsultaBean consultaResumen;
@@ -67,6 +68,12 @@ public class ProcesoBean {
 	}
 	public void setAtributosEntrada(List<AtributoProceso> atributosEntrada) {
 		this.atributosEntrada = atributosEntrada;
+	}
+	public List<SubseccionProceso> getSubseccionEntrada() {
+		return subseccionEntrada;
+	}
+	public void setSubseccionEntrada(List<SubseccionProceso> subseccionEntrada) {
+		this.subseccionEntrada = subseccionEntrada;
 	}
 	public List<CampoSQLProcesoBean> getCamposSQLProceso() {
 		return camposSQLProceso;

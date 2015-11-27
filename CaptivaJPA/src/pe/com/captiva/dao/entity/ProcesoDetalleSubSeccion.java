@@ -1,6 +1,5 @@
 package pe.com.captiva.dao.entity;
-
-// Generated 23/11/2015 04:50:15 PM by Hibernate Tools 4.3.1
+// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -26,11 +25,11 @@ public class ProcesoDetalleSubSeccion implements java.io.Serializable {
 	}
 
 	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "codProceso", column = @Column(name = "cod_proceso")),
-			@AttributeOverride(name = "codSeccion", column = @Column(name = "cod_seccion", nullable = false, length = 20)),
-			@AttributeOverride(name = "codSubSeccion", column = @Column(name = "cod_sub_seccion", nullable = false)),
-			@AttributeOverride(name = "nombre", column = @Column(name = "nombre", nullable = false, length = 100)) })
+
+	@AttributeOverrides({ @AttributeOverride(name = "codProceso", column = @Column(name = "cod_proceso") ),
+			@AttributeOverride(name = "codSeccion", column = @Column(name = "cod_seccion", nullable = false, length = 20) ),
+			@AttributeOverride(name = "codSubSeccion", column = @Column(name = "cod_sub_seccion", nullable = false) ),
+			@AttributeOverride(name = "nombre", column = @Column(name = "nombre", nullable = false, length = 100) ) })
 	public ProcesoDetalleSubSeccionId getId() {
 		return this.id;
 	}
