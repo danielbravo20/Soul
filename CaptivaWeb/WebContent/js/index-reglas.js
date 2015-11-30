@@ -1,4 +1,3 @@
-
 var reglaMapeo = function(datos){
 	var incorrectas = 0;
 	var respuesta = {
@@ -41,6 +40,60 @@ var reglaMapeo = function(datos){
 	}
 	return respuesta;
 };
+
+//v1.0
+mapeo.directive('fecha', function($compile) {
+    // directive factory creates a link function
+    return {
+    	restrict: 'E',
+    	link: function(scope, element, attrs) {
+    		this.getId = function(){
+    		    var text = "";
+    		    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    		    for( var i=0; i < 10; i++ )
+    		        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    		    return text;
+    		};
+    		var fecha = "",fechaMin = "",fechaMax = "",botonFecha = '',id='',ancho="200",titulo='',mostrarError='',name='',requerido='';
+		  	if(attrs.fechaMin){
+		  		fechaMin = 'min-date="'+attrs.fechaMin+'"';
+		  	}
+		  	if(attrs.fechaMax){
+		  		fechaMax = 'max-date="'+attrs.fechaMax+'"';
+		  	}
+		  	if(attrs.id){
+		  		id = attrs.id;
+		  	} else {
+		  		id = this.getId();
+		  	}
+		  	if(attrs.ancho){
+		  		ancho = attrs.ancho;
+		  	}
+		  	if(attrs.mostrarError=="true"){
+		  		mostrarError = "show-errors";
+		  		requerido = "required";
+		  		name = 'name="'+id+'"';
+		  	}
+		  	if(attrs.requerido){
+		  		requerido = 'ng-required="'+attrs.requerido+'"';
+		  	}
+		  	if(attrs.titulo){
+		  		titulo = 'tooltip="'+attrs.titulo+'"';
+		  	}
+		  	if(isIE || isFirefox){
+		  		fecha = '<input '+name+' type="text" '+titulo+' class="form-control input-sm" ng-model="'+attrs.fecha+'" is-open="$parent.fecha.abierto.'+id+'" style="width: 150px;" '+fechaMin+' '+fechaMax+' datepicker-popup="dd/MM/yyyy" '+requerido+'/>';
+			} else {
+		  		fecha = '<input '+name+' type="date" '+titulo+' class="form-control input-sm" ng-model="'+attrs.fecha+'" is-open="$parent.fecha.abierto.'+id+'" style="width: 150px;" '+fechaMin+' '+fechaMax+' datepicker-popup '+requerido+'/>';
+	        }
+		  	
+		  	botonFecha = '<span class="input-group-btn" style="display:inline-block"><button type="button" class="btn btn-default btn-sm" ng-click="$parent.fecha.abrir($event,\''+id+'\')"><i class="glyphicon glyphicon-calendar"></i>&nbsp;</button></span>';
+        	element.html('<p class="input-group" style="width: '+ancho+'px; display: inline-block" '+mostrarError+'>'+fecha+botonFecha+'</p>');
+          	$compile(element.contents())(scope);
+    	}
+    }
+});
 
 mapeo.directive('showErrors', function ($timeout, showErrorsConfig) {
     var getShowSuccess, linkFn;

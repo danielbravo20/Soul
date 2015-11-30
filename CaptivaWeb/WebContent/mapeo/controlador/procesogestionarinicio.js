@@ -223,6 +223,12 @@
 	$scope.atributo = {
 		lista : [],
 		listaId : {},
+		getActual : function(subSeccionIndex){
+			return $scope.subSeccion.lista[subSeccionIndex].atributo.actual;
+		},
+		getLista : function(subSeccionIndex){
+			return $scope.subSeccion.lista[subSeccionIndex].atributo.lista;
+		},
 		agregar : function(indice){
 			if(typeof($scope.subSeccion.lista[indice].nuevoAtributo)!="undefined"){
 				var item = $scope.subSeccion.lista[indice].nuevoAtributo;
@@ -231,7 +237,7 @@
 					// a registrar
 					cod_atributo : item.cod_atributo,
 					web_tipo : item.tipo,
-					web_etiqueta : item.nombre,
+					web_etiqueta : item.etiqueta,
 					// apoyo
 					cla_nombre : item.cla_nombre,
 					atr_nombre : item.nombre,
@@ -241,14 +247,24 @@
 				delete $scope.subSeccion.lista[indice].nuevoAtributo;
 			}
 		},
-		eliminar : function($index){
-			
+		eliminar : function(subSeccionIndex){
+			var index = $scope.atributo.getActual(subSeccionIndex);
+			$("i[eid='atributo_"+index+"']").next().hide();
+			$scope.atributo.getLista(subSeccionIndex).splice(index,1);
 		},
-		bajar : function($index){
-			
+		bajar : function(subSeccionIndex){
+			var index = $scope.atributo.getActual(subSeccionIndex);
+			$("i[eid='atributo_"+index+"']").next().hide();
+			if(index>0){
+				$scope.atributo.getLista(subSeccionIndex).move(index-1,index);
+			}
 		},
-		subir : function($index){
-			
+		subir : function(subSeccionIndex){
+			var index = $scope.atributo.getActual(subSeccionIndex);
+			$("i[eid='atributo_"+index+"']").next().hide();
+			if(index<this.getLista(subSeccionIndex).length-1){
+				$scope.atributo.getLista(subSeccionIndex).move(index,index+1);
+			}
 		},
 		restaurarAtributo : function(atributoItem){
 			atributoItem.web_requerido = "0";

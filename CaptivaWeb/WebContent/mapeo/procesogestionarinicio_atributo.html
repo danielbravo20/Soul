@@ -5,9 +5,8 @@
         dnd-allowed-types="['atributos']"
 		dnd-effect-allowed="move"
 		dnd-disable-if="!config.esEdicion"
-        dnd-selected="subSeccionItem.atributo.selected = atributo"
         ng-class="{
-        	'selected': subSeccionItem.atributo.selected === atributo, 
+        	'selected': subSeccionItem.atributo.actual === atributo, 
         	'AnchoExtendido': config.esEdicion != true && (($index+1)%2 == 0 && subSeccionItem.atributo.lista[$index-1].web_tipo_campo=='A' || ($index+1)%2 != 0 && subSeccionItem.atributo.lista[$index+1].web_tipo_campo=='A'), 
         	'ModoEditor': config.esEdicion == true, 
         	'ModoVisual': config.esEdicion != true,
@@ -28,7 +27,7 @@
 				<span ng-show="atributoItem.web_tipo_campo == 'E'">Lista Desplegable</span>
 			)</span>
 			<i class="glyphicon glyphicon-edit seccionEditar" 
-				ng-click="subSeccionItem.atributo.selected = $index" 
+				ng-click="subSeccionItem.atributo.actual = $index" 
 				popover-template="'plantilla/inc_editor_atributo_editor_detallado.html'" 
 				popover-title="Editar Atributo" 
 				popover-placement="right" style="color: brown;"

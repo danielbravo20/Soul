@@ -1,5 +1,16 @@
 ﻿mapeo.registerCtrl('editor', function($scope, $modal, $filter, ajax, util) {
 	
+	var tipoCampo_Integer = [
+         {
+        	 id 	: "L",
+        	 nombre : "Solo Lectura"
+         },
+         {
+        	 id 	: "C",
+        	 nombre : "Caja de Texto Numérico"
+         }
+	];
+    	
 	$scope.tipoClase = {
 		"Integer" : "I",
 		"Long" : "L",
@@ -10,6 +21,70 @@
 		"java.util.Date" : "D",
 		"java.sql.Date" : "D",
 		"java.sql.Timestamp" : "T"
+	};
+	
+	$scope.tipoCampo = {
+		"I" : angular.copy(tipoCampo_Integer),
+		"L" : angular.copy(tipoCampo_Integer),
+		"l" : angular.copy(tipoCampo_Integer),
+		"S" : [
+				{
+					 id 	: "L",
+					 nombre : "Solo Lectura"
+				},
+		        {
+		       	 	id 		: "C",
+		       	 	nombre : "Caja de Texto"
+		        },
+		        {
+		       	 	id 		: "A",
+		       	 	nombre : "Area de Texto"
+		        },
+		        {
+		       	 	id 		: "E",
+		       	 	nombre : "Lista desplegable"
+		        }
+			],
+		"b" : [
+				{
+					 id 	: "L",
+					 nombre : "Solo Lectura"
+				},
+		        {
+		       	 	id 		: "H",
+		       	 	nombre : "Checkbox"
+		        }             
+			],
+		"B" : [
+				{
+					 id 	: "L",
+					 nombre : "Solo Lectura"
+				},
+		        {
+		       	 	id 		: "C",
+		       	 	nombre : "Caja de Texto Decimal"
+		        }             
+			],
+		"D" : [
+				{
+					 id 	: "L",
+					 nombre : "Solo Lectura"
+				},
+		        {
+		       	 	id 		: "C",
+		       	 	nombre : "Caja de Texto Fecha"
+		        }             
+			],
+		"T" : [
+				{
+					 id 	: "L",
+					 nombre : "Solo Lectura"
+				},
+		        {
+		       	 	id 		: "C",
+		       	 	nombre : "Caja de Texto Fecha y Hora"
+		        }             
+			]
 	};
 	
 	angular.extend($scope.$parent.$parent.editor,{
@@ -400,81 +475,6 @@
 			}
 		}
 	});
-	
-	var tipoCampo_Integer = [
-         {
-        	 id 	: "L",
-        	 nombre : "Solo Lectura"
-         },
-         {
-        	 id 	: "C",
-        	 nombre : "Caja de Texto Numérico"
-         }
-	];
-	
-	$scope.tipoCampo = {
-		"I" : angular.copy(tipoCampo_Integer),
-		"L" : angular.copy(tipoCampo_Integer),
-		"l" : angular.copy(tipoCampo_Integer),
-		"S" : [
-				{
-					 id 	: "L",
-					 nombre : "Solo Lectura"
-				},
-		        {
-		       	 	id 		: "C",
-		       	 	nombre : "Caja de Texto"
-		        },
-		        {
-		       	 	id 		: "A",
-		       	 	nombre : "Area de Texto"
-		        },
-		        {
-		       	 	id 		: "E",
-		       	 	nombre : "Lista desplegable"
-		        }
-			],
-		"b" : [
-				{
-					 id 	: "L",
-					 nombre : "Solo Lectura"
-				},
-		        {
-		       	 	id 		: "H",
-		       	 	nombre : "Checkbox"
-		        }             
-			],
-		"B" : [
-				{
-					 id 	: "L",
-					 nombre : "Solo Lectura"
-				},
-		        {
-		       	 	id 		: "C",
-		       	 	nombre : "Caja de Texto Decimal"
-		        }             
-			],
-		"D" : [
-				{
-					 id 	: "L",
-					 nombre : "Solo Lectura"
-				},
-		        {
-		       	 	id 		: "C",
-		       	 	nombre : "Caja de Texto Fecha"
-		        }             
-			],
-		"T" : [
-				{
-					 id 	: "L",
-					 nombre : "Solo Lectura"
-				},
-		        {
-		       	 	id 		: "C",
-		       	 	nombre : "Caja de Texto Fecha y Hora"
-		        }             
-			]
-	};
 	
 	$scope.seccion = {
 		actual : -1,
