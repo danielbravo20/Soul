@@ -1,5 +1,24 @@
 ﻿mapeo.registerCtrl('atributo', function($scope, ajax, util) {
 
+	$scope.infos = {
+		etiquetas : [],
+		webNombres : []
+	};
+	
+	var validarAlertas = function(){
+		$scope.infos.etiquetas = [];
+		$scope.infos.webNombres = [];
+		for(var i = 0; i < $scope.data.ATRIBUTO.length; i++){
+			var item = $scope.data.ATRIBUTO[i];
+			if(!(item.etiqueta && item.etiqueta.length>0)){
+				$scope.infos.etiquetas.push(item.nombre);
+			}
+			if(!(item.web_nombre && item.web_nombre.length>0)){
+				$scope.infos.webNombres.push(item.nombre);
+			}
+		}
+	};
+	
 	$scope.dataType = {
 		"JAVA" : {
 			"Integer" : "Integer", 
@@ -55,9 +74,12 @@
 			$scope.cargado.ATR_cod_clase = $scope.clasePadre.cod_clase;
 		}
 		if(typeof(listar)!="undefined" && listar == true){
-			$scope.listar();
+			$scope.listar(function(){
+				validarAlertas();
+			});
 		} else {
 			$scope.pag.total = $scope.data.ATRIBUTO.length;
+			validarAlertas();
 		}
 		
 		// CARGAR TIPO DE DATOS
@@ -71,9 +93,10 @@
 		
 		$scope.cargado.FLG_sqlDesabilitado = true;
 		
+		
 	};
 	
-	$scope.listar = function(){
+	$scope.listar = function(call){
 		$scope.cargado.metodo = "listar";
 		ajax.jpo($scope.cargado,function(respuesta){
 			$scope.data.ATRIBUTO = respuesta;
@@ -82,6 +105,9 @@
 				$scope.editarCargar($scope.postAtributo);
 				delete $scope.postCargamosAtributo;
 				delete $scope.postAtributo;
+			}
+			if(call){
+				call();
 			}
 		});
 	};

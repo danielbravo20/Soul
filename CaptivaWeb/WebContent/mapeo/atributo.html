@@ -13,6 +13,12 @@
 			</ol>
 		</div>
 	</div>
+	<alert type="danger" ng-show="infos.etiquetas.length>0">Pendiente registrar Etiquetas a los campos:
+		<div ng-repeat="nombre in infos.etiquetas">- {{nombre}}</div>
+	</alert>
+	<alert type="danger" ng-show="infos.webNombres.length>0">Pendiente registrar Nombre Web a los campos:
+		<div ng-repeat="nombre in infos.webNombres">- {{nombre}}</div>
+	</alert>
 	<div class="show-grid" ng-show="vista === 'lista'">
 		<div class="panel panel-default">
 		  <div class="panel-heading"><strong>Listado de Atributos</strong></div>

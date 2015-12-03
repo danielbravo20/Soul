@@ -109,9 +109,9 @@ public class Tarea extends GestionBase implements TareaLocal {
 
 			if(plantillas.length()>0){
 				plantillas = plantillas.substring(0,plantillas.length()-1);
-				listados.put("SECCION_PLANTILLA", jpo.tabla("tarea_accion_seccion","SEA").donde("cod_seccion IN ("+plantillas+")").seleccionar("*"));
-				listados.put("SUB_SECCION_PLANTILLA", jpo.tabla("tarea_accion_sub_seccion","SUP").donde("cod_seccion IN ("+plantillas+")").seleccionar("*"));
-				listados.put("ATRIBUTO_PLANTILLA", jpo.tabla("tarea_accion","ATP").donde("cod_seccion IN ("+plantillas+")").seleccionar("*"));
+				listados.put("SECCION_PLANTILLA", jpo.tabla("tarea_accion_seccion","SEA").donde("cod_seccion IN ("+plantillas+")").ordenadoPor("cod_seccion ASC").seleccionar("*"));
+				listados.put("SUB_SECCION_PLANTILLA", jpo.tabla("tarea_accion_sub_seccion","SUP").donde("cod_seccion IN ("+plantillas+")").ordenadoPor("cod_sub_seccion ASC").seleccionar("*"));
+				listados.put("ATRIBUTO_PLANTILLA", jpo.tabla("tarea_accion","ATP").donde("cod_seccion IN ("+plantillas+")").ordenadoPor("cod_seccion ASC,cod_sub_seccion ASC, cod_tarea_accion ASC").seleccionar("*"));
 			}
 			
 		return listados;

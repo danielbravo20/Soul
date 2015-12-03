@@ -2,12 +2,9 @@ package pe.com.captiva.servicio.util.proceso;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pe.com.captiva.bean.AtributoProceso;
-import pe.com.captiva.bean.CampoSQLBean;
 import pe.com.captiva.bean.ProcesoBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.servicio.util.Componente;
@@ -122,11 +119,7 @@ public class ProcesoHtml extends MultipleBaseConstructor{
 		
 		buffer.append("		<div class=\"panel-heading\"><strong>Datos de Inicio</strong></div>\r\n");
 		
-		List<Map<String, Object>> inicio_subSecciones = (List<Map<String, Object>>) jpo.tabla("proceso_inicio_sub_seccion").donde("cod_proceso = '"+procesoBean.getCodigo()+"'").ordenadoPor("2 ASC").seleccionar("*");
-		Map<Integer, Integer> mapSP = new HashMap<Integer, Integer>();
-		for (int i = 0; i < inicio_subSecciones.size(); i++) {
-			mapSP.put((Integer) inicio_subSecciones.get(i).get("cod_sub_seccion"), i);
-		}
+		List<Map<String, Object>> subSecciones = (List<Map<String, Object>>) jpo.tabla("proceso_inicio_sub_seccion").donde("cod_proceso = '"+procesoBean.getCodigo()+"'").ordenadoPor("2 ASC").seleccionar("*");
 		
 		List<Map<String, Object>> atributos = (List<Map<String, Object>>) jpo.tablas(
 				new String[] { "proceso_inicio"	, "atributo" 	, "atributo_sql"},
@@ -140,155 +133,7 @@ public class ProcesoHtml extends MultipleBaseConstructor{
 				new String[] { "cod_atributo"}
 		).donde("PRO.cod_proceso = '"+procesoBean.getCodigo()+"' AND PRO.cod_sub_seccion !='0'").ordenadoPor("2 ASC, 3 ASC").seleccionar("PRO.*,ATR.nombre AS atr_nombre,ASQ.longitud AS sql_longitud,ASQ.precision AS sql_precision");
 		
-		for (Map<String, Object> atributo : atributos) {
-			int codSubSeccion = (Integer) atributo.get("cod_sub_seccion");
-			if(mapSP.get(codSubSeccion) != null){
-				int indice = mapSP.get(codSubSeccion);
-				List<Map<String, Object>> atributosSubseccion = new ArrayList<Map<String, Object>>();
-				if(inicio_subSecciones.get(indice).get("atributos") != null){
-					atributosSubseccion = (List<Map<String, Object>>) inicio_subSecciones.get(indice).get("atributos");
-				}
-				atributosSubseccion.add(atributo);
-				inicio_subSecciones.get(indice).put("atributos", atributosSubseccion);
-			}
-		}
-				
-		for (Map<String, Object> inicio_subSeccion : inicio_subSecciones) {
-			buffer.append("		<div class=\"filaTitulo\">&nbsp;&nbsp;<i class=\"glyphicon glyphicon-list-alt\"></i> "+inicio_subSeccion.get("nombre")+"</div>\r\n");
-
-			int filaActual = 0;
-			List<Map<String, Object>> atributosLista = (List<Map<String, Object>>) inicio_subSeccion.get("atributos");
-			for (Map<String, Object> atributoProcesoObj : atributosLista) {
-				
-				AtributoProceso atributoProceso = new AtributoProceso();
-				
-				atributoProceso.setWebEtiqueta((String) atributoProcesoObj.get("web_etiqueta"));
-				atributoProceso.setWebMensajeValidacion((String) atributoProcesoObj.get("web_mensaje_validacion"));
-				atributoProceso.setWebTipo((String) atributoProcesoObj.get("web_tipo"));
-				if(atributoProcesoObj.get("web_tipo_campo")!=null){
-					atributoProceso.setWebTipoCampo(atributoProcesoObj.get("web_tipo_campo").toString().charAt(0));
-				}
-				atributoProceso.setFlgWebRequerido((atributoProcesoObj.get("web_requerido").toString().equals("1"))?true:false);
-				atributoProceso.setNombre((String) atributoProcesoObj.get("atr_nombre"));
-					CampoSQLBean campoSQL = new CampoSQLBean();
-				if(atributoProcesoObj.get("sql_longitud") != null){
-					campoSQL.setPrecision((Integer) atributoProcesoObj.get("sql_longitud"));
-				}
-				if(atributoProcesoObj.get("sql_precision") != null){
-					campoSQL.setLongitud((Integer) atributoProcesoObj.get("sql_precision"));
-				}
-				atributoProceso.setCampoSQLBean(campoSQL);
-					
-				if(filaActual == 0 || filaActual%2==0){
-					buffer.append("		<div class=\"frm_fila\">\r\n");
-				}
-				
-				// CONDICIONES
-				String condRequerido = "";
-				String atriRequerido = "";
-				String divRequerido = "class=\"frm_campo\"";
-				String mensajeError = "";
-				if(atributoProceso.isFlgWebRequerido()){
-					condRequerido = "<span class=\"frm_requerido\">(*)</span> ";
-					atriRequerido = "required";
-					divRequerido = "class=\"frm_campo form-group\" show-errors='{showSuccess: true}'";
-					mensajeError = "<p class=\"help-block\" ng-if=\"frm_iniciarproceso."+atributoProceso.getNombre()+".$error.required\">"+atributoProceso.getWebMensajeValidacion()+"</p>";
-				}
-				
-				String atributo = "";
-				//System.out.println("TIPO DATO "+UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())+"|"+atributoProceso.getWebTipoCampo());
-				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='S'){
-					
-					if(atributoProceso.getWebTipoCampo() == 'L'){
-						atributo = "{{baseIPConfig.data."+atributoProceso.getNombre()+"}}";
-					}
-					if(atributoProceso.getWebTipoCampo() == 'C'){
-						atributo = "<input type=\"text\" name=\""+atributoProceso.getNombre()+"\" ng-model=\"baseIPConfig.data."+atributoProceso.getNombre()+"\" class=\"form-control input-sm\" "+atriRequerido+">";
-					}
-					if(atributoProceso.getWebTipoCampo() == 'A'){
-						atributo = "<textarea name=\""+atributoProceso.getNombre()+"\" ng-model=\"baseIPConfig.data."+atributoProceso.getNombre()+"\" class=\"form-control input-sm\" "+atriRequerido+"></textarea>";
-					}
-					if(atributoProceso.getWebTipoCampo() == 'E'){
-						atributo = "<select name=\""+atributoProceso.getNombre()+"\" ng-model=\"baseIPConfig.data."+atributoProceso.getNombre()+"\" class=\"form-control input-sm\" "+atriRequerido+"></select>";
-					}
-				}
-				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='b'){
-					if(atributoProceso.getWebTipoCampo() == 'L'){
-						atributo = "<span ng-show=\"baseIPConfig.data."+atributoProceso.getNombre()+"==true\">Sí</span><span ng-show=\"baseIPConfig.data."+atributoProceso.getNombre()+"==false\">No</span>";
-					}
-					if(atributoProceso.getWebTipoCampo() == 'H'){
-						atributo = "<input type=\"checkbox\" ng-model=\"baseIPConfig.data."+atributoProceso.getNombre()+"\" class=\"form-control input-sm\" ng-true-value=\"true\" ng-false-value=\"false\" style=\"width:30px\" "+atriRequerido+">";
-					}
-				}
-				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='B'){
-					if(atributoProceso.getWebTipoCampo() == 'L'){
-						atributo = "{{baseIPConfig.data."+atributoProceso.getNombre()+" | currency: \"\"}}";
-					}
-					if(atributoProceso.getWebTipoCampo() == 'C'){
-						CampoSQLBean campoSQLBean = atributoProceso.getCampoSQLBean();
-						
-						String maximo = "";
-						if(campoSQLBean.getLongitud()>0 && campoSQLBean.getPrecision()>0){
-							maximo = "nx-regla=\"decimal\" nx-max-entero=\""+campoSQLBean.getLongitud()+"\" nx-max-decimal=\""+campoSQLBean.getPrecision()+"\"";
-						}
-						atributo = "<input type=\"text\" name=\""+atributoProceso.getNombre()+"\" ng-model=\"baseIPConfig.data."+atributoProceso.getNombre()+"\" "+maximo+" class=\"form-control input-sm\" "+atriRequerido+">";
-					}
-				}
-				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='D'){
-					if(atributoProceso.getWebTipoCampo() == 'L'){
-						atributo = "{{baseIPConfig.data."+atributoProceso.getNombre()+" | date:'dd/MM/yyyy'}}";
-					}
-					if(atributoProceso.getWebTipoCampo() == 'C'){
-						atributo = "<fecha id=\""+atributoProceso.getNombre()+"\" fecha=\"baseIPConfig.data."+atributoProceso.getNombre()+"\" titulo=\""+atributoProceso.getWebMensajeValidacion()+"\" mostrar-error=\""+(atributoProceso.isFlgWebRequerido()?"true":"false")+"\" ></fecha>";
-					}
-				}
-				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='N'){
-					if(atributoProceso.getWebTipoCampo() == 'L'){
-						atributo = "{{baseIPConfig.data."+atributoProceso.getNombre()+"}}";
-					}
-					if(atributoProceso.getWebTipoCampo() == 'C'){
-						atributo = "<input type=\"number\" name=\""+atributoProceso.getNombre()+"\" ng-model=\"baseIPConfig.data."+atributoProceso.getNombre()+"\" class=\"form-control input-sm\" "+atriRequerido+">";
-					}
-				}
-				
-				int estiloNum = 1;
-				int estiloNumero = 0;
-				if((filaActual+2)%2==0){
-					estiloNumero = (filaActual+4)/2;
-				}
-				if((filaActual+2)%2!=0){
-					estiloNumero = (filaActual+3)/2;
-				}
-				if((estiloNumero)%2==0){
-					estiloNum = 1;
-				}
-				if((estiloNumero)%2!=0){
-					estiloNum = 2;
-				}
-				
-				if((filaActual+2)%2==0){
-					buffer.append("			<div class=\"frm_celda frm_cel_"+estiloNum+"a\">\r\n");
-					buffer.append("				<div class=\"frm_etiqueta\">"+condRequerido+atributoProceso.getWebEtiqueta()+" :</div>\r\n");
-					buffer.append("				<div "+divRequerido+">"+atributo+mensajeError+"</div>\r\n");
-					buffer.append("			</div>");
-				}
-				if((filaActual+2)%2!=0){
-					buffer.append("<div class=\"frm_celda frm_cel_"+estiloNum+"b\">\r\n");
-					buffer.append("				<div class=\"frm_etiqueta\">"+condRequerido+atributoProceso.getWebEtiqueta()+" :</div>\r\n");
-					buffer.append("				<div "+divRequerido+">"+atributo+mensajeError+"</div>\r\n");
-					buffer.append("			</div>\r\n");
-				}
-				
-				if(filaActual == atributosLista.size()-1 && (filaActual+2)%2==0){
-					buffer.append("\r\n		</div>\r\n");
-				} else if(filaActual == atributosLista.size()-1 || (filaActual+2)%2!=0){
-					buffer.append("		</div>\r\n");
-				}
-				
-				filaActual++;
-				
-			}
-		}
+		buffer.append(UtilHtmlGenerador.modeloSAD("iniciarproceso", subSecciones, atributos, 2).toString());
 		
 		buffer.append("	</div>\r\n");
 		buffer.append("</div>");
@@ -325,13 +170,7 @@ public class ProcesoHtml extends MultipleBaseConstructor{
 			consulta = "cod_seccion = '"+codSeccion+"'";
 		}
 		
-		StringBuffer buffer = new StringBuffer();
-		
 		List<Map<String, Object>> subSecciones = (List<Map<String, Object>>) jpo.tabla("proceso_detalle_sub_seccion").donde(consulta).ordenadoPor("3 ASC").seleccionar("*");
-		Map<Integer, Integer> mapSP = new HashMap<Integer, Integer>();
-		for (int i = 0; i < subSecciones.size(); i++) {
-			mapSP.put((Integer) subSecciones.get(i).get("cod_sub_seccion"), i);
-		}
 		
 		List<Map<String, Object>> atributos = (List<Map<String, Object>>) jpo.tablas(
 				new String[] { "proceso_detalle"	, "atributo"},
@@ -340,95 +179,10 @@ public class ProcesoHtml extends MultipleBaseConstructor{
 		.dondeUnir(
 				new String[] { "PRO", "ATR"},
 				new String[] { "cod_atributo"}
-		).donde(consulta).ordenadoPor("3 ASC, 4 ASC").seleccionar("PRO.*,ATR.tipo AS tipo,ATR.tipo AS web_nombre");
+		).donde(consulta).ordenadoPor("3 ASC, 4 ASC").seleccionar("PRO.*,ATR.tipo AS tipo,ATR.web_nombre AS web_nombre");
 		
-		for (Map<String, Object> atributo : atributos) {
-			int codSubSeccion = (Integer) atributo.get("cod_sub_seccion");
-			if(mapSP.get(codSubSeccion) != null){
-				int indice = mapSP.get(codSubSeccion);
-				List<Map<String, Object>> atributosSubseccion = new ArrayList<Map<String, Object>>();
-				if(subSecciones.get(indice).get("atributos") != null){
-					atributosSubseccion = (List<Map<String, Object>>) subSecciones.get(indice).get("atributos");
-				}
-				atributosSubseccion.add(atributo);
-				subSecciones.get(indice).put("atributos", atributosSubseccion);
-			}
-		}
-				
-		for (Map<String, Object> subSeccion : subSecciones) {
-			buffer.append("<div class=\"filaTitulo\">&nbsp;&nbsp;<i class=\"glyphicon glyphicon-list-alt\"></i> "+subSeccion.get("nombre")+"</div>\r\n");
-
-			int filaActual = 0;
-			List<Map<String, Object>> atributosLista = (List<Map<String, Object>>) subSeccion.get("atributos");
-			for (Map<String, Object> atributoProcesoObj : atributosLista) {
-				
-				AtributoProceso atributoProceso = new AtributoProceso();
-				
-				atributoProceso.setWebEtiqueta((String) atributoProcesoObj.get("web_etiqueta"));
-				atributoProceso.setWebTipo((String) atributoProcesoObj.get("tipo"));
-				atributoProceso.setWebNombre((String) atributoProcesoObj.get("web_nombre"));
-
-				if(filaActual == 0 || filaActual%2==0){
-					buffer.append("<div class=\"frm_fila\">\r\n");
-				}
-				
-				String atributo = "";
-				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='S'){
-					atributo = "{{baseDPConfig.data."+atributoProceso.getNombre()+"}}";
-				}
-				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='b'){
-					atributo = "<span ng-show=\"baseDPConfig.data."+atributoProceso.getNombre()+"==true\">Sí</span><span ng-show=\"baseDPConfig.data."+atributoProceso.getNombre()+"==false\">No</span>";
-				}
-				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='B'){
-					atributo = "{{baseDPConfig.data."+atributoProceso.getNombre()+" | currency: \"\"}}";
-				}
-				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='D'){
-					atributo = "{{baseDPConfig.data."+atributoProceso.getNombre()+" | date:'dd/MM/yyyy'}}";
-				}
-				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='N'){
-					atributo = "{{baseDPConfig.data."+atributoProceso.getNombre()+"}}";
-				}
-				
-				int estiloNum = 1;
-				int estiloNumero = 0;
-				if((filaActual+2)%2==0){
-					estiloNumero = (filaActual+4)/2;
-				}
-				if((filaActual+2)%2!=0){
-					estiloNumero = (filaActual+3)/2;
-				}
-				if((estiloNumero)%2==0){
-					estiloNum = 1;
-				}
-				if((estiloNumero)%2!=0){
-					estiloNum = 2;
-				}
-				
-				if((filaActual+2)%2==0){
-					buffer.append("	<div class=\"frm_celda frm_cel_"+estiloNum+"a\">\r\n");
-					buffer.append("		<div class=\"frm_etiqueta\">"+atributoProceso.getWebEtiqueta()+" :</div>\r\n");
-					buffer.append("		<div>"+atributo+"</div>\r\n");
-					buffer.append("	</div>");
-				}
-				if((filaActual+2)%2!=0){
-					buffer.append("<div class=\"frm_celda frm_cel_"+estiloNum+"b\">\r\n");
-					buffer.append("		<div class=\"frm_etiqueta\">"+atributoProceso.getWebEtiqueta()+" :</div>\r\n");
-					buffer.append("		<div>"+atributo+"</div>\r\n");
-					buffer.append("	</div>\r\n");
-				}
-				
-				if(filaActual == atributosLista.size()-1 && (filaActual+2)%2==0){
-					buffer.append("\r\n</div>\r\n");
-				} else if(filaActual == atributosLista.size()-1 || (filaActual+2)%2!=0){
-					buffer.append("</div>\r\n");
-				}
-				
-				filaActual++;
-				
-			}
-		}
+		return UtilHtmlGenerador.modeloSAS("detalleproceso", subSecciones, atributos);
 		
-		return buffer;
 	}
 	
 	private StringBuffer detalleproceso_contenido_html(ProyectoBean proyectoBean, ProcesoBean procesoBean) throws Exception{

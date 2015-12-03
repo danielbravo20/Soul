@@ -51,9 +51,9 @@ public class GenerarController extends HttpServlet {
 			fabricaSoulServiceLocal.crearProyecto(usuario, new Integer(codigoProyecto),request);
 			retorno.print("true");
 		} catch (Exception e) {
-			e.printStackTrace();
-			retorno.print(e.getMessage());
+			retorno.print(org.apache.commons.lang.exception.ExceptionUtils.getStackTrace(e.getCause()));
 		}
+		
 	}
 	
 }
