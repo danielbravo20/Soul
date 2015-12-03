@@ -1,5 +1,5 @@
 package pe.com.captiva.dao.entity;
-// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
+// Generated 01/12/2015 04:35:12 PM by Hibernate Tools 4.3.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +33,7 @@ public class Atributo implements java.io.Serializable {
 	private Set<ProcesoInicio> procesoInicios = new HashSet<ProcesoInicio>(0);
 	private Set<TareaAtrCancelar> tareaAtrCancelars = new HashSet<TareaAtrCancelar>(0);
 	private Set<TareaAtrRechazar> tareaAtrRechazars = new HashSet<TareaAtrRechazar>(0);
+	private Set<ProcesoDetalle> procesoDetalles = new HashSet<ProcesoDetalle>(0);
 	private AtributoSql atributoSql;
 	private Set<ConsultaAtributo> consultaAtributos = new HashSet<ConsultaAtributo>(0);
 
@@ -51,8 +52,8 @@ public class Atributo implements java.io.Serializable {
 	public Atributo(int codAtributo, Clase clase, String nombre, String etiqueta, String tipo, char flgLista,
 			String webNombre, String webFormato, Set<TareaAtrObservar> tareaAtrObservars,
 			Set<TareaAtrCompletar> tareaAtrCompletars, Set<ProcesoInicio> procesoInicios,
-			Set<TareaAtrCancelar> tareaAtrCancelars, Set<TareaAtrRechazar> tareaAtrRechazars, AtributoSql atributoSql,
-			Set<ConsultaAtributo> consultaAtributos) {
+			Set<TareaAtrCancelar> tareaAtrCancelars, Set<TareaAtrRechazar> tareaAtrRechazars,
+			Set<ProcesoDetalle> procesoDetalles, AtributoSql atributoSql, Set<ConsultaAtributo> consultaAtributos) {
 		this.codAtributo = codAtributo;
 		this.clase = clase;
 		this.nombre = nombre;
@@ -66,6 +67,7 @@ public class Atributo implements java.io.Serializable {
 		this.procesoInicios = procesoInicios;
 		this.tareaAtrCancelars = tareaAtrCancelars;
 		this.tareaAtrRechazars = tareaAtrRechazars;
+		this.procesoDetalles = procesoDetalles;
 		this.atributoSql = atributoSql;
 		this.consultaAtributos = consultaAtributos;
 	}
@@ -188,6 +190,15 @@ public class Atributo implements java.io.Serializable {
 
 	public void setTareaAtrRechazars(Set<TareaAtrRechazar> tareaAtrRechazars) {
 		this.tareaAtrRechazars = tareaAtrRechazars;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "atributo")
+	public Set<ProcesoDetalle> getProcesoDetalles() {
+		return this.procesoDetalles;
+	}
+
+	public void setProcesoDetalles(Set<ProcesoDetalle> procesoDetalles) {
+		this.procesoDetalles = procesoDetalles;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "atributo")

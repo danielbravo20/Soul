@@ -237,26 +237,14 @@ CREATE TABLE soul.proceso(
  cod_tarea Integer
 );
 
--- Table soul.proceso_detalle_seccion
+-- Add keys for table soul.proceso
 
-CREATE TABLE soul.proceso_detalle_seccion(
- cod_proceso Integer,
- cod_seccion Character varying(20) NOT NULL,
- tipo Character(1) NOT NULL,
- tipo_widget Character varying(20),
- nombre Character varying(100),
- cod_seccion_padre Character varying(20) 
- )
+ALTER TABLE soul.proceso ADD CONSTRAINT proceso_pk PRIMARY KEY (cod_proceso)
 ;
 
--- Table soul.proceso_detalle_sub_seccion
+-- Create indexes for table soul.proceso
 
-CREATE TABLE soul.proceso_detalle_sub_seccion(
- cod_proceso Integer,
- cod_seccion Character varying(20) NOT NULL,
- cod_sub_seccion Integer NOT NULL,
- nombre Character varying(100) NOT NULL
- )
+CREATE INDEX proceso_ix_pk ON soul.proceso (cod_proyecto)
 ;
 
 -- Table soul.proceso_detalle
@@ -271,14 +259,43 @@ CREATE TABLE soul.proceso_detalle(
 )
 ;
 
--- Create indexes for table soul.proceso
+-- Add keys for table soul.proceso_inicio
 
-CREATE INDEX ix_proceso_proyecto_fk ON soul.proceso (cod_proyecto)
+/*ALTER TABLE soul.proceso_detalle ADD CONSTRAINT proceso_detalle_pk PRIMARY KEY (cod_proceso,cod_sub_seccion,cod_proceso_inicio)
+;*/
+
+ALTER TABLE soul.proceso_detalle ADD CONSTRAINT proceso_detalle_atributo_fk FOREIGN KEY (cod_atributo) REFERENCES soul.atributo (cod_atributo) ON DELETE CASCADE ON UPDATE NO ACTION
 ;
 
--- Add keys for table soul.proceso
+ALTER TABLE soul.proceso_detalle ADD CONSTRAINT proceso_detalle_proceso_fk FOREIGN KEY (cod_proceso) REFERENCES soul.proceso (cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
+;
 
-ALTER TABLE soul.proceso ADD CONSTRAINT proceso_pk PRIMARY KEY (cod_proceso)
+-- Table soul.proceso_detalle_seccion
+
+CREATE TABLE soul.proceso_detalle_seccion(
+ cod_proceso Integer,
+ cod_seccion Character varying(20) NOT NULL,
+ tipo Character(1) NOT NULL,
+ tipo_widget Character varying(20),
+ nombre Character varying(100),
+ cod_seccion_padre Character varying(20) 
+ )
+;
+
+ALTER TABLE soul.proceso_detalle_seccion ADD CONSTRAINT proceso_detalle_seccion_proceso_fk FOREIGN KEY (cod_proceso) REFERENCES soul.proceso (cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
+;
+
+-- Table soul.proceso_detalle_sub_seccion
+
+CREATE TABLE soul.proceso_detalle_sub_seccion(
+ cod_proceso Integer,
+ cod_seccion Character varying(20) NOT NULL,
+ cod_sub_seccion Integer NOT NULL,
+ nombre Character varying(100) NOT NULL
+ )
+;
+
+ALTER TABLE soul.proceso_detalle_sub_seccion ADD CONSTRAINT proceso_detalle_sub_seccion_proceso_fk FOREIGN KEY (cod_proceso) REFERENCES soul.proceso (cod_proceso) ON DELETE CASCADE ON UPDATE NO ACTION
 ;
 
 -- Table soul.proceso_inicio

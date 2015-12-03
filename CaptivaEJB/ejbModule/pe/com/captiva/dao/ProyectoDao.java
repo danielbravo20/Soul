@@ -15,6 +15,9 @@ import pe.com.captiva.bean.CampoSQLBean;
 import pe.com.captiva.bean.ClaseBean;
 import pe.com.captiva.bean.ConsultaBean;
 import pe.com.captiva.bean.ProcesoBean;
+import pe.com.captiva.bean.ProcesoDetalleBean;
+import pe.com.captiva.bean.ProcesoDetalleSeccionBean;
+import pe.com.captiva.bean.ProcesoDetalleSubSeccionBean;
 import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.bean.RolBean;
 import pe.com.captiva.bean.SubseccionProceso;
@@ -26,6 +29,9 @@ import pe.com.captiva.dao.entity.Clase;
 import pe.com.captiva.dao.entity.Consulta;
 import pe.com.captiva.dao.entity.ConsultaAtributo;
 import pe.com.captiva.dao.entity.Proceso;
+import pe.com.captiva.dao.entity.ProcesoDetalle;
+import pe.com.captiva.dao.entity.ProcesoDetalleSeccion;
+import pe.com.captiva.dao.entity.ProcesoDetalleSubSeccion;
 import pe.com.captiva.dao.entity.ProcesoInicio;
 import pe.com.captiva.dao.entity.ProcesoInicioSubSeccion;
 import pe.com.captiva.dao.entity.Proyecto;
@@ -102,6 +108,7 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     private ProcesoBean parseProcesoBean(Proceso proceso){
     	ProcesoBean procesoBean = null;
     	if(proceso!=null){
+    		
     		procesoBean = new ProcesoBean();
     		procesoBean.setCodigo(proceso.getCodProceso());
     		procesoBean.setNombre(proceso.getNombre());
@@ -169,8 +176,88 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
     		consultaResumenBean.setAtributosBean(consultaResumenAtributosBean);
     		procesoBean.setConsultaResumen(consultaResumenBean);
     		
+    		// PROCESO DETALLE
+    		List<ProcesoDetalleBean> procesoDetallesBean = new ArrayList<ProcesoDetalleBean>();
+    		Set<ProcesoDetalle> procesoDetalle = proceso.getProcesoDetalles();
+    		Iterator<ProcesoDetalle> procesoDetalleIterator = procesoDetalle.iterator();
+    		while (procesoDetalleIterator.hasNext()) {
+    			procesoDetallesBean.add(parseProcesoDetalle((ProcesoDetalle) procesoDetalleIterator.next()));
+			}
+    		procesoBean.setProcesoDetallesBean(procesoDetallesBean);
+    		
+    		System.out.println("TOTAL : "+procesoDetalle.size());
+    		// PROCESO DETALLE SECCION
+    		List<ProcesoDetalleSeccionBean> procesoDetalleSeccionBean = new ArrayList<ProcesoDetalleSeccionBean>();
+    		Set<ProcesoDetalleSeccion> procesoDetalleSeccion = proceso.getProcesoDetalleSeccions();
+    		Iterator<ProcesoDetalleSeccion> procesoDetalleSeccionIterator = procesoDetalleSeccion.iterator();
+    		while (procesoDetalleSeccionIterator.hasNext()) {
+    			procesoDetalleSeccionBean.add(parseProcesoDetalleSeccion((ProcesoDetalleSeccion) procesoDetalleSeccionIterator.next()));
+			}
+    		procesoBean.setProcesoDetallesSeccionBean(procesoDetalleSeccionBean);
+    		
+    		System.out.println("TOTAL : "+procesoDetalleSeccion.size());
+    		// PROCESO DETALLE SUB SECCION
+    		List<ProcesoDetalleSubSeccionBean> procesoDetalleSubSeccionBean = new ArrayList<ProcesoDetalleSubSeccionBean>();
+    		Set<ProcesoDetalleSubSeccion> procesoDetalleSubSeccion = proceso.getProcesoDetalleSubSeccions();
+    		Iterator<ProcesoDetalleSubSeccion> procesoDetalleSubSeccionIterator = procesoDetalleSubSeccion.iterator();
+    		while (procesoDetalleSubSeccionIterator.hasNext()) {
+    			procesoDetalleSubSeccionBean.add(parseProcesoDetalleSubSeccion((ProcesoDetalleSubSeccion) procesoDetalleSubSeccionIterator.next()));
+			}
+    		procesoBean.setProcesoDetallesSubSeccionBean(procesoDetalleSubSeccionBean);
+    		
+    		
+    		System.out.println("TOTAL : "+procesoDetalleSubSeccion.size());
+    		
     	}
     	return procesoBean;
+    }
+    
+    private ProcesoDetalleSubSeccionBean parseProcesoDetalleSubSeccion(ProcesoDetalleSubSeccion procesoDetalleSubSeccion){
+    	ProcesoDetalleSubSeccionBean procesoDetalleSubSeccionBean = null;
+		if(procesoDetalleSubSeccion!=null){
+			procesoDetalleSubSeccionBean = new ProcesoDetalleSubSeccionBean();
+			
+			procesoDetalleSubSeccionBean.setCodigoProceso(procesoDetalleSubSeccion.getId().getCodProceso());
+			procesoDetalleSubSeccionBean.setCodSeccion(procesoDetalleSubSeccion.getId().getCodSeccion());
+			procesoDetalleSubSeccionBean.setCodSubSeccion(procesoDetalleSubSeccion.getId().getCodSubSeccion());
+			procesoDetalleSubSeccionBean.setNombre(procesoDetalleSubSeccion.getId().getNombre());
+			
+		}
+		return procesoDetalleSubSeccionBean;
+    }
+    
+    private ProcesoDetalleSeccionBean parseProcesoDetalleSeccion(ProcesoDetalleSeccion procesoDetalleSeccion){
+    	ProcesoDetalleSeccionBean procesoDetalleSeccionBean = null;
+		if(procesoDetalleSeccion!=null){
+			procesoDetalleSeccionBean = new ProcesoDetalleSeccionBean();
+			
+			procesoDetalleSeccionBean.setCodigoProceso(procesoDetalleSeccion.getId().getCodProceso());
+			procesoDetalleSeccionBean.setCodSeccion(procesoDetalleSeccion.getId().getCodSeccion());
+			procesoDetalleSeccionBean.setTipoSeccion(procesoDetalleSeccion.getId().getTipo());
+			procesoDetalleSeccionBean.setTipoWidget(procesoDetalleSeccion.getId().getTipoWidget());
+			procesoDetalleSeccionBean.setNombre(procesoDetalleSeccion.getId().getNombre());
+			procesoDetalleSeccionBean.setCodSeccionPadre(procesoDetalleSeccion.getId().getCodSeccionPadre());
+			
+		}
+		return procesoDetalleSeccionBean;
+    }
+    
+    private ProcesoDetalleBean parseProcesoDetalle(ProcesoDetalle procesoDetalle){
+    	ProcesoDetalleBean procesoDetalleBean = null;
+		if(procesoDetalle!=null){
+			procesoDetalleBean = new ProcesoDetalleBean();
+			
+			procesoDetalleBean.setCodigoProceso(procesoDetalle.getId().getCodProceso());
+			procesoDetalleBean.setCodSeccion(procesoDetalle.getId().getCodSeccion());
+			procesoDetalleBean.setCodSubSeccion(procesoDetalle.getId().getCodSubSeccion());
+			procesoDetalleBean.setCodProcesoDetalle(procesoDetalle.getId().getCodProcesoDetalle());
+			procesoDetalleBean.setCodAtributo(procesoDetalle.getId().getCodAtributo());
+			procesoDetalleBean.setWebEtiqueta(procesoDetalle.getId().getWebEtiqueta());
+			
+			procesoDetalleBean.setWebNombre(procesoDetalle.getAtributo().getWebNombre());
+			
+		}
+		return procesoDetalleBean;
     }
     
     private AtributoProceso parseAtributoProcesoBean(ProcesoInicio procesoInicio){

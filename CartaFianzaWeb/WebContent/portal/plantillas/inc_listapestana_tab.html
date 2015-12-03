@@ -1,0 +1,11 @@
+<tabset>
+	<tab ng-repeat="tab in tabs.lista" active="tab.activo" select="cambiar($index)">
+		<tab-heading>
+			<i class="glyphicon" ng-class="{true:'glyphicon-folder-open', false:'glyphicon-folder-close'}[tab.activo]"></i>&nbsp; {{tab.nombre}}
+			<span style="color:red" ng-show="tab.alertas>0">&nbsp;&nbsp;&nbsp;&nbsp; {{tab.alertas}} <i class="glyphicon glyphicon-bell"></i></span>
+		</tab-heading>
+		<div ng-include="tab.url"></div>
+	</tab>
+</tabset>	
+<hr />
+<pager total-items="tabs.lista.length" items-per-page="1" ng-model="tabs.actual" ng-change="tabs.lista[tabs.actual-1].activo = true"></pager>

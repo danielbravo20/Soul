@@ -1,11 +1,14 @@
 package pe.com.captiva.dao.entity;
-// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
+// Generated 01/12/2015 04:35:12 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -16,12 +19,21 @@ import javax.persistence.Table;
 public class ProcesoDetalle implements java.io.Serializable {
 
 	private ProcesoDetalleId id;
+	private Atributo atributo;
+	private Proceso proceso;
 
 	public ProcesoDetalle() {
 	}
 
-	public ProcesoDetalle(ProcesoDetalleId id) {
+	public ProcesoDetalle(ProcesoDetalleId id, Atributo atributo) {
 		this.id = id;
+		this.atributo = atributo;
+	}
+
+	public ProcesoDetalle(ProcesoDetalleId id, Atributo atributo, Proceso proceso) {
+		this.id = id;
+		this.atributo = atributo;
+		this.proceso = proceso;
 	}
 
 	@EmbeddedId
@@ -38,6 +50,26 @@ public class ProcesoDetalle implements java.io.Serializable {
 
 	public void setId(ProcesoDetalleId id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_atributo", nullable = false, insertable = false, updatable = false)
+	public Atributo getAtributo() {
+		return this.atributo;
+	}
+
+	public void setAtributo(Atributo atributo) {
+		this.atributo = atributo;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_proceso", insertable = false, updatable = false)
+	public Proceso getProceso() {
+		return this.proceso;
+	}
+
+	public void setProceso(Proceso proceso) {
+		this.proceso = proceso;
 	}
 
 }

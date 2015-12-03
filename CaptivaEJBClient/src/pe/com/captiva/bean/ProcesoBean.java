@@ -14,6 +14,8 @@ public class ProcesoBean {
 	private List<SubseccionProceso> subseccionEntrada;
 	private List<CampoSQLProcesoBean> camposSQLProceso;
 	private String datasource;
+	private int codigoResumen;
+	private int codigoDetalle;
 	private ConsultaBean consultaResumen;
 	private ConsultaBean consultaDetalle;
 	private TablaBean tablaResumen;
@@ -26,6 +28,12 @@ public class ProcesoBean {
 	private List<RolBean> rolPotencial;
 	private TareaBean tareaInicial;
 	private String aleas;
+	private List<ProcesoDetalleBean> procesoDetallesBean;
+	private List<ProcesoDetalleSeccionBean> procesoDetallesSeccionBean;
+	private List<ProcesoDetalleSubSeccionBean> procesoDetallesSubSeccionBean;
+	
+	private String webDetalleTipoVista;
+	private int codTareaInicial;
 	
 	public int getCodigo() {
 		return codigo;
@@ -159,5 +167,47 @@ public class ProcesoBean {
 	public void setAleas(String aleas) {
 		this.aleas = aleas;
 	}
-
+	public List<ProcesoDetalleBean> getProcesoDetallesBean() {
+		return procesoDetallesBean;
+	}
+	public void setProcesoDetallesBean(List<ProcesoDetalleBean> procesoDetallesBean) {
+		this.procesoDetallesBean = procesoDetallesBean;
+	}
+	public List<ProcesoDetalleSeccionBean> getProcesoDetallesSeccionBean() {
+		return procesoDetallesSeccionBean;
+	}
+	public void setProcesoDetallesSeccionBean(List<ProcesoDetalleSeccionBean> procesoDetallesSeccionBean) {
+		this.procesoDetallesSeccionBean = procesoDetallesSeccionBean;
+	}
+	public List<ProcesoDetalleSubSeccionBean> getProcesoDetallesSubSeccionBean() {
+		return procesoDetallesSubSeccionBean;
+	}
+	public void setProcesoDetallesSubSeccionBean(List<ProcesoDetalleSubSeccionBean> procesoDetallesSubSeccionBean) {
+		this.procesoDetallesSubSeccionBean = procesoDetallesSubSeccionBean;
+	}
+	public int getCodigoResumen() {
+		return codigoResumen;
+	}
+	public void setCodigoResumen(int codigoResumen) {
+		this.codigoResumen = codigoResumen;
+	}
+	public int getCodigoDetalle() {
+		return codigoDetalle;
+	}
+	public void setCodigoDetalle(int codigoDetalle) {
+		this.codigoDetalle = codigoDetalle;
+	}
+	public String getWebDetalleTipoVista() {
+		return webDetalleTipoVista;
+	}
+	public void setWebDetalleTipoVista(String webDetalleTipoVista) {
+		this.webDetalleTipoVista = webDetalleTipoVista;
+	}
+	public int getCodTareaInicial() {
+		return codTareaInicial;
+	}
+	public void setCodTareaInicial(int codTareaInicial) {
+		this.codTareaInicial = codTareaInicial;
+	}
+	
 }

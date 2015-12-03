@@ -12,6 +12,7 @@ import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.bean.SubseccionProceso;
 import pe.com.captiva.servicio.util.Componente;
 import pe.com.captiva.servicio.util.MultipleBaseConstructor;
+import pe.com.mapeo.dao.Jpo;
 
 public class ProcesoHtmlInicio extends MultipleBaseConstructor{
 
@@ -91,7 +92,7 @@ public class ProcesoHtmlInicio extends MultipleBaseConstructor{
 				}
 				
 				String atributo = "";
-				System.out.println("TIPO DATO "+UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())+"|"+atributoProceso.getWebTipoCampo());
+				//System.out.println("TIPO DATO "+UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())+"|"+atributoProceso.getWebTipoCampo());
 				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='S'){
 					
 					if(atributoProceso.getWebTipoCampo() == 'L'){
@@ -109,7 +110,7 @@ public class ProcesoHtmlInicio extends MultipleBaseConstructor{
 				}
 				if(UtilHtmlGenerador.tipoClase.get(atributoProceso.getWebTipo())=='b'){
 					if(atributoProceso.getWebTipoCampo() == 'L'){
-						atributo = "<span ng-show=\"baseIPConfig.data."+atributoProceso.getNombre()+"==true\">Sí</span><span ng-show=\"baseIPConfig.data."+atributoProceso.getNombre()+"==false\">Nó</span>";
+						atributo = "<span ng-show=\"baseIPConfig.data."+atributoProceso.getNombre()+"==true\">Sí</span><span ng-show=\"baseIPConfig.data."+atributoProceso.getNombre()+"==false\">No</span>";
 					}
 					if(atributoProceso.getWebTipoCampo() == 'H'){
 						atributo = "<input type=\"checkbox\" ng-model=\"baseIPConfig.data."+atributoProceso.getNombre()+"\" class=\"form-control input-sm\" ng-true-value=\"true\" ng-false-value=\"false\" style=\"width:30px\" "+atriRequerido+">";
@@ -146,20 +147,20 @@ public class ProcesoHtmlInicio extends MultipleBaseConstructor{
 					}
 				}
 				
-				int estiloNum = 1;/*
+				int estiloNum = 1;
 				int estiloNumero = 0;
 				if((filaActual+2)%2==0){
-					estiloNumero = filaActual+1/2;
+					estiloNumero = (filaActual+4)/2;
 				}
 				if((filaActual+2)%2!=0){
-					estiloNumero = filaActual+2/2;
+					estiloNumero = (filaActual+3)/2;
 				}
 				if((estiloNumero)%2==0){
-					estiloNum = 2;
+					estiloNum = 1;
 				}
 				if((estiloNumero)%2!=0){
-					estiloNum = 1;
-				}*/
+					estiloNum = 2;
+				}
 				
 				if((filaActual+2)%2==0){
 					buffer.append("			<div class=\"frm_celda frm_cel_"+estiloNum+"a\">\r\n");
@@ -195,6 +196,13 @@ public class ProcesoHtmlInicio extends MultipleBaseConstructor{
 	@Override
 	public boolean reemplazarArchivoCuandoExiste() {
 		return true;
+	}
+
+
+	@Override
+	public List<Componente> crear(Jpo jpo, ProyectoBean proyectoBean) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

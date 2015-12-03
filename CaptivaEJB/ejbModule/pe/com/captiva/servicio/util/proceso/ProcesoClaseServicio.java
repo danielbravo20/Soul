@@ -9,6 +9,7 @@ import pe.com.captiva.bean.ProyectoBean;
 import pe.com.captiva.bean.RolBean;
 import pe.com.captiva.servicio.util.Componente;
 import pe.com.captiva.servicio.util.MultipleBaseConstructor;
+import pe.com.mapeo.dao.Jpo;
 
 public class ProcesoClaseServicio extends MultipleBaseConstructor{
 
@@ -88,6 +89,13 @@ public class ProcesoClaseServicio extends MultipleBaseConstructor{
 	@Override
 	public boolean reemplazarArchivoCuandoExiste() {
 		return true;
+	}
+
+
+	@Override
+	public List<Componente> crear(Jpo jpo, ProyectoBean proyectoBean) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

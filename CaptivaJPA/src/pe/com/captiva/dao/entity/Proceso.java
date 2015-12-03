@@ -1,5 +1,5 @@
 package pe.com.captiva.dao.entity;
-// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
+// Generated 01/12/2015 04:35:12 PM by Hibernate Tools 4.3.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +12,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -32,8 +31,11 @@ public class Proceso implements java.io.Serializable {
 	private String javDatasource;
 	private String webDetalleTipovista;
 	private Set<ProcesoInicioSubSeccion> procesoInicioSubSeccions = new HashSet<ProcesoInicioSubSeccion>(0);
+	private Set<ProcesoDetalleSeccion> procesoDetalleSeccions = new HashSet<ProcesoDetalleSeccion>(0);
 	private Set<ProcesoInicio> procesoInicios = new HashSet<ProcesoInicio>(0);
 	private Set<Rol> rols = new HashSet<Rol>(0);
+	private Set<ProcesoDetalle> procesoDetalles = new HashSet<ProcesoDetalle>(0);
+	private Set<ProcesoDetalleSubSeccion> procesoDetalleSubSeccions = new HashSet<ProcesoDetalleSubSeccion>(0);
 	private Set<Tarea> tareas = new HashSet<Tarea>(0);
 
 	public Proceso() {
@@ -53,7 +55,9 @@ public class Proceso implements java.io.Serializable {
 	public Proceso(int codProceso, Consulta consultaByCodConResumen, Consulta consultaByCodConDetalle,
 			Proyecto proyecto, Tarea tarea, String nombre, String javClase, String javDatasource,
 			String webDetalleTipovista, Set<ProcesoInicioSubSeccion> procesoInicioSubSeccions,
-			Set<ProcesoInicio> procesoInicios, Set<Rol> rols, Set<Tarea> tareas) {
+			Set<ProcesoDetalleSeccion> procesoDetalleSeccions, Set<ProcesoInicio> procesoInicios, Set<Rol> rols,
+			Set<ProcesoDetalle> procesoDetalles, Set<ProcesoDetalleSubSeccion> procesoDetalleSubSeccions,
+			Set<Tarea> tareas) {
 		this.codProceso = codProceso;
 		this.consultaByCodConResumen = consultaByCodConResumen;
 		this.consultaByCodConDetalle = consultaByCodConDetalle;
@@ -64,8 +68,11 @@ public class Proceso implements java.io.Serializable {
 		this.javDatasource = javDatasource;
 		this.webDetalleTipovista = webDetalleTipovista;
 		this.procesoInicioSubSeccions = procesoInicioSubSeccions;
+		this.procesoDetalleSeccions = procesoDetalleSeccions;
 		this.procesoInicios = procesoInicios;
 		this.rols = rols;
+		this.procesoDetalles = procesoDetalles;
+		this.procesoDetalleSubSeccions = procesoDetalleSubSeccions;
 		this.tareas = tareas;
 	}
 
@@ -157,7 +164,6 @@ public class Proceso implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
-	@OrderBy("id.codSubSeccion ASC")
 	public Set<ProcesoInicioSubSeccion> getProcesoInicioSubSeccions() {
 		return this.procesoInicioSubSeccions;
 	}
@@ -167,7 +173,15 @@ public class Proceso implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
-	@OrderBy("id.codSubSeccion ASC,id.codProcesoInicio ASC")
+	public Set<ProcesoDetalleSeccion> getProcesoDetalleSeccions() {
+		return this.procesoDetalleSeccions;
+	}
+
+	public void setProcesoDetalleSeccions(Set<ProcesoDetalleSeccion> procesoDetalleSeccions) {
+		this.procesoDetalleSeccions = procesoDetalleSeccions;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
 	public Set<ProcesoInicio> getProcesoInicios() {
 		return this.procesoInicios;
 	}
@@ -186,6 +200,24 @@ public class Proceso implements java.io.Serializable {
 
 	public void setRols(Set<Rol> rols) {
 		this.rols = rols;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
+	public Set<ProcesoDetalle> getProcesoDetalles() {
+		return this.procesoDetalles;
+	}
+
+	public void setProcesoDetalles(Set<ProcesoDetalle> procesoDetalles) {
+		this.procesoDetalles = procesoDetalles;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")
+	public Set<ProcesoDetalleSubSeccion> getProcesoDetalleSubSeccions() {
+		return this.procesoDetalleSubSeccions;
+	}
+
+	public void setProcesoDetalleSubSeccions(Set<ProcesoDetalleSubSeccion> procesoDetalleSubSeccions) {
+		this.procesoDetalleSubSeccions = procesoDetalleSubSeccions;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proceso")

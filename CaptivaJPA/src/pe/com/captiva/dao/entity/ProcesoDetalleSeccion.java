@@ -1,11 +1,14 @@
 package pe.com.captiva.dao.entity;
-// Generated 26/11/2015 04:49:30 PM by Hibernate Tools 4.3.1.Final
+// Generated 01/12/2015 04:35:12 PM by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -16,12 +19,18 @@ import javax.persistence.Table;
 public class ProcesoDetalleSeccion implements java.io.Serializable {
 
 	private ProcesoDetalleSeccionId id;
+	private Proceso proceso;
 
 	public ProcesoDetalleSeccion() {
 	}
 
 	public ProcesoDetalleSeccion(ProcesoDetalleSeccionId id) {
 		this.id = id;
+	}
+
+	public ProcesoDetalleSeccion(ProcesoDetalleSeccionId id, Proceso proceso) {
+		this.id = id;
+		this.proceso = proceso;
 	}
 
 	@EmbeddedId
@@ -38,6 +47,16 @@ public class ProcesoDetalleSeccion implements java.io.Serializable {
 
 	public void setId(ProcesoDetalleSeccionId id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_proceso", insertable = false, updatable = false)
+	public Proceso getProceso() {
+		return this.proceso;
+	}
+
+	public void setProceso(Proceso proceso) {
+		this.proceso = proceso;
 	}
 
 }

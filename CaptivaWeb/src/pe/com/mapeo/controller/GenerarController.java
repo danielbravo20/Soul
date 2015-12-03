@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import pe.com.captiva.servicio.FabricaSoulServiceLocal;
-import pe.com.mapeo.entidad.Respuesta;
 
 /**
  * Servlet implementation class GenerarController
@@ -49,7 +48,7 @@ public class GenerarController extends HttpServlet {
 		PrintWriter retorno = response.getWriter();
 		
 		try {
-			fabricaSoulServiceLocal.crearProyecto(usuario, new Integer(codigoProyecto));
+			fabricaSoulServiceLocal.crearProyecto(usuario, new Integer(codigoProyecto),request);
 			retorno.print("true");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -65,6 +65,10 @@ public class Jpo {
 		}
 	}
 	
+	private void instanciarJpo(boolean autoCommit) throws Exception {
+		getConexion(autoCommit);
+	}
+	
 	private void instanciarJpo(HttpServletRequest request,boolean autoCommit) throws Exception {
 		
 		getConexion(autoCommit);
@@ -171,6 +175,10 @@ public class Jpo {
 	
 	public Jpo(HttpServletRequest request,boolean autoCommit) throws Exception {
 		instanciarJpo(request,autoCommit);
+	}
+	
+	public Jpo(boolean autoCommit) throws Exception {
+		instanciarJpo(false);
 	}
 	
 	@Override
