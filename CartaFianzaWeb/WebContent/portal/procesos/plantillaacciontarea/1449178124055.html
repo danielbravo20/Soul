@@ -1,0 +1,27 @@
+<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> Sub Seccion Nro 1</div>
+<div class="frm_fila">
+	<div class="frm_celda frm_cel_1a">
+		<div class="frm_etiqueta">Descripción :</div>
+		<div class="frm_campo"><input type="text" name="solicitud.descripcion" ng-model="baseIPConfig.data.solicitud.descripcion" class="form-control input-sm" ></div>
+	</div>
+</div>
+<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> Sub Seccion Nro 2</div>
+<div class="frm_fila">
+	<div class="frm_celda frm_cel_1a">
+		<div class="frm_etiqueta">Flag Principal :</div>
+		<div class="frm_campo"><input type="checkbox" ng-model="baseIPConfig.data.solicitud.flagPrincipal" class="form-control input-sm" ng-true-value="true" ng-false-value="false" style="width:30px" ></div>
+	</div><div class="frm_celda frm_cel_1b">
+		<div class="frm_etiqueta">Flag Adicional :</div>
+		<div class="frm_campo"><input type="checkbox" ng-model="baseIPConfig.data.solicitud.flagAdicional" class="form-control input-sm" ng-true-value="true" ng-false-value="false" style="width:30px" ></div>
+	</div>
+</div>
+<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> Sub Seccion Nro 3</div>
+<div class="frm_fila">
+	<div class="frm_celda frm_cel_1a">
+		<div class="frm_etiqueta">Monto Final :</div>
+		<div class="frm_campo">{{baseIPConfig.data.solicitud.montoFinal | currency: ""}}</div>
+	</div><div class="frm_celda frm_cel_1b">
+		<div class="frm_etiqueta">Fecha Fin :</div>
+		<div class="frm_campo"><fecha id="solicitud.fechaFin" fecha="baseIPConfig.data.solicitud.fechaFin" titulo="null" mostrar-error="false" ></fecha></div>
+	</div>
+</div>

@@ -1,0 +1,20 @@
+<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> Sub Seccion Nro 1</div>
+<div class="frm_fila">
+	<div class="frm_celda frm_cel_1a">
+		<div class="frm_etiqueta">Fecha de Vigencia :</div>
+		<div>{{baseDPConfig.data.solicitud.vigencia | date:'dd/MM/yyyy'}}</div>
+	</div><div class="frm_celda frm_cel_1b">
+		<div class="frm_etiqueta">Monto :</div>
+		<div>{{baseDPConfig.data.solicitud.monto | currency: ""}}</div>
+	</div>
+</div>
+<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> Sub Seccion Nro 2</div>
+<div class="frm_fila">
+	<div class="frm_celda frm_cel_1a">
+		<div class="frm_etiqueta">Evento :</div>
+		<div>{{baseDPConfig.data.solicitud.evento}}</div>
+	</div><div class="frm_celda frm_cel_1b">
+		<div class="frm_etiqueta">Codigo de Solicitud :</div>
+		<div>{{baseDPConfig.data.solicitud.codigoSolicitud}}</div>
+	</div>
+</div>

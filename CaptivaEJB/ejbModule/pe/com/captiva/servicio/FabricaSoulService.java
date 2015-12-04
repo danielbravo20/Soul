@@ -32,8 +32,6 @@ import pe.com.captiva.servicio.util.proceso.ProcesoClasePreUtil;
 import pe.com.captiva.servicio.util.proceso.ProcesoClaseServicio;
 import pe.com.captiva.servicio.util.proceso.ProcesoClaseUtil;
 import pe.com.captiva.servicio.util.proceso.ProcesoHtml;
-import pe.com.captiva.servicio.util.proceso.ProcesoJavaScriptInicio;
-import pe.com.captiva.servicio.util.proceso.ProcesoJavaScriptPreInicio;
 import pe.com.captiva.servicio.util.proceso.TareaHtml;
 import pe.com.captiva.servicio.util.tarea.TareaClaseControlador;
 import pe.com.captiva.servicio.util.tarea.TareaClaseInterfaceServicio;
@@ -82,8 +80,6 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 			new ProcesoClaseInterfaceDao().construir(proyectoBean);
 			new ProcesoClasePreDao().construir(proyectoBean);
 			new ProcesoClaseDao().construir(proyectoBean);
-			new ProcesoJavaScriptPreInicio().construir(proyectoBean);
-			new ProcesoJavaScriptInicio().construir(proyectoBean);
 			
 			jpo = new Jpo(request,true);
 			

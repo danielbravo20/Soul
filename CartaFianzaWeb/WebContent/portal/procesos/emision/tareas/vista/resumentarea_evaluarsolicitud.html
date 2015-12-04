@@ -1,0 +1,29 @@
+<script type="text/javascript" src="/CartaFianzaWeb/portal/procesos/emision/tareas/preControlador/pre_resumentarea.js"></script>
+<script type="text/javascript" src="/CartaFianzaWeb/portal/procesos/emision/tareas/controlador/resumentarea.js"></script>
+<div ng-controller="pre_resumentarea" class="panel panel-default">
+	<div ng-controller="resumentarea">
+		<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> Sub Seccion Nro 1</div>
+		<div class="frm_fila">
+			<div class="frm_celda frm_cel_1a">
+				<div class="frm_etiqueta">Código de Solicitud :</div>
+				<div>{{baseRTConfig.data.solicitud.codigoSolicitud}}</div>
+			</div>
+		</div>
+		<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> Sub Seccion Nro 2</div>
+		<div class="frm_fila">
+			<div class="frm_celda frm_cel_1a">
+				<div class="frm_etiqueta">Evento :</div>
+				<div>{{baseRTConfig.data.solicitud.evento}}</div>
+			</div><div class="frm_celda frm_cel_1b">
+				<div class="frm_etiqueta">Fecha de Vigencia :</div>
+				<div>{{baseRTConfig.data.solicitud.vigencia | date:'dd/MM/yyyy'}}</div>
+			</div>
+		</div>
+		<div class="frm_fila">
+			<div class="frm_celda frm_cel_2a">
+				<div class="frm_etiqueta">Monto :</div>
+				<div>{{baseRTConfig.data.solicitud.monto | currency: ""}}</div>
+			</div>
+		</div>
+	</div>
+</div>

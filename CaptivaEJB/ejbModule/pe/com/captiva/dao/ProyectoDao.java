@@ -273,6 +273,7 @@ public class ProyectoDao extends BaseDao<Proyecto> implements ProyectoDaoLocal {
 			
 			atributoProceso.setWebEtiqueta(procesoInicio.getWebEtiqueta());
 			atributoProceso.setWebTipo(procesoInicio.getWebTipo());
+			atributoProceso.setWebNombre(procesoInicio.getAtributo().getWebNombre());
 			atributoProceso.setWebTipoCampo(procesoInicio.getWebTipoCampo());
 			atributoProceso.setWebTipoLista(procesoInicio.getWebTipoLista());
 			atributoProceso.setWebCatalogo(procesoInicio.getWebCatalogo());

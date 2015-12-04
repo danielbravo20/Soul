@@ -2,18 +2,68 @@
 <script type="text/javascript" src="/CartaFianzaWeb/portal/procesos/emision/proceso/controlador/iniciarproceso.js"></script>
 <div ng-controller="pre_iniciarproceso" class="panel panel-default">
 	<div ng-controller="iniciarproceso">
-		<div class="panel-heading"><strong>Datos Principales</strong></div>
-			<table class="table table-striped">
-				<tbody>
-					<tr>
-						<th><span class="frm_requerido">(*)</span> Monto:</th>
-						<td class="form-group" show-errors='{showSuccess: true}'>
-							<input type="number" name="solicitud.monto" ng-model="baseIPConfig.data.solicitud.monto" class="form-control input-sm" required>
-							<p class="help-block" ng-if="frm_iniciarproceso.solicitud.monto.$error.required">Por favor ingrese el monto</p>
-						</span>
-						</td>
-					</tr>
-			</tbody>
-		</table>
+		<div class="panel-heading"><strong>Datos de Inicio</strong></div>
+		<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> Sub Seccion Nro 1</div>
+		<div class="frm_fila">
+			<div class="frm_celda frm_cel_1a">
+				<div class="frm_etiqueta">Evento :</div>
+				<div class="frm_campo">{{baseIPConfig.data.evento}}</div>
+			</div><div class="frm_celda frm_cel_1b">
+				<div class="frm_etiqueta"><span class="frm_requerido">(*)</span> descripcion :</div>
+				<div class="frm_campo form-group" show-errors='{showSuccess: true}'><textarea name="descripcion" ng-model="baseIPConfig.data.descripcion" class="form-control input-sm" required></textarea><p class="help-block" ng-if="frm_iniciarproceso.descripcion.$error.required">Ingrese un valor correcto</p></div>
+			</div>
+		</div>
+		<div class="frm_fila">
+			<div class="frm_celda frm_cel_2a">
+				<div class="frm_etiqueta">Monto :</div>
+				<div class="frm_campo">{{baseIPConfig.data.monto | currency: ""}}</div>
+			</div><div class="frm_celda frm_cel_2b">
+				<div class="frm_etiqueta"><span class="frm_requerido">(*)</span> Monto Final :</div>
+				<div class="frm_campo form-group" show-errors='{showSuccess: true}'><input type="text" name="montoFinal" ng-model="baseIPConfig.data.montoFinal"  class="form-control input-sm" required><p class="help-block" ng-if="frm_iniciarproceso.montoFinal.$error.required">Monto Correcto</p></div>
+			</div>
+		</div>
+		<div class="frm_fila">
+			<div class="frm_celda frm_cel_1a">
+				<div class="frm_etiqueta">valoNumerico :</div>
+				<div class="frm_campo">{{baseIPConfig.data.valoNumerico}}</div>
+			</div><div class="frm_celda frm_cel_1b">
+				<div class="frm_etiqueta"><span class="frm_requerido">(*)</span> valorNumericoB :</div>
+				<div class="frm_campo form-group" show-errors='{showSuccess: true}'><input type="number" name="valorNumericoB" ng-model="baseIPConfig.data.valorNumericoB" class="form-control input-sm" required><p class="help-block" ng-if="frm_iniciarproceso.valorNumericoB.$error.required">Ingrese un numero</p></div>
+			</div>
+		</div>
+		<div class="frm_fila">
+			<div class="frm_celda frm_cel_2a">
+				<div class="frm_etiqueta"><span class="frm_requerido">(*)</span> valorNumericoC :</div>
+				<div class="frm_campo form-group" show-errors='{showSuccess: true}'><input type="number" name="valorNumericoC" ng-model="baseIPConfig.data.valorNumericoC" class="form-control input-sm" required><p class="help-block" ng-if="frm_iniciarproceso.valorNumericoC.$error.required">Ingrese un valor</p></div>
+			</div><div class="frm_celda frm_cel_2b">
+				<div class="frm_etiqueta">valorNumericoC :</div>
+				<div class="frm_campo">{{baseIPConfig.data.valorNumericoC}}</div>
+			</div>
+		</div>
+		<div class="frm_fila">
+			<div class="frm_celda frm_cel_1a">
+				<div class="frm_etiqueta"><span class="frm_requerido">(*)</span> fechaFin :</div>
+				<div class="frm_campo form-group" show-errors='{showSuccess: true}'><fecha id="fechaFin" fecha="baseIPConfig.data.fechaFin" titulo="Fecha Fin" mostrar-error="true" ></fecha><p class="help-block" ng-if="frm_iniciarproceso.fechaFin.$error.required">Fecha Fin</p></div>
+			</div><div class="frm_celda frm_cel_1b">
+				<div class="frm_etiqueta">vigencia :</div>
+				<div class="frm_campo">{{baseIPConfig.data.vigencia | date:'dd/MM/yyyy'}}</div>
+			</div>
+		</div>
+		<div class="frm_fila">
+			<div class="frm_celda frm_cel_2a">
+				<div class="frm_etiqueta">flagPrincipal :</div>
+				<div class="frm_campo"><span ng-show="baseIPConfig.data.flagPrincipal==true">Sí</span><span ng-show="baseIPConfig.data.flagPrincipal==false">No</span></div>
+			</div><div class="frm_celda frm_cel_2b">
+				<div class="frm_etiqueta">flagAdicional :</div>
+				<div class="frm_campo"><input type="checkbox" ng-model="baseIPConfig.data.flagAdicional" class="form-control input-sm" ng-true-value="true" ng-false-value="false" style="width:30px" ></div>
+			</div>
+		</div>
+		<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> Sub Seccion Nro 2</div>
+		<div class="frm_fila">
+			<div class="frm_celda frm_cel_1a">
+				<div class="frm_etiqueta">codigoSolicitud :</div>
+				<div class="frm_campo">{{baseIPConfig.data.codigoSolicitud}}</div>
+			</div>
+		</div>
 	</div>
 </div>

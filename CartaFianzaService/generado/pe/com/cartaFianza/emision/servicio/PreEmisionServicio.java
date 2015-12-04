@@ -49,15 +49,7 @@ public abstract class PreEmisionServicio extends BaseProcesoServicioImpl impleme
 		return proceso;
 	}
 	public TareaPlantilla definirProximaTarea(Proceso proceso) throws Exception{
-		TareaPlantilla plantilla = new TareaPlantilla();
-		plantilla.setCodigoTareaPlantilla(1);
-		plantilla.setNombre("Completar Solicitud");
-		plantilla.setAleas("CompletarSolicitud");
-		plantilla.setEstado(1);
-		plantilla.setOrden(1);
-		plantilla.setPrioridad(1);
-		plantilla.setVersion("v1.0.0");
-		return plantilla;
+		return null;
 	}
 
 	@Override

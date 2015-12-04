@@ -21,8 +21,8 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 			List<SolicitudEntity> solicitudEntitys = buscarRegistros(consulta, "parametro", solicitud.getCodigoProceso());
 			if(solicitudEntitys!=null){
 				SolicitudEntity solicitudEntity = solicitudEntitys.get(0);
-				solicitud.setEvento(solicitudEntity.getEvento());
 				solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
+				solicitud.setEvento(solicitudEntity.getEvento());
 			}
 		}
 		return solicitud;
@@ -34,10 +34,18 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 			List<SolicitudEntity> solicitudEntitys = buscarRegistros(consulta, "parametro", solicitud.getCodigoProceso());
 			if(solicitudEntitys!=null){
 				SolicitudEntity solicitudEntity = solicitudEntitys.get(0);
-				solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
-				solicitud.setEvento(solicitudEntity.getEvento());
-				solicitud.setVigencia(solicitudEntity.getVigencia());
+				solicitud.setValoNumerico(solicitudEntity.getValoNumerico());
+				solicitud.setDescripcion(solicitudEntity.getDescripcion());
 				solicitud.setMonto(solicitudEntity.getMonto());
+				solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
+				solicitud.setValorNumericoC(solicitudEntity.getValorNumericoC());
+				solicitud.setFlagAdicional(solicitudEntity.isFlagAdicional());
+				solicitud.setValorNumericoB(solicitudEntity.getValorNumericoB());
+				solicitud.setFlagPrincipal(solicitudEntity.isFlagPrincipal());
+				solicitud.setVigencia(solicitudEntity.getVigencia());
+				solicitud.setEvento(solicitudEntity.getEvento());
+				solicitud.setFechaFin(solicitudEntity.getFechaFin());
+				solicitud.setMontoFinal(solicitudEntity.getMontoFinal());
 			}
 		}
 		return solicitud;
@@ -48,7 +56,20 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 		if(solicitud!=null){
 			solicitudEntity = new SolicitudEntity();
 			solicitudEntity.setCodigoProceso(solicitud.getCodigoProceso());
+			solicitudEntity.setValoNumerico(solicitud.getValoNumerico());
+			solicitudEntity.setDescripcion(solicitud.getDescripcion());
+			solicitudEntity.setFechaFin(solicitud.getFechaFin());
+			solicitudEntity.setCodigoSolicitud(solicitud.getCodigoSolicitud());
+			solicitudEntity.setFlagAdicional(solicitud.isFlagAdicional());
+			solicitudEntity.setValorNumericoC(solicitud.getValorNumericoC());
+			solicitudEntity.setCodigoSolicitud(solicitud.getCodigoSolicitud());
+			solicitudEntity.setValorNumericoC(solicitud.getValorNumericoC());
+			solicitudEntity.setEvento(solicitud.getEvento());
 			solicitudEntity.setMonto(solicitud.getMonto());
+			solicitudEntity.setMontoFinal(solicitud.getMontoFinal());
+			solicitudEntity.setValorNumericoB(solicitud.getValorNumericoB());
+			solicitudEntity.setFlagPrincipal(solicitud.isFlagPrincipal());
+			solicitudEntity.setVigencia(solicitud.getVigencia());
 		}
 		return solicitudEntity;
 	}
@@ -58,7 +79,20 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 		if(solicitudEntity!=null){
 			solicitud = new Solicitud();
 			solicitud.setCodigoProceso(solicitudEntity.getCodigoProceso());
+			solicitud.setValoNumerico(solicitudEntity.getValoNumerico());
+			solicitud.setDescripcion(solicitudEntity.getDescripcion());
+			solicitud.setFechaFin(solicitudEntity.getFechaFin());
+			solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
+			solicitud.setFlagAdicional(solicitudEntity.isFlagAdicional());
+			solicitud.setValorNumericoC(solicitudEntity.getValorNumericoC());
+			solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
+			solicitud.setValorNumericoC(solicitudEntity.getValorNumericoC());
+			solicitud.setEvento(solicitudEntity.getEvento());
 			solicitud.setMonto(solicitudEntity.getMonto());
+			solicitud.setMontoFinal(solicitudEntity.getMontoFinal());
+			solicitud.setValorNumericoB(solicitudEntity.getValorNumericoB());
+			solicitud.setFlagPrincipal(solicitudEntity.isFlagPrincipal());
+			solicitud.setVigencia(solicitudEntity.getVigencia());
 		}
 		return solicitud;
 	}

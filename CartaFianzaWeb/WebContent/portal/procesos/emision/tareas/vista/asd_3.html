@@ -1,0 +1,20 @@
+<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> Sub Seccion Nro 1</div>
+<div class="frm_fila">
+	<div class="frm_celda frm_cel_1a">
+		<div class="frm_etiqueta">werw :</div>
+		<div class="frm_campo">{{baseIPConfig.data.solicitud.codigoSolicitud}}</div>
+	</div><div class="frm_celda frm_cel_1b">
+		<div class="frm_etiqueta"><span class="frm_requerido">(*)</span> aasdasd :</div>
+		<div class="frm_campo form-group" show-errors='{showSuccess: true}'><textarea name="solicitud.evento" ng-model="baseIPConfig.data.solicitud.evento" class="form-control input-sm" required></textarea><p class="help-block" ng-if="frm_iniciarproceso.solicitud.evento.$error.required">asdadasd</p></div>
+	</div>
+</div>
+<div class="filaTitulo">&nbsp;&nbsp;<i class="glyphicon glyphicon-list-alt"></i> Sub Seccion Nro 2</div>
+<div class="frm_fila">
+	<div class="frm_celda frm_cel_1a">
+		<div class="frm_etiqueta">Monto :</div>
+		<div class="frm_campo"><input type="text" name="solicitud.monto" ng-model="baseIPConfig.data.solicitud.monto" nx-regla="decimal" nx-max-entero="3" nx-max-decimal="12" class="form-control input-sm" ></div>
+	</div><div class="frm_celda frm_cel_1b">
+		<div class="frm_etiqueta">Vigencia :</div>
+		<div class="frm_campo">{{baseIPConfig.data.solicitud.vigencia | date:'dd/MM/yyyy'}}</div>
+	</div>
+</div>

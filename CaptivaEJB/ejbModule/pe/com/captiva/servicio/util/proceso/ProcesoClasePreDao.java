@@ -88,7 +88,8 @@ public class ProcesoClasePreDao extends MultipleBaseConstructor{
 		List<AtributoBean> atributosDetalleBean = procesoBean.getConsultaDetalle().getAtributosBean();
 		for (AtributoBean atributoBean : atributosDetalleBean) {
 			if(atributoBean.isCampoSQLBean()){
-				buffer.append("\t\t\t\t"+clasePadre.toLowerCase()+".set"+GeneradorUtil.nombreVariable(atributoBean.getNombre())+"("+clasePadre.toLowerCase()+"Entity.get"+GeneradorUtil.nombreVariable(atributoBean.getNombre())+"());\r\n");
+				String tipoLlamada = atributoBean.getTipo().equals("boolean")?"is":"get";
+				buffer.append("\t\t\t\t"+clasePadre.toLowerCase()+".set"+GeneradorUtil.nombreVariable(atributoBean.getNombre())+"("+clasePadre.toLowerCase()+"Entity."+tipoLlamada+GeneradorUtil.nombreVariable(atributoBean.getNombre())+"());\r\n");
 			}
 		}
 		
@@ -108,7 +109,8 @@ public class ProcesoClasePreDao extends MultipleBaseConstructor{
 		List<AtributoProceso> atributoProcesos = procesoBean.getAtributosEntrada();
 		for (AtributoProceso atributoProceso : atributoProcesos) {
 			if(atributoProceso.isCampoSQLBean()){
-				buffer.append("\t\t\t"+clasePadre.toLowerCase()+"Entity.set"+GeneradorUtil.nombreVariable(atributoProceso.getNombre())+"("+clasePadre.toLowerCase()+".get"+GeneradorUtil.nombreVariable(atributoProceso.getNombre())+"());\r\n");
+				String tipoLlamada = atributoProceso.getTipo().equals("boolean")?"is":"get";
+				buffer.append("\t\t\t"+clasePadre.toLowerCase()+"Entity.set"+GeneradorUtil.nombreVariable(atributoProceso.getNombre())+"("+clasePadre.toLowerCase()+"."+tipoLlamada+GeneradorUtil.nombreVariable(atributoProceso.getNombre())+"());\r\n");
 			}			
 		}
 		
@@ -126,7 +128,8 @@ public class ProcesoClasePreDao extends MultipleBaseConstructor{
 		
 		for (AtributoProceso atributoProceso : atributoProcesos) {
 			if(atributoProceso.isCampoSQLBean()){
-				buffer.append("\t\t\t"+clasePadre.toLowerCase()+".set"+GeneradorUtil.nombreVariable(atributoProceso.getNombre())+"("+clasePadre.toLowerCase()+"Entity.get"+GeneradorUtil.nombreVariable(atributoProceso.getNombre())+"());\r\n");
+				String tipoLlamada = atributoProceso.getTipo().equals("boolean")?"is":"get";
+				buffer.append("\t\t\t"+clasePadre.toLowerCase()+".set"+GeneradorUtil.nombreVariable(atributoProceso.getNombre())+"("+clasePadre.toLowerCase()+"Entity."+tipoLlamada+GeneradorUtil.nombreVariable(atributoProceso.getNombre())+"());\r\n");
 			}			
 		}
 		
