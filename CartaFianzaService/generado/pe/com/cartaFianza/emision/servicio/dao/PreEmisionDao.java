@@ -34,18 +34,18 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 			List<SolicitudEntity> solicitudEntitys = buscarRegistros(consulta, "parametro", solicitud.getCodigoProceso());
 			if(solicitudEntitys!=null){
 				SolicitudEntity solicitudEntity = solicitudEntitys.get(0);
+				solicitud.setEvento(solicitudEntity.getEvento());
 				solicitud.setValoNumerico(solicitudEntity.getValoNumerico());
+				solicitud.setVigencia(solicitudEntity.getVigencia());
+				solicitud.setValorNumericoB(solicitudEntity.getValorNumericoB());
+				solicitud.setMontoFinal(solicitudEntity.getMontoFinal());
+				solicitud.setFlagPrincipal(solicitudEntity.isFlagPrincipal());
 				solicitud.setDescripcion(solicitudEntity.getDescripcion());
-				solicitud.setMonto(solicitudEntity.getMonto());
+				solicitud.setFechaFin(solicitudEntity.getFechaFin());
 				solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
 				solicitud.setValorNumericoC(solicitudEntity.getValorNumericoC());
+				solicitud.setMonto(solicitudEntity.getMonto());
 				solicitud.setFlagAdicional(solicitudEntity.isFlagAdicional());
-				solicitud.setValorNumericoB(solicitudEntity.getValorNumericoB());
-				solicitud.setFlagPrincipal(solicitudEntity.isFlagPrincipal());
-				solicitud.setVigencia(solicitudEntity.getVigencia());
-				solicitud.setEvento(solicitudEntity.getEvento());
-				solicitud.setFechaFin(solicitudEntity.getFechaFin());
-				solicitud.setMontoFinal(solicitudEntity.getMontoFinal());
 			}
 		}
 		return solicitud;
@@ -56,20 +56,20 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 		if(solicitud!=null){
 			solicitudEntity = new SolicitudEntity();
 			solicitudEntity.setCodigoProceso(solicitud.getCodigoProceso());
-			solicitudEntity.setValoNumerico(solicitud.getValoNumerico());
-			solicitudEntity.setDescripcion(solicitud.getDescripcion());
-			solicitudEntity.setFechaFin(solicitud.getFechaFin());
+			solicitudEntity.setValorNumericoC(solicitud.getValorNumericoC());
 			solicitudEntity.setCodigoSolicitud(solicitud.getCodigoSolicitud());
+			solicitudEntity.setValorNumericoB(solicitud.getValorNumericoB());
+			solicitudEntity.setVigencia(solicitud.getVigencia());
+			solicitudEntity.setFechaFin(solicitud.getFechaFin());
+			solicitudEntity.setEvento(solicitud.getEvento());
+			solicitudEntity.setDescripcion(solicitud.getDescripcion());
 			solicitudEntity.setFlagAdicional(solicitud.isFlagAdicional());
 			solicitudEntity.setValorNumericoC(solicitud.getValorNumericoC());
-			solicitudEntity.setCodigoSolicitud(solicitud.getCodigoSolicitud());
-			solicitudEntity.setValorNumericoC(solicitud.getValorNumericoC());
-			solicitudEntity.setEvento(solicitud.getEvento());
-			solicitudEntity.setMonto(solicitud.getMonto());
-			solicitudEntity.setMontoFinal(solicitud.getMontoFinal());
-			solicitudEntity.setValorNumericoB(solicitud.getValorNumericoB());
 			solicitudEntity.setFlagPrincipal(solicitud.isFlagPrincipal());
-			solicitudEntity.setVigencia(solicitud.getVigencia());
+			solicitudEntity.setMonto(solicitud.getMonto());
+			solicitudEntity.setValoNumerico(solicitud.getValoNumerico());
+			solicitudEntity.setCodigoSolicitud(solicitud.getCodigoSolicitud());
+			solicitudEntity.setMontoFinal(solicitud.getMontoFinal());
 		}
 		return solicitudEntity;
 	}
@@ -79,20 +79,20 @@ public abstract class PreEmisionDao extends BaseDao<SolicitudEntity>{
 		if(solicitudEntity!=null){
 			solicitud = new Solicitud();
 			solicitud.setCodigoProceso(solicitudEntity.getCodigoProceso());
-			solicitud.setValoNumerico(solicitudEntity.getValoNumerico());
-			solicitud.setDescripcion(solicitudEntity.getDescripcion());
-			solicitud.setFechaFin(solicitudEntity.getFechaFin());
+			solicitud.setValorNumericoC(solicitudEntity.getValorNumericoC());
 			solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
+			solicitud.setValorNumericoB(solicitudEntity.getValorNumericoB());
+			solicitud.setVigencia(solicitudEntity.getVigencia());
+			solicitud.setFechaFin(solicitudEntity.getFechaFin());
+			solicitud.setEvento(solicitudEntity.getEvento());
+			solicitud.setDescripcion(solicitudEntity.getDescripcion());
 			solicitud.setFlagAdicional(solicitudEntity.isFlagAdicional());
 			solicitud.setValorNumericoC(solicitudEntity.getValorNumericoC());
-			solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
-			solicitud.setValorNumericoC(solicitudEntity.getValorNumericoC());
-			solicitud.setEvento(solicitudEntity.getEvento());
-			solicitud.setMonto(solicitudEntity.getMonto());
-			solicitud.setMontoFinal(solicitudEntity.getMontoFinal());
-			solicitud.setValorNumericoB(solicitudEntity.getValorNumericoB());
 			solicitud.setFlagPrincipal(solicitudEntity.isFlagPrincipal());
-			solicitud.setVigencia(solicitudEntity.getVigencia());
+			solicitud.setMonto(solicitudEntity.getMonto());
+			solicitud.setValoNumerico(solicitudEntity.getValoNumerico());
+			solicitud.setCodigoSolicitud(solicitudEntity.getCodigoSolicitud());
+			solicitud.setMontoFinal(solicitudEntity.getMontoFinal());
 		}
 		return solicitud;
 	}

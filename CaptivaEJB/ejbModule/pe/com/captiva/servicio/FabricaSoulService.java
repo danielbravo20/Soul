@@ -1,6 +1,9 @@
 package pe.com.captiva.servicio;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +62,22 @@ public class FabricaSoulService implements FabricaSoulServiceLocal {
 	
 	@Override
 	public void crearProyecto(String usuario, Integer codigoProyecto,HttpServletRequest request) throws Exception {
+		
+		InputStream in =  getClass().getResourceAsStream("/fuentes/create.txt");
+		Reader fr = new InputStreamReader(in, "utf-8");
+		
+		StringBuilder builder = new StringBuilder();
+		int charsRead = -1;
+		char[] chars = new char[100];
+		do{
+		    charsRead = fr.read(chars,0,chars.length);
+		    //if we have valid chars, append them to end of string.
+		    if(charsRead>0)
+		        builder.append(chars,0,charsRead);
+		}while(charsRead>0);
+		String stringReadFromReader = builder.toString();
+		System.out.println("String read = "+stringReadFromReader);
+		
 		EquipoBean equipoBean = equipoDaoLocal.obtenerEquipoBean(usuario, codigoProyecto);
 		ProyectoBean proyectoBean = proyectoDaoLocal.obtenerProyecto(codigoProyecto);
 		

@@ -5,10 +5,10 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Table;
 
 @Entity
@@ -19,17 +19,17 @@ public class SolicitudEntity implements Serializable{
 
 	private Long codigoProceso;
 	private Long valoNumerico;
-	private java.util.Date fechaFin;
-	private boolean flagPrincipal;
-	private boolean flagAdicional;
-	private String evento;
-	private java.math.BigDecimal monto;
 	private Long codigoSolicitud;
-	private java.math.BigDecimal montoFinal;
-	private String descripcion;
-	private java.util.Date vigencia;
-	private Integer valorNumericoC;
 	private long valorNumericoB;
+	private String evento;
+	private boolean flagAdicional;
+	private java.util.Date fechaFin;
+	private Integer valorNumericoC;
+	private boolean flagPrincipal;
+	private java.math.BigDecimal monto;
+	private String descripcion;
+	private java.math.BigDecimal montoFinal;
+	private java.util.Date vigencia;
 
 	@Column(name = "codigo_proceso" ,unique = true ,nullable = false )
 	public Long getCodigoProceso() {
@@ -48,52 +48,6 @@ public class SolicitudEntity implements Serializable{
 		this.valoNumerico = valoNumerico;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "FECHA_FIN" ,nullable = true ,length = 13 )
-	public java.util.Date getFechaFin(){
-		return fechaFin;
-	}
-
-	public void setFechaFin(java.util.Date fechaFin) {
-		this.fechaFin = fechaFin;
-	}
-
-	@Column(name = "FLAG_PRINCIPAL" ,nullable = true )
-	public boolean isFlagPrincipal(){
-		return flagPrincipal;
-	}
-
-	public void setFlagPrincipal(boolean flagPrincipal) {
-		this.flagPrincipal = flagPrincipal;
-	}
-
-	@Column(name = "FLAG_ADICIONAL" ,nullable = true )
-	public boolean isFlagAdicional(){
-		return flagAdicional;
-	}
-
-	public void setFlagAdicional(boolean flagAdicional) {
-		this.flagAdicional = flagAdicional;
-	}
-
-	@Column(name = "evento" ,nullable = true ,length = 3 )
-	public String getEvento(){
-		return evento;
-	}
-
-	public void setEvento(String evento) {
-		this.evento = evento;
-	}
-
-	@Column(name = "monto" ,nullable = true ,precision = 12, scale = 3 )
-	public java.math.BigDecimal getMonto(){
-		return monto;
-	}
-
-	public void setMonto(java.math.BigDecimal monto) {
-		this.monto = monto;
-	}
-
 	@Id
 	@GeneratedValue(generator="id_gen_bfp_carta_fianza_seq_cod_solicitud")
 	@SequenceGenerator(name="id_gen_bfp_carta_fianza_seq_cod_solicitud",sequenceName="bfp_carta_fianza.seq_cod_solicitud", allocationSize=0)
@@ -106,32 +60,41 @@ public class SolicitudEntity implements Serializable{
 		this.codigoSolicitud = codigoSolicitud;
 	}
 
-	@Column(name = "MONTO_FINAL" ,nullable = true ,precision = 0, scale = 0 )
-	public java.math.BigDecimal getMontoFinal(){
-		return montoFinal;
+	@Column(name = "VALOR_NUMERICO_2" ,nullable = true )
+	public long getValorNumericoB(){
+		return valorNumericoB;
 	}
 
-	public void setMontoFinal(java.math.BigDecimal montoFinal) {
-		this.montoFinal = montoFinal;
+	public void setValorNumericoB(long valorNumericoB) {
+		this.valorNumericoB = valorNumericoB;
 	}
 
-	@Column(name = "DESCRIPCION" ,nullable = true ,length = 0 )
-	public String getDescripcion(){
-		return descripcion;
+	@Column(name = "evento" ,nullable = true ,length = 3 )
+	public String getEvento(){
+		return evento;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setEvento(String evento) {
+		this.evento = evento;
+	}
+
+	@Column(name = "FLAG_ADICIONAL" ,nullable = true )
+	public boolean isFlagAdicional(){
+		return flagAdicional;
+	}
+
+	public void setFlagAdicional(boolean flagAdicional) {
+		this.flagAdicional = flagAdicional;
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "VIGENCIA" ,nullable = true ,length = 13 )
-	public java.util.Date getVigencia(){
-		return vigencia;
+	@Column(name = "FECHA_FIN" ,nullable = true ,length = 13 )
+	public java.util.Date getFechaFin(){
+		return fechaFin;
 	}
 
-	public void setVigencia(java.util.Date vigencia) {
-		this.vigencia = vigencia;
+	public void setFechaFin(java.util.Date fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 
 	@Column(name = "VALOR_NUMERICO_3" ,nullable = true )
@@ -143,13 +106,50 @@ public class SolicitudEntity implements Serializable{
 		this.valorNumericoC = valorNumericoC;
 	}
 
-	@Column(name = "VALOR_NUMERICO_2" ,nullable = true )
-	public long getValorNumericoB(){
-		return valorNumericoB;
+	@Column(name = "FLAG_PRINCIPAL" ,nullable = true )
+	public boolean isFlagPrincipal(){
+		return flagPrincipal;
 	}
 
-	public void setValorNumericoB(long valorNumericoB) {
-		this.valorNumericoB = valorNumericoB;
+	public void setFlagPrincipal(boolean flagPrincipal) {
+		this.flagPrincipal = flagPrincipal;
+	}
+
+	@Column(name = "monto" ,nullable = true ,precision = 12, scale = 3 )
+	public java.math.BigDecimal getMonto(){
+		return monto;
+	}
+
+	public void setMonto(java.math.BigDecimal monto) {
+		this.monto = monto;
+	}
+
+	@Column(name = "DESCRIPCION" ,nullable = true ,length = 0 )
+	public String getDescripcion(){
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	@Column(name = "MONTO_FINAL" ,nullable = true ,precision = 0, scale = 0 )
+	public java.math.BigDecimal getMontoFinal(){
+		return montoFinal;
+	}
+
+	public void setMontoFinal(java.math.BigDecimal montoFinal) {
+		this.montoFinal = montoFinal;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "VIGENCIA" ,nullable = true ,length = 13 )
+	public java.util.Date getVigencia(){
+		return vigencia;
+	}
+
+	public void setVigencia(java.util.Date vigencia) {
+		this.vigencia = vigencia;
 	}
 
 }
