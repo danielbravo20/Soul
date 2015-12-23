@@ -1,0 +1,64 @@
+  #draggable {
+    width: 100px;
+    height: 100px;
+    background: #ccc;
+  }
+  
+	.EF_contenido {
+		width: 100%;
+		height: 500px;
+		position: relative;
+		border: 1px solid #000000;
+	}
+  
+	.EF_areaTrabajo {
+		width: 100%;
+		height: 70%;
+		background-color: #ffffff;
+		position: absolute;
+		overflow: scroll;
+	}
+	
+	.EF_areaTrabajoBase {
+		background-color: azure;
+		min-width: 1200px;
+		min-height: 600px;
+	}
+	
+	.EF_paleta {
+		width: 100px;
+		background-color: #e5e5cc;
+		left: 0px;
+		position: absolute;
+		padding: 5px;
+		border: 1px solid #ddddbb;
+	}
+	
+	.EF_paletaItem {
+		background-color:transparent;
+		cursor: pointer;
+	}
+	
+	.EF_propiedades {
+		width: 100%;
+		height: 30%;
+		background-color: #e5e5cc;
+		bottom: 0px;
+		position: absolute;
+		border-top: 1px solid #ddddbb;
+	}
+	
+	.EF_areaItem {
+		background-color:transparent;
+		position: absolute;
+	}
+	
+	.EF_areaItemPunto {
+		background-color: #0066cc;
+		width: 3px;
+		height: 3px;
+		position: absolute;
+		border-radius: 50%;
+		border: 2px solid #003366;
+		cursor: crosshair;
+	}

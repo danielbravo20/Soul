@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>draggable demo</title>
+	<link rel="stylesheet" type="text/css" href="js/ui-bootstrap/bootstrap.min.css" />
+	<link rel="stylesheet" href="jquery-ui.css">
+	<link rel="stylesheet" href="html5Exa.css">
+	<script src="jquery-1.10.2.js"></script>
+	<script src="jquery-ui.js"></script>
+	<script src="angular.min.js"></script>
+	<script type="text/javascript" src="js/ui-bootstrap/ui-bootstrap-tpls-0.13.1-0.js"></script>
+	<script src="html5Exa.js"></script>
+</head>
+<body ng-app="editor">
+<div class="EF_contenido" ng-controller="areaTrabajo">
+	<div class="EF_areaTrabajo"><div class="EF_areaTrabajoBase">
+		<canvas id="fondoAreaTrabajo"></canvas>
+	</div></div>
+	<div class="EF_paleta">
+		<div class="EF_paletaItem" title="Punto de Enlace"><canvas id="inicioFin" width="100" height="80"></canvas></div>
+		<div class="EF_paletaItem" title="Decisión"><canvas id="decision" width="100" height="80"></canvas></div>
+		<div class="EF_paletaItem" title="Actividad"><canvas id="actividad" width="100" height="80"></canvas></div>
+	</div>
+	<div class="EF_propiedades">
+		<div ng-show="EF.area.itemCargado.tipo=='inicioFin'">
+			<tabset>
+				<tab ng-repeat="tab in tabIF.lista" active="tab.activo">
+					<tab-heading>
+						<i class="glyphicon" ng-class="{true:'glyphicon-folder-open', false:'glyphicon-folder-close'}[tab.activo]"></i>&nbsp; {{tab.nombre}}
+						<span style="color:red" ng-show="tab.alertas>0">&nbsp;&nbsp;&nbsp;&nbsp; {{tab.alertas}} <i class="glyphicon glyphicon-bell"></i></span>
+					</tab-heading>
+					<div ng-include="tab.url"></div>
+				</tab>
+			</tabset>
+		</div>
+		<div ng-show="EF.area.itemCargado.tipo=='decision'">b</div>
+		<div ng-show="EF.area.itemCargado.tipo=='actividad'">c</div>
+	</div>
+</div> 
+</body>
+</html>
